@@ -1,0 +1,115 @@
+[
+    {
+        "id": "7f7e0710-bd4a-4080-9964-ccbb0a1a9a3f",
+        "title": "Spider-Man: The Amazing Adventures",
+        "description": "Follow the web-slinging hero as he battles villains and saves New York City in this action-packed comic series.",
+        "price": 4.99,
+        "category": "Superheroes",
+        "author": "John Smith",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3mgJcxVZbVKVyAY6xbYHuagUCz_fXyZggg&usqp=CAU",
+        "stock": 25,
+        "active": true
+    },
+    {
+        "id": "843fd317-6c95-4f81-81b6-93b123d52d7a",
+        "title": "Galactic Explorers",
+        "description": "Join a crew of space explorers on their interstellar adventures in this sci-fi comic series.",
+        "price": 5.99,
+        "category": "Science Fiction",
+        "author": "Jane Johnson",
+        "image": "https://cdns-images.dzcdn.net/images/cover/ab83ef90e8d6a9a801274fb83becd517/264x264.jpg",
+        "stock": 18,
+        "active": true
+    },
+    {
+        "id": "e6cc582d-6b06-4a62-8d1c-61b31e05b597",
+        "title": "Fantasy Quest",
+        "description": "Embark on a journey through magical realms and mythical creatures in this epic fantasy comic.",
+        "price": 6.99,
+        "category": "Fantasy",
+        "author": "David Brown",
+        "image": "https://ksr-ugc.imgix.net/assets/019/739/348/3fc179272cb8e96ed9175d9bd2a659e8_original.png?ixlib=rb-4.1.0&crop=faces&w=1024&h=576&fit=crop&v=1520005083&auto=format&frame=1&q=92&s=de92b8dd283bfe6976ae55b179819029",
+        "stock": 30,
+        "active": true
+    },
+    {
+        "id": "dcd50ad4-21a7-442f-9a4d-d301f7c350ae",
+        "title": "Mystery Files: Case Closed",
+        "description": "Solve intricate mysteries and uncover hidden secrets with the brilliant detective in this suspenseful comic series.",
+        "price": 4.49,
+        "category": "Mystery",
+        "author": "Sarah White",
+        "image": "https://mysteriesahoy.files.wordpress.com/2021/06/case-closed-volume-2.jpeg?w=683",
+        "stock": 15,
+        "active": true
+    },
+    {
+        "id": "156cd77b-66a5-4be7-b97d-5c4af4ac86d6",
+        "title": "Heroes of the Past",
+        "description": "Discover the legendary tales of historical figures and their heroic deeds in this captivating biographical comic series.",
+        "price": 7.99,
+        "category": "Suspense",
+        "author": "Michael Johnson",
+        "image": "https://poopsheetfoundation.com/media/com_mtree/images/listings/o/31912.jpg",
+        "stock": 22,
+        "active": true
+    },
+    {
+        "id": "f94efabe-3650-4a2e-a422-7e49fb00d084",
+        "title": "Laugh Out Loud",
+        "description": "Enjoy a collection of hilarious comic strips and witty humor in this laugh-out-loud comic compilation.",
+        "price": 3.99,
+        "category": "Comedy",
+        "author": "Emily Davis",
+        "image": "https://d1466nnw0ex81e.cloudfront.net/n_iv/600/5044808.jpg",
+        "stock": 50,
+        "active": true
+    },
+    {
+        "id": "db76e659-91dd-46b0-995c-5238a4d2b8e9",
+        "title": "Time Travelers",
+        "description": "Embark on a time-bending adventure with a group of explorers as they journey through the ages in this thrilling comic series.",
+        "price": 5.49,
+        "category": "Science Fiction",
+        "author": "Oliver Clark",
+        "image": "https://static.wikia.nocookie.net/marvel_dc/images/6/6b/Timeship_02.jpg/revision/latest?cb=20100211191952",
+        "stock": 10,
+        "active": true
+    },
+    {
+        "id": "c6ef4b4f-dc0c-46f1-aab9-68c76e39e418",
+        "title": "Love in Paris",
+        "description": "Experience the romance and charm of the City of Love in this heartwarming romance comic.",
+        "price": 4.99,
+        "category": "Romance",
+        "author": "Sophie Martin",
+        "image": "https://bags-of-books.co.uk/wp-content/uploads/2023/08/9781471196836.jpg",
+        "stock": 28,
+        "active": true
+    },
+    {
+        "id": "2f76efdf-6c1f-459a-85c6-87409a38e721",
+        "title": "Dark Horrors: Haunted Mansion",
+        "description": "Enter a terrifying haunted mansion and face your deepest fears in this spine-chilling horror comic series.",
+        "price": 6.99,
+        "category": "Horror",
+        "author": "Robert Black",
+        "image": "https://i.pinimg.com/originals/b1/b0/1e/b1b01e684045d7130b4bcd6fded0d337.jpg",
+        "stock": 12,
+        "active": true
+    },
+    {
+        "id": "d83d0c3a-10e4-416d-874d-5c3ac2faff57",
+        "title": "The Legend of the Dragon",
+        "description": "Embark on an epic journey in a world filled with dragons, magic, and heroes in this thrilling manga.",
+        "price": 6.99,
+        "category": "Manga",
+        "author": "Sakura Tanaka",
+        "image": "https://m.media-amazon.com/images/M/MV5BMTViZTU2ZDItYjVjZS00MzhiLWExNTktZjQzNDdjZDBmMzhjXkEyXkFqcGdeQXVyNjcwMzExMzU@._V1_.jpg",
+        "stock": 20,
+        "active": true
+    }    
+      
+]
+
+  
