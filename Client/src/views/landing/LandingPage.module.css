@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Rubik&display=swap");
+
+.container {
+  background-image: url("../../assets/heroes.png");
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  height: 100vh;
+  font-family: "Bangers", sans-serif;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 5rem;
+  width: 49%;
+}
+
+.content h1 {
+  font-size: 4.2rem;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.content h1 b {
+    color: #9f2d1c;
+    font-size: 5.5rem;
+    letter-spacing: 6px;
+}
+
+.content p {
+  margin-bottom: 3rem;
+  font-size: 1.6rem;
+  font-weight: normal;
+  font-family: "Rubik", sans-serif;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 2rem;
+}
+
+.buttons .link {
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: white;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.buttons .link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.buttons .link:hover {
+  color: #e8e8e8;
+}
+
+.buttons .link:hover::before {
+  width: 100%;
+}
