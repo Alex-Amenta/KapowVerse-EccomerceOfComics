@@ -16,7 +16,7 @@ const saveComicsToDatabase = async() => {
     }
 };
 
-const getAllComics = async(page, pageSize, title, price, category, author, stock, sort, active) => {
+const getAllComicsByFilters = async(page, pageSize, title, price, category, author, stock, sort, active) => {
     try {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
@@ -97,4 +97,23 @@ const getAllComics = async(page, pageSize, title, price, category, author, stock
     }
 };
 
-module.exports = { saveComicsToDatabase, getAllComics }
+const getAllComics = async () => {
+    await saveComicsToDatabase();
+    const comic = await Comic.findAll({
+        attributes: [
+            'id',
+            'title',
+            'description',
+            'price',
+            'category',
+            'author',
+            'image',
+            'stock',
+            'active',
+        ],
+    });
+    if (comic.length === 0) throw new Error('No hay comics para mostrar');
+    return comic;
+};
+
+module.exports = { saveComicsToDatabase, getAllComicsByFilters, getAllComics }
