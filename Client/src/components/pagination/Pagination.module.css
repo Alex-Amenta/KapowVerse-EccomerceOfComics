@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   padding: 3rem 0;
+  gap: 2rem;
   color: black;
 }
 
 .Link {
-  padding: 15px 25px;
+  padding: 5px;
   border: unset;
   border-radius: 15px;
   color: #212121;

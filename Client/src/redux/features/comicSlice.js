@@ -14,7 +14,7 @@ const initialState = {
 export const fetchComics = createAsyncThunk('comics/fetchComics', async (_, { rejectWithValue }) => {
     try {
         const { data } = await axios.get(URL);
-        return data.comics;
+        return data;
     } catch (error) {
         return rejectWithValue(error.response.data);
     }
