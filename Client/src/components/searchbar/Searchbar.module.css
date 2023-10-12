@@ -1,0 +1,33 @@
+.contenedor {
+    display:inline-block;
+    position: absolute;
+    top: 1rem;
+    left: 5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 60px;
+    padding: 3px 25px;
+    backdrop-filter: blur(4px) saturacion(180%);
+    border: 2px solid 
+}
+
+.contenedor input{
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 8px 4px;
+    color: white;
+    font-weight: 700;
+}
+
+.contenedor button {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #919192;
+    border: 2px solid rgb(44, 56, 93);
+}
