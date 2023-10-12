@@ -36,7 +36,7 @@ const getAllComicsByFiltersHandler = async (req, res) => {
                 message += ` para los filtros especificados`;
             }
 
-            res.status(204).json({
+            res.status(500).json({
                 message,
             });
             return;
@@ -46,7 +46,7 @@ const getAllComicsByFiltersHandler = async (req, res) => {
         const { comics, totalItems, totalPages, currentPage } = result;
 
         if (page > totalPages) {
-            res.status(204).json({
+            res.status(404).json({
                 message: `La página ${page} no existe`,
             });
             return;
