@@ -38,6 +38,13 @@ const Comic = (sequelize) => {
                 ),
                 allowNull: false,
             },
+            publish: {
+                type: DataTypes.ENUM(
+                    'Marvel',
+                    'DC'
+                ),
+                allowNull: false,
+            },
             author: {
                 type: DataTypes.STRING(100),
                 allowNull: false,
