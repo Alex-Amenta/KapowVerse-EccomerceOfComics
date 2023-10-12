@@ -33,15 +33,15 @@ const Comic = (sequelize) => {
                     'Comedy',
                     'Drama',
                     'Romance',
-                    'Suspense',
-                    'Manga'
+                    'Suspense'
                 ),
                 allowNull: false,
             },
-            publish: {
+            publisher: {
                 type: DataTypes.ENUM(
                     'Marvel',
-                    'DC'
+                    'DC',
+                    'Manga'
                 ),
                 allowNull: false,
             },
