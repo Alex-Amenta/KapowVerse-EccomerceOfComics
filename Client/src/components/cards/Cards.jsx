@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./Cards.module.css";
 
 const Cards = ({
@@ -13,7 +14,9 @@ const Cards = ({
   return (
     <main className={styles.container}>
       <div className={styles.cardImage}>
-        <img src={image} alt={`imagen de ${title}`} />
+        <Link to={`/comic/${id}`}>
+          <img src={image} alt={`imagen de ${title}`} />
+        </Link>
       </div>
       <h3>{title}</h3>
       <p>{author}</p>

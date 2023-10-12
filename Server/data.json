@@ -1,7 +1,7 @@
 [
     {
       "id": "a45ed6a7-8b1f-2c9d-3e4f-5c2b3a1d0b20",
-      "title": "    ",
+      "title": "Spider-Man: The Amazing Adventures",
       "description": "Follow the incredible adventures of Spider-Man as he battles supervillains and protects New York City.",
       "price": 4.99,
       "category": "Superheroes",
@@ -19,7 +19,7 @@
       "category": "Superheroes",
       "publisher": "DC",
       "author": "Frank Miller",
-      "image": "https://static.wikia.nocookie.net/batman/images/f/fd/BatmanDarkKnightReturns.jpg/revision/latest?cb=20111228163902&path-prefix=es",
+      "image": "https://megabanana.mx/wp-content/uploads/2021/09/9439674259.jpg",
       "stock": 75,
       "active": true
     },
@@ -115,7 +115,7 @@
         "category": "Superheroes",
         "publisher": "Marvel",
         "author": "Dan Slott",
-        "image": "https://static.wikia.nocookie.net/spiderman/images/0/0e/Web_of_shadows.png/revision/latest/thumbnail/width/360/height/450?cb=20131128193643&path-prefix=es",
+        "image": "https://storage.googleapis.com/hipcomic/p/9f888a26deb452d17965798ce1b8a471.jpg",
         "stock": 90,
         "active": true
       },
@@ -319,7 +319,7 @@
         "category": "Superheroes",
         "publisher": "DC",
         "author": "Geoff Johns",
-        "image": "https://static.wikia.nocookie.net/marvel_dc/images/d/d3/Green_Lantern_v.4_29.jpg/revision/latest/thumbnail/width/360/height/360?cb=20080329195521",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/ed/Green_Lantern_29.jpg",
         "stock": 60,
         "active": true
       },
@@ -418,7 +418,162 @@
         "stock": 18,
         "publisher": "Manga",
         "active": true
-      }
-
+      },
+      {
+        "id": "6c5123af-426a-44fc-b3ac-6a7c52f7d4c5",
+        "title": "Dragon Ball (3-in-1 Edition)",
+        "description": "Dragon Ball introduces a young monkey-tailed boy named Goku (a wry update of the classic Chinese Monkey King legend), whose quiet life changes when he meets a girl named Bulma who is on a quest to collect seven Dragon Balls. If she gathers them all, an incredibly powerful dragon will appear and grant her one wish. But the precious orbs are scattered all over the world, and Bulma could use the help of a certain super-strong boy...",
+        "price": 6.99,
+        "category": "Adventure",
+        "author": "Akira Toriyama",
+        "image": "https://m.media-amazon.com/images/I/81AZo6Xq76L._SY466_.jpg",
+        "stock": 20,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "0fb4ca62-9bb6-4d47-bc6a-9d3ed90e9f37",
+        "title": "Dragon Ball Super, Vol. 1",
+        "description": "Ever since Goku became Earths greatest hero and gathered the seven Dragon Balls to defeat the evil Boo, his life on Earth has grown a little dull. But new threats loom overhead, and Goku and his friends will have to defend the planet once again in this continuation of Akira Toriyamas best-selling series, Dragon Ball!",
+        "price": 5.99,
+        "category": "Adventure",
+        "author": "Akira Toriyama",
+        "image": "https://m.media-amazon.com/images/I/81K3AvBATYL._SY466_.jpg",
+        "stock": 15,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "a7f5b328-3d5a-47fc-8c08-48b23a523bb2",
+        "title": "Dragon Ball Super, Vol. 10",
+        "description": "The Tournament of Power is over and Goku and Vegeta have embarked on a new adventure…in space! The Galactic Patrol experiences its worst prison break ever, and the evil Moro—a planet-eating monster—escapes! Moros goal is attaining the Dragon Balls of New Namek, and its up to Goku, Vegeta and the Galactic Patrol to stop him! But how can they do anything when Moro can drain them of their energy just by being near them?!",
+        "price": 8.99,
+        "category": "Adventure",
+        "author": "Akira Toriyama",
+        "image": "https://m.media-amazon.com/images/I/81meNKsn4XL._SY466_.jpg",
+        "stock": 12,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "f6c02b10-3c0f-48df-b1e1-246589a10854",
+        "title": "Naruto, Vol. 1: Uzumaki Naruto",
+        "description": "Twelve years ago the Village Hidden in the Leaves was attacked by a fearsome threat. A nine-tailed fox spirit claimed the life of the village leader, the Hokage, and many others. Today, the village is at peace and a troublemaking kid named Naruto is struggling to graduate from Ninja Academy. His goal may be to become the next Hokage, but his true destiny will be much more complicated. The adventure begins now!",
+        "price": 7.49,
+        "category": "Adventure",
+        "author": "Masashi Kishimoto",
+        "image": "https://m.media-amazon.com/images/I/71QYLrc-IQL._SY466_.jpg",
+        "stock": 14,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "e41f408f-12df-4eb5-950e-4cb692bea421",
+        "title": "Naruto, Vol. 2: The Worst Client",
+        "description": "Tired of menial tasks, Naruto, Sasuke and Sakura ask for a tougher assignment. But you should always be careful what you wish for! Along with their teacher, Kakashi, the trio must now guard a cranky old man from the Land of the Waves. But Tazuna the bridgebuilder is in more danger than anyone could have imagined. And now the young ninja are too!",
+        "price": 8.99,
+        "category": "Adventure",
+        "author": "Masashi Kishimoto",
+        "image": "https://m.media-amazon.com/images/I/71MZ5LzVlqL._SY466_.jpg",
+        "stock": 20,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "a27ec50a-5d8e-41a2-8e9f-5e09db6f2f54",
+        "title": "Doraemon, Vol.1",
+        "description": "Doraemon, a cat robot, traveled back in time from the 22nd century to watch over Noby whos a good kid but terrible at sports, never studies, and has an incredible capacity for slacking off. Doraemon tries to help Noby with nice but often unpredictable gadgets from his 4th dimensional pocket as Nobys clumsy and always getting into trouble. Can Doraemon solve the problems and change Nobys fortune for the better?",
+        "price": 7.99,
+        "category": "Adventure",
+        "author": "FUJIKO F FUJIO",
+        "image": "https://m.media-amazon.com/images/I/81nDqEEt-gL._SY466_.jpg",
+        "stock": 15,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "f86ea142-4133-48df-9317-c798f3d46ec1",
+        "title": "Kimi ni Todoke: From Me to You",
+        "description": "Sawako Kuronuma is the perfect heroine...for a horror movie. With striking similarities to a haunting movie character--jet-black hair, sinister smile and silent demeanor--she's mistakenly called Sadako by those around her. But behind her scary façade is a very misunderstood teenager. Too shy to fit in, all she wants to do is make some friends. But when the most popular boy in class befriends her, she's sure to make more than just that--she's about to make some enemies too!",
+        "price": 8.49,
+        "category": "Romance",
+        "author": "Karuho Shiina",
+        "image": "https://m.media-amazon.com/images/I/715Jg0kQBgL._SY466_.jpg",
+        "stock": 18,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "c72fb746-4a58-4c60-b618-7b9aa87d4a0f",
+        "title": "One-Punch Man, Vol. 1",
+        "description": "Every time a promising villain appears, Saitama beats the snot out of em with one punch! Can he finally find an opponent who can go toe-to-toe with him and give his life some meaning? Or is he doomed to a life of superpowered boredom?",
+        "price": 7.99,
+        "category": "Science Fiction",
+        "author": "Yusuke Murata",
+        "image": "https://m.media-amazon.com/images/I/71Kf6cin+oL._SY466_.jpg",
+        "stock": 16,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "4c15f8a5-c6c1-41ad-8d0a-3c69d3f4e7e8",
+        "title": "Jujutsu Kaisen, Ryomen Sukuna",
+        "description": "Although Yuji Itadori looks like your average teenager, his immense physical strength is something to behold! Every sports club wants him to join, but Itadori would rather hang out with the school outcasts in the Occult Research Club. One day, the club manages to get their hands on a sealed cursed object. Little do they know the terror theyll unleash when they break the seal…",
+        "price": 8.99,
+        "category": "Fantasy",
+        "author": "Gege Akutami",
+        "image": "https://m.media-amazon.com/images/I/81jxwTCbzTL._SY466_.jpg",
+        "stock": 20,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "03f6d977-071c-44e3-9c02-73ce7ab046cd",
+        "title": "Berserk Volume 1",
+        "description": "Created by Kentaro Miura, Berserk is manga mayhem to the extreme - violent, horrifying, and mercilessly funny - and the wellspring for the internationally popular anime series. Not for the squeamish or the easily offended, Berserk asks for no quarter - and offers none!. His name is Guts, the Black Swordsman, a feared warrior spoken of only in whispers. Bearer of a gigantic sword, an iron hand, and the scars of countless battles and tortures, his flesh is also indelibly marked with The Brand, an unholy symbol that draws the forces of darkness to him and dooms him as their sacrifice.",
+        "price": 7.99,
+        "category": "Action",
+        "author": "Kentaro Miura",
+        "image": "https://m.media-amazon.com/images/I/91Gs6wk1TdL._SY466_.jpg",
+        "stock": 15,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "f51812c3-407b-44f7-b8e6-38a26c6b09a4",
+        "title": "Spy x Family, Vol. 1",
+        "description": "Not one to depend on others, Twilight has his work cut out for him procuring both a wife and a child for his mission to infiltrate an elite private school. What he doesnt know is that the wife hes chosen is an assassin and the child hes adopted is a telepath!",
+        "price": 8.49,
+        "category": "Suspense",
+        "author": "Tatsuya Endo",
+        "image": "https://m.media-amazon.com/images/I/81enbrJVL7L._SY466_.jpg",
+        "stock": 18,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "f1d4ee92-d091-4ea2-b89d-69550eab5c09",
+        "title": "Fruits Basket Collector's Vol. 1",
+        "description": "After a family tragedy turns her life upside down, plucky high schooler Tohru Honda takes matters into her own hands and moves out...into a tent! Unfortunately for her, she pitches her new home on private land belonging to the mysterious Sohma clan, and it isn't long before the owners discover her secret. But, as Tohru quickly finds out when the family offers to take her in, the Sohmas have a secret of their own--when touched by the opposite sex, they turn into the animals of the Chinese Zodiac!A perennial favorite of fans and librarians alike, Natsuki Takaya's beloved bestselling Fruits Basket series returns to print in gorgeous deluxe English-language omnibus editions with beautiful full-color illustrations that are not to be missed!",
+        "price": 7.99,
+        "category": "Drama",
+        "author": "Natsuki Takaya",
+        "image": "https://m.media-amazon.com/images/I/61ycq75UPnL._SY466_.jpg",
+        "stock": 16,
+        "publisher": "Manga",
+        "active": true
+      },
+      {
+        "id": "fe24ce8b-ba84-4b85-940f-7e56f0c8d2c4",
+        "title": "Case Closed, Vol. 1",
+        "description": "Precocious high school student Jimmy Kudo uses his keen powers of observation and astute intuition to solve mysteries that have left law enforcement officials baffled. Hot on the trail of a suspect, Jimmy is accosted from behind and fed a strange chemical which physically transforms him into a grade schooler! Taking on the pseudonym Conan Edogawa, he attempts to track down the people who did this to him. But until he finds a cure for his bizarre condition, Jimmy continues to help the police solve their toughest cases.",
+        "price": 8.99,
+        "category": "Mystery",
+        "author": "Gosho Aoyama",
+        "image": "https://m.media-amazon.com/images/I/61+Sb3f6IRL._SY466_.jpg",
+        "stock": 20,
+        "publisher": "Manga",
+        "active": true
+      }      
   ]
   
