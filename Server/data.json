@@ -8,6 +8,7 @@
         "author": "John Smith",
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM3mgJcxVZbVKVyAY6xbYHuagUCz_fXyZggg&usqp=CAU",
         "stock": 25,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -19,6 +20,7 @@
         "author": "Jane Johnson",
         "image": "https://cdns-images.dzcdn.net/images/cover/ab83ef90e8d6a9a801274fb83becd517/264x264.jpg",
         "stock": 18,
+        "publish": "DC",
         "active": true
     },
     {
@@ -30,6 +32,7 @@
         "author": "David Brown",
         "image": "https://ksr-ugc.imgix.net/assets/019/739/348/3fc179272cb8e96ed9175d9bd2a659e8_original.png?ixlib=rb-4.1.0&crop=faces&w=1024&h=576&fit=crop&v=1520005083&auto=format&frame=1&q=92&s=de92b8dd283bfe6976ae55b179819029",
         "stock": 30,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -41,6 +44,7 @@
         "author": "Sarah White",
         "image": "https://mysteriesahoy.files.wordpress.com/2021/06/case-closed-volume-2.jpeg?w=683",
         "stock": 15,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -52,6 +56,7 @@
         "author": "Michael Johnson",
         "image": "https://poopsheetfoundation.com/media/com_mtree/images/listings/o/31912.jpg",
         "stock": 22,
+        "publish": "DC",
         "active": true
     },
     {
@@ -63,6 +68,7 @@
         "author": "Emily Davis",
         "image": "https://d1466nnw0ex81e.cloudfront.net/n_iv/600/5044808.jpg",
         "stock": 50,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -74,6 +80,7 @@
         "author": "Oliver Clark",
         "image": "https://static.wikia.nocookie.net/marvel_dc/images/6/6b/Timeship_02.jpg/revision/latest?cb=20100211191952",
         "stock": 10,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -85,6 +92,7 @@
         "author": "Sophie Martin",
         "image": "https://bags-of-books.co.uk/wp-content/uploads/2023/08/9781471196836.jpg",
         "stock": 28,
+        "publish": "DC",
         "active": true
     },
     {
@@ -96,6 +104,7 @@
         "author": "Robert Black",
         "image": "https://i.pinimg.com/originals/b1/b0/1e/b1b01e684045d7130b4bcd6fded0d337.jpg",
         "stock": 12,
+        "publish": "Marvel",
         "active": true
     },
     {
@@ -107,6 +116,7 @@
         "author": "Sakura Tanaka",
         "image": "https://m.media-amazon.com/images/M/MV5BMTViZTU2ZDItYjVjZS00MzhiLWExNTktZjQzNDdjZDBmMzhjXkEyXkFqcGdeQXVyNjcwMzExMzU@._V1_.jpg",
         "stock": 20,
+        "publish": "Marvel",
         "active": true
     }    
       

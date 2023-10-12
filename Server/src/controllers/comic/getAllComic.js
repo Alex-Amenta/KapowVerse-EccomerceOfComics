@@ -109,6 +109,7 @@ const getAllComics = async () => {
             'author',
             'image',
             'stock',
+            'publish',
             'active',
         ],
     });
