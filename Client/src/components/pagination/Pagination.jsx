@@ -19,12 +19,12 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         </Link>
       )}
       <span className={styles.pageIndicator}>
-        {currentPage} de {totalPages}
+        {currentPage} of {totalPages}
       </span>
       {currentPage !== totalPages && (
         <Link
           to="#"
-          className={styles.button}
+          className={styles.Link}
           onClick={() => onPageChange(currentPage + 1)}
           title="Página siguiente"
         >
