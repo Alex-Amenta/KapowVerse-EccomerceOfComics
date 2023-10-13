@@ -1,17 +1,42 @@
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    padding: 2rem 0;
+    padding: 1rem 0;
     background-color: rgb(13, 13, 13);
+    color: white;
+    font-family: 'Bangers', sans-serif;
     box-shadow: 0px -15px 34px black;
+}
+
+.imgContainer {
+    margin-left: 3rem;
+    margin-right: 25px;
+}
+
+.imgContainer img {
+    border-radius: 100%;
+    width: 56px;
+}
+
+.textContainer {
+    font-size: 2.5rem;
+    letter-spacing: 8px;
+    margin-left: 14rem;
+    color: #9f2d1c;
+}
+
+.linkContainer {
+    display: flex;
+    gap: 2rem;
+    margin-right: 3rem;
 }
 
 .link {
     text-decoration: none;
     color: white;
-    font-family: 'Bangers', sans-serif;
+    font-size: 1.2rem;
 }
 
 .link:hover {

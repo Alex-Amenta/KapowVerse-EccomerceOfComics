@@ -10,13 +10,14 @@ const saveComicsToDatabase = async() => {
                 defaults: comic,
             });
         }
+
     } catch(error) {
         console.log(error);
         throw error;
     }
 };
 
-const getAllComicsByFilters = async(page, pageSize, title, price, category, author, stock, sort, active) => {
+const getAllComicsByFilters = async(page, pageSize, title, price, category, author, stock, sort, publish, active) => {
     try {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
@@ -24,6 +25,9 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
 
         if (category) {
             whereCondition.category = category;
+        }
+        if (publish) {
+            whereCondition.publish = publish;
         }
 
         if (stock) {
@@ -44,9 +48,9 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
             };
         }
 
-        if (active !== null) {
-            whereCondition.active = active;
-        }
+        // if (active !== null) {
+        //     whereCondition.active = active;
+        // }
 
         let order = [];
 
@@ -81,7 +85,7 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
 
         if (totalItems === 0) {
             await saveComicsToDatabase();
-            return null;
+            return await getAllComicsByFilters(page, pageSize, title, price, category, author, stock, sort,publish, active);
         }
 
         return {
@@ -109,7 +113,7 @@ const getAllComics = async () => {
             'author',
             'image',
             'stock',
-            'publish',
+            'publisher',
             'active',
         ],
     });

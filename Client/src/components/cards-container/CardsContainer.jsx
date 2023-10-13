@@ -9,6 +9,7 @@ const CardsContainer = ({ allComics }) => {
           return (
             <Cards
               key={id}
+              id={id}
               title={title}
               description={description}
               price={price}

@@ -27,10 +27,15 @@
   letter-spacing: 2px;
 }
 
-.content h1 b {
-    color: #9f2d1c;
-    font-size: 5.5rem;
+.name {
+    font-size: 5rem;
     letter-spacing: 6px;
+}
+
+.welcome {
+  color: #9f2d1c;
+  font-size: 5.5rem;
+  letter-spacing: 6px;
 }
 
 .content p {
