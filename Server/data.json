@@ -1,7 +1,7 @@
 [
     {
       "id": "a45ed6a7-8b1f-2c9d-3e4f-5c2b3a1d0b20",
-      "title": "    ",
+      "title": "Spider-Man: The Amazing Adventures",
       "description": "Follow the incredible adventures of Spider-Man as he battles supervillains and protects New York City.",
       "price": 4.99,
       "category": "Superheroes",
@@ -19,7 +19,7 @@
       "category": "Superheroes",
       "publisher": "DC",
       "author": "Frank Miller",
-      "image": "https://static.wikia.nocookie.net/batman/images/f/fd/BatmanDarkKnightReturns.jpg/revision/latest?cb=20111228163902&path-prefix=es",
+      "image": "https://megabanana.mx/wp-content/uploads/2021/09/9439674259.jpg",
       "stock": 75,
       "active": true
     },
@@ -115,7 +115,7 @@
         "category": "Superheroes",
         "publisher": "Marvel",
         "author": "Dan Slott",
-        "image": "https://static.wikia.nocookie.net/spiderman/images/0/0e/Web_of_shadows.png/revision/latest/thumbnail/width/360/height/450?cb=20131128193643&path-prefix=es",
+        "image": "https://storage.googleapis.com/hipcomic/p/9f888a26deb452d17965798ce1b8a471.jpg",
         "stock": 90,
         "active": true
       },
@@ -319,7 +319,7 @@
         "category": "Superheroes",
         "publisher": "DC",
         "author": "Geoff Johns",
-        "image": "https://static.wikia.nocookie.net/marvel_dc/images/d/d3/Green_Lantern_v.4_29.jpg/revision/latest/thumbnail/width/360/height/360?cb=20080329195521",
+        "image": "https://upload.wikimedia.org/wikipedia/en/e/ed/Green_Lantern_29.jpg",
         "stock": 60,
         "active": true
       },

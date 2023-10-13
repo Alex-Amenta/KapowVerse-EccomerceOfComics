@@ -1,21 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../../components/navbar/Navbar";
-import { useEffect } from "react";
-import { fetchComics } from "../../redux/features/comicSlice";
+import { useSelector } from "react-redux";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 
-function Home() {
-  const dispatch = useDispatch();
+function ComicsSection() {
   const allComics = useSelector((state) => state.comic.allComics);
+  const comicsFiltered = allComics.filter(
+    (comic) => comic.publisher !== "Manga"
+  );
 
-  useEffect(() => {
-    dispatch(fetchComics());
-  }, []);
-
-  const { currentPage, totalPages, currentItems, paginate } =
-    usePagination(allComics);
+  const { totalPages, currentItems, paginate, currentPage } =
+    usePagination(comicsFiltered);
 
   return (
     <>
@@ -29,4 +24,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ComicsSection;
