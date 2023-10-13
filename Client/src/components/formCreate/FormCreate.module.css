@@ -1,54 +1,46 @@
 .container {
+  background-color: #000000; 
+  border-radius: 13px;
+  font-size: 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  border: 6px solid #000000;
+  width: 40%;
+  margin: auto;
+  padding: 40px 0;
+}
+
+.formulario {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin: 3rem 10rem;
-  font-family: "Bangers", sans-serif;
-}
-
-.select {
-  height: 2.2rem;
-  width: 7rem;
-  cursor: pointer;
-  border-radius: 15px;
-  padding-left: 10px;
-}
-
-.filtersContainer {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  background-color: #000000; 
 }
 
-.noComicsMessage {
-  margin-top: 6rem;
-  align-self: center;
-  font-size: 2rem;
+.formulario input , select{
+  padding: 0.5rem;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 230px;
 }
 
-.textContainer {
-  font-size: 4rem;
-  width: 100%;
-  color: #9f2d1c;
-  letter-spacing: 6px;
-  text-shadow: 1px 1px black;
-}
-
-.lastMessage {
-  font-size: 3.5rem;
-  width: 100%;
+.formulario input::placeholder {
+  font-family: "Rubik", sans-serif;
   text-align: center;
-  color: #9f2d1c;
-  letter-spacing: 6px;
-  text-shadow: 1px 1px black;
 }
 
-.buttonReset {
-  padding: 8px 15px;
+.container button {
+  padding: 10px 25px;
   border: unset;
+  font-family: "Bangers", sans-serif;
   border-radius: 15px;
   color: #212121;
+  margin-top: 2rem;
   z-index: 1;
   background: white;
   position: relative;
@@ -60,7 +52,7 @@
   overflow: hidden;
 }
 
-.buttonReset::before {
+.container button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -75,10 +67,10 @@
   transition: all 250ms;
 }
 
-.buttonReset:hover {
+.container button:hover {
   color: #e8e8e8;
 }
 
-.buttonReset:hover::before {
+.container button:hover::before {
   width: 100%;
 }

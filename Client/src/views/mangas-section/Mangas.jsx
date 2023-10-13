@@ -1,22 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchComics } from "../../redux/features/comicSlice";
+import { useSelector } from "react-redux";
 import CardsContainer from "../../components/cards-container/CardsContainer";
-import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
+import Pagination from "../../components/pagination/Pagination";
 import Filters from "../../components/filters/Filters";
 
-function Home() {
-  const dispatch = useDispatch();
+function MangasSection() {
   const allComics = useSelector((state) => state.comic.allComics);
-  const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
+  const mangasFiltered = allComics.filter(
+    (comic) => comic.publisher === "Manga"
+  );
 
-  useEffect(() => {
-    dispatch(fetchComics());
-  }, []);
+  const hasComicsWithNoCategory = mangasFiltered.length === 0;
 
-  const { currentPage, totalPages, currentItems, paginate } =
-    usePagination(allComics);
+  const { totalPages, currentItems, paginate, currentPage } =
+    usePagination(mangasFiltered);
 
   const handleFilterChange = () => {
     paginate(1);
@@ -26,7 +23,8 @@ function Home() {
     <>
       <Filters
         onFilterChange={handleFilterChange}
-        filterOptions={filterOptionsForPublisher}
+        hidePublisherFilter={true}
+        noCategoryComics={hasComicsWithNoCategory}
       />
       <CardsContainer allComics={currentItems} />
       <Pagination
@@ -38,4 +36,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default MangasSection;

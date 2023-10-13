@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  padding: 0 4rem;
+  font-family: "Rubik", sans-serif;
+}
+
+.imageContainer img {
+  width: 25rem;
+  height: 35rem;
+  box-shadow: 0 9px 28px rgba(0, 0, 0, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
+}
+
+.imageContainer {
+  margin: 4rem 0;
+}
+
+.content {
+  width: 40%;
+  padding: 2rem 0;
+}
+
+.content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.content h3,
+.price {
+  color: #9f2d1c;
+}
+
+.descriptionContainer h4 {
+  margin-top: 2rem;
+  margin-bottom: 10px;
+}
+
+.descriptionContainer {
+  margin-bottom: 4rem;
+}
+
+.containerButtons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.containerButtons button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: white;
+  position: relative;
+  font-family: "Bangers", sans-serif;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.containerButtons button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.containerButtons button:hover {
+  color: #e8e8e8;
+}
+
+.containerButtons button:hover::before {
+  width: 100%;
+}
+
+.icons {
+    margin-left: 10px;
+}

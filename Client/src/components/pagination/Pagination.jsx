@@ -1,6 +1,4 @@
-import PaginationMaterial from "@mui/material/Pagination";
 import styles from "./Pagination.module.css";
-import { styled } from "@mui/system";
 import { Link } from "react-router-dom";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
@@ -19,12 +17,12 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         </Link>
       )}
       <span className={styles.pageIndicator}>
-        {currentPage} de {totalPages}
+        {currentPage} of {totalPages}
       </span>
-      {currentPage !== totalPages && (
+      {currentPage !== totalPages && totalPages > 0 &&(
         <Link
           to="#"
-          className={styles.button}
+          className={styles.Link}
           onClick={() => onPageChange(currentPage + 1)}
           title="Página siguiente"
         >
