@@ -1,34 +1,48 @@
 import { useState } from "react";
-import { searchComics } from "../../redux/features/comicSlice"
+import { searchComics } from "../../redux/features/comicSlice";
 import { useDispatch } from "react-redux";
 import style from "./Searchbar.module.css";
+import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
 const Searchbar = () => {
+  const [title, setTitle] = useState("");
+  const dispatch = useDispatch();
 
-    const [ title, setTitle ] = useState("");
-    const dispatch = useDispatch();
+  const nameChange = (event) => {
+    setTitle(event.target.value);
+  };
 
+  const onClickHandler = () => {
+    dispatch(searchComics(title));
+  };
 
-    const nameChange = (event) => {
-        setTitle(event.target.value)
-    }
+  const realizarBusqueda = () => {
+    dispatch(searchComics(title));
+    setTitle("");
+  };
 
-    const onClickHandler = () => {
-        dispatch(searchComics(title))
-    }
+  return (
+    <div className={style.contenedor}>
+      <input
+        type="text"
+        name="title"
+        value={title}
+        onChange={(event) => nameChange(event)}
+        placeholder="Search for title..."
+        onKeyPress={(event) => {
+          event.key === "Enter" && realizarBusqueda();
+        }}
+      />
 
-    const realizarBusqueda = () => {
-        dispatch(searchComics(title))
-        setTitle("");
-      };
+      <SavedSearchIcon
+        className={style.btn}
+        onClick={() => {
+          onClickHandler();
+          setName("");
+        }}
+      />
+    </div>
+  );
+};
 
-
-    return (
-        <div className={style.contenedor}>
-            <input type="text" name="title" value={title} onChange={(event)=> nameChange(event)} placeholder="name..." onKeyPress={(event) => {event.key === "Enter" && realizarBusqueda()}}  />
-            <button onClick={() => {onClickHandler(); setName("")}} className={style.btn}></button>
-        </div>
-     );
-}
- 
 export default Searchbar;
