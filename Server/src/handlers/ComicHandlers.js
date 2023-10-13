@@ -101,14 +101,22 @@ const getComicsByIdHandler = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener un cómic' });
     }
 };
-const postComicHandler = async (req, res) => {
-    let comicData = req.body;
 
-    if (req.file) {
-        comicData.image = req.file.path;
-    }
+const cloudinary = require('../middleware/cloudinary');
+const postComicHandler = async (req, res) => {
+    const comicData = req.body;
 
     try {
+        let imageUrl;
+
+        if (req.file) {
+            imageUrl = await uploadFileToCloudinary(req.file);
+        } else if (comicData.image) {
+            imageUrl = await uploadUrlToCloudinary(comicData.image);
+        }
+
+        comicData.image = imageUrl;
+
         const createdComic = await createComic(comicData);
         res.status(201).json({
             message: 'Cómic creado exitosamente',
@@ -123,6 +131,31 @@ const postComicHandler = async (req, res) => {
             res.status(500).json({ message: 'Error al crear cómic' });
         }
     }
+};
+  
+const uploadFileToCloudinary = (file) => {
+    return new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(file.path, (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.secure_url);
+        }
+      });
+    });
+};
+  
+  
+const uploadUrlToCloudinary = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+        cloudinary.uploader.upload(imageUrl, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result.secure_url);
+            }
+        });
+    });
 };
 
 
@@ -139,15 +172,22 @@ const deleteComicHandler = async (req, res) => {
     }
 };
 
+
 const updateComicHandler = async (req, res) => {
     const { id } = req.params;
     const updatedComicData = req.body;
 
-    if (req.file) {
-        updatedComicData.image = req.file.path;
-    }
-
     try {
+        if (req.file) {
+
+            const imageUrl = await uploadFileToCloudinary(req.file);
+            updatedComicData.image = imageUrl;
+        } else if (!updatedComicData.image) {
+
+            const existingComic = await getComicById(id);
+            updatedComicData.image = existingComic.image;
+        }
+
         const updatedComic = await updateComic(id, updatedComicData);
 
         if (updatedComic) {
@@ -159,6 +199,7 @@ const updateComicHandler = async (req, res) => {
         res.status(500).json({ message: 'Error al actualizar el cómic' });
     }
 };
+
 
 
 module.exports = { getAllComicsByFiltersHandler, getAllComicsHandler, getComicsByIdHandler, postComicHandler, deleteComicHandler, updateComicHandler };
