@@ -8,10 +8,10 @@ require('dotenv').config();
 
 //Obtenemos las variables del env
 const {
-    DB_USER, DB_PASSWORD, DB_HOST,
+    DB_INT,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://postgres:asdf1234@localhost/comics`, {
+const sequelize = new Sequelize(DB_INT, {
     logging: false,
     native: false,
 });
