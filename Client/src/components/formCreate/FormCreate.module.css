@@ -1,11 +1,4 @@
-.sectionContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 3rem 0;
-}
-
-.cardContainer {
+.container {
   background-color: #000000; 
   border-radius: 13px;
   font-size: 20px;
@@ -14,8 +7,9 @@
   font-weight: bold;
   color: rgb(255, 255, 255);
   border: 6px solid #000000;
-  padding: 40px 0;
   width: 40%;
+  margin: auto;
+  padding: 40px 0;
 }
 
 .formulario {
@@ -23,9 +17,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #000000; 
 }
 
-.formulario input {
+.formulario input , select{
   padding: 0.5rem;
   border: 1px solid #ffffff;
   border-radius: 5px;
@@ -39,13 +34,10 @@
   text-align: center;
 }
 
-.title {
-    margin-top: 20px;
-}
-
-.cardContainer button {
+.container button {
   padding: 10px 25px;
   border: unset;
+  font-family: "Bangers", sans-serif;
   border-radius: 15px;
   color: #212121;
   margin-top: 2rem;
@@ -60,7 +52,7 @@
   overflow: hidden;
 }
 
-.cardContainer button::before {
+.container button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -75,10 +67,10 @@
   transition: all 250ms;
 }
 
-.cardContainer button:hover {
+.container button:hover {
   color: #e8e8e8;
 }
 
-.cardContainer button:hover::before {
+.container button:hover::before {
   width: 100%;
 }
