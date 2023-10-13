@@ -3,14 +3,6 @@ import styles from "./Navbar.module.css";
 import Searchbar from "../../components/searchbar/Searchbar";
 
 const Navbar = () => {
-  // const { pathname } = useLocation();
-
-  // const textFromSection =
-  //   pathname === "/comics"
-  //     ? "comics"
-  //     : pathname === "/mangas"
-  //     ? "mangas"
-  //     : null;
 
   return (
     <nav className={styles.container}>
@@ -23,7 +15,6 @@ const Navbar = () => {
         </Link>
       </div>
         <Searchbar />
-      {/* <div className={styles.textContainer}>{textFromSection}</div> */}
       <div className={styles.linkContainer}>
         <Link to="/home" className={styles.link}>
           Home
@@ -33,9 +24,6 @@ const Navbar = () => {
         </Link>
         <Link to="/mangas" className={styles.link}>
           Mangas
-        </Link>
-        <Link to="/about" className={styles.link}>
-          About us
         </Link>
         <Link to="/create" className={styles.link}>
         Create

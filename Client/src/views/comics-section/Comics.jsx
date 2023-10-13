@@ -6,9 +6,12 @@ import Filters from "../../components/filters/Filters";
 
 function ComicsSection() {
   const allComics = useSelector((state) => state.comic.allComics);
+
   const comicsFiltered = allComics.filter(
     (comic) => comic.publisher !== "Manga"
   );
+
+  const hasComicsWithNoCategory = comicsFiltered.length === 0;
 
   const { totalPages, currentItems, paginate, currentPage } =
     usePagination(comicsFiltered);
@@ -17,9 +20,15 @@ function ComicsSection() {
     paginate(1);
   };
 
+  const filterOptionsForPublisher = ["Marvel", "DC"];
+
   return (
     <>
-      <Filters onFilterChange={handleFilterChange} />
+      <Filters
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptionsForPublisher}
+        noCategoryComics={hasComicsWithNoCategory}
+      />
       <CardsContainer allComics={currentItems} />
       <Pagination
         totalPages={totalPages}
