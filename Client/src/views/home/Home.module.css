@@ -1,0 +1,12 @@
+.homeContainer {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Divide el espacio en una columna para los filtros y tres columnas para las tarjetas */
+    gap: 20px; /* Espacio entre los elementos */
+  }
+  
+  .filtersContainer {
+    display: flex;
+    flex-direction: column; /* Las tarjetas se apilan verticalmente */
+    align-items: center;
+  }
+  

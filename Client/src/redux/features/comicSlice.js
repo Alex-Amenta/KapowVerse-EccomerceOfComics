@@ -71,7 +71,44 @@ export const updateComic = createAsyncThunk(
 const comicSlice = createSlice({
     name: "comic",
     initialState,
-    reducers: {},
+    reducers: {
+        comicSort: (state, action) => {
+            // Lógica para ordenar comics por nombre o precio
+            let comics = [...state.allComics];
+            if (action.payload === 'asc') {
+                comics.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (action.payload === 'desc') {
+                comics.sort((a, b) => b.title.localeCompare(a.title));
+            } else if (action.payload === 'precioMin') {
+                comics.sort((a, b) => a.price - b.price);
+            } else if (action.payload === 'precioMax') {
+                comics.sort((a, b) => b.price - a.price);
+            }
+            state.allComics = comics;
+        },
+
+        resetFilters: (state) => {
+            state.allComics = state.comicsCopy;
+        },
+
+        filterByCategory: (state, action) => {
+            let comics = [...state.comicsCopy];
+            let allComicsCopy = [...state.comicsCopy];
+            comics = comics.filter((comic) => comic.category === action.payload);
+
+            state.allComics = action.payload === '' ? 
+            allComicsCopy : comics 
+        },
+
+        filterByPublisher: (state, action) => {
+            let comics = [...state.comicsCopy];
+            let allComicsCopy = [...state.comicsCopy];
+            comics = comics.filter((comic) => comic.publisher === action.payload);
+
+            state.allComics = action.payload === '' ? 
+            allComicsCopy : comics 
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchComics.pending, (state) => {
             state.loading = true;
@@ -136,6 +173,6 @@ const comicSlice = createSlice({
     },
 });
 
-export const { } = comicSlice.actions
+export const { filterByCategory, filterByPublisher, comicSort, resetFilters } = comicSlice.actions
 
 export default comicSlice.reducer;
