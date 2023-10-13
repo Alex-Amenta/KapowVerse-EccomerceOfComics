@@ -1,0 +1,53 @@
+.selectContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 3rem;
+  margin: 3rem 0;
+  font-family: "Bangers", sans-serif;
+}
+
+.select {
+  height: 2rem;
+  width: 10rem;
+  cursor: pointer;
+}
+
+.buttonReset {
+  padding: 10px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: white;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.buttonReset::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.buttonReset:hover {
+  color: #e8e8e8;
+}
+
+.buttonReset:hover::before {
+  width: 100%;
+}

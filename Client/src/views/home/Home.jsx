@@ -4,6 +4,7 @@ import { fetchComics } from "../../redux/features/comicSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
+import Filters from "../../components/filters/Filters";
 
 function Home() {
   const dispatch = useDispatch();
@@ -16,9 +17,13 @@ function Home() {
   const { currentPage, totalPages, currentItems, paginate } =
     usePagination(allComics);
 
+  const handleFilterChange = () => {
+    paginate(1);
+  };
+
   return (
     <>
-      {/* <Navbar /> */}
+      <Filters onFilterChange={handleFilterChange} />
       <CardsContainer allComics={currentItems} />
       <Pagination
         totalPages={totalPages}
