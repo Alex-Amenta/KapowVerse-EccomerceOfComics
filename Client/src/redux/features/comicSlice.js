@@ -33,6 +33,17 @@ export const searchComics = createAsyncThunk(
             return rejectWithValue(error.response.data);
         }
     }
+);
+
+export const createComic = createAsyncThunk(
+  'comics/createComic',
+  async (comicData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(URL, comicData);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
 );
 
@@ -126,6 +137,10 @@ const comicSlice = createSlice({
         builder.addCase(fetchComics.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
+        });
+
+        builder.addCase(createComic.fulfilled, (state, action) => {
+          state.allComics = [action.payload, ...state.allComics]; // Agrega el nuevo cómic al principio de la lista
         });
 
     builder.addCase(searchComics.pending, (state) => {

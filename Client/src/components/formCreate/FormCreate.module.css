@@ -1,11 +1,11 @@
-
-
-.todo {
+.sectionContainer{
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 240px;
-  padding: 30px;
+  margin: 3rem 0;
+}
+
+.cardContainer {
   background-color: #000000; 
   border-radius: 13px;
   font-size: 20px;
@@ -14,20 +14,18 @@
   font-weight: bold;
   color: rgb(255, 255, 255);
   border: 6px solid #000000;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 40px;
+  padding: 40px 0;
+  width: 40%;
 }
 
 .formulario {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
-.todo input {
+.formulario input {
   padding: 0.5rem;
   border: 1px solid #ffffff;
   border-radius: 5px;
@@ -36,16 +34,21 @@
   width: 230px;
 }
 
-.todo input::placeholder {
+.formulario input::placeholder {
   font-family: "Rubik", sans-serif;
   text-align: center;
 }
 
-.todo button {
-  padding: 15px 25px;
+.title {
+    margin-top: 20px;
+}
+
+.cardContainer button {
+  padding: 10px 25px;
   border: unset;
   border-radius: 15px;
   color: #212121;
+  margin-top: 2rem;
   z-index: 1;
   background: white;
   position: relative;
@@ -55,9 +58,27 @@
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms;
   overflow: hidden;
-  margin-top: 20px;
 }
 
-.title {
-    margin-top: 20px;
+.cardContainer button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.cardContainer button:hover {
+  color: #e8e8e8;
+}
+
+.cardContainer button:hover::before {
+  width: 100%;
 }

@@ -1,10 +1,9 @@
 .contenedor {
     display:flex;
-    top: 1rem;
-    left: 5rem;
+    justify-content: center;
+    align-items: center;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 60px;
-    padding: 3px 25px;
     backdrop-filter: blur(4px) saturacion(180%);
     border: 2px solid 
 }
@@ -14,18 +13,27 @@
     flex: 1;
     border: 0;
     outline: none;
-    padding: 8px 4px;
+    padding: 8px 20px;
     color: white;
     font-weight: 700;
 }
 
 .contenedor button {
-    justify-content: center;
-    align-items: center;
     border: 0;
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    background: #919192;
+    background: transparent;
     border: 2px solid rgb(44, 56, 93);
 }
+
+.btn {
+    color: white;
+    cursor: pointer;
+    padding-right: 1rem;
+}
+
+.btn:hover {
+    color: gray;
+}
+

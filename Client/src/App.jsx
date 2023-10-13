@@ -19,7 +19,6 @@ function App() {
         <Route path="/mangas" element={<MangasSection />} />
         <Route path="/comics" element={<ComicsSection />} />
         <Route path="/create" element={<FormCreate />} />
-        {/* <Route path="/create" element={<Create />} /> */}
       </Routes>
     </>
   );

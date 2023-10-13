@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addComic } from "../../redux/features/comicSlice";
-import styles from "./FormCreate.css";
+import styles from "./FormCreate.module.css";
+import { createComic } from "../../redux/features/comicSlice";
 
 const FormCreate = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const FormCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addComic(formData));
+    dispatch(createComic(formData));
     setFormData({
       title: "",
       description: "",
@@ -40,21 +40,22 @@ const FormCreate = () => {
     });
   };
   return (
-    <div className="todo">
-      <div className="formulario">
-        <form onSubmit={handleSubmit}>
+    <section className={styles.sectionContainer}>
+      <div className={styles.cardContainer}>
+        <form onSubmit={handleSubmit} className={styles.formulario}>
           <div>
             <label>Create Comic</label>
           </div>
           <label>
-            <div className="title">
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              placeholder="Title"
-            /></div>
+            <div className={styles.title}>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Title"
+              />
+            </div>
           </label>
           <label>
             <input
@@ -113,7 +114,7 @@ const FormCreate = () => {
           <button type="submit">Submit</button>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 
