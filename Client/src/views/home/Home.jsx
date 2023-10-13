@@ -9,6 +9,7 @@ import Filters from "../../components/filters/Filters";
 function Home() {
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
+  const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
   useEffect(() => {
     dispatch(fetchComics());
@@ -23,7 +24,10 @@ function Home() {
 
   return (
     <>
-      <Filters onFilterChange={handleFilterChange} />
+      <Filters
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptionsForPublisher}
+      />
       <CardsContainer allComics={currentItems} />
       <Pagination
         totalPages={totalPages}

@@ -10,6 +10,8 @@ function MangasSection() {
     (comic) => comic.publisher === "Manga"
   );
 
+  const hasComicsWithNoCategory = mangasFiltered.length === 0;
+
   const { totalPages, currentItems, paginate, currentPage } =
     usePagination(mangasFiltered);
 
@@ -19,7 +21,11 @@ function MangasSection() {
 
   return (
     <>
-      <Filters onFilterChange={handleFilterChange} />
+      <Filters
+        onFilterChange={handleFilterChange}
+        hidePublisherFilter={true}
+        noCategoryComics={hasComicsWithNoCategory}
+      />
       <CardsContainer allComics={currentItems} />
       <Pagination
         totalPages={totalPages}
