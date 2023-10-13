@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import Searchbar from "../../components/searchbar/Searchbar";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -21,6 +22,7 @@ const Navbar = () => {
         />
         </Link>
       </div>
+        <Searchbar />
       <div className={styles.textContainer}>{textFromSection}</div>
       <div className={styles.linkContainer}>
         <Link to="/home" className={styles.link}>

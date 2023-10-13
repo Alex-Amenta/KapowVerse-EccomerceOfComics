@@ -24,7 +24,7 @@ export const searchComics = createAsyncThunk(
     'comics/searchComics',
     async (nameComic, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(`${URL}?name=${nameComic}`);
+            const { data } = await axios.get(`${URL}?title=${nameComic}`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);
