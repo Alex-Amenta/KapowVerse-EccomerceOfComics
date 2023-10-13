@@ -1,0 +1,63 @@
+
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 240px;
+  padding: 30px;
+  background-color: #000000; 
+  border-radius: 13px;
+  font-size: 20px;
+  text-align: center;
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  border: 6px solid #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 40px;
+}
+
+.formulario {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.todo input {
+  padding: 0.5rem;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 230px;
+}
+
+.todo input::placeholder {
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+}
+
+.todo button {
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 1;
+  background: white;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.title {
+    margin-top: 20px;
+}
