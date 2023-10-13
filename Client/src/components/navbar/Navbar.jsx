@@ -25,6 +25,9 @@ const Navbar = () => {
         <Searchbar />
       <div className={styles.textContainer}>{textFromSection}</div>
       <div className={styles.linkContainer}>
+        <Link to="/create" className={styles.link}>
+        Create
+        </Link>
         <Link to="/home" className={styles.link}>
           Home
         </Link>
