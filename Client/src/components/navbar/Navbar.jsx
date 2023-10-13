@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div className={styles.imgContainer}>
-      <Link to="/home" className={styles.link}>
+      <Link to="/app/home" className={styles.link}>
         <img
           src="https://cdn4.iconfinder.com/data/icons/superhero/400/robin.png"
           alt="Logo de KapowVerse"
@@ -16,16 +16,16 @@ const Navbar = () => {
       </div>
         <Searchbar />
       <div className={styles.linkContainer}>
-        <Link to="/home" className={styles.link}>
+        <Link to="/app/home" className={styles.link}>
           Home
         </Link>
-        <Link to="/comics" className={styles.link}>
+        <Link to="/app/comics" className={styles.link}>
           Comics
         </Link>
-        <Link to="/mangas" className={styles.link}>
+        <Link to="/app/mangas" className={styles.link}>
           Mangas
         </Link>
-        <Link to="/create" className={styles.link}>
+        <Link to="/app/create" className={styles.link}>
         Create
         </Link>
       </div>

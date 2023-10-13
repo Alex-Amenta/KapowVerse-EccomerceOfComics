@@ -14,7 +14,7 @@ const Cards = ({
   return (
     <main className={styles.container}>
       <div className={styles.cardImage}>
-        <Link to={`/comic/${id}`}>
+        <Link to={`/app/comic/${id}`}>
           <img src={image} alt={`imagen de ${title}`} />
         </Link>
       </div>
