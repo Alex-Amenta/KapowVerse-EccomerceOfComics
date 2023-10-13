@@ -17,10 +17,15 @@ const Searchbar = () => {
         dispatch(searchComics(title))
     }
 
+    const realizarBusqueda = () => {
+        dispatch(searchComics(title))
+        setTitle("");
+      };
+
 
     return (
         <div className={style.contenedor}>
-            <input type="text" name="title" value={title} onChange={(event)=> nameChange(event)} placeholder="name..."/>
+            <input type="text" name="title" value={title} onChange={(event)=> nameChange(event)} placeholder="name..." onKeyPress={(event) => {event.key === "Enter" && realizarBusqueda()}}  />
             <button onClick={() => {onClickHandler(); setName("")}} className={style.btn}></button>
         </div>
      );
