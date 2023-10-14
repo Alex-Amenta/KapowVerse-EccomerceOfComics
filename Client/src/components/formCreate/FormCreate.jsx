@@ -28,7 +28,7 @@ const FormCreate = () => {
     price: "",
     category: "",
     author: "",
-    image: "",
+    image: "", 
     stock: "",
     publisher: "",
   });
@@ -41,19 +41,42 @@ const FormCreate = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({
+      ...formData,
+      image: file,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createComic(formData));
-    setFormData({
-      title: "",
-      description: "",
-      price: "",
-      category: "",
-      author: "",
-      image: "",
-      stock: "",
-      publisher: "",
-    });
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("price", formData.price);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("author", formData.author);
+    formDataToSend.append("image", formData.image); 
+    formDataToSend.append("stock", formData.stock);
+    formDataToSend.append("publisher", formData.publisher);
+
+    try {
+      dispatch(createComic(formDataToSend));
+      setFormData({
+        title: "",
+        description: "",
+        price: "",
+        category: "",
+        author: "",
+        image: "", 
+        stock: "",
+        publisher: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -104,11 +127,10 @@ const FormCreate = () => {
           placeholder="Autor"
         />
         <input
-          type="text"
+          type="file"
           name="image"
-          value={formData.image}
-          onChange={handleChange}
-          placeholder="URL de la Imagen"
+          accept="image/*"
+          onChange={handleImageChange}
         />
         <input
           type="number"

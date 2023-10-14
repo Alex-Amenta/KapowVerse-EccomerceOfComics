@@ -2,8 +2,13 @@ const { getAllComicsByFilters, getAllComics } = require('../controllers/comic/ge
 const { getComicByTitle } = require('../controllers/comic/getComicByTitle');
 const { getComicsById } = require('../controllers/comic/getComicById');
 const { createComic } = require('../controllers/comic/postComic');
-const { deleteComic } = require('../controllers/comic/deleteComic')
-const { updateComic } = require('../controllers/comic/updateComic')
+const { deleteComic } = require('../controllers/comic/deleteComic');
+const { updateComic } = require('../controllers/comic/updateComic');
+
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const getAllComicsByFiltersHandler = async (req, res) => {
     try {
@@ -102,60 +107,32 @@ const getComicsByIdHandler = async (req, res) => {
     }
 };
 
-const cloudinary = require('../middleware/cloudinary');
+
 const postComicHandler = async (req, res) => {
-    const comicData = req.body;
-
+    const { title, description, price, stock, category, author, publisher } = req.body;
+  
     try {
-        let imageUrl;
-
-        if (req.file) {
-            imageUrl = await uploadFileToCloudinary(req.file);
-        } else if (comicData.image) {
-            imageUrl = await uploadUrlToCloudinary(comicData.image);
-        }
-
-        comicData.image = imageUrl;
-
-        const createdComic = await createComic(comicData);
-        res.status(201).json({
-            message: 'Cómic creado exitosamente',
-            createdComic,
-        });
-    } catch (error) {
-        if (error.message === 'Comic duplicado') {
-            res.status(400).json({
-                message: 'Cómic duplicado',
-            });
-        } else {
-            res.status(500).json({ message: 'Error al crear cómic' });
-        }
-    }
-};
-  
-const uploadFileToCloudinary = (file) => {
-    return new Promise((resolve, reject) => {
-      cloudinary.uploader.upload(file.path, (error, result) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(result.secure_url);
-        }
+      const imagenDataUri = `data:${
+        req.files[0].mimetype
+      };base64,${req.files[0].buffer.toString("base64")}`;
+      const imagen = await cloudinary.uploader.upload(imagenDataUri, {
+        folder: "KapowVerse",
       });
-    });
-};
   
-  
-const uploadUrlToCloudinary = (imageUrl) => {
-    return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(imageUrl, (error, result) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(result.secure_url);
-            }
-        });
-    });
+      const createdComic = await createComic(
+        title,
+        description,
+        imagen.secure_url,
+        price,
+        stock,
+        category,
+        author,
+        publisher,
+      );
+      return res.status(201).json({ message: createdComic });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
 };
 
 
@@ -176,29 +153,31 @@ const deleteComicHandler = async (req, res) => {
 const updateComicHandler = async (req, res) => {
     const { id } = req.params;
     const updatedComicData = req.body;
-
+  
     try {
-        if (req.file) {
-
-            const imageUrl = await uploadFileToCloudinary(req.file);
-            updatedComicData.image = imageUrl;
-        } else if (!updatedComicData.image) {
-
-            const existingComic = await getComicById(id);
-            updatedComicData.image = existingComic.image;
-        }
-
-        const updatedComic = await updateComic(id, updatedComicData);
-
-        if (updatedComic) {
-            res.status(200).json({ message: 'Cómic actualizado exitosamente', updatedComic });
-        } else {
-            res.status(404).json({ message: 'Cómic no encontrado' });
-        }
+      if (req.file) {
+        const imagenDataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+        const imagen = await cloudinary.uploader.upload(imagenDataUri, {
+          folder: "KapowVerse",
+        });
+        updatedComicData.image = imagen.secure_url;
+      } else if (!updatedComicData.image) {
+        const existingComic = await getComicById(id);
+        updatedComicData.image = existingComic.image;
+      }
+  
+      const updatedComic = await updateComic(id, updatedComicData);
+  
+      if (updatedComic) {
+        return res.status(200).json({ message: 'Cómic actualizado exitosamente', updatedComic });
+      } else {
+        return res.status(404).json({ message: 'Cómic no encontrado' });
+      }
     } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el cómic' });
+      return res.status(500).json({ message: 'Error al actualizar el cómic' });
     }
 };
+  
 
 
 
