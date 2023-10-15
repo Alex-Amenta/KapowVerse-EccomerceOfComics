@@ -20,21 +20,22 @@ const validateComic = async (comic) => {
     return {};
 };
 
-const createComic = async (comicData) => {
-    const validationError = await validateComic(comicData);
-    if (validationError.error) {
-        throw new Error(validationError.error);
-    }
+const createComic = async (title, description, imagenURL, price, stock, category, author, publisher) => {
 
-    try {
-        const createdComic = await Comic.create(comicData);
-        return createdComic;
-    } catch (error) {
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            throw new Error('Comic duplicado');
-        }
-        throw error;
-    }
+    const newComic = await Comic.create({
+        title,
+        description,
+        image: imagenURL,
+        price,
+        stock,
+        category,
+        author,
+        publisher,
+    });
+
+    if (!newComic) throw new Error(`El comic ${title} no pudo crearse.`);
+    return `El comic ${title} se creó exitosamente.`;
 };
+
 
 module.exports = { createComic };

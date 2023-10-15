@@ -1,37 +1,118 @@
-.container {
-  background-color: #000000; 
+.container h2 {
+  font-size: 4rem;
+  text-align: center;
+  color: #9f2d1c;
+  font-family: "Bangers", sans-serif;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.container hr {
+  width: 90%;
+}
+
+.formulario {
+  background-color: #000000;
   border-radius: 13px;
   font-size: 20px;
-  text-align: center;
   font-family: "Rubik", sans-serif;
   font-weight: bold;
   color: rgb(255, 255, 255);
   border: 6px solid #000000;
-  width: 40%;
-  margin: auto;
+  max-width: 90%;
+  margin: 5rem auto;
   padding: 40px 0;
+
+  display: grid;
+  grid-template-areas:
+    "left1 left2"
+    "right right";
+  grid-template-columns: 1fr 1fr; /* Dos columnas arriba */
+  grid-gap: 2rem;
 }
 
-.formulario {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000; 
+.formulario div:nth-child(1) {
+  grid-area: left1;
 }
 
-.formulario input , select{
+.formulario div:nth-child(2) {
+  grid-area: left2;
+}
+
+.formulario div:nth-child(3) {
+  grid-area: right;
+}
+
+.formulario input {
   padding: 0.5rem;
   border: 1px solid #ffffff;
   border-radius: 5px;
   margin-top: 8px;
   margin-bottom: 8px;
+  text-align: start;
   width: 230px;
 }
 
-.formulario input::placeholder {
-  font-family: "Rubik", sans-serif;
-  text-align: center;
+.formulario select {
+  padding: 0.5rem;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: start;
+  cursor: pointer;
+  width: 249px;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  align-self: self-end;
+  gap: 2rem;
+}
+
+.imagePreviewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagePreviewContainer image {
+  max-width: 100%;
+  height: auto;
+}
+
+.selectFileContainer, label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectFileContainer label:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+.selectFileContainer button {
+  margin-left: 2rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .container button {
@@ -40,7 +121,7 @@
   font-family: "Bangers", sans-serif;
   border-radius: 15px;
   color: #212121;
-  margin-top: 2rem;
+  cursor: pointer;
   z-index: 1;
   background: white;
   position: relative;
@@ -73,4 +154,14 @@
 
 .container button:hover::before {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .formulario {
+    grid-template-areas:
+      "left1"
+      "left2"
+      "right";
+    grid-template-columns: 1fr; /* Una columna en dispositivos móviles */
+  }
 }

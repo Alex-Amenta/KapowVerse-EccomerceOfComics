@@ -1,44 +1,63 @@
 import { useState } from "react";
 import { searchComics } from "../../redux/features/comicSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Searchbar.module.css";
+import { Toaster, toast } from "react-hot-toast";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
 const Searchbar = () => {
   const [title, setTitle] = useState("");
+  const allComics = useSelector((state) => state.comic.allComics);
   const dispatch = useDispatch();
 
-  const nameChange = (event) => {
-    setTitle(event.target.value);
+  const handleSubmit = () => {
+    if (!title.length) {
+      toast.error("Please enter the title of a comic", {
+        position: "top-center",
+      });
+    }
+
+    const foundComic = allComics.find((comic) =>
+      comic.title.toLowerCase().includes(title.toLowerCase())
+    );
+
+    if (foundComic) {
+      dispatch(searchComics(title));
+    } else {
+      toast.error(`"${title}" not found, please try again`, {
+        position: "top-center",
+      });
+    }
   };
 
-  const onClickHandler = () => {
-    dispatch(searchComics(title));
+  const handleInputChange = (e) => {
+    setTitle(e.target.value);
   };
 
-  const realizarBusqueda = () => {
-    dispatch(searchComics(title));
-    setTitle("");
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
-    <div className={style.contenedor}>
+    <div className={style.container}>
       <input
         type="text"
         name="title"
         value={title}
-        onChange={(event) => nameChange(event)}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
         placeholder="Search for title..."
-        onKeyPress={(event) => {
-          event.key === "Enter" && realizarBusqueda();
-        }}
       />
 
-      <SavedSearchIcon
-        className={style.btn}
-        onClick={() => {
-          onClickHandler();
-          setName("");
+      <SavedSearchIcon className={style.btn} onClick={handleSubmit} />
+      <Toaster
+        toastOptions={{
+          style: {
+            border: "2px solid #000000",
+            fontFamily: "Rubik, sans-serif",
+          },
         }}
       />
     </div>
