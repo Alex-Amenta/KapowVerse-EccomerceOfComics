@@ -9,6 +9,7 @@ const initialState = {
     allUsersCopy: [],
     filteredUsers: [],
     error: '',
+    logState: false,
 };
 
 export const fetchUsers = createAsyncThunk(

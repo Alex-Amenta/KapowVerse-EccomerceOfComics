@@ -15,7 +15,7 @@ const getAllUsersHandler = async (req, res) => {
             res.status(200).json(allUsers);
         }
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 }
 
@@ -25,7 +25,7 @@ const getUserByIdHandler = async (req, res) => {
         const user = await getUserById(id);
         res.status(200).json(user);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 }
 
@@ -35,7 +35,7 @@ const postUserHandler = async (req, res) => {
         const user = await postUser(name, email, password);
         res.status(201).json(user);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 }
 
@@ -46,7 +46,7 @@ const toggleUserActiveHandler = async (req, res) => {
         const message = await toggleActiveStatus(id, activate);
         res.status(200).json({ message });
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -57,7 +57,7 @@ const updateUserHandler = async (req, res) => {
         const user = await updateUser(id, name, email, password)
         res.status(200).json(user);
     } catch (error) {
-        res.status(404).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 }
 

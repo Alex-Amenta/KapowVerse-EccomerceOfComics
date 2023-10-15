@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env') });
 
 const {CLOUD_NAME, API_KEY, API_SECRET} = process.env;
 
