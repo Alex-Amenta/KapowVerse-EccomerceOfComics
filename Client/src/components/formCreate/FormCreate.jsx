@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./FormCreate.module.css";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { createComic } from "../../redux/features/comicSlice";
+import { Toaster, toast } from "react-hot-toast";
+import axios from "axios";
 
 const FormCreate = () => {
   const dispatch = useDispatch();
+  const [imagePreview, setImagePreview] = useState("");
 
   const categories = [
     "Superheroes",
@@ -20,7 +24,7 @@ const FormCreate = () => {
     "Suspense",
   ];
 
-  const publishers = ['Marvel', 'DC', 'Manga'];
+  const publishers = ["Marvel", "DC", "Manga"];
 
   const [formData, setFormData] = useState({
     title: "",
@@ -28,7 +32,7 @@ const FormCreate = () => {
     price: "",
     category: "",
     author: "",
-    image: "", 
+    image: "",
     stock: "",
     publisher: "",
   });
@@ -47,116 +51,182 @@ const FormCreate = () => {
       ...formData,
       image: file,
     });
+
+    // Mostrar vista previa de la imagen
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target.result);
+    };
+    reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleImageRemove = () => {
+    const fileInput = document.getElementById("image");
+    fileInput.value = "";
+    setFormData({
+      ...formData,
+      image: "",
+    });
+    setImagePreview("");
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("title", formData.title);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("price", formData.price);
-    formDataToSend.append("category", formData.category);
-    formDataToSend.append("author", formData.author);
-    formDataToSend.append("image", formData.image); 
-    formDataToSend.append("stock", formData.stock);
-    formDataToSend.append("publisher", formData.publisher);
-
     try {
-      dispatch(createComic(formDataToSend));
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("author", formData.author);
+      formDataToSend.append("image", formData.image);
+      formDataToSend.append("stock", formData.stock);
+      formDataToSend.append("publisher", formData.publisher);
+
+      await axios.post("http://localhost:3001/comic", formDataToSend);
+      toast.success("Comic created successfully!", {
+        position: "bottom-center",
+      });
       setFormData({
         title: "",
         description: "",
         price: "",
         category: "",
         author: "",
-        image: "", 
+        image: "",
         stock: "",
         publisher: "",
       });
+      setImagePreview("");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h2>Create new Comic</h2>
+    <section className={styles.container}>
+      <h2>Create new Comic</h2> <hr />
       <form onSubmit={handleSubmit} className={styles.formulario}>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Título"
-        />
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="Descripción"
-        />
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          placeholder="Precio"
-        />
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          placeholder="Categoría"
-        >
-          <option value="" disabled>
-            Seleccione una categoría
-          </option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Title..."
+          />
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Description..."
+          />
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="Price..."
+          />
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            placeholder="Category..."
+          >
+            <option value="" disabled>
+              Select a category
             </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          name="author"
-          value={formData.author}
-          onChange={handleChange}
-          placeholder="Autor"
-        />
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <input
-          type="number"
-          name="stock"
-          value={formData.stock}
-          onChange={handleChange}
-          placeholder="Stock"
-        />
-        <select
-          name="publisher"
-          value={formData.publisher}
-          onChange={handleChange}
-          placeholder="Editor"
-        >
-          <option value="" disabled>
-            Seleccione un editor
-          </option>
-          {publishers.map((publisher) => (
-            <option key={publisher} value={publisher}>
-              {publisher}
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+          <input
+            type="text"
+            name="author"
+            value={formData.author}
+            onChange={handleChange}
+            placeholder="Author..."
+          />
+          <input
+            type="number"
+            name="stock"
+            value={formData.stock}
+            onChange={handleChange}
+            placeholder="Stock..."
+          />
+          <select
+            name="publisher"
+            value={formData.publisher}
+            onChange={handleChange}
+            placeholder="Publisher..."
+          >
+            <option value="" disabled>
+              Select a publisher
             </option>
-          ))}
-        </select>
-        <button type="submit">Create Cómic</button>
+            {publishers.map((publisher) => (
+              <option key={publisher} value={publisher}>
+                {publisher}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.imageContainer}>
+          <div className={styles.imagePreviewContainer}>
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className={styles.imagePreview}
+              />
+            )}
+          </div>
+
+          <div className={styles.selectFileContainer}>
+            <label htmlFor="imageInput">
+              <input
+                type="file"
+                id="imageInput"
+                name="image"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
+              <AddPhotoAlternateIcon
+                fontSize="large"
+                className={styles.addImage}
+                titleAccess="Add Image"
+              />
+              <p>Add Image</p>
+            </label>
+            {imagePreview && (
+              <button
+                type="button"
+                onClick={handleImageRemove}
+                className={styles.removeImage}
+              >
+                Remove Image
+              </button>
+            )}
+          </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <button type="submit">Create Cómic</button>
+        </div>
+        <Toaster
+          toastOptions={{
+            style: {
+              border: "2px solid #000000",
+              fontFamily: "Rubik, sans-serif",
+            },
+          }}
+        />
       </form>
-    </div>
+    </section>
   );
 };
 
