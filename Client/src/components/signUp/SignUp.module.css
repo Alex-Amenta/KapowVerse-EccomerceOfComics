@@ -7,6 +7,7 @@
     margin-top: 20px;
     font-family: 'Bangers', sans-serif;
 }
+
 .container h2 {
     font-size: 4rem;
     text-align: center;
@@ -14,11 +15,12 @@
     font-family: "Bangers", sans-serif;
     letter-spacing: 6px;
     text-shadow: 1px 1px black;
-  }
-  
-  .container hr {
+}
+
+.container hr {
     width: 90%;
-  }
+}
+
 .form {
     display: flex;
     flex-direction: column;

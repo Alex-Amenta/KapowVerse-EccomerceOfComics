@@ -3,6 +3,7 @@ import styles from "./Profile.module.css";
 
 function Profile() {
 	const user = useSelector((state) => state.user.user);
+	console.log(user)
 
 	return (
 		<div className={styles.container}>
@@ -12,7 +13,7 @@ function Profile() {
 					<img
             className={styles.profileImage}
 						src={user.image}
-						alt="Profile image"
+						alt={user.name}
 					/>
 				</div>
 				<div className={styles.profileInfoContainer}>

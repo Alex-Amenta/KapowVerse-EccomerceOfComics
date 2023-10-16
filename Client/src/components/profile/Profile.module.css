@@ -46,9 +46,10 @@
   }
 
   .profileImage{
-    width: 150px;
-    height: 150px;
+    max-width: 150px;
+    max-height: 150px;
     border-radius: 100%;
+    color: #9f2d1c;
   }
 
   .profileInfoContainer{

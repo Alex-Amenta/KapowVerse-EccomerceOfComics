@@ -212,7 +212,7 @@ const FormCreate = () => {
 							value={formData.description}
 							onChange={handleChange}
 							placeholder="Description..."
-							className={`${styles.input} ${
+							className={`${styles.textarea} ${
 								error.description ? styles["input-error"] : ""
 							}`}
 						/>
@@ -267,7 +267,7 @@ const FormCreate = () => {
 							value={formData.category}
 							onChange={handleChange}
 							placeholder="Category..."
-							className={`${styles.input} ${
+							className={`${styles.select} ${
 								error.category ? styles["input-error"] : ""
 							}`}>
 							<option
@@ -362,7 +362,7 @@ const FormCreate = () => {
 							value={formData.publisher}
 							onChange={handleChange}
 							placeholder="Publisher..."
-							className={`${styles.input} ${
+							className={`${styles.select} ${
 								error.publisher ? styles["input-error"] : ""
 							}`}>
 							<option
