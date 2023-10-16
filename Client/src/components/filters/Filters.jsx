@@ -26,9 +26,9 @@ const Filters = ({
   const dispatch = useDispatch();
 
   const textFromSection =
-    pathname === "/comics"
+    pathname === "/app/comics"
       ? "comics"
-      : pathname === "/mangas"
+      : pathname === "/app/mangas"
       ? "mangas"
       : "Explore Our Diverse Collection!";
 
