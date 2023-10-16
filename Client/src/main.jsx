@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider, Outlet } from "react-router-dom";
 
 import LandingPage from "./views/landing/LandingPage";
 import Home from "./views/home/Home";
@@ -10,7 +10,7 @@ import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Navbar";
 import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
-import FormCreate from "./components/formCreate/FormCreate"
+import FormCreate from "./components/formCreate/FormCreate";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
@@ -18,12 +18,12 @@ import Profile from "./components/profile/Profile";
 const router = createHashRouter([
 	{
 		path: "/",
-		element: <LandingPage />,
-	},
-	{
-		path: "/app",
-		element: <Navbar />,
+		element: <NavbarWrapper />,
 		children: [
+			{
+				path: "/",
+				element: <LandingPage />,
+			},
 			{
 				path: "/app/home",
 				element: <Home />,
@@ -61,15 +61,17 @@ const router = createHashRouter([
 				element: <div>404</div>,
 			},
 		],
-		
 	},
-	{
-		path: "/*",
-		element: <div>404</div>,
-	},
-
 ]);
 
+function NavbarWrapper() {
+	return (
+		<div>
+			<Navbar />
+			<Outlet />
+		</div>
+	);
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<Provider store={store}>

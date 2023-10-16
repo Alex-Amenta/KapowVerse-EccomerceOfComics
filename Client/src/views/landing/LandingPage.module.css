@@ -11,6 +11,10 @@
   overflow-x: hidden;
   height: 100vh;
   font-family: "Bangers", sans-serif;
+
+  background-color: #e8e8e8;
+  position: relative;
+  margin-top: -95px;
 }
 
 .content {
