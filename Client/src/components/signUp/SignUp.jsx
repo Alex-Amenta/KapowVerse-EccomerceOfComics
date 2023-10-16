@@ -2,8 +2,13 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "./SignUp.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { registerUser, loginUser } from "../../redux/features/userSlice";
 
 function SignUp() {
+	// const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 	const [data, setData] = useState({
 		name: "",
 		email: "",
@@ -74,41 +79,68 @@ function SignUp() {
 		console.log(error);
 		if (err) return;
 		// ############### FIN DE VALIDACIONES ###############
+		setRes("Creating user...");
+		// ############### POSTEO ###############
+		dispatch(registerUser(data)).then((res) => {
 
-		axios
-			.post("http://localhost:3000/user/", data)
-			.then((res) => {
-				if (res.statusText == "Created") {
-					setRes("User created successfully!");
-					setData({
-						name: "",
-						email: "",
-						password: "",
-						image: "",
-					});
-				}
-				console.log(res);
-				console.log(res.statusText);
-			})
-			.catch((err) => {
-				console.log(err);
-				if (err.response.data.message.includes("email"))
-					setRes("Email already in use");
-				else setRes("Error creating user");
-			});
+			console.log("res")
+			console.log(res);
+			// dispatch(loginUser(data));
+			if (res.error) {
+				setRes("Error creating user");
+				return;
+			}
+			setRes("User created successfully!");
+		}).catch((err) => {
+			console.log("err")
+			console.log(err);
+		});
+
+		
+		
+		// setData({
+		// 	name: "",
+		// 	email: "",
+		// 	password: "",
+		// 	image: "",
+		// });
+
+
+		// axios
+		// 	.post("http://localhost:3000/user/", data)
+		// 	.then((res) => {
+		// 		if (res.statusText == "Created") {
+		// 			setRes("User created successfully!");
+		// 			setData({
+		// 				name: "",
+		// 				email: "",
+		// 				password: "",
+		// 				image: "",
+		// 			});
+		// 			console.log(res);
+		// 			console.log(res.statusText);
+		// 		}
+
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 		if (err.response && err.response.data.message.includes("email"))
+		// 			setRes("Email already in use");
+		// 		else setRes("Error creating user");
+		// 	});
 	};
 
 	return (
 		<div className={styles.container}>
-			<h1>SignUp</h1>
-			<h2
+			<h2>SignUp</h2> <hr />
+			<h3
 				onClick={() => setRes("")}
 				style={{
 					cursor: "pointer",
 					color: res.slice(0, 1) === "U" ? "green" : "red",
 				}}>
 				{res ? <>&times; {res} &times;</> : null} 
-			</h2>
+			</h3>
 			<form
 				onSubmit={handleSubmit}
 				className={styles.form}>
@@ -136,77 +168,79 @@ function SignUp() {
 						</span>
 					) : null}
 				</div>
-                <div className={styles.input__group}>
-				<label
-					htmlFor="email"
-					className={styles.label}>
-					Email <label style={{ color: "red" }}>*</label>
-				</label>
-				<input
-					type="email"
-					id="email"
-					value={data.email}
-					onChange={handleChange}
-					className={`${styles.input} ${
-						error.email ? styles["input-error"] : ""
-					}`}
-				/>
-                <span className={styles.tooltiptext}>It should be a valid email</span>
-				{error.email ? (
-					<span
-						onClick={() => setError({ ...error, email: "" })}
-						className={styles.tooltip}>
-						{error.email}
+				<div className={styles.input__group}>
+					<label
+						htmlFor="email"
+						className={styles.label}>
+						Email <label style={{ color: "red" }}>*</label>
+					</label>
+					<input
+						type="email"
+						id="email"
+						value={data.email}
+						onChange={handleChange}
+						className={`${styles.input} ${
+							error.email ? styles["input-error"] : ""
+						}`}
+					/>
+					<span className={styles.tooltiptext}>It should be a valid email</span>
+					{error.email ? (
+						<span
+							onClick={() => setError({ ...error, email: "" })}
+							className={styles.tooltip}>
+							{error.email}
+						</span>
+					) : null}
+				</div>
+				<div className={styles.input__group}>
+					<label
+						htmlFor="password"
+						className={styles.label}>
+						Password <label style={{ color: "red" }}>*</label>
+					</label>
+					<input
+						type="password"
+						id="password"
+						value={data.password}
+						onChange={handleChange}
+						className={`${styles.input} ${
+							error.password ? styles["input-error"] : ""
+						}`}
+					/>
+					<span className={styles.tooltiptext}>
+						At least 3 characters, 1 uppercase and 1 number
 					</span>
-				) : null}
-                </div>
-                <div className={styles.input__group}>
-				<label
-					htmlFor="password"
-					className={styles.label}>
-					Password <label style={{ color: "red" }}>*</label>
-				</label>
-				<input
-					type="password"
-					id="password"
-					value={data.password}
-					onChange={handleChange}
-					className={`${styles.input} ${
-						error.password ? styles["input-error"] : ""
-					}`}
-				/>
-                <span className={styles.tooltiptext}>At least 3 characters, 1 uppercase and 1 number</span>
-				{error.password ? (
-					<span
-						onClick={() => setError({ ...error, password: "" })}
-						className={styles.tooltip}>
-						{error.password}
-					</span>
-				) : null}
-                </div>
-                <div className={styles.input__group}>
-				<label
-					htmlFor="image"
-					className={styles.label}>
-					Image
-				</label>
-				<input
-					type="text"
-					id="image"
-					onChange={handleChange}
-					className={`${styles.input} ${
-						error.image ? styles["input-error"] : ""
-					}`}
-				/>
-                <span className={styles.tooltiptext}>It should be an url</span>
-				{error.image ? (
-					<span
-						onClick={() => setError({ ...error, image: "" })}
-						className={styles.tooltip}>
-						{error.image}
-					</span>
-				) : null}
-                </div>
+					{error.password ? (
+						<span
+							onClick={() => setError({ ...error, password: "" })}
+							className={styles.tooltip}>
+							{error.password}
+						</span>
+					) : null}
+				</div>
+				<div className={styles.input__group}>
+					<label
+						htmlFor="image"
+						className={styles.label}>
+						Image
+					</label>
+					<input
+						type="text"
+						id="image"
+						onChange={handleChange}
+						className={`${styles.input} ${
+							error.image ? styles["input-error"] : ""
+						}`}
+					/>
+					<span className={styles.tooltiptext}>It should be an url</span>
+					{error.image ? (
+						<span
+							onClick={() => setError({ ...error, image: "" })}
+							className={styles.tooltip}>
+							{error.image}
+						</span>
+					) : null}
+				</div>
 				<button
 					type="submit"
 					className={styles.submit}>
