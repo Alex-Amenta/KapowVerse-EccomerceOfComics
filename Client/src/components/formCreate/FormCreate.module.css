@@ -43,18 +43,18 @@
   grid-area: right;
 }
 
-.formulario input {
+.input {
   padding: 0.5rem;
   border: 1px solid #ffffff;
   border-radius: 5px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   text-align: start;
   border: 1px solid black;
   width: 230px;
+  height: 25px;
 }
 
-.formulario textarea {
+.textarea {
   width: 230px;
   max-width: 232px;
   max-height: 140px;
@@ -62,18 +62,20 @@
   border-radius: 5px;
   font-family: "Rubik", sans-serif;
   padding: 0.5rem;
+  margin-bottom: 20px;
+  height: 25px;
 }
 
-.formulario select {
+.select {
   padding: 0.5rem;
-  border: 1px solid #ffffff;
   border-radius: 5px;
-  margin-top: 8px;
   border: 1px solid black;
-  margin-bottom: 8px;
   text-align: start;
   cursor: pointer;
   width: 249px;
+  margin-bottom: 20px;
+  height: 43px;
+
 }
 
 .inputContainer {
@@ -200,6 +202,7 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 85px;
 }
 
 /* Tooltip text */
@@ -236,7 +239,7 @@ label {
   border-color: transparent #aaa transparent transparent;
 }
 
-.input:focus + .tooltiptext {
+.input:focus + .tooltiptext, .select:focus + .tooltiptext, .textarea:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
 }

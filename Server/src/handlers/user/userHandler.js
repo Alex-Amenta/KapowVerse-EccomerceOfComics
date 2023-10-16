@@ -71,7 +71,7 @@ const loginUserHandler = async (req, res) => {
 		const user = await getUserByEmail(email);
 		if (user[0]) {
 			if (user[0].dataValues.password === password) {
-				res.status(200).json(user);
+				res.status(200).json(user[0]);
 			} else {
 				res.status(401).json({ message: "Invalid credentials" });
 			}
