@@ -9,7 +9,55 @@ const initialState = {
     allUsersCopy: [],
     filteredUsers: [],
     error: '',
+    logState: false,
+    user: {},
+    pending: false,
+
 };
+
+export const registerUser = createAsyncThunk(
+    'user/registerUser',
+    async (user, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(`${URL}/register`, user);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (user, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(`${URL}/login`, user);
+            return data;
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const logoutUser = createAsyncThunk(
+    'user/logoutUser',
+    async (_, { rejectWithValue }) => {
+            return rejectWithValue('');
+    }
+);
+
+export const logUserByLocalStorage = createAsyncThunk(
+    'user/logUserByLocalStorage',
+    async (data, ) => {
+        return data;
+    }
+);
+
+
+
 
 export const fetchUsers = createAsyncThunk(
     'user/fetchUsers',
@@ -64,6 +112,8 @@ const userSlice = createSlice({
     initialState,
     reducers: {
 
+
+
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsers.pending, (state) => {
@@ -112,6 +162,69 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.error;
         });
+
+        builder.addCase(loginUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        }
+        );
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(loginUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+        builder.addCase(registerUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(registerUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(registerUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+        builder.addCase(logoutUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(logoutUser.fulfilled, (state) => {
+            state.loading = false;
+            state.logState = false;
+            state.user = {};
+            state.error = '';
+        });
+        builder.addCase(logoutUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+        builder.addCase(logUserByLocalStorage.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(logUserByLocalStorage.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(logUserByLocalStorage.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+
     },
 });
 

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchComics } from "../../redux/features/comicSlice";
+import { logUserByLocalStorage } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
@@ -13,6 +14,9 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchComics());
+    if (localStorage.getItem("token")) {
+      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
+    }
   }, []);
 
   const { currentPage, totalPages, currentItems, paginate } =

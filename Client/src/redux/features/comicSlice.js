@@ -192,6 +192,6 @@ const comicSlice = createSlice({
   },
 });
 
-export const { filterByCategory, filterByPublisher, comicSort, resetFilters } = comicSlice.actions
+export const { filterByCategory, filterByPublisher, comicSort, resetFilters,  } = comicSlice.actions
 
 export default comicSlice.reducer;

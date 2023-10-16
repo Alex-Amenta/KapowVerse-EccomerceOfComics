@@ -7,7 +7,7 @@ const getAllUsers = async () => {
     });
 
     if (users.length === 0) {
-        throw new Error('No hay usuarios aún');
+        throw new Error('No users found');
     }
 
     return users;
@@ -19,10 +19,22 @@ const getUserByName = async (name) => {
     })
 
     if (!user) {
-        throw new Error('No hay usuarios con ese nombre');
+        throw new Error('No users with that name');
     }
 
     return user;
 }
 
-module.exports = { getAllUsers, getUserByName }
+const getUserByEmail = async (email) => {
+    const user = await User.findAll({
+        where: { email: { [Op.iLike]: `%${email}%` } }
+    })
+
+    if (!user) {
+        throw new Error('No users with that email');
+    }
+
+    return user;
+}
+
+module.exports = { getAllUsers, getUserByName, getUserByEmail }

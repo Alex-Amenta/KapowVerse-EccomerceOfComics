@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 //Requerimos dotenv
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, './.env') });
 
 //Obtenemos las variables del env
 const {

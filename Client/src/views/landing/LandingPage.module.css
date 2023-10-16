@@ -18,17 +18,19 @@
   align-items: flex-start;
   flex-direction: column;
   margin-left: 5rem;
-  width: 55%;
+  width: 52%;
+  margin-top: 3rem;
+  gap: 1rem;
 }
 
 .content h1 {
-  font-size: 4.2rem;
+  font-size: 4rem;
   margin: 0;
   letter-spacing: 2px;
 }
 
 .name {
-    font-size: 5rem;
+    font-size: 4.5rem;
     letter-spacing: 6px;
 }
 
@@ -39,10 +41,26 @@
 }
 
 .content p {
-  margin-bottom: 3rem;
   font-size: 1.6rem;
   font-weight: normal;
   font-family: "Rubik", sans-serif;
+}
+
+.socialNetworks{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 4rem 0 1rem 0;
+}
+
+.socialNetworks a {
+  text-decoration: none;
+  color: #212121;
+}
+
+.socialNetworks a:hover {
+  color: gray;
 }
 
 .buttons {

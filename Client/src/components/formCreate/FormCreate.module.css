@@ -1,46 +1,143 @@
-.container {
-  background-color: #000000; 
-  border-radius: 13px;
-  font-size: 20px;
+.container h2 {
+  font-size: 3.5rem;
   text-align: center;
-  font-family: "Rubik", sans-serif;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  border: 6px solid #000000;
-  width: 40%;
-  margin: auto;
-  padding: 40px 0;
+  color: #9f2d1c;
+  font-family: "Bangers", sans-serif;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.container hr {
+  width: 90%;
 }
 
 .formulario {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000; 
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px black;
+  font-size: 20px;
+  font-family: "Bangers", sans-serif;
+  font-weight: bold;
+  color: #000000;
+  max-width: 90%;
+  margin: 2rem auto 4rem auto;
+  padding: 40px 0;
+
+  display: grid;
+  grid-template-areas:
+    "left1 left2"
+    "right right";
+  grid-template-columns: 1fr 1fr; /* Dos columnas arriba */
+  grid-gap: 2rem;
 }
 
-.formulario input , select{
+.formulario div:nth-child(1) {
+  grid-area: left1;
+}
+
+.formulario div:nth-child(2) {
+  grid-area: left2;
+}
+
+.formulario div:nth-child(3) {
+  grid-area: right;
+}
+
+.input {
   padding: 0.5rem;
   border: 1px solid #ffffff;
   border-radius: 5px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  text-align: start;
+  border: 1px solid black;
   width: 230px;
+  height: 25px;
 }
 
-.formulario input::placeholder {
+.textarea {
+  width: 230px;
+  max-width: 232px;
+  max-height: 140px;
+  border: 1px solid black;
+  border-radius: 5px;
   font-family: "Rubik", sans-serif;
-  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 20px;
+  height: 25px;
+}
+
+.select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: start;
+  cursor: pointer;
+  width: 249px;
+  margin-bottom: 20px;
+  height: 43px;
+
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  align-self: self-end;
+  gap: 2rem;
+}
+
+.imagePreviewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.imagePreviewContainer img {
+  max-width: 512px;
+  max-height: 512px;
+  height: auto;
+}
+
+.selectFileContainer,
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectFileContainer label:hover {
+  color: gray;
+  cursor: pointer;
+}
+
+.selectFileContainer button {
+  margin-left: 2rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .container button {
   padding: 10px 25px;
   border: unset;
-  font-family: "Bangers", sans-serif;
   border-radius: 15px;
   color: #212121;
-  margin-top: 2rem;
+  cursor: pointer;
   z-index: 1;
   background: white;
   position: relative;
@@ -73,4 +170,86 @@
 
 .container button:hover::before {
   width: 100%;
+}
+
+.label {
+  font-size: 20px;
+}
+
+.tooltip {
+  background-color: #f44336;
+  color: black;
+  height: 10px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.input-error {
+  border: 1px solid #f44336;
+  margin: 0;
+}
+
+.input__group b {
+  color: #f44336;
+}
+
+.input__group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85px;
+}
+
+/* Tooltip text */
+.input__group .tooltiptext {
+  visibility: hidden;
+  width: 150px;
+  background-color: #aaa;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  right: 15%;
+  top: 20px;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.input__group .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #aaa transparent transparent;
+}
+
+.input:focus + .tooltiptext, .select:focus + .tooltiptext, .textarea:focus + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .formulario {
+    grid-template-areas:
+      "left1"
+      "left2"
+      "right";
+    grid-template-columns: 1fr; /* Una columna en dispositivos móviles */
+  }
 }
