@@ -6,7 +6,7 @@ import { registerUser } from "../../redux/features/userSlice";
 
 function SignUp() {
 	const logState = useSelector((state) => state.user.logState);
-	if (logState) window.location.href = "/home";
+	if (logState) window.location.href = "/app/home";
 
 	const dispatch = useDispatch();
 	const [data, setData] = useState({

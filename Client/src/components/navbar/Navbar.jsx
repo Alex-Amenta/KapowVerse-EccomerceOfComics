@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div className={styles.imgContainer}>
-        <Link to="/home" className={styles.link}>
+        <Link to="/app/home" className={styles.link}>
           <img src={logoOficial} alt="Logo de KapowVerse" />
         </Link>
       </div>
@@ -37,7 +37,7 @@ const Navbar = () => {
             <CloseIcon className={styles.closeButton} fontSize="large"/>
           </button>
         )}
-        <Link to="/home" className={styles.link}>
+        <Link to="/app/home" className={styles.link}>
           Home
         </Link>
         <Link to="/app/comics" className={styles.link}>
@@ -60,7 +60,7 @@ const Navbar = () => {
 							onClick={() => {
                 localStorage.removeItem("token");
                 dispatch(logoutUser());
-                window.location.href = "/";
+                window.location.href = "/app/";
               }}
 							className={styles.link}>
 							Logout

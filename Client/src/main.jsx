@@ -11,6 +11,9 @@ import Navbar from "./components/navbar/Navbar";
 import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
 import FormCreate from "./components/formCreate/FormCreate"
+import Login from "./components/login/Login";
+import SignUp from "./components/signUp/SignUp";
+import Profile from "./components/profile/Profile";
 
 const router = createHashRouter([
 	{
@@ -26,20 +29,32 @@ const router = createHashRouter([
 				element: <Home />,
 			},
 			{
-				path: "/app//mangas",
+				path: "/app/mangas",
 				element: <MangasSection />,
 			},
 			{
-				path: "/app//comics",
+				path: "/app/comics",
 				element: <ComicsSection />,
 			},
 			{
-				path: "/app//comic/:id",
+				path: "/app/comic/:id",
 				element: <Detail />,
 			},
 			{
-				path: "/app//create",
+				path: "/app/create",
 				element: <FormCreate />,
+			},
+			{
+				path: "/app/login",
+				element: <Login />,
+			},
+			{
+				path: "/app/signup",
+				element: <SignUp />,
+			},
+			{
+				path: "/app/profile",
+				element: <Profile />,
 			},
 			{
 				path: "/app/*",

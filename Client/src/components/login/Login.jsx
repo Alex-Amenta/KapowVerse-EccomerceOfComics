@@ -6,7 +6,7 @@ import { loginUser } from "../../redux/features/userSlice";
 
 function Login() {
 	const logState = useSelector((state) => state.user.logState);
-	if (logState) window.location.href = "/home";
+	if (logState) window.location.href = "/app/home";
 
 	const [data, setData] = useState({
 		email: "",
@@ -51,7 +51,7 @@ function Login() {
 				}
 				setRes("Success");
 				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
-				window.location.href = "/home";
+				window.location.href = "/app/home";
 			}).catch((err) => {
 			if (err.response && err.response.data) setRes(err.response.data.message);
 			else setRes("Error in server");

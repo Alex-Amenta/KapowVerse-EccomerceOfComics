@@ -152,7 +152,7 @@ const FormCreate = () => {
 				formDataToSend.append("stock", formData.stock);
 				formDataToSend.append("publisher", formData.publisher);
 
-				await axios.post("http://localhost:3001/comic", formDataToSend);
+				await axios.post("https://backend-proyecto-final-soyhenry.onrender.com/comic", formDataToSend);
 				toast.success("Comic created successfully!", {
 					position: "bottom-center",
 				});
