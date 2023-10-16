@@ -5,6 +5,7 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { createComic } from "../../redux/features/comicSlice";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
+import imageAlert from "../../assets/murcielagos.png";
 
 const initialFormData = {
   title: "",
@@ -169,11 +170,9 @@ const FormCreate = () => {
       <form onSubmit={handleSubmit} className={styles.formulario}>
         <div className={styles.inputContainer}>
           <div className={styles.input__group}>
-          <label
-						htmlFor="title"
-						className={styles.label}>
-						Title <b>*</b>
-					</label>
+            <label htmlFor="title" className={styles.label}>
+              Title <b>*</b>
+            </label>
             <input
               type="text"
               name="title"
@@ -186,7 +185,7 @@ const FormCreate = () => {
               }`}
             />
             <span className={styles.tooltiptext}>
-            &#128680; At least 3 characters long
+              &#128680; At least 3 characters long
             </span>
             {error.title && (
               <span
@@ -199,11 +198,9 @@ const FormCreate = () => {
           </div>
 
           <div className={styles.input__group}>
-          <label
-						htmlFor="description"
-						className={styles.label}>
-						Description <b>*</b>
-					</label>
+            <label htmlFor="description" className={styles.label}>
+              Description <b>*</b>
+            </label>
             <textarea
               name="description"
               id="description"
@@ -215,7 +212,7 @@ const FormCreate = () => {
               }`}
             />
             <span className={styles.tooltiptext}>
-            &#128680; At least 5 characters long
+              &#128680; At least 5 characters long
             </span>
             {error.description && (
               <span
@@ -227,11 +224,9 @@ const FormCreate = () => {
             )}
           </div>
           <div className={styles.input__group}>
-          <label
-						htmlFor="price"
-						className={styles.label}>
-						Price <b>*</b>
-					</label>
+            <label htmlFor="price" className={styles.label}>
+              Price <b>*</b>
+            </label>
             <input
               type="number"
               id="price"
@@ -244,7 +239,7 @@ const FormCreate = () => {
               }`}
             />
             <span className={styles.tooltiptext}>
-            &#128680; Price must be a valid positive number
+              &#128680; Price must be a valid positive number
             </span>
             {error.price && (
               <span
@@ -256,11 +251,9 @@ const FormCreate = () => {
             )}
           </div>
           <div className={styles.input__group}>
-          <label
-						htmlFor="category"
-						className={styles.label}>
-						Category <b>*</b>
-					</label>
+            <label htmlFor="category" className={styles.label}>
+              Category <b>*</b>
+            </label>
             <select
               name="category"
               id="category"
@@ -281,7 +274,7 @@ const FormCreate = () => {
               ))}
             </select>
             <span className={styles.tooltiptext}>
-            &#128680; Please select a category
+              &#128680; Please select a category
             </span>
             {error.category && (
               <span
@@ -293,11 +286,9 @@ const FormCreate = () => {
             )}
           </div>
           <div className={styles.input__group}>
-          <label
-						htmlFor="author"
-						className={styles.label}>
-						Author <b>*</b>
-					</label>
+            <label htmlFor="author" className={styles.label}>
+              Author <b>*</b>
+            </label>
             <input
               type="text"
               name="author"
@@ -310,7 +301,7 @@ const FormCreate = () => {
               }`}
             />
             <span className={styles.tooltiptext}>
-            &#128680; At least 3 characters long
+              &#128680; At least 3 characters long
             </span>
             {error.author && (
               <span
@@ -322,11 +313,9 @@ const FormCreate = () => {
             )}
           </div>
           <div className={styles.input__group}>
-          <label
-						htmlFor="stock"
-						className={styles.label}>
-						Stock <b>*</b>
-					</label>
+            <label htmlFor="stock" className={styles.label}>
+              Stock <b>*</b>
+            </label>
             <input
               type="number"
               name="stock"
@@ -339,7 +328,7 @@ const FormCreate = () => {
               }`}
             />
             <span className={styles.tooltiptext}>
-            &#128680; Stock must be a valid non-negative number
+              &#128680; Stock must be a valid non-negative number
             </span>
             {error.stock && (
               <span
@@ -351,11 +340,9 @@ const FormCreate = () => {
             )}
           </div>
           <div className={styles.input__group}>
-          <label
-						htmlFor="publisher"
-						className={styles.label}>
-						Publisher <b>*</b>
-					</label>
+            <label htmlFor="publisher" className={styles.label}>
+              Publisher <b>*</b>
+            </label>
             <select
               name="publisher"
               id="publisher"
@@ -376,7 +363,7 @@ const FormCreate = () => {
               ))}
             </select>
             <span className={styles.tooltiptext}>
-            &#128680; Please select a publisher
+              &#128680; Please select a publisher
             </span>
             {error.publisher && (
               <span
@@ -435,6 +422,10 @@ const FormCreate = () => {
             style: {
               border: "2px solid #000000",
               fontFamily: "Rubik, sans-serif",
+              backgroundImage: `url(${imageAlert})`,
+              backgroundSize: "cover",
+              backgroundPosition: "right",
+              backgroundRepeat: "no-repeat",
             },
           }}
         />
