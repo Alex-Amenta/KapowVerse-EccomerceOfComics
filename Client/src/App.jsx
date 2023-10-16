@@ -9,10 +9,18 @@ import FormCreate from "./components/formCreate/FormCreate"
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
-import Logout from "./components/logout/Logout";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { logUserByLocalStorage } from "./redux/features/userSlice";
 
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
+    }
+  }, []);
   const location = useLocation();
   return (
     <>
@@ -27,7 +35,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/logout" element={<Logout />} />
       </Routes>
     </>
   );

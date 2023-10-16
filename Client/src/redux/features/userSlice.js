@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const URL = 'http://localhost:3001/user';
+const URL = 'http://localhost:3000/user';
 
 const initialState = {
     loading: false,
@@ -34,10 +34,29 @@ export const loginUser = createAsyncThunk(
             const { data } = await axios.post(`${URL}/login`, user);
             return data;
         } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data.message);
+            }
             return rejectWithValue(error.message);
         }
     }
 );
+
+export const logoutUser = createAsyncThunk(
+    'user/logoutUser',
+    async (_, { rejectWithValue }) => {
+            return rejectWithValue('');
+    }
+);
+
+export const logUserByLocalStorage = createAsyncThunk(
+    'user/logUserByLocalStorage',
+    async (data, ) => {
+        return data;
+    }
+);
+
+
 
 
 export const fetchUsers = createAsyncThunk(
@@ -174,6 +193,37 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.error;
         });
+
+        builder.addCase(logoutUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(logoutUser.fulfilled, (state) => {
+            state.loading = false;
+            state.logState = false;
+            state.user = {};
+            state.error = '';
+        });
+        builder.addCase(logoutUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+        builder.addCase(logUserByLocalStorage.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(logUserByLocalStorage.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(logUserByLocalStorage.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
 
     },
 });

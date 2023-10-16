@@ -6,11 +6,14 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/features/userSlice";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const logState = useSelector((state) => state.user.logState);
-
+  const dispatch = useDispatch();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -54,7 +57,11 @@ const Navbar = () => {
 							Profile
 						</Link>
 						<Link
-							to="/logout"
+							onClick={() => {
+                localStorage.removeItem("token");
+                dispatch(logoutUser());
+                window.location.href = "/";
+              }}
 							className={styles.link}>
 							Logout
 						</Link>

@@ -34,9 +34,9 @@ const getUserByIdHandler = async (req, res) => {
 };
 
 const postUserHandler = async (req, res) => {
-	const { name, email, password } = req.body;
+	const { name, email, password, image } = req.body;
 	try {
-		const user = await postUser(name, email, password);
+		const user = await postUser(name, email, password, image);
 		res.status(201).json(user);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -69,10 +69,14 @@ const loginUserHandler = async (req, res) => {
 	const { email, password } = req.body;
 	try {
 		const user = await getUserByEmail(email);
-		if (user[0].dataValues.password === password) {
-			res.status(200).json(user[0]);
+		if (user[0]) {
+			if (user[0].dataValues.password === password) {
+				res.status(200).json(user);
+			} else {
+				res.status(401).json({ message: "Invalid credentials" });
+			}
 		} else {
-			res.status(401).json({ message: "Invalid credentials" });
+			res.status(401).json({ message: "User does not exist." });
 		}
 	} catch (error) {
 		res.status(500).json({ message: error.message });

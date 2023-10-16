@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: 'Bangers', sans-serif;
+}
+
+.container h2 {
+    font-size: 4rem;
+    text-align: center;
+    color: #9f2d1c;
+    font-family: "Bangers", sans-serif;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px black;
+  }
+  
+  .container hr {
+    width: 90%;
+  }
+
+  .profileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    width: 100%;
+    height: 100%;
+    gap: 5%;
+    
+  }
+
+  .profileImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5%;
+    width: 150px;
+    height: 150px;
+    background-color: #f5f5f5;
+    border-radius: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  }
+
+  .profileImage{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+  }
+
+  .profileInfoContainer{
+    display: flex;
+    padding: 20px 20px;
+    flex-direction: column;
+    width: 80vh;
+    margin-bottom: 5%;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  }
