@@ -9,7 +9,36 @@ const initialState = {
     allUsersCopy: [],
     filteredUsers: [],
     error: '',
+    logState: false,
+    user: {},
+    pending: false,
+
 };
+
+export const registerUser = createAsyncThunk(
+    'user/registerUser',
+    async (user, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(`${URL}/register`, user);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (user, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(`${URL}/login`, user);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 
 export const fetchUsers = createAsyncThunk(
     'user/fetchUsers',
@@ -64,6 +93,8 @@ const userSlice = createSlice({
     initialState,
     reducers: {
 
+
+
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsers.pending, (state) => {
@@ -112,6 +143,38 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.error;
         });
+
+        builder.addCase(loginUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        }
+        );
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(loginUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+        builder.addCase(registerUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(registerUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(registerUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
     },
 });
 

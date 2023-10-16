@@ -1,13 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import logoOficial from "../../assets/logo-navbar.png";
 import Searchbar from "../../components/searchbar/Searchbar";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const logState = useSelector((state) => state.user.logState);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -44,6 +46,33 @@ const Navbar = () => {
         <Link to="/create" className={styles.link}>
           Create
         </Link>
+        {logState ? (
+					<>
+						<Link
+							to="/profile"
+							className={styles.link}>
+							Profile
+						</Link>
+						<Link
+							to="/logout"
+							className={styles.link}>
+							Logout
+						</Link>
+					</>
+				) : (
+					<>
+						<Link
+							to="/signup"
+							className={styles.link}>
+							Sign Up
+						</Link>
+						<Link
+							to="/login"
+							className={styles.link}>
+							Login
+						</Link>
+					</>
+				)}
       </div>
     </nav>
   );
