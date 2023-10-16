@@ -12,6 +12,8 @@
   cursor: pointer;
   border-radius: 15px;
   padding-left: 10px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
 }
 
 .filtersContainer {
@@ -28,7 +30,7 @@
 }
 
 .textContainer {
-  font-size: 4rem;
+  font-size: 3.5rem;
   width: 100%;
   color: #9f2d1c;
   letter-spacing: 6px;

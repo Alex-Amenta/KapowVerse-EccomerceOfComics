@@ -3,6 +3,7 @@ import { searchComics } from "../../redux/features/comicSlice";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Searchbar.module.css";
 import { Toaster, toast } from "react-hot-toast";
+import imageAlert from '../../assets/murcielagos.png'
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
 const Searchbar = () => {
@@ -56,7 +57,12 @@ const Searchbar = () => {
         toastOptions={{
           style: {
             border: "2px solid #000000",
+            fontWeight: "bold",
             fontFamily: "Rubik, sans-serif",
+            backgroundImage: `url(${imageAlert})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
           },
         }}
       />
