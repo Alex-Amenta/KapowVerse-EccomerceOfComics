@@ -22,7 +22,6 @@ function LandingPage() {
         </div>
 
         <div className={styles.buttons}>
-          <Link className={styles.link}>Sign In</Link>
           <Link to="/app/home" className={styles.link}>
             Explore Catalog
           </Link>

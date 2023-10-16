@@ -52,7 +52,7 @@ const Navbar = () => {
         {logState ? (
 					<>
 						<Link
-							to="/profile"
+							to="/app/profile"
 							className={styles.link}>
 							Profile
 						</Link>
@@ -69,12 +69,12 @@ const Navbar = () => {
 				) : (
 					<>
 						<Link
-							to="/signup"
+							to="/app/signup"
 							className={styles.link}>
 							Sign Up
 						</Link>
 						<Link
-							to="/login"
+							to="/app/login"
 							className={styles.link}>
 							Login
 						</Link>
