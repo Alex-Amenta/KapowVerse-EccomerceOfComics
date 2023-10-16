@@ -1,11 +1,13 @@
 /* eslint-disable no-irregular-whitespace */
 import styles from "./Login.module.css";
-import axios from "axios";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/features/userSlice";
 
 function Login() {
+	const logState = useSelector((state) => state.user.logState);
+	if (logState) window.location.href = "/home";
+
 	const [data, setData] = useState({
 		email: "",
 		password: "",
@@ -19,22 +21,41 @@ function Login() {
 		if (res) setRes("");
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (res) setRes("");
+		if (data.email.length < 3) {
+			setRes("Email must be at least 3 characters long");
+			return;
+		} else if (!data.email.includes("@")) {
+			setRes("Email must be valid");
+			return;
+		}
+		if (data.password.length < 3) {
+			setRes("Password must be at least 3 characters long");
+			return;
+		}
+		if (!data.password.match(/[0-9]/g)) {
+			setRes("Password must contain at least one number");
+			return;
+		}
+		if (!data.password.match(/[A-Z]/g)) {
+			setRes("Password must contain at least one uppercase");
+			return;
+		}
 		setRes("Loading...");
-		try {
-			const res = await axios.post("http://localhost:3000/user/login", data);
-			console.log(res.data);
-			dispatch({ type: "LOGIN", payload: res.data });
-			<Navigate
-				to="/app/home"
-				replace={true}
-			/>;
-		} catch (err) {
-			console.log(err);
+			dispatch(loginUser(data)).then((res) => {
+				if (res.error) {
+					setRes(res.payload);
+					return;
+				}
+				setRes("Success");
+				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+				window.location.href = "/home";
+			}).catch((err) => {
 			if (err.response && err.response.data) setRes(err.response.data.message);
 			else setRes("Error in server");
-		}
+		});
 	};
 
 	return (

@@ -1,13 +1,13 @@
 /* eslint-disable no-irregular-whitespace */
 import { useState } from "react";
-import axios from "axios";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { registerUser, loginUser } from "../../redux/features/userSlice";
+import { registerUser } from "../../redux/features/userSlice";
 
 function SignUp() {
-	// const user = useSelector((state) => state.user);
+	const logState = useSelector((state) => state.user.logState);
+	if (logState) window.location.href = "/home";
+
 	const dispatch = useDispatch();
 	const [data, setData] = useState({
 		name: "",
@@ -76,58 +76,26 @@ function SignUp() {
 		}
 
 		setError({ ...errores });
-		console.log(error);
 		if (err) return;
 		// ############### FIN DE VALIDACIONES ###############
 		setRes("Creating user...");
 		// ############### POSTEO ###############
-		dispatch(registerUser(data)).then((res) => {
+		dispatch(registerUser(data))
+			.then((res) => {
+				if (res.error) {
+					setRes("Error creating user");
+					return;
+				}
+				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+				setRes("User created successfully!");
+			})
+			.catch((err) => {
+				if (err.response && err.response.data)
+					setRes(err.response.data.message);
+				else setRes("Error in server");
+			});
 
-			console.log("res")
-			console.log(res);
-			// dispatch(loginUser(data));
-			if (res.error) {
-				setRes("Error creating user");
-				return;
-			}
-			setRes("User created successfully!");
-		}).catch((err) => {
-			console.log("err")
-			console.log(err);
-		});
-
-		
-		
-		// setData({
-		// 	name: "",
-		// 	email: "",
-		// 	password: "",
-		// 	image: "",
-		// });
-
-
-		// axios
-		// 	.post("http://localhost:3000/user/", data)
-		// 	.then((res) => {
-		// 		if (res.statusText == "Created") {
-		// 			setRes("User created successfully!");
-		// 			setData({
-		// 				name: "",
-		// 				email: "",
-		// 				password: "",
-		// 				image: "",
-		// 			});
-		// 			console.log(res);
-		// 			console.log(res.statusText);
-		// 		}
-
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 		if (err.response && err.response.data.message.includes("email"))
-		// 			setRes("Email already in use");
-		// 		else setRes("Error creating user");
-		// 	});
+		// ############### FIN DE POSTEO ###############
 	};
 
 	return (
