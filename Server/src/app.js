@@ -1,8 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const mainRouter = require('./routes/mainRouter');
 const cors = require('cors');
-require('dotenv').config();
 
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;

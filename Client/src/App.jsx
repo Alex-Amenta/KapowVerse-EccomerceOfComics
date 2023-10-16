@@ -6,6 +6,11 @@ import Navbar from "./components/navbar/Navbar";
 import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
 import FormCreate from "./components/formCreate/FormCreate"
+import Login from "./components/login/Login";
+import SignUp from "./components/signUp/SignUp";
+import Profile from "./components/profile/Profile";
+import Logout from "./components/logout/Logout";
+
 
 function App() {
   const location = useLocation();
@@ -19,6 +24,10 @@ function App() {
         <Route path="/mangas" element={<MangasSection />} />
         <Route path="/comics" element={<ComicsSection />} />
         <Route path="/create" element={<FormCreate />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </>
   );
