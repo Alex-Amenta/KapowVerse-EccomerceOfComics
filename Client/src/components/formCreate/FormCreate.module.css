@@ -55,6 +55,7 @@
 }
 
 .formulario textarea {
+  width: 230px;
   max-width: 232px;
   max-height: 140px;
   border: 1px solid black;
@@ -96,10 +97,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
-.imagePreviewContainer image {
-  max-width: 100%;
+.imagePreviewContainer img {
+  max-width: 512px;
+  max-height: 512px;
   height: auto;
 }
 
@@ -213,7 +216,7 @@ label {
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  right: 0;
+  right: 15%;
   top: 20px;
   margin-left: -60px;
 
