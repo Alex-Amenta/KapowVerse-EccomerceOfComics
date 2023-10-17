@@ -8,6 +8,77 @@
   font-family: "Rubik", sans-serif;
 }
 
+.buttonBack button{
+  margin: 1rem 0 0 4rem;
+  background: transparent;
+  color: #000;
+}
+
+.buttonBack button:hover {
+  color: gray;
+}
+
+.relatedsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 8rem;
+  font-family: "Bangers", sans-serif;
+  margin: 5rem 0;
+}
+
+.relatedsContainer h2 {
+  text-align: center;
+  font-size: 3.5rem;
+  margin-bottom: 5rem;
+  width: 100%;
+  color: #9f2d1c;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.comicsRelated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  display: flex;
+  height: 280px;
+  width: 200px;
+  background-color: #17141d;
+  border-radius: 10px;
+  box-shadow: -1rem 1rem 3rem #000;
+  transition: 0.4s ease-out;
+  margin-bottom: 6rem;
+  position: relative;
+  left: 0px;
+}
+
+.card:not(:first-child) {
+  margin-left: -50px;
+}
+
+.card:hover {
+  transform: translateY(-30px);
+  transition: 0.4s ease-out;
+}
+
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
+
+.comicsRelated img {
+  height: 22rem;
+  width: 17rem;
+  cursor: pointer;
+}
+
 .imageContainer img {
   width: 25rem;
   height: 35rem;

@@ -61,7 +61,7 @@ const Searchbar = () => {
         placeholder="Search for title..."
       />
 
-      <SearchClose className={style.btn} onClick={handleReset} />
+      {title.length > 0 && <SearchClose className={style.btn} onClick={handleReset} />}
       <SavedSearchIcon className={style.btn} onClick={handleSubmit} />
       <Toaster
         toastOptions={{
