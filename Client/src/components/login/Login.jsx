@@ -51,7 +51,7 @@ function Login() {
 				}
 				setRes("Success");
 				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
-				window.location.href = "/app/home";
+				window.location.href = "/PF-Comics/#/app/home";
 			}).catch((err) => {
 			if (err.response && err.response.data) setRes(err.response.data.message);
 			else setRes("Error in server");

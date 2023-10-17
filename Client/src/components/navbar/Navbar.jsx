@@ -60,7 +60,7 @@ const Navbar = () => {
 							onClick={() => {
                 localStorage.removeItem("token");
                 dispatch(logoutUser());
-                window.location.href = "/app/";
+                window.location.href = "/PF-Comics/#/app/home";
               }}
 							className={styles.link}>
 							Logout
