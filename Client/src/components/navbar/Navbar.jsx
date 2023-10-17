@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <nav className={styles.container}>
       <div className={styles.imgContainer}>
-        <Link to="/app/home" className={styles.link}>
+        <Link to="/home" className={styles.link}>
           <img src={logoOficial} alt="Logo de KapowVerse" />
         </Link>
       </div>
@@ -38,22 +38,22 @@ const Navbar = () => {
             <CloseIcon className={styles.closeButton} fontSize="large"/>
           </button>
         )}
-        <Link to="/app/home" className={styles.link}>
+        <Link to="/home" className={styles.link}>
           Home
         </Link>
-        <Link to="/app/comics" className={styles.link}>
+        <Link to="/comics" className={styles.link}>
           Comics
         </Link>
-        <Link to="/app/mangas" className={styles.link}>
+        <Link to="/mangas" className={styles.link}>
           Mangas
         </Link>
-        <Link to="/app/create" className={styles.link}>
+        <Link to="/create" className={styles.link}>
         Create
         </Link>
         {logState ? (
 					<>
 						<Link
-							to="/app/profile"
+							to="/profile"
 							className={styles.link}>
 							Profile
 						</Link>
@@ -62,9 +62,8 @@ const Navbar = () => {
                 localStorage.removeItem("token");
                 dispatch(logoutUser());
                 window.alert("You have been logged out")
-                location.reload()
+                window.location.href = "/home";
               }}
-              to="/"
 							className={styles.link}>
 							Logout
 						</Link>
@@ -72,12 +71,12 @@ const Navbar = () => {
 				) : (
 					<>
 						<Link
-							to="/app/signup"
+							to="/signup"
 							className={styles.link}>
 							Sign Up
 						</Link>
 						<Link
-							to="/app/login"
+							to="/login"
 							className={styles.link}>
 							Login
 						</Link>

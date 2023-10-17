@@ -6,7 +6,7 @@ import { registerUser } from "../../redux/features/userSlice";
 
 function SignUp() {
 	const logState = useSelector((state) => state.user.logState);
-	if (logState) window.location.href = "/PF-Comics/#/app/home";
+	if (logState) window.location.href = "/home";
 
 	const dispatch = useDispatch();
 	const [data, setData] = useState({

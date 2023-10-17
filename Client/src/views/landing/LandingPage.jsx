@@ -22,7 +22,7 @@ function LandingPage() {
         </div>
 
         <div className={styles.buttons}>
-          <Link to="/app/home" className={styles.link}>
+          <Link to="/home" className={styles.link}>
             Explore Catalog
           </Link>
         </div>

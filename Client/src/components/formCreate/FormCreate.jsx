@@ -65,7 +65,6 @@ const FormCreate = () => {
 	};
 
 	const handleImageChange = (e) => {
-		console.log(e.target)
 		const file = e.target.files[0];
 		setFormData({
 			...formData,
