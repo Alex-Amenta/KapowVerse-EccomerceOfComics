@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  comicSort,
-  filterByCategory,
-  filterByPublisher,
+  filterAndSort,
   resetFilters,
 } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
@@ -34,19 +32,19 @@ const Filters = ({
 
   const handleSort = (event) => {
     setInput({ ...input, sort: event.target.value });
-    dispatch(comicSort(event.target.value));
+    dispatch(filterAndSort({sortBy: event.target.value, category:input.category, publisher:input.publisher}));
     onFilterChange();
   };
 
   const handleCategory = (event) => {
     setInput({ ...input, category: event.target.value });
-    dispatch(filterByCategory(event.target.value));
+    dispatch(filterAndSort({category: event.target.value, sortBy:input.sort, publisher:input.publisher}));
     onFilterChange();
   };
 
   const handlePublisher = (event) => {
     setInput({ ...input, publisher: event.target.value });
-    dispatch(filterByPublisher(event.target.value));
+    dispatch(filterAndSort({publisher: event.target.value, sortBy:input.sort, category:input.category}));
     onFilterChange();
   };
 
@@ -127,11 +125,6 @@ const Filters = ({
           Reset Filters
         </button>
       </div>
-      {noCategoryComics && (
-        <div className={styles.noComicsMessage}>
-          There are no comics with this category...
-        </div>
-      )}
     </section>
   );
 };
