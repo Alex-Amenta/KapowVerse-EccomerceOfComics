@@ -140,6 +140,9 @@ const FormCreate = () => {
 
 		if (hasError) {
 			setError(newErrors);
+			toast.error('You must complete the required fields!', {
+				position: "bottom-center"
+			})
 		} else {
 			try {
 				const formDataToSend = new FormData();

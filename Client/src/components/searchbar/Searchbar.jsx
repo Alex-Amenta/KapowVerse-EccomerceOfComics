@@ -3,12 +3,12 @@ import { searchComics } from "../../redux/features/comicSlice";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Searchbar.module.css";
 import { Toaster, toast } from "react-hot-toast";
-import imageAlert from '../../assets/murcielagos.png'
+import imageAlert from "../../assets/murcielagos.png";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
 const Searchbar = () => {
   const [title, setTitle] = useState("");
-  const allComics = useSelector((state) => state.comic.allComics);
+  const comicsCopy = useSelector((state) => state.comic.comicsCopy);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -18,7 +18,7 @@ const Searchbar = () => {
       });
     }
 
-    const foundComic = allComics.find((comic) =>
+    const foundComic = comicsCopy.find((comic) =>
       comic.title.toLowerCase().includes(title.toLowerCase())
     );
 
@@ -60,9 +60,9 @@ const Searchbar = () => {
             fontWeight: "bold",
             fontFamily: "Rubik, sans-serif",
             backgroundImage: `url(${imageAlert})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'right',
-            backgroundRepeat: 'no-repeat',
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+            backgroundRepeat: "no-repeat",
           },
         }}
       />
