@@ -138,7 +138,6 @@ const comicSlice = createSlice({
     builder.addCase(searchComics.fulfilled, (state, action) => {
       state.loading = false;
       state.allComics = action.payload;
-      state.comicsCopy = action.payload;
       state.error = "";
     });
     builder.addCase(searchComics.rejected, (state, action) => {

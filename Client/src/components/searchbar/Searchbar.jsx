@@ -16,12 +16,7 @@ const Searchbar = () => {
         position: "top-center",
         id: 'toastId',
       });
-
       }
-      // TODO el if de arriba no tiene return, entonces hace lo de abajo igual.
-      // no se puede limpiar el filtro de busqueda sin que salga el error de arriba
-
-      // TODO hacer que se reseteen los filtros cuando se hace una busqueda
 
     const foundComic = comicsCopy.find((comic) =>
       comic.title.toLowerCase().includes(title.toLowerCase())
