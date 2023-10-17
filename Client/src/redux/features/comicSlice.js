@@ -112,6 +112,9 @@ const comicSlice = createSlice({
         }
         state.allComics = comics;
       },
+      resetSearch: (state) => {
+        state.allComics = state.comicsCopy;
+      },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchComics.pending, (state) => {
@@ -181,6 +184,6 @@ const comicSlice = createSlice({
   },
 });
 
-export const { resetFilters, filterAndSort  } = comicSlice.actions
+export const { resetFilters, filterAndSort, resetSearch  } = comicSlice.actions
 
 export default comicSlice.reducer;
