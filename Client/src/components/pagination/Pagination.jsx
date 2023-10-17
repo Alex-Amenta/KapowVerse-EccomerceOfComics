@@ -4,6 +4,7 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+  if (totalPages === 1 || totalPages === 0) return null;
   return (
     <div className={styles.container}>
       {currentPage !== 1 && (

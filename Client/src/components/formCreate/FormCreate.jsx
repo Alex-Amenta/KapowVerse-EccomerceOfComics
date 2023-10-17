@@ -6,15 +6,16 @@ import { createComic } from "../../redux/features/comicSlice";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import imageAlert from "../../assets/murcielagos.png";
+import base_url from "../../utils/development";
 
 const initialFormData = {
 	title: "",
 	description: "",
-	price: "",
+	price: 0,
 	category: "",
 	author: "",
 	image: "",
-	stock: "",
+	stock: 0,
 	publisher: "",
 };
 
@@ -152,7 +153,7 @@ const FormCreate = () => {
 				formDataToSend.append("stock", formData.stock);
 				formDataToSend.append("publisher", formData.publisher);
 
-				await axios.post("http://localhost:3001/comic", formDataToSend);
+				await axios.post(`${base_url}/comic`, formDataToSend);
 				toast.success("Comic created successfully!", {
 					position: "bottom-center",
 				});

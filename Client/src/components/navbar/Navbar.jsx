@@ -12,11 +12,12 @@ import { logoutUser } from "../../redux/features/userSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const logState = useSelector((state) => state.user.logState);
+  
   const dispatch = useDispatch();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const logState = useSelector((state) => state.user.logState);
 
   return (
     <nav className={styles.container}>
@@ -47,7 +48,7 @@ const Navbar = () => {
           Mangas
         </Link>
         <Link to="/create" className={styles.link}>
-          Create
+        Create
         </Link>
         {logState ? (
 					<>
@@ -60,7 +61,8 @@ const Navbar = () => {
 							onClick={() => {
                 localStorage.removeItem("token");
                 dispatch(logoutUser());
-                window.location.href = "/";
+                window.alert("You have been logged out")
+                window.location.href = "/home";
               }}
 							className={styles.link}>
 							Logout

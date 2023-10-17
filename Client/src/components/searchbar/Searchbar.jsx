@@ -10,13 +10,18 @@ const Searchbar = () => {
   const [title, setTitle] = useState("");
   const allComics = useSelector((state) => state.comic.allComics);
   const dispatch = useDispatch();
-
   const handleSubmit = () => {
     if (!title.length) {
-      toast.error("Please enter the title of a comic", {
+     toast.error("Please enter the title of a comic", {
         position: "top-center",
+        id: 'toastId',
       });
-    }
+
+      }
+      // TODO el if de arriba no tiene return, entonces hace lo de abajo igual.
+      // no se puede limpiar el filtro de busqueda sin que salga el error de arriba
+
+      // TODO hacer que se reseteen los filtros cuando se hace una busqueda
 
     const foundComic = allComics.find((comic) =>
       comic.title.toLowerCase().includes(title.toLowerCase())
@@ -27,6 +32,7 @@ const Searchbar = () => {
     } else {
       toast.error(`"${title}" not found, please try again`, {
         position: "top-center",
+        id: 'toastId2',
       });
     }
   };

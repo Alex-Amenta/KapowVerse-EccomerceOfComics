@@ -6,3 +6,11 @@
     gap: 3rem;
     padding: 0 6rem;
 }
+
+.container h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 3rem 0;
+    font-family: "Bangers", sans-serif;
+}

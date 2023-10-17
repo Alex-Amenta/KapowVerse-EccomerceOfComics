@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import base_url from "../../utils/development";
 
-const URL = "http://localhost:3001/comic";
+const URL = `${base_url}/comic`;
 
 const initialState = {
   loading: false,
@@ -87,42 +88,30 @@ const comicSlice = createSlice({
     name: "comic",
     initialState,
     reducers: {
-        comicSort: (state, action) => {
-            // Lógica para ordenar comics por nombre o precio
-            let comics = [...state.allComics];
-            if (action.payload === 'asc') {
-                comics.sort((a, b) => a.title.localeCompare(b.title));
-            } else if (action.payload === 'desc') {
-                comics.sort((a, b) => b.title.localeCompare(a.title));
-            } else if (action.payload === 'precioMin') {
-                comics.sort((a, b) => a.price - b.price);
-            } else if (action.payload === 'precioMax') {
-                comics.sort((a, b) => b.price - a.price);
-            }
-            state.allComics = comics;
-        },
+      resetFilters: (state) => {
+        state.allComics = state.comicsCopy;
+      },
 
-        resetFilters: (state) => {
-            state.allComics = state.comicsCopy;
-        },
+      filterAndSort: (state, action) => {
+        let comics = [...state.comicsCopy];
+        if (action.payload.category !== '') {
+          comics = comics.filter((comic) => comic.category === action.payload.category);
+        }
+        if (action.payload.publisher !== '') {
+          comics = comics.filter((comic) => comic.publisher === action.payload.publisher);
+        }
 
-        filterByCategory: (state, action) => {
-            let comics = [...state.comicsCopy];
-            let allComicsCopy = [...state.comicsCopy];
-            comics = comics.filter((comic) => comic.category === action.payload);
-
-            state.allComics = action.payload === '' ? 
-            allComicsCopy : comics 
-        },
-
-        filterByPublisher: (state, action) => {
-            let comics = [...state.comicsCopy];
-            let allComicsCopy = [...state.comicsCopy];
-            comics = comics.filter((comic) => comic.publisher === action.payload);
-
-            state.allComics = action.payload === '' ? 
-            allComicsCopy : comics 
-        },
+        if (action.payload.sortBy === 'asc') {
+          comics.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (action.payload.sortBy === 'desc') {
+          comics.sort((a, b) => b.title.localeCompare(a.title));
+        } else if (action.payload.sortBy === 'precioMin') {
+          comics.sort((a, b) => a.price - b.price);
+        } else if (action.payload.sortBy === 'precioMax') {
+          comics.sort((a, b) => b.price - a.price);
+        }
+        state.allComics = comics;
+      },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchComics.pending, (state) => {
@@ -149,6 +138,7 @@ const comicSlice = createSlice({
     builder.addCase(searchComics.fulfilled, (state, action) => {
       state.loading = false;
       state.allComics = action.payload;
+      state.comicsCopy = action.payload;
       state.error = "";
     });
     builder.addCase(searchComics.rejected, (state, action) => {
@@ -192,6 +182,6 @@ const comicSlice = createSlice({
   },
 });
 
-export const { filterByCategory, filterByPublisher, comicSort, resetFilters,  } = comicSlice.actions
+export const { resetFilters, filterAndSort  } = comicSlice.actions
 
 export default comicSlice.reducer;

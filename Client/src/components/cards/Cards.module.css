@@ -28,3 +28,14 @@
   box-shadow: rgba(226, 63, 63, 0.25) 0px 13px 47px -5px,
     rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
 }
+.container p {
+  margin-top: 0;
+}
+.container h3 {
+  height: 68.7px;
+  overflow: hidden;
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
