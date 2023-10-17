@@ -5,6 +5,8 @@ import style from "./Searchbar.module.css";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../assets/murcielagos.png";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
+import SearchClose from "@mui/icons-material/Close"
+import { resetSearch } from "../../redux/features/comicSlice";
 
 const Searchbar = () => {
   const [title, setTitle] = useState("");
@@ -12,11 +14,12 @@ const Searchbar = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     if (!title.length) {
-     toast.error("Please enter the title of a comic", {
+      toast.error("Please enter the title of a comic", {
         position: "top-center",
-        id: 'toastId',
+        id: "toastId",
       });
-      }
+      return;
+    }
 
     const foundComic = comicsCopy.find((comic) =>
       comic.title.toLowerCase().includes(title.toLowerCase())
@@ -27,13 +30,18 @@ const Searchbar = () => {
     } else {
       toast.error(`"${title}" not found, please try again`, {
         position: "top-center",
-        id: 'toastId2',
+        id: "toastId2",
       });
     }
   };
 
   const handleInputChange = (e) => {
     setTitle(e.target.value);
+  };
+
+  const handleReset = () => {
+    setTitle("");
+    dispatch(resetSearch());
   };
 
   const handleKeyPress = (e) => {
@@ -53,6 +61,7 @@ const Searchbar = () => {
         placeholder="Search for title..."
       />
 
+      <SearchClose className={style.btn} onClick={handleReset} />
       <SavedSearchIcon className={style.btn} onClick={handleSubmit} />
       <Toaster
         toastOptions={{
