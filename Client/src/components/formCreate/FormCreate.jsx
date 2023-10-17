@@ -10,11 +10,11 @@ import imageAlert from "../../assets/murcielagos.png";
 const initialFormData = {
 	title: "",
 	description: "",
-	price: "",
+	price: 0,
 	category: "",
 	author: "",
 	image: "",
-	stock: "",
+	stock: 0,
 	publisher: "",
 };
 
@@ -142,17 +142,17 @@ const FormCreate = () => {
 			setError(newErrors);
 		} else {
 			try {
-				const formDataToSend = new FormData();
-				formDataToSend.append("title", formData.title);
-				formDataToSend.append("description", formData.description);
-				formDataToSend.append("price", formData.price);
-				formDataToSend.append("category", formData.category);
-				formDataToSend.append("author", formData.author);
-				formDataToSend.append("image", formData.image);
-				formDataToSend.append("stock", formData.stock);
-				formDataToSend.append("publisher", formData.publisher);
+				// const formDataToSend = new FormData();
+				// formDataToSend.append("title", formData.title);
+				// formDataToSend.append("description", formData.description);
+				// formDataToSend.append("price", formData.price);
+				// formDataToSend.append("category", formData.category);
+				// formDataToSend.append("author", formData.author);
+				// formDataToSend.append("image", formData.image);
+				// formDataToSend.append("stock", formData.stock);
+				// formDataToSend.append("publisher", formData.publisher);
 
-				await axios.post("https://backend-proyecto-final-soyhenry.onrender.com/comic/", formDataToSend);
+				await axios.post("https://backend-proyecto-final-soyhenry.onrender.com/comic/", formData);
 				toast.success("Comic created successfully!", {
 					position: "bottom-center",
 				});
