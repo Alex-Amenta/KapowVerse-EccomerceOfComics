@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const URL = "http://localhost:3000/comic";
+const URL = "http://localhost:3001/comic";
 
 const initialState = {
   loading: false,
