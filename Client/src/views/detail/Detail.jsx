@@ -1,53 +1,86 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchComicDetail } from "../../redux/features/comicSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  fetchComicDetail,
+  fetchComicsRelated,
+} from "../../redux/features/comicSlice";
 import styles from "./Detail.module.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function Detail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const comics = useSelector((state) => state.comic.comicDetails);
+  const comicsRelated = useSelector((state) => state.comic.relatedComics);
   const { id } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(fetchComicDetail(id));
+    dispatch(fetchComicsRelated(id));
   }, [dispatch, id]);
 
-  return (
-    <section className={styles.container}>
-      <div className={styles.imageContainer}>
-        <img src={comics.image} alt={`Imagen de ${comics.title}`} />
-      </div>
-      <div className={styles.content}>
-        <h1>{comics.title}</h1>
-        <h3>{comics.author}</h3>
-        <p>
-          Stock Available: <b>{comics.stock}</b>
-        </p>
-        <h3 className={styles.price}>{comics.price} $</h3>
-        <hr />
-        <div className={styles.descriptionContainer}>
-          <h4>Description:</h4>
-          <p>{comics.description}</p>
-          <p>
-            Category: <b>{comics.category}</b>
-          </p>
+  const handleGoBack = () => {
+    navigate(-1);
+  }
 
+  return (
+    <section>
+        <div className={styles.buttonBack}>
+          <button onClick={handleGoBack}>
+            <ArrowBackIcon fontSize="large"/>
+          </button>
+        </div>
+      <article className={styles.container}>
+        <div className={styles.imageContainer}>
+          <img src={comics.image} alt={`Imagen de ${comics.title}`} />
+        </div>
+        <div className={styles.content}>
+          <h1>{comics.title}</h1>
+          <h3>{comics.author}</h3>
           <p>
-            Publisher: <b>{comics.publisher}</b>
+            Stock Available: <b>{comics.stock}</b>
           </p>
+          <h3 className={styles.price}>{comics.price} $</h3>
+          <hr />
+          <div className={styles.descriptionContainer}>
+            <h4>Description:</h4>
+            <p>{comics.description}</p>
+            <p>
+              Category: <b>{comics.category}</b>
+            </p>
+
+            <p>
+              Publisher: <b>{comics.publisher}</b>
+            </p>
+          </div>
+          <div className={styles.containerButtons}>
+            <button>
+              Add to Cart <AddShoppingCartIcon className={styles.icons} />
+            </button>
+            <button>
+              Add to Favorites{" "}
+              <StarIcon color="secondary" className={styles.icons} />
+            </button>
+          </div>
         </div>
-        <div className={styles.containerButtons}>
-          <button>
-            Add to Cart <AddShoppingCartIcon className={styles.icons} />
-          </button>
-          <button>
-            Add to Favorites <StarIcon color="secondary" className={styles.icons} />
-          </button>
+      </article>
+      <article className={styles.relatedsContainer}>
+        {/* Carrusel de cómics relacionados */}
+        <h2>Related Comics</h2>
+        <div className={styles.comicsRelated}>
+          {comicsRelated.map((relatedComic) => (
+            <div className={styles.card}>
+              <Link to={`/comic/${relatedComic.id}`}>
+                <img src={relatedComic.image} alt={relatedComic.title} title={relatedComic.title}/>
+              </Link>
+            </div>
+          ))}
         </div>
-      </div>
+      </article>
     </section>
   );
 }

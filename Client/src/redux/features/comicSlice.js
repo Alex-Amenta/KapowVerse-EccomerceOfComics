@@ -9,6 +9,7 @@ const initialState = {
   allComics: [],
   comicsCopy: [],
   comicDetails: [],
+  relatedComics: [],
   error: "",
 };
 
@@ -53,6 +54,18 @@ export const fetchComicDetail = createAsyncThunk(
   async (comicId, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`${URL}/${comicId}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchComicsRelated = createAsyncThunk(
+  "comics/fetchComicsRelated",
+  async (comicId, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${URL}/${comicId}/related`);
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -157,6 +170,19 @@ const comicSlice = createSlice({
       state.error = "";
     });
     builder.addCase(fetchComicDetail.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.error;
+    });
+
+    builder.addCase(fetchComicsRelated.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchComicsRelated.fulfilled, (state, action) => {
+      state.loading = false;
+      state.relatedComics = action.payload;
+      state.error = "";
+    });
+    builder.addCase(fetchComicsRelated.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.error;
     });

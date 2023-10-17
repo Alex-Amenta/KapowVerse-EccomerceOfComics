@@ -13,7 +13,6 @@ function Home() {
   const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
   useEffect(() => {
-    dispatch(fetchComics());
     if (localStorage.getItem("token")) {
       dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
     }

@@ -12,11 +12,13 @@ import Profile from "./components/profile/Profile";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logUserByLocalStorage } from "./redux/features/userSlice";
+import { fetchComics } from "./redux/features/comicSlice";
 
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(fetchComics());
     if (localStorage.getItem("token")) {
       dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
     }
