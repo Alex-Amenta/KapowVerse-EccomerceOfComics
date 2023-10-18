@@ -38,6 +38,11 @@ function Reviews({ comicId }) {
   };
 
   const handleCreateReview = () => {
+    if (!user) {
+      toast.error("You must log in to create a review.", {position:"bottom-center"});
+      return;
+    }
+
     if (newRating >= 1 && newRating <= 5) {
       // Verificar si el usuario ya ha creado una review de este cómic
       const hasReviewed = reviews.some((review) => review.user?.id === userId);
