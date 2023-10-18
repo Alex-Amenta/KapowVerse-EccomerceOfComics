@@ -11,7 +11,7 @@ const initialState = {
     filteredUsers: [],
     error: '',
     logState: false,
-    user: {},
+    user: null,
     pending: false,
 
 };
@@ -202,7 +202,7 @@ const userSlice = createSlice({
         builder.addCase(logoutUser.fulfilled, (state) => {
             state.loading = false;
             state.logState = false;
-            state.user = {};
+            state.user = null;
             state.error = '';
         });
         builder.addCase(logoutUser.rejected, (state, action) => {
