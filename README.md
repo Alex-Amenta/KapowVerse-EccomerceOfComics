@@ -1,6 +1,10 @@
 <h1 align="center">KapowVerse - Tu Tienda de Cómics</h1>
-¡Bienvenido a KapowVerse, tu tienda de cómics en línea!
-![inicio-kapowverse](https://github.com/Alex-Amenta/PF-Comics/assets/111576219/9ad69f31-7b74-4f1c-a1b4-c9d70e786cc6)
+<p align="center">¡Bienvenido a KapowVerse, tu tienda de cómics en línea!</p>
+<div align="center">
+  <img width="280" src="https://media.tenor.com/w1tcc4ZW7IYAAAAC/spiderman-meme.gif"  />
+</div>
+
+###
 
 
 ## Descripción del Proyecto
