@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler } = require('../handlers/user/userHandler');
+const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler } = require('../handlers/userHandler');
 
 const verifyJWT = require('../utils/verifyJwt');
 

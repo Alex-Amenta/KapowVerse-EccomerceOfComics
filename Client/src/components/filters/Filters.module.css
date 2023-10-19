@@ -84,3 +84,22 @@
 .buttonReset:hover::before {
   width: 100%;
 }
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonsContainer button {
+  background: transparent;
+  color: black;
+}
+
+.starIcon:hover {
+  color: rgb(181, 181, 20);
+}
+
+.cartIcon:hover {
+  color: gray;
+}
