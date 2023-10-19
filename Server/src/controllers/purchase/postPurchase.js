@@ -23,9 +23,11 @@ const createPurchase = async (purchases) => {
                 continue;
             }
 
+            comic.stock -= quantity;
+            await comic.save();
+            
             const total = comic.price * quantity;
 
-            comic.stock -= quantity;
 
             const purchase = await Purchase.create({
                 comicId,
@@ -37,7 +39,7 @@ const createPurchase = async (purchases) => {
             await purchase.setUser(user);
             await purchase.setComic(comic);
 
-            await comic.save();
+            // await comic.save();
 
             results.push({
                 purchase: purchase,
