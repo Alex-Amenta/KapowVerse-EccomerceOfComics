@@ -8,7 +8,8 @@ import {
 import styles from "./Detail.module.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Reviews from "../reviews/Reviews";
 
 function Detail() {
   const dispatch = useDispatch();
@@ -25,15 +26,15 @@ function Detail() {
 
   const handleGoBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <section>
-        <div className={styles.buttonBack}>
-          <button onClick={handleGoBack}>
-            <ArrowBackIcon fontSize="large"/>
-          </button>
-        </div>
+      <div className={styles.buttonBack}>
+        <button onClick={handleGoBack}>
+          <ArrowBackIcon fontSize="large" />
+        </button>
+      </div>
       <article className={styles.container}>
         <div className={styles.imageContainer}>
           <img src={comics.image} alt={`Imagen de ${comics.title}`} />
@@ -68,18 +69,27 @@ function Detail() {
           </div>
         </div>
       </article>
-      <article className={styles.relatedsContainer}>
-        {/* Carrusel de cómics relacionados */}
-        <h2>Related Comics</h2>
-        <div className={styles.comicsRelated}>
-          {comicsRelated.map((relatedComic) => (
-            <div className={styles.card}>
-              <Link to={`/comic/${relatedComic.id}`}>
-                <img src={relatedComic.image} alt={relatedComic.title} title={relatedComic.title}/>
-              </Link>
-            </div>
-          ))}
-        </div>
+      {comicsRelated.length > 0 && (
+        <article className={styles.relatedsContainer}>
+          <h2>Related Comics</h2>
+          <div className={styles.comicsRelated}>
+            {comicsRelated.map((relatedComic) => (
+              <div className={styles.card} key={relatedComic.id}>
+                <Link to={`/comic/${relatedComic.id}`}>
+                  <img
+                    src={relatedComic.image}
+                    alt={relatedComic.title}
+                    title={relatedComic.title}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </article>
+      )}
+
+      <article className={styles.reviewContainer}>
+        <Reviews comicId={comics.id}/>
       </article>
     </section>
   );

@@ -47,7 +47,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Relaciones
 
-const { Comic, User, Cart, CartItem, Purchase, Orden } = sequelize.models;
+const { Comic, User, Cart, CartItem, Purchase, Review, Orden } = sequelize.models;
 
 // // Relación User - Purchase
 // User.hasMany(Purchase);
@@ -85,8 +85,19 @@ Cart.belongsTo(User);
 Cart.hasMany(CartItem);
 CartItem.belongsTo(Cart);
 
+//Relacion Comic - Review
+Comic.hasMany(Review);
+Review.belongsTo(Comic);
 
+//Relacion User - Review
+User.hasOne(Review);
+Review.belongsTo(User);
 
+// Comic es para nuestros comics
+// User es para saber si es user o admin
+// Cart es para utilizarlo como nuestro carrito de compras
+// CartItem es para seleccionar comics y agregarlos al carrito de compras
+// Purchase es para generar la comprar y ver qué comics fueron comprados por ciertos user
 
 module.exports = {
 	...sequelize.models,
