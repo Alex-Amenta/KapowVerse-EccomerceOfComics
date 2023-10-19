@@ -1,7 +1,6 @@
 const { getCartByUserId } = require('../controllers/cart/getCartByUserId');
 const { addToCart } = require('../controllers/cart/addToCart');
-const { removeFromCart } = require('../controllers/cart/removeFromCart');
-const { deleteCart } = require('../controllers/cart/deleteCart');
+const reduceQuantity = require('../controllers/cart/reduceQuantity');
 
 const getCartByUserIdHandler = async (req, res) => {
     try {
@@ -12,49 +11,48 @@ const getCartByUserIdHandler = async (req, res) => {
         }
         return res.status(200).json({ cart, total });
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ message: 'Error Interno del Servidor' });
     }
 };
+
 const addToCartHandler = async (req, res) => {
     const { userId } = req.params;
-    const { ...itemData } = req.body;
-
+    const { comicId } = req.body;
+    console.log(userId, comicId);
     try {
-        const cartItem = await addToCart(userId, itemData);
+        const cartItem = await addToCart(userId, comicId);
+        console.log(cartItem);
         res.status(200).json({ success: true, cartItem });
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             success: false,
             error: 'No se pudo agregar el artículo al carrito.',
         });
     }
 };
-const removeFromCartHandler = async (req, res) => {
+
+const removeItemFromCartHandler = async (req, res) => {
     const { cartItemId } = req.params;
 
     try {
-        await removeFromCart(cartItemId);
+        await removeItemFromCart(cartItemId);
         res.status(200).json({
             message: 'Artículo eliminado del carrito con éxito',
         });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'No se pudo eliminar el artículo del carrito' });
     }
 };
-const deleteCartHandler = async (req, res) => {
-    const { userId } = req.params;
 
+const reduceQuantityHandler = async (req, res) => {
+    const { cartItemId } = req.params;
     try {
-        await deleteCart(userId);
+        await reduceQuantity(cartItemId);
         res.status(200).json({
-            message: 'Carrito eliminado exitosamente',
+            message: 'Cantidad del artículo reducida con éxito',
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'No se pudo eliminar el carrito' });
+        res.status(500).json({ message: 'No se reducir la cantidad del articulo' });
     }
 };
-module.exports = {getCartByUserIdHandler, addToCartHandler, removeFromCartHandler, deleteCartHandler};
+module.exports = { getCartByUserIdHandler, addToCartHandler, removeItemFromCartHandler, reduceQuantityHandler };

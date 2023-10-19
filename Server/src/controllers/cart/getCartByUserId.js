@@ -15,10 +15,10 @@ const getCartByUserId = async (userId) => {
     const cartItems = cart.cartItems;
     let total = 0;
 
-    cartItems.forEach((item) => {
-        const price = item.price; 
-        const stock = item.quantity; 
-        total += price * stock;
+     cartItems.forEach((item) => {
+        const price = item.price;
+        const quantity = item.quantity;
+        total += price * quantity; // Multiplica precio por cantidad (stock)
     });
 
     return { cart, total };
