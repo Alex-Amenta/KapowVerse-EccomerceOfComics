@@ -1,21 +1,21 @@
 const { Comic, Purchase } = require('../../db');
-const comics = require('../../../data.json');
+// const comics = require('../../../data.json');
 const Op = require('sequelize');
 
-const saveComicsToDatabase = async() => {
-    try{
-        for(const comic of comics) {
-            await Comic.findOrCreate({
-                where: { id: comic.id},
-                defaults: comic,
-            });
-        }
+// const saveComicsToDatabase = async() => {
+//     try{
+//         for(const comic of comics) {
+//             await Comic.findOrCreate({
+//                 where: { id: comic.id},
+//                 defaults: comic,
+//             });
+//         }
 
-    } catch(error) {
-        console.log(error);
-        throw error;
-    }
-};
+//     } catch(error) {
+//         console.log(error);
+//         throw error;
+//     }
+// };
 
 const getAllComicsByFilters = async(page, pageSize, title, price, category, author, stock, sort, publish, active) => {
     try {
@@ -102,7 +102,7 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
 };
 
 const getAllComics = async () => {
-    await saveComicsToDatabase();
+    // await saveComicsToDatabase();
     const comic = await Comic.findAll({
         attributes: [
             'id',
@@ -121,4 +121,4 @@ const getAllComics = async () => {
     return comic;
 };
 
-module.exports = { saveComicsToDatabase, getAllComicsByFilters, getAllComics }
+module.exports = { getAllComicsByFilters, getAllComics }

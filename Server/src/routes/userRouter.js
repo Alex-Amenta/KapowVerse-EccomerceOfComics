@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler } = require('../handlers/user/userHandler');
 
+const verifyJWT = require('../utils/verifyJwt');
+
 const userRouter = Router();
 
-userRouter.get('/', getAllUsersHandler); 
+userRouter.get('/', verifyJWT, getAllUsersHandler); 
 userRouter.get('/:id', getUserByIdHandler); // profile
 userRouter.post('/register', postUserHandler); // sign up
 userRouter.put('/:id', updateUserHandler);
