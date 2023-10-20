@@ -21,10 +21,6 @@ const CartItem = (sequelize) => {
                 type: DataTypes.STRING(100),
                 allowNull: false,
             },
-            description: {
-                type: DataTypes.TEXT,
-                allowNull: false,
-            },
             price: {
                 type: DataTypes.FLOAT,
                 allowNull: false,
@@ -33,13 +29,14 @@ const CartItem = (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            author: {
-                type: DataTypes.STRING(100),
-                allowNull: false,
-            },
             stock: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            quantity: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: 1,
             },
         },
         {

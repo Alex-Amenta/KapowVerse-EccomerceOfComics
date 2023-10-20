@@ -4,8 +4,8 @@ const comicRouter = require('./comicRouter');
 const userRouter = require('./userRouter');
 const purchaseRouter = require('./purchaseRouter');
 const paymentRouter = require('./paymentRouter');
-const cartRouter = require('./cartRouter');
 const reviewRouter = require('./reviewRouter');
+const cartRouter = require('./cartRouter');
 
 const mainRouter = Router();
 

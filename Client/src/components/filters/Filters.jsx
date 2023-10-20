@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  filterAndSort,
-  resetFilters,
-} from "../../redux/features/comicSlice";
+import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
 import { useLocation } from "react-router-dom";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import GradeIcon from "@mui/icons-material/Grade";
 
 const InitialCreate = {
   category: "",
@@ -32,19 +32,37 @@ const Filters = ({
 
   const handleSort = (event) => {
     setInput({ ...input, sort: event.target.value });
-    dispatch(filterAndSort({sortBy: event.target.value, category:input.category, publisher:input.publisher}));
+    dispatch(
+      filterAndSort({
+        sortBy: event.target.value,
+        category: input.category,
+        publisher: input.publisher,
+      })
+    );
     onFilterChange();
   };
 
   const handleCategory = (event) => {
     setInput({ ...input, category: event.target.value });
-    dispatch(filterAndSort({category: event.target.value, sortBy:input.sort, publisher:input.publisher}));
+    dispatch(
+      filterAndSort({
+        category: event.target.value,
+        sortBy: input.sort,
+        publisher: input.publisher,
+      })
+    );
     onFilterChange();
   };
 
   const handlePublisher = (event) => {
     setInput({ ...input, publisher: event.target.value });
-    dispatch(filterAndSort({publisher: event.target.value, sortBy:input.sort, category:input.category}));
+    dispatch(
+      filterAndSort({
+        publisher: event.target.value,
+        sortBy: input.sort,
+        category: input.category,
+      })
+    );
     onFilterChange();
   };
 
@@ -124,6 +142,16 @@ const Filters = ({
         <button className={styles.buttonReset} onClick={handleReset}>
           Reset Filters
         </button>
+        <div className={styles.buttonsContainer}>
+          <button>
+            <Badge badgeContent={4} color="error">
+              <ShoppingCartIcon fontSize="large" className={styles.cartIcon} />
+            </Badge>
+          </button>
+          <button>
+            <GradeIcon fontSize="large" className={styles.starIcon} />
+          </button>
+        </div>
       </div>
     </section>
   );

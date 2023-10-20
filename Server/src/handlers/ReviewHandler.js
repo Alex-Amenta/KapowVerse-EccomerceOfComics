@@ -1,8 +1,8 @@
-const deleteReview = require("../../controllers/review/deleteReview");
-const getAllReviews = require("../../controllers/review/getAllReviews");
-const getReviewsByComics = require("../../controllers/review/getReviewsByComic");
-const postReview = require("../../controllers/review/postReview");
-const updateReview = require("../../controllers/review/updateReview");
+const deleteReview = require("../controllers/review/deleteReview");
+const getAllReviews = require("../controllers/review/getAllReviews");
+const getReviewsByComics = require("../controllers/review/getReviewsByComic");
+const postReview = require("../controllers/review/postReview");
+const updateReview = require("../controllers/review/updateReview");
 
 const getAllReviewsHandler = async (req, res) => {
     try {
