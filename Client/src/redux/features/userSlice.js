@@ -15,6 +15,17 @@ const initialState = {
     pending: false,
 
 };
+export const googleAuth = createAsyncThunk(
+    'user/googleAuth',
+    async (response, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.post(`${URL}/auth`, response);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 
 export const registerUser = createAsyncThunk(
     'user/registerUser',
@@ -179,6 +190,24 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.error;
         });
+
+        builder.addCase(googleAuth.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        }
+        );
+        builder.addCase(googleAuth.fulfilled, (state, action) => {
+            state.loading = false;
+            state.logState = true;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(googleAuth.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        });
+
+
 
         builder.addCase(registerUser.pending, (state) => {
             state.loading = true;
