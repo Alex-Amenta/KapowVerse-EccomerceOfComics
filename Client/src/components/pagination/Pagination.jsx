@@ -4,23 +4,26 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
-  if (totalPages === 1 || totalPages === 0) return null;
+
   return (
     <div className={styles.container}>
-      {currentPage !== 1 && (
+      {currentPage !== 1 ? (
         <Link
           to="#"
           className={styles.Link}
           onClick={() => onPageChange(currentPage - 1)}
           title="Página anterior"
+          
         >
           <ArrowLeftIcon />
         </Link>
+      ) : (
+        <ArrowLeftIcon className={styles.disabled} />
       )}
       <span className={styles.pageIndicator}>
         {currentPage} of {totalPages}
       </span>
-      {currentPage !== totalPages && totalPages > 0 &&(
+      {currentPage !== totalPages && totalPages > 0 ? (
         <Link
           to="#"
           className={styles.Link}
@@ -29,6 +32,8 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         >
           <ArrowRightIcon />
         </Link>
+      ) : (
+        <ArrowRightIcon className={styles.disabled} />
       )}
     </div>
   );

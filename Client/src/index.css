@@ -29,3 +29,9 @@ button {
     background-color: #ffffff;
   }
 }
+@media (max-width: 768px) {
+  #root > section > div:first-child {
+    display: none;
+  }
+}
+
