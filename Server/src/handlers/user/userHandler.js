@@ -2,11 +2,11 @@ const {
 	getUserByName,
 	getAllUsers,
 	getUserByEmail,
-} = require("../controllers/user/getAllUsers");
-const getUserById = require("../controllers/user/getUserById");
-const postUser = require("../controllers/user/postUser");
-const updateUser = require("../controllers/user/updateUser");
-const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
+} = require("../../controllers/user/getAllUsers");
+const getUserById = require("../../controllers/user/getUserById");
+const postUser = require("../../controllers/user/postUser");
+const updateUser = require("../../controllers/user/updateUser");
+const toggleActiveStatus = require("../../controllers/user/toggleActiveStatus");
 
 const getAllUsersHandler = async (req, res) => {
 	const { name } = req.query;

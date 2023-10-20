@@ -1,13 +1,5 @@
-<<<<<<< HEAD:Server/src/handlers/cart/CartHandler.js
 const { getCartByUserId } = require('../../controllers/cart/getCartByUserId');
 const { addToCart } = require('../../controllers/cart/addToCart');
-const { removeFromCart } = require('../../controllers/cart/removeFromCart');
-const { deleteCart } = require('../../controllers/cart/deleteCart');
-=======
-const { getCartByUserId } = require('../controllers/cart/getCartByUserId');
-const { addToCart } = require('../controllers/cart/addToCart');
-const reduceQuantity = require('../controllers/cart/reduceQuantity');
->>>>>>> main:Server/src/handlers/CartHandler.js
 
 const getCartByUserIdHandler = async (req, res) => {
     try {
@@ -62,4 +54,17 @@ const reduceQuantityHandler = async (req, res) => {
         res.status(500).json({ message: 'No se reducir la cantidad del articulo' });
     }
 };
-module.exports = { getCartByUserIdHandler, addToCartHandler, removeItemFromCartHandler, reduceQuantityHandler };
+
+const deleteCartHandler = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        await deleteCart(userId);
+        res.status(200).json({
+            message: 'Carrito eliminado con éxito',
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'No se pudo eliminar el carrito' });
+    }
+};
+
+module.exports = { getCartByUserIdHandler, addToCartHandler, removeItemFromCartHandler, reduceQuantityHandler, deleteCartHandler };

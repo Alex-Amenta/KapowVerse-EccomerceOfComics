@@ -1,9 +1,3 @@
-const { configDotenv } = require("dotenv");
-const {
-	getUserByName,
-	getAllUsers,
-	getUserByEmail,
-} = require("../../controllers/user/getAllUsers");
 const { OAuth2Client } = require('google-auth-library');
 require ('dotenv').config();
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
