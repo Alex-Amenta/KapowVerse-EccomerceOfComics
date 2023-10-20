@@ -38,7 +38,7 @@ const Filters = ({
 }) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const totalItemsInCart = useSelector(state => state.cart.totalItemsInCart);
+  const itemQuantity = useSelector((state) => state.cart.itemQuantity);
   const [input, setInput] = useState(InitialCreate);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -173,7 +173,7 @@ const Filters = ({
         </button>
         <div className={styles.buttonsContainer}>
           <button onClick={openModal}>
-            <Badge badgeContent={totalItemsInCart} showZero color="error">
+            <Badge badgeContent={itemQuantity} showZero color="error">
               <ShoppingCartIcon fontSize="large" className={styles.cartIcon} />
             </Badge>
           </button>

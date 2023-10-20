@@ -53,4 +53,29 @@ const addToCart = async (userId, comicId) => {
     }
 };
 
-module.exports = { addToCart };
+// Función para calcular el carrito actualizado y la cantidad total
+const calculateUpdatedCart = async (userId) => {
+    const cart = await Cart.findOne({ where: { userId: userId } });
+
+    if (!cart) {
+        // Manejo si el carrito no existe
+        return {
+            cart: null,
+            total: 0,
+        };
+    }
+
+    const cartItems = await CartItem.findAll({ where: { cartId: cart.id } });
+    const total = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
+
+    return {
+        cart: {
+            id: cart.id,
+            userId: cart.userId,
+            cartItems: cartItems,
+        },
+        total: total,
+    };
+};
+
+module.exports = { addToCart, calculateUpdatedCart };

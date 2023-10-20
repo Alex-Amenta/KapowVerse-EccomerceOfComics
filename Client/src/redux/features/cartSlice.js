@@ -8,6 +8,8 @@ const initialState = {
     loading: false,
     cart: [],
     totalItemsInCart: 0,
+    itemQuantity: 0,
+    totalPrice: 0,
     error: ""
 };
 
@@ -15,7 +17,10 @@ export const getCartByUserId = createAsyncThunk(
     'cart/getCartByUserId', async (userId, { rejectWithValue }) => {
         try {
             const { data } = await axios.get(`${URL}/${userId}`);
-            return data;
+            return {
+                cart: data.cart,
+                total: data.total
+            };
         } catch (error) {
             return rejectWithValue(error.response.error);
         }
@@ -56,14 +61,67 @@ export const removeItemFromCart = createAsyncThunk(
     }
 )
 
-// const calculateTotalItemsInCart = (cart) => {
-//     return cart.reduce((total, item) => total + item.quantity, 0);
-// }
-
 const cartSlice = createSlice({
     name: "cart",
     initialState,
-    reducers: {},
+    reducers: {
+        addItemToCart: (state, action) => {
+            const newItem = action.payload;
+            const existingItem = state.cart.find((item) => item.id === newItem.id);
+
+            if (!existingItem) {
+                if (newItem.stock > 0) {
+                    state.cart.push({ ...newItem, quantity: 1 });
+                    state.itemQuantity += 1;
+                    state.totalPrice += newItem.price;
+                } else {
+                    alert("No hay productos en stock");
+                }
+            } else if (existingItem.quantity < existingItem.stock) {
+                existingItem.quantity += 1;
+                state.itemQuantity += 1;
+                state.totalPrice += newItem.price;
+            } else {
+                alert("No hay productos en stock");
+            }
+        },
+        removeItem: (state, action) => {
+            const itemId = action.payload;
+            const itemIndex = state.cart.findIndex((item) => item.id === itemId);
+            const item = state.cart.find((item) => item.id === itemId);
+
+            if (itemIndex !== -1) {
+                state.itemQuantity -= item.quantity;
+                state.totalPrice -= item.price * item.quantity;
+                state.cart.splice(itemIndex, 1);
+            }
+        },
+        increaseItemQuantity: (state, action) => {
+            const itemId = action.payload;
+            const item = state.cart.find((item) => item.id === itemId);
+
+            if (item && item.quantity < item.stock) {
+                item.quantity += 1;
+                state.itemQuantity += 1;
+                state.totalPrice += item.price;
+            }
+        },
+        decreaseItemQuantity: (state, action) => {
+            const itemId = action.payload;
+            const item = state.cart.find((item) => item.id === itemId);
+
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                state.itemQuantity -= 1;
+                state.totalPrice -= item.price;
+            }
+        },
+        clearCart: (state, action) => {
+            state.cart = [];
+            state.itemQuantity = 0;
+            state.totalPrice = 0;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getCartByUserId.pending, (state) => {
             state.loading = true;
@@ -71,6 +129,7 @@ const cartSlice = createSlice({
         builder.addCase(getCartByUserId.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload.cart;
+            state.totalPrice = action.payload.total;
             state.error = "";
         })
         builder.addCase(getCartByUserId.rejected, (state, action) => {
@@ -83,7 +142,7 @@ const cartSlice = createSlice({
         builder.addCase(addToCart.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload;
-            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
+            state.totalItemsInCart = action.payload.cartItems.reduce((total, item) => total + item.quantity, 0);
             state.error = "";
         })
         builder.addCase(addToCart.rejected, (state, action) => {
@@ -96,7 +155,7 @@ const cartSlice = createSlice({
         builder.addCase(reduceQuantity.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload.cart;
-            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
+            state.totalItemsInCart = action.payload.cartItems.reduce((total, item) => total + item.quantity, 0);
             state.error = "";
         })
         builder.addCase(reduceQuantity.rejected, (state, action) => {
@@ -110,7 +169,7 @@ const cartSlice = createSlice({
         builder.addCase(removeItemFromCart.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload.cart;
-            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
+            state.totalItemsInCart = action.payload.cartItems.reduce((total, item) => total + item.quantity, 0);
             state.error = "";
         })
         builder.addCase(removeItemFromCart.rejected, (state, action) => {
@@ -119,5 +178,13 @@ const cartSlice = createSlice({
         });
     }
 });
+
+export const {
+  addItemToCart,
+  removeItem,
+  increaseItemQuantity,
+  decreaseItemQuantity,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

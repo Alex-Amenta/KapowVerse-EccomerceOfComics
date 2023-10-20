@@ -1,7 +1,7 @@
 const { reduceQuantity } = require('../controllers/cart/reduceQuantity');
 const { removeItemFromCart } = require('../controllers/cart/removeItemFromCart');
 const { getCartByUserId } = require('../controllers/cart/getCartByUserId');
-const { addToCart } = require('../controllers/cart/addToCart');
+const { addToCart, calculateUpdatedCart } = require('../controllers/cart/addToCart');
 
 const getCartByUserIdHandler = async (req, res) => {
     try {
@@ -12,7 +12,7 @@ const getCartByUserIdHandler = async (req, res) => {
         }
         return res.status(200).json({ cart, total });
     } catch (error) {
-        return res.status(500).json({ message: 'Error Interno del Servidor' });
+        return res.status(404).json({ message: error.message });
     }
 };
 
@@ -21,11 +21,11 @@ const addToCartHandler = async (req, res) => {
     const { comicId } = req.body;
     console.log(userId, comicId);
     try {
-        const cartItem = await addToCart(userId, comicId);
-        console.log(cartItem);
-        res.status(200).json({ success: true, cartItem });
+        await addToCart(userId, comicId);
+        const updatedCart = await calculateUpdatedCart(userId);
+        res.status(200).json({ success: true, updatedCart });
     } catch (error) {
-        res.status(404).json({message: error.message});
+        res.status(404).json({ message: error.message });
     }
 };
 
@@ -38,7 +38,7 @@ const removeItemFromCartHandler = async (req, res) => {
             message: 'Artículo eliminado del carrito con éxito',
         });
     } catch (error) {
-        res.status(500).json({ message: 'No se pudo eliminar el artículo del carrito' });
+        res.status(404).json({ message: error.message });
     }
 };
 
@@ -50,7 +50,7 @@ const reduceQuantityHandler = async (req, res) => {
             message: 'Cantidad del artículo reducida con éxito',
         });
     } catch (error) {
-        res.status(500).json({ message: 'No se reducir la cantidad del articulo' });
+        res.status(404).json({ message: error.message });
     }
 };
 module.exports = { getCartByUserIdHandler, addToCartHandler, removeItemFromCartHandler, reduceQuantityHandler };

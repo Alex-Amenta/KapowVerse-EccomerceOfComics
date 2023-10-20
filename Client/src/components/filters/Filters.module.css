@@ -58,7 +58,9 @@
   padding: 0;
 } 
 
-
+.closeModal:hover {
+  color: gray;
+}
 
 .buttonReset {
   padding: 8px 15px;

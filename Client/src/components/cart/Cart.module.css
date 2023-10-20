@@ -1,17 +1,117 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
 
-    font-family: "Rubik", sans-serif;
+  font-family: "Rubik", sans-serif;
+  margin-bottom: 4rem;
+  font-weight: bold;
 }
 
 .emptyCartMessage {
-    font-size: 1rem;
-    padding: 3rem 0;
+  font-size: 1rem;
+  padding: 3rem 0;
+}
+
+.totalContainer {
+  margin-bottom: 3rem;
 }
 
 .totalContainer span {
-    color: green;
+  color: green;
+}
+
+.contentComic img {
+  width: 10rem;
+  height: 13rem;
+  box-shadow: 0 9px 28px rgba(0, 0, 0, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
+}
+
+.contentComic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.priceAndStock {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceAndStock span {
+  color: #9f2d1c;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.buttonContainer button {
+  font-size: 2rem;
+  background-color: transparent;
+  color: black;
+  padding: 0 1rem;
+}
+
+.buttonContainer button:hover {
+  color: gray;
+}
+
+.buttonContainer span {
+  padding: 0 1rem;
+}
+
+.deleteForever {
+  margin-left: 1rem;
+}
+
+.deleteForever button:hover {
+  color: red;
+}
+
+.payButton {
+  padding: 8px 15px;
+  border: unset;
+  border-radius: 15px;
+  color: white;
+  z-index: 0;
+  background: green;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.payButton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: rgba(3, 82, 3, 0.502);
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.payButton:hover {
+  color: #e8e8e8;
+}
+
+.payButton:hover::before {
+  width: 100%;
 }
