@@ -1,16 +1,33 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
 import { useLocation } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
+import Modal from "react-modal";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Cart from "../cart/Cart";
 
 const InitialCreate = {
   category: "",
   publisher: "",
   sort: "",
+};
+
+const customModalStyles = {
+  content: {
+    width: "35%",
+    margin: "0 auto",
+    right: "-50%",
+    height: "100%",
+    top: "0",
+    left: "auto",
+    borderRadius: "0",
+    animation: "slideIn 0.5s ease-in-out",
+    zIndex: "1"
+  },
 };
 
 const Filters = ({
@@ -20,8 +37,10 @@ const Filters = ({
   noCategoryComics,
 }) => {
   const { pathname } = useLocation();
-  const [input, setInput] = useState(InitialCreate);
   const dispatch = useDispatch();
+  const totalItemsInCart = useSelector(state => state.cart.totalItemsInCart);
+  const [input, setInput] = useState(InitialCreate);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const textFromSection =
     pathname === "/comics"
@@ -29,6 +48,16 @@ const Filters = ({
       : pathname === "/mangas"
       ? "mangas"
       : "Explore Our Diverse Collection!";
+
+  const openModal = () => {
+    customModalStyles.content.right = "0";
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    customModalStyles.content.right = "-50%";
+    setModalIsOpen(false);
+  };
 
   const handleSort = (event) => {
     setInput({ ...input, sort: event.target.value });
@@ -143,8 +172,8 @@ const Filters = ({
           Reset Filters
         </button>
         <div className={styles.buttonsContainer}>
-          <button>
-            <Badge badgeContent={4} color="error">
+          <button onClick={openModal}>
+            <Badge badgeContent={totalItemsInCart} showZero color="error">
               <ShoppingCartIcon fontSize="large" className={styles.cartIcon} />
             </Badge>
           </button>
@@ -153,6 +182,21 @@ const Filters = ({
           </button>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Carrito de Compras"
+        ariaHideApp={false}
+        style={customModalStyles}
+      >
+        <button className={styles.closeModal} onClick={closeModal}>
+          <ArrowBackIcon />
+        </button>
+        <p className={styles.shoppingTittle}>Your shopping cart</p>
+        <div>
+          <Cart />
+        </div>
+      </Modal>
     </section>
   );
 };

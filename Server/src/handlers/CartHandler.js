@@ -1,13 +1,7 @@
-<<<<<<< HEAD:Server/src/handlers/cart/CartHandler.js
-const { getCartByUserId } = require('../../controllers/cart/getCartByUserId');
-const { addToCart } = require('../../controllers/cart/addToCart');
-const { removeFromCart } = require('../../controllers/cart/removeFromCart');
-const { deleteCart } = require('../../controllers/cart/deleteCart');
-=======
+const { reduceQuantity } = require('../controllers/cart/reduceQuantity');
+const { removeItemFromCart } = require('../controllers/cart/removeItemFromCart');
 const { getCartByUserId } = require('../controllers/cart/getCartByUserId');
 const { addToCart } = require('../controllers/cart/addToCart');
-const reduceQuantity = require('../controllers/cart/reduceQuantity');
->>>>>>> main:Server/src/handlers/CartHandler.js
 
 const getCartByUserIdHandler = async (req, res) => {
     try {
@@ -31,10 +25,7 @@ const addToCartHandler = async (req, res) => {
         console.log(cartItem);
         res.status(200).json({ success: true, cartItem });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            error: 'No se pudo agregar el artículo al carrito.',
-        });
+        res.status(404).json({message: error.message});
     }
 };
 
