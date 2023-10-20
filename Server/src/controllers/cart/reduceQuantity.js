@@ -19,4 +19,4 @@ const reduceQuantity = async (cartItemId) => {
     }
 };
 
-module.exports = reduceQuantity;
+module.exports = {reduceQuantity};

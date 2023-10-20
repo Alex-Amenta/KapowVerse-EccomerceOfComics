@@ -7,6 +7,7 @@ const URL = `${base_url}/cart`
 const initialState = {
     loading: false,
     cart: [],
+    totalItemsInCart: 0,
     error: ""
 };
 
@@ -55,6 +56,10 @@ export const removeItemFromCart = createAsyncThunk(
     }
 )
 
+// const calculateTotalItemsInCart = (cart) => {
+//     return cart.reduce((total, item) => total + item.quantity, 0);
+// }
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -78,6 +83,7 @@ const cartSlice = createSlice({
         builder.addCase(addToCart.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload;
+            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
             state.error = "";
         })
         builder.addCase(addToCart.rejected, (state, action) => {
@@ -90,6 +96,7 @@ const cartSlice = createSlice({
         builder.addCase(reduceQuantity.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload.cart;
+            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
             state.error = "";
         })
         builder.addCase(reduceQuantity.rejected, (state, action) => {
@@ -103,6 +110,7 @@ const cartSlice = createSlice({
         builder.addCase(removeItemFromCart.fulfilled, (state, action) => {
             state.loading = false;
             state.cart = action.payload.cart;
+            // state.totalItemsInCart = calculateTotalItemsInCart(action.payload.cart);
             state.error = "";
         })
         builder.addCase(removeItemFromCart.rejected, (state, action) => {

@@ -46,12 +46,26 @@
   text-shadow: 1px 1px black;
 }
 
+.shoppingTittle {
+  font-family: "Bangers", sans-serif;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.closeModal {
+  background: transparent;
+  color: black;
+  padding: 0;
+} 
+
+
+
 .buttonReset {
   padding: 8px 15px;
   border: unset;
   border-radius: 15px;
   color: #212121;
-  z-index: 1;
+  z-index: 0;
   background: white;
   position: relative;
   font-weight: 1000;
@@ -91,9 +105,10 @@
   align-items: center;
 }
 
-.buttonsContainer button {
+.buttonsContainer button{
   background: transparent;
   color: black;
+  z-index: 0;
 }
 
 .starIcon:hover {
