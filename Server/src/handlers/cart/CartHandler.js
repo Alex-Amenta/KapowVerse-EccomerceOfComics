@@ -1,6 +1,13 @@
+<<<<<<< HEAD:Server/src/handlers/cart/CartHandler.js
+const { getCartByUserId } = require('../../controllers/cart/getCartByUserId');
+const { addToCart } = require('../../controllers/cart/addToCart');
+const { removeFromCart } = require('../../controllers/cart/removeFromCart');
+const { deleteCart } = require('../../controllers/cart/deleteCart');
+=======
 const { getCartByUserId } = require('../controllers/cart/getCartByUserId');
 const { addToCart } = require('../controllers/cart/addToCart');
 const reduceQuantity = require('../controllers/cart/reduceQuantity');
+>>>>>>> main:Server/src/handlers/CartHandler.js
 
 const getCartByUserIdHandler = async (req, res) => {
     try {

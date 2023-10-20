@@ -2,7 +2,8 @@
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/features/userSlice";
+import { loginUser, googleAuth } from "../../redux/features/userSlice";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
 	const logState = useSelector((state) => state.user.logState);
@@ -44,7 +45,8 @@ function Login() {
 			return;
 		}
 		setRes("Loading...");
-			dispatch(loginUser(data)).then((res) => {
+		dispatch(loginUser(data))
+			.then((res) => {
 				if (res.error) {
 					setRes(res.payload);
 					return;
@@ -52,10 +54,32 @@ function Login() {
 				setRes("Success");
 				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
 				window.location.href = "/home";
-			}).catch((err) => {
-			if (err.response && err.response.data) setRes(err.response.data.message);
-			else setRes("Error in server");
-		});
+			})
+			.catch((err) => {
+				if (err.response && err.response.data)
+					setRes(err.response.data.message);
+				else setRes("Error in server");
+			});
+	};
+
+	const responseGoogle = async (response) => {
+		dispatch(googleAuth(response))
+			.then((res) => {
+				if (res.error) {
+					setRes(res.payload);
+					return;
+				}
+				setRes("Success");
+				console.log(res.payload);
+				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+			})
+			.catch((err) => {
+				if (err.response && err.response.data)
+					setRes(err.response.data.message);
+				else setRes("Error in server");
+			});
+
+		console.log(data); // Datos del usuario
 	};
 
 	return (
@@ -72,6 +96,17 @@ function Login() {
 			<form
 				onSubmit={handleSubmit}
 				className={styles.form}>
+				<GoogleLogin
+					onSuccess={(credentialResponse) => {
+						console.log(credentialResponse);
+						responseGoogle(credentialResponse);
+					}}
+					onError={() => {
+						console.log("Login Failed");
+					}}
+				/>
+				<br />
+				<br />
 				<label
 					htmlFor="email"
 					className={styles.label}>

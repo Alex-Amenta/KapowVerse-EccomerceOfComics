@@ -38,3 +38,6 @@ next-env.d.ts
 *.prettierrc
 
 package-lock.json
+
+# misc
+/misc.txt
