@@ -58,6 +58,14 @@ function Login() {
 		});
 	};
 
+const sendEmail = async () => {
+
+await axios.post ("http://localhost:3001/mail"), {
+gmail : user.email,
+name : user.name,
+};
+};
+
 	return (
 		<div className={styles.container}>
 			<h2>LogIn</h2> <hr />
@@ -97,7 +105,8 @@ function Login() {
 					className={styles.input}
 				/>
 				<button
-					type="submit"
+				onClick={() => sendEmail()}
+					 type="submit"
 					className={styles.submit}>
 					Submit
 				</button>
