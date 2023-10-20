@@ -47,7 +47,7 @@ export const updateReview = createAsyncThunk(
 export const deleteReview = createAsyncThunk(
     'review/deleteReview', async (reviewId, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post(URL, reviewId);
+            const { data } = await axios.delete(`${URL}/${reviewId}`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data)
