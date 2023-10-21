@@ -37,6 +37,9 @@ const postUserHandler = async (req, res) => {
 	const { name, email, password, image } = req.body;
 	try {
 		const user = await postUser(name, email, password, image);
+		if (email) {
+			sendEmailConPlantilla(email, "User")
+		  }
 		res.status(201).json(user);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
