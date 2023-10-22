@@ -141,7 +141,7 @@ const userSlice = createSlice({
         });
         builder.addCase(fetchUsers.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
 
@@ -156,7 +156,7 @@ const userSlice = createSlice({
         });
         builder.addCase(searchUsersByName.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
 
@@ -172,7 +172,7 @@ const userSlice = createSlice({
         });
         builder.addCase(toggleUserActiveStatus.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
         builder.addCase(loginUser.pending, (state) => {
@@ -188,7 +188,7 @@ const userSlice = createSlice({
         });
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
         builder.addCase(googleAuth.pending, (state) => {
@@ -204,7 +204,7 @@ const userSlice = createSlice({
         });
         builder.addCase(googleAuth.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
 
@@ -221,7 +221,7 @@ const userSlice = createSlice({
         });
         builder.addCase(registerUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
         builder.addCase(logoutUser.pending, (state) => {
@@ -236,7 +236,7 @@ const userSlice = createSlice({
         });
         builder.addCase(logoutUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
         builder.addCase(logUserByLocalStorage.pending, (state) => {
@@ -251,7 +251,7 @@ const userSlice = createSlice({
         });
         builder.addCase(logUserByLocalStorage.rejected, (state, action) => {
             state.loading = false;
-            state.error = action.payload.error;
+            state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
 

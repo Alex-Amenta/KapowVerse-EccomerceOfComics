@@ -31,6 +31,7 @@ function MangasSection() {
         totalPages={totalPages}
         currentPage={currentPage}
         onPageChange={paginate}
+        
       />
     </>
   );

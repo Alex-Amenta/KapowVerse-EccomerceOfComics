@@ -5,105 +5,105 @@ import base_url from "../../utils/development";
 const URL = `${base_url}/comic`;
 
 const initialState = {
-  loading: false,
-  allComics: [],
-  comicsCopy: [],
-  comicDetails: [],
-  relatedComics: [],
-  error: "",
+	loading: false,
+	allComics: [],
+	comicsCopy: [],
+	comicDetails: [],
+	relatedComics: [],
+	error: "",
 };
 
 export const fetchComics = createAsyncThunk(
-  "comics/fetchComics",
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(URL);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/fetchComics",
+	async (_, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(URL);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const searchComics = createAsyncThunk(
-  'comics/searchComics',
-  async (nameComic, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`${URL}?title=${nameComic}`);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/searchComics",
+	async (nameComic, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(`${URL}?title=${nameComic}`);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const createComic = createAsyncThunk(
-  'comics/createComic',
-  async (comicData, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post(URL, comicData);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/createComic",
+	async (comicData, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.post(URL, comicData);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const fetchComicDetail = createAsyncThunk(
-  "comics/fetchComicDetail",
-  async (comicId, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`${URL}/${comicId}`);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/fetchComicDetail",
+	async (comicId, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(`${URL}/${comicId}`);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const fetchComicsRelated = createAsyncThunk(
-  "comics/fetchComicsRelated",
-  async (comicId, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`${URL}/${comicId}/related`);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/fetchComicsRelated",
+	async (comicId, { rejectWithValue }) => {
+		try {
+			const { data } = await axios.get(`${URL}/${comicId}/related`);
+			return data;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const deleteComic = createAsyncThunk(
-  "comics/deleteComic",
-  async (comicId, { rejectWithValue }) => {
-    try {
-      await axios.delete(`${URL}/${comicId}`);
-      return comicId;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/deleteComic",
+	async (comicId, { rejectWithValue }) => {
+		try {
+			await axios.delete(`${URL}/${comicId}`);
+			return comicId;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 export const updateComic = createAsyncThunk(
-  "comics/updateComic",
-  async ({ id, data }, { rejectWithValue }) => {
-    try {
-      const { data: updatedComic } = await axios.put(`${URL}/${id}`, data);
-      return updatedComic;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
+	"comics/updateComic",
+	async ({ id, data }, { rejectWithValue }) => {
+		try {
+			const { data: updatedComic } = await axios.put(`${URL}/${id}`, data);
+			return updatedComic;
+		} catch (error) {
+			return rejectWithValue(error.response.data);
+		}
+	}
 );
 
 const comicSlice = createSlice({
-  name: "comic",
-  initialState,
-  reducers: {
-    resetFilters: (state) => {
-      state.allComics = state.comicsCopy;
-    },
+	name: "comic",
+	initialState,
+	reducers: {
+		resetFilters: (state) => {
+			state.allComics = state.comicsCopy;
+		},
 
     filterAndSort: (state, action) => {
       let comics = [...state.comicsCopy];
@@ -146,73 +146,76 @@ const comicSlice = createSlice({
     });
     builder.addCase(fetchComics.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload.error;
+      state.error = (action.payload && action.payload.error) || action.error.message;
     });
 
-    builder.addCase(createComic.fulfilled, (state, action) => {
-      state.allComics = [action.payload, ...state.allComics]; // Agrega el nuevo cómic al principio de la lista
-    });
+		builder.addCase(createComic.fulfilled, (state, action) => {
+      state.comicsCopy = [action.payload, ...state.allComics];
+		});
+		builder.addCase(createComic.rejected, (state, action) => {
+			state.error = (action.payload && action.payload.error) || action.error.message;
+		});
 
-    builder.addCase(searchComics.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(searchComics.fulfilled, (state, action) => {
-      state.loading = false;
-      state.allComics = action.payload;
-      state.error = "";
-    });
-    builder.addCase(searchComics.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-    });
+		builder.addCase(searchComics.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(searchComics.fulfilled, (state, action) => {
+			state.loading = false;
+			state.allComics = action.payload;
+			state.error = "";
+		});
+		builder.addCase(searchComics.rejected, (state, action) => {
+			state.loading = false;
+			state.error = (action.payload && action.payload.error) || action.error.message;
+		});
 
-    builder.addCase(fetchComicDetail.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchComicDetail.fulfilled, (state, action) => {
-      state.loading = false;
-      state.comicDetails = action.payload;
-      state.error = "";
-    });
-    builder.addCase(fetchComicDetail.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-    });
+		builder.addCase(fetchComicDetail.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(fetchComicDetail.fulfilled, (state, action) => {
+			state.loading = false;
+			state.comicDetails = action.payload;
+			state.error = "";
+		});
+		builder.addCase(fetchComicDetail.rejected, (state, action) => {
+			state.loading = false;
+			state.error = (action.payload && action.payload.error) || action.error.message;
+		});
 
-    builder.addCase(fetchComicsRelated.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(fetchComicsRelated.fulfilled, (state, action) => {
-      state.loading = false;
-      state.relatedComics = action.payload;
-      state.error = "";
-    });
-    builder.addCase(fetchComicsRelated.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-    });
+		builder.addCase(fetchComicsRelated.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(fetchComicsRelated.fulfilled, (state, action) => {
+			state.loading = false;
+			state.relatedComics = action.payload;
+			state.error = "";
+		});
+		builder.addCase(fetchComicsRelated.rejected, (state, action) => {
+			state.loading = false;
+			state.error = (action.payload && action.payload.error) || action.error.message;
+		});
 
-    builder.addCase(updateComic.pending, (state) => {
-      state.loading = true;
-    });
+		builder.addCase(updateComic.pending, (state) => {
+			state.loading = true;
+		});
 
-    builder.addCase(updateComic.fulfilled, (state, action) => {
-      state.loading = false;
-      // Actualiza el producto en el estado con los datos actualizados
-      const updatedComic = action.payload;
-      state.comicDetails = updatedComic;
-      // También puedes actualizar otros estados si es necesario
-      state.allComics = state.allComics.map((comic) =>
-        comic.id === updatedComic.id ? updatedComic : comic
-      );
-      state.error = "";
-    });
+		builder.addCase(updateComic.fulfilled, (state, action) => {
+			state.loading = false;
+			// Actualiza el producto en el estado con los datos actualizados
+			const updatedComic = action.payload;
+			state.comicDetails = updatedComic;
+			// También puedes actualizar otros estados si es necesario
+			state.allComics = state.allComics.map((comic) =>
+				comic.id === updatedComic.id ? updatedComic : comic
+			);
+			state.error = "";
+		});
 
-    builder.addCase(updateComic.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-    });
-  },
+		builder.addCase(updateComic.rejected, (state, action) => {
+			state.loading = false;
+			state.error = (action.payload && action.payload.error) || action.error.message;
+		});
+	},
 });
 
 export const { resetFilters, filterAndSort, resetSearch, resetDetails } = comicSlice.actions

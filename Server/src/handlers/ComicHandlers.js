@@ -139,7 +139,7 @@ const postComicHandler = async (req, res) => {
             author,
             publisher,
         );
-        return res.status(201).json({ message: createdComic });
+        return res.status(201).json(createdComic || {});
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
