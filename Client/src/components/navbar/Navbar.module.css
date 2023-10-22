@@ -82,6 +82,9 @@
   .linksMobile {
     display: flex;
   }
+  .container {
+    gap: 0;
+  }
 }
 
 @keyframes navbar {

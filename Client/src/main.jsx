@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<Provider store={store}>
 				<GoogleOAuthProvider clientId="18925108533-qjv5ur9kmppn9g350a2fbjmgt70p0ign.apps.googleusercontent.com">
 					<App />
+					<h3 className="test">This website requires a minimum of 350px of width.</h3>
 				</GoogleOAuthProvider>
 			</Provider>
 		</BrowserRouter>

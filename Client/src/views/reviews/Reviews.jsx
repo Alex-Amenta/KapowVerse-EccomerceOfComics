@@ -124,7 +124,8 @@ function Reviews({ comicId }) {
             <Typography component="legend">Rating:</Typography>
             <Rating
               name="simple-controlled"
-              value={newRating}
+              value={Number(newRating)}
+              // value="3"
               onChange={(e) => setNewRating(e.target.value)}
             />
           </div>

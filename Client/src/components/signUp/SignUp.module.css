@@ -134,3 +134,15 @@
     visibility: visible;
     opacity: 1;
 }
+
+@media (max-width: 768px) {
+    .container {
+        position: relative;
+        width: 100%;
+        letter-spacing: 0.7px;
+    }
+    .form {
+        width: 80%;
+    }
+
+}
