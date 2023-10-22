@@ -31,9 +31,10 @@ const createOrder = async (req, res) => {
         ],
         back_urls: {
             success: `http://localhost:5173/home`,
-            failure: `${FRONT_HOST}/home`,
-            pending: `${FRONT_HOST}/payment/pending`,
+            failure: `http://localhost:5173/home`,
+            pending: `http://localhost:5173/payment/pending`,
         },
+        auto_return: "approved",
         notification_url:`${
             DEV === "development"
                 ? "https://14d1krhh-3001.use2.devtunnels.ms/payment/webhook"
@@ -50,24 +51,22 @@ const receiveWebhook = async (req, res) => {
     try {
         if (payment.type === 'payment') {
             const data = await mercadopago.payment.findById(payment["data.id"]);
-            console.log("chequeando",data);
-            if (comics) {
-                for (const comic of comics.cart) {
-
-                      const purchase = await Purchase.create({
-                        userId: loggedUser.id,
-                        comicId: comic.id,
-                        mpId: data.response.id,
-                        total: comics.totalPrice,
-                        quantity: comic.quantity,
-                        status: data.response.status,
-                      });
-                    };
-                comics.cart.forEach(async (comic) => {
-                    const comicDB = await Comic.findByPk(comic.id);
-                    comicDB.stock -= comic.quantity;
-                    await comicDB.save();
-                });
+            if (data.response.status === 'approved') {
+                if (comics) {
+                    for (const comic of comics.cart) {
+                        const purchase = await Purchase.create({
+                            userId: loggedUser.id,
+                            comicId: comic.id,
+                            mpId: data.response.id,
+                            total: comics.totalPrice,
+                            quantity: comic.quantity,
+                            status: data.response.status,
+                        });
+                        const comicDB = await Comic.findByPk(comic.id);
+                        comicDB.stock -= comic.quantity;
+                        await comicDB.save();
+                    }
+                }
                 // const mailOptions = {
                 //     from: "kapowverse@gmail.com",
                 //     to: loggedUser.email,
