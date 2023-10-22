@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 
 const fs = require("fs");
 const path = require("path");
@@ -47,57 +47,32 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Relaciones
 
-const { Comic, User, Cart, CartItem, Purchase, Review, Orden } = sequelize.models;
+const { Comic, User, Cart, CartItem, Purchase, Review } = sequelize.models;
 
-// // Relación User - Purchase
-// User.hasMany(Purchase);
-// Purchase.belongsTo(User);
 
-// // Relación Comic - Purchase
-// Comic.hasMany(Purchase);
-// Purchase.belongsTo(Comic);
+// Relación User - Review
+User.hasMany(Review);
+Review.belongsTo(User);
 
-// // Relación User - Cart
-// User.hasOne(Cart);
-// Cart.belongsTo(User);
-
-// // Relación Cart - CartItem
-// Cart.hasMany(CartItem);
-// CartItem.belongsTo(Cart);
-
-// Relación User - Purchase (Un usuario puede tener muchas compras)
-User.hasMany(Purchase);
-Purchase.belongsTo(User);
-
-// Relación Purchase - Comic (Una compra puede incluir muchos cómics) a través de Orden con el campo 'quantity'
-Comic.belongsToMany(Purchase, { through: Orden });
-Purchase.belongsToMany(Comic, { through: Orden });
-Comic.hasMany(Orden);
-Orden.belongsTo(Comic);
-Purchase.hasMany(Orden);
-Orden.belongsTo(Purchase);
-
-// Relación User - Cart (Un usuario puede tener un carrito)
-User.hasOne(Cart);
-Cart.belongsTo(User);
-
-// Relación Cart - CartItem (Un carrito puede contener muchos elementos de carrito)
-Cart.hasMany(CartItem);
-CartItem.belongsTo(Cart);
-
-//Relacion Comic - Review
+// Relación Comic - Review
 Comic.hasMany(Review);
 Review.belongsTo(Comic);
 
-//Relacion User - Review
-User.hasOne(Review);
-Review.belongsTo(User);
+// Relación User - Purchase
+User.hasMany(Purchase);
+Purchase.belongsTo(User);
 
-// Comic es para nuestros comics
-// User es para saber si es user o admin
-// Cart es para utilizarlo como nuestro carrito de compras
-// CartItem es para seleccionar comics y agregarlos al carrito de compras
-// Purchase es para generar la comprar y ver qué comics fueron comprados por ciertos user
+// Relación Comic - Purchase
+Comic.hasMany(Purchase);
+Purchase.belongsTo(Comic);
+
+// Relación User - Cart
+User.hasOne(Cart);
+Cart.belongsTo(User);
+
+// Relación Cart - CartItem
+Cart.hasMany(CartItem);
+CartItem.belongsTo(Cart);
 
 module.exports = {
 	...sequelize.models,

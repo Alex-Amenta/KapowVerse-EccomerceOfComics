@@ -1,7 +1,7 @@
 const mercadopago = require('mercadopago')
 require("dotenv").config();
-const { Purchase, Comic, Orden } = require("../db");
-const { FRONT_HOST, BACK_HOST, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, ENV } = process.env;
+const { Purchase, Comic } = require("../db");
+const { FRONT_HOST, BACK_HOST, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, DEV } = process.env;
 
 let comics = {};
 let loggedUser = {};
@@ -9,9 +9,9 @@ let loggedUser = {};
 const createOrder = async (req, res) => {
     const { user, cart } = req.body;
     try {
-        if (!user) throw new Error("Usuario no Registrado");
+      if (!user) throw new Error("Usuario no Registrado");
     } catch (error) {
-    console.log(error);
+      console.log(error);
     }
     comics = cart;
     loggedUser = user;
@@ -19,65 +19,81 @@ const createOrder = async (req, res) => {
     mercadopago.configure({
         access_token: MP_AR_ACCESS_TOKEN,
     });
-    try {
-        const { price } = req.body;
-        const result = await mercadopago.preferences.create({
-            items: [
-                {
-                    title: 'Pago KapowVerse',
-                    unit_price: price,
-                    currency_id: 'ARS',
-                    quantity: 1,
-                },
-            ],
-            back_urls: {
-                success: `${FRONT_HOST}/home`,
-                failure: `${FRONT_HOST}/home`,
-                pending: `${FRONT_HOST}/payment/pending`,
+    const result = await mercadopago.preferences.create({
+        items: [
+        
+            {
+                title: 'Pago KapowVerse',
+                unit_price: cart.totalPrice,
+                currency_id: 'ARS',
+                quantity: 1,
             },
-            notification_url: `${
-                ENV === "dev"
-                  ? "https://fbb5-2803-a3e0-1479-2370-7c49-455c-ed89-9ca6.ngrok.io/payment/webhook"
-                  : `${BACK_HOST}/payment/webhook`
-              }`,
-        });
-        res.send(result.body);
-    } catch (error) {
-        return res.status(500).json({ message: 'Algo va mal' });
-    }
+        ],
+        back_urls: {
+            success: `http://localhost:5173/home`,
+            failure: `${FRONT_HOST}/home`,
+            pending: `${FRONT_HOST}/payment/pending`,
+        },
+        notification_url:`${
+            DEV === "development"
+                ? "https://14d1krhh-3001.use2.devtunnels.ms/payment/webhook"
+                : `${BACK_HOST}/payment/webhook`
+            }`,       
+    });
+    res.send(result.body);
+
 };
 
 const receiveWebhook = async (req, res) => {
-    try {
-        const payment = req.body;
-        console.log('ESTE ES PAYMENT', payment);
-        if (payment.type === 'payment') {
-            const data = await mercadopago.payment.findById(payment['data.id']);
-            if (comics) {
-                const purchase = await Purchase.create({
-                  userId: loggedUser.sub,
-                  mpId: data.response.id,
-                  total: comics.totalPrice,
-                });
+    const payment = req.query;
 
+    try {
+        if (payment.type === 'payment') {
+            const data = await mercadopago.payment.findById(payment["data.id"]);
+            console.log("chequeando",data);
+            if (comics) {
+                for (const comic of comics.cart) {
+
+                      const purchase = await Purchase.create({
+                        userId: loggedUser.id,
+                        comicId: comic.id,
+                        mpId: data.response.id,
+                        total: comics.totalPrice,
+                        quantity: comic.quantity,
+                        status: data.response.status,
+                      });
+                    };
                 comics.cart.forEach(async (comic) => {
                     const comicDB = await Comic.findByPk(comic.id);
                     comicDB.stock -= comic.quantity;
                     await comicDB.save();
-          
-                    const purchaseDetail = await Orden.create({
-                      purchaseId: purchase.id,
-                      comicId: comic.id,
-                      quantity: comic.quantity,
-                    });
-                  });
+                });
+                // const mailOptions = {
+                //     from: "kapowverse@gmail.com",
+                //     to: loggedUser.email,
+                //     subject: "Pago exitoso",
+                //     text: "Tu pago ha sido exitoso",
+                //     html: `
+                //     <!DOCTYPE html>
+                //     <html>
+                //     <head>
+                //     </head>
+                //     <body>
+                //         <h1>Pago exitoso</h1>
+                //         <p>Tu pago ha sido exitoso.</p>
+                //     </body>
+                //     </html>`,
+                //   };
+                //***********poner el mensaje para enviar al correo con nodemailer ************/
             }
+            res.sendStatus(200);
         }
-        res.sendStatus(204);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: 'Algo va mal' });
+        return res.sendStatus(500).json({ error: error.message });
     }
 };
 
+
 module.exports = { createOrder, receiveWebhook };
+

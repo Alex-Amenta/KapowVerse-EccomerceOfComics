@@ -29,6 +29,10 @@ const Purchase = (sequelize) =>
             type: DataTypes.FLOAT,
             allowNull: false,
         },
+        status: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
     {
         timestamps: false,

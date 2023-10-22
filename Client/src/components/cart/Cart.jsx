@@ -52,10 +52,10 @@ const Cart = () => {
     if (user && cart) {
       try {
         axios
-          .post(`${base_url}/payment/create-order`, { user, cart })
+          .post('http://localhost:3001/payment/create-order', { user, cart })
           .then((res) => (window.location.href = res.data.init_point));
       } catch (error) {
-        console.log(error);
+        console.log('Error al realizar la solicitud:', error);
       }
     }
   };
