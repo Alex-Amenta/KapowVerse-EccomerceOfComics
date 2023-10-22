@@ -11,8 +11,8 @@ import Typography from "@mui/material/Typography";
 import naruto from "../../assets/naruto-alert.png";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../assets/murcielagos.png";
-import EditNoteIcon from '@mui/icons-material/EditNote';
-import ClearIcon from '@mui/icons-material/Clear';
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import ClearIcon from "@mui/icons-material/Clear";
 
 function Reviews({ comicId }) {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Reviews({ comicId }) {
 
   useEffect(() => {
     dispatch(fetchReviewByComic(comicId));
-  }, [dispatch, comicId]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(reviewSortRating(sortOrder));
@@ -39,7 +39,11 @@ function Reviews({ comicId }) {
 
   const handleCreateReview = () => {
     if (!user) {
-      toast.error("You must log in to create a review.", {position:"bottom-center"});
+      toast.error("You must log in to create a review.", {
+        position: "bottom-center",
+      });
+      setNewRating(0);
+      setNewComment("");
       return;
     }
 
@@ -97,7 +101,7 @@ function Reviews({ comicId }) {
               </select>
             </div>
           )}
-          {reviews.map((review) => (
+          {reviews?.map((review) => (
             <div key={review.id} className={styles.reviewUsers}>
               <div className={styles.userAvatar}>
                 <img

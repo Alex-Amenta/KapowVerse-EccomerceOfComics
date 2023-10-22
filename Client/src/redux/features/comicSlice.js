@@ -26,15 +26,15 @@ export const fetchComics = createAsyncThunk(
 );
 
 export const searchComics = createAsyncThunk(
-    'comics/searchComics',
-    async (nameComic, { rejectWithValue }) => {
-        try {
-            const { data } = await axios.get(`${URL}?title=${nameComic}`);
-            return data;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
+  'comics/searchComics',
+  async (nameComic, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`${URL}?title=${nameComic}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
+  }
 );
 
 export const createComic = createAsyncThunk(
@@ -98,55 +98,60 @@ export const updateComic = createAsyncThunk(
 );
 
 const comicSlice = createSlice({
-    name: "comic",
-    initialState,
-    reducers: {
-      resetFilters: (state) => {
-        state.allComics = state.comicsCopy;
-      },
-
-      filterAndSort: (state, action) => {
-        let comics = [...state.comicsCopy];
-        if (action.payload.category !== '') {
-          comics = comics.filter((comic) => comic.category === action.payload.category);
-        }
-        if (action.payload.publisher !== '') {
-          comics = comics.filter((comic) => comic.publisher === action.payload.publisher);
-        }
-
-        if (action.payload.sortBy === 'asc') {
-          comics.sort((a, b) => a.title.localeCompare(b.title));
-        } else if (action.payload.sortBy === 'desc') {
-          comics.sort((a, b) => b.title.localeCompare(a.title));
-        } else if (action.payload.sortBy === 'precioMin') {
-          comics.sort((a, b) => a.price - b.price);
-        } else if (action.payload.sortBy === 'precioMax') {
-          comics.sort((a, b) => b.price - a.price);
-        }
-        state.allComics = comics;
-      },
-      resetSearch: (state) => {
-        state.allComics = state.comicsCopy;
-      },
+  name: "comic",
+  initialState,
+  reducers: {
+    resetFilters: (state) => {
+      state.allComics = state.comicsCopy;
     },
-    extraReducers: (builder) => {
-        builder.addCase(fetchComics.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(fetchComics.fulfilled, (state, action) => {
-            state.loading = false;
-            state.allComics = action.payload;
-            state.comicsCopy = action.payload;
-            state.error = '';
-        });
-        builder.addCase(fetchComics.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.payload.error;
-        });
 
-        builder.addCase(createComic.fulfilled, (state, action) => {
-          state.allComics = [action.payload, ...state.allComics]; // Agrega el nuevo cómic al principio de la lista
-        });
+    filterAndSort: (state, action) => {
+      let comics = [...state.comicsCopy];
+      if (action.payload.category !== '') {
+        comics = comics.filter((comic) => comic.category === action.payload.category);
+      }
+      if (action.payload.publisher !== '') {
+        comics = comics.filter((comic) => comic.publisher === action.payload.publisher);
+      }
+
+      if (action.payload.sortBy === 'asc') {
+        comics.sort((a, b) => a.title.localeCompare(b.title));
+      } else if (action.payload.sortBy === 'desc') {
+        comics.sort((a, b) => b.title.localeCompare(a.title));
+      } else if (action.payload.sortBy === 'precioMin') {
+        comics.sort((a, b) => a.price - b.price);
+      } else if (action.payload.sortBy === 'precioMax') {
+        comics.sort((a, b) => b.price - a.price);
+      }
+      state.allComics = comics;
+    },
+    resetSearch: (state) => {
+      state.allComics = state.comicsCopy;
+    },
+    //Resetear detalles de producto
+    resetDetails: (state) => {
+      state.comicDetails = [];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchComics.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchComics.fulfilled, (state, action) => {
+      state.loading = false;
+      state.allComics = action.payload;
+      state.comicDetails = [];
+      state.comicsCopy = action.payload;
+      state.error = '';
+    });
+    builder.addCase(fetchComics.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.error;
+    });
+
+    builder.addCase(createComic.fulfilled, (state, action) => {
+      state.allComics = [action.payload, ...state.allComics]; // Agrega el nuevo cómic al principio de la lista
+    });
 
     builder.addCase(searchComics.pending, (state) => {
       state.loading = true;
@@ -210,6 +215,6 @@ const comicSlice = createSlice({
   },
 });
 
-export const { resetFilters, filterAndSort, resetSearch  } = comicSlice.actions
+export const { resetFilters, filterAndSort, resetSearch, resetDetails } = comicSlice.actions
 
 export default comicSlice.reducer;

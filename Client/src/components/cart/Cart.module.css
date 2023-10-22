@@ -77,6 +77,13 @@
   color: red;
 }
 
+.totalAndPay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .payButton {
   padding: 8px 15px;
   border: unset;

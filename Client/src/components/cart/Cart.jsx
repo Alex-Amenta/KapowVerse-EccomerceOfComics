@@ -15,6 +15,8 @@ import {
 import { useEffect } from "react";
 import axios from "axios";
 import base_url from "../../utils/development";
+import imageAlert from "../../assets/murcielagos.png";
+import { Toaster, toast } from "react-hot-toast";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -49,7 +51,11 @@ const Cart = () => {
   };
 
   const handlePayFromMP = () => {
-    if (user && cart) {
+    if (!user) {
+      toast.error("You must be logged in to make a purchase", {
+        position: "bottom-right",
+      });
+    } else {
       try {
         axios
           .post(`${base_url}/payment/create-order`, { user, cart })
@@ -109,6 +115,19 @@ const Cart = () => {
           </div>
         </div>
       )}
+      <Toaster
+        toastOptions={{
+          style: {
+            border: "2px solid #000000",
+            fontWeight: "bold",
+            fontFamily: "Rubik, sans-serif",
+            backgroundImage: `url(${imageAlert})`,
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+            backgroundRepeat: "no-repeat",
+          },
+        }}
+      />
     </section>
   );
 };

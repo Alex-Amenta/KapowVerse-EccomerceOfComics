@@ -4,6 +4,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addToCart } from "../../redux/features/cartSlice";
+import { Toaster, toast } from "react-hot-toast";
+import imageAlert from "../../assets/murcielagos.png";
 
 const Cards = ({
   id,
@@ -31,7 +33,12 @@ const Cards = ({
       (!checkCart && checkStock.stock === 0) ||
       checkCart?.quantity === checkStock.stock
     )
-      alert("not found");
+      return toast.error(
+        "You have selected the maximum number of products in stock",
+        {
+          position: "bottom-center",
+        }
+      );
     dispatch(
       addItemToCart({
         id,
@@ -62,10 +69,23 @@ const Cards = ({
             <ShoppingCartIcon className={styles.icon} />
           </button>
           <button>
-            <GradeIcon className={styles.icon} />
+            <GradeIcon className={styles.starIcon} />
           </button>
         </div>
       </div>
+      <Toaster
+        toastOptions={{
+          style: {
+            border: "2px solid #000000",
+            fontWeight: "bold",
+            fontFamily: "Rubik, sans-serif",
+            backgroundImage: `url(${imageAlert})`,
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+            backgroundRepeat: "no-repeat",
+          },
+        }}
+      />
     </main>
   );
 };
