@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchComics } from "../../redux/features/comicSlice";
+import { useEffect } from "react";
 import { logUserByLocalStorage } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";

@@ -141,9 +141,9 @@ const FormCreate = () => {
 
 		if (hasError) {
 			setError(newErrors);
-			toast.error('You must complete the required fields!', {
-				position: "bottom-center"
-			})
+			toast.error("You must complete the required fields!", {
+				position: "bottom-center",
+			});
 		} else {
 			try {
 				const formDataToSend = new FormData();
@@ -156,12 +156,28 @@ const FormCreate = () => {
 				formDataToSend.append("stock", formData.stock);
 				formDataToSend.append("publisher", formData.publisher);
 
-				await axios.post(`${base_url}/comic`, formDataToSend);
-				toast.success("Comic created successfully!", {
+				toast.loading("Creating comic...", {
 					position: "bottom-center",
+					id: "loadingToast",
 				});
-				setFormData(initialFormData);
-				setImagePreview("");
+				dispatch(createComic(formDataToSend))
+					.then((res) => {
+						console.log(res);
+						toast.dismiss("loadingToast");
+						toast.success("Comic created successfully!", {
+							position: "bottom-center",
+						});
+						setFormData(initialFormData);
+						setImagePreview("");
+					})
+					.catch((error) => {
+						toast.dismiss("loadingToast");
+						console.error(error);
+						toast.error("Error creating comic!", {
+							position: "bottom-center",
+						});
+						return;
+					});
 			} catch (error) {
 				console.error(error);
 			}
@@ -398,7 +414,7 @@ const FormCreate = () => {
 					<div className={styles.imagePreviewContainer}>
 						{imagePreview && (
 							<img
-                id="image"
+								id="image"
 								src={imagePreview}
 								alt="Preview"
 								className={styles.imagePreview}
@@ -407,7 +423,9 @@ const FormCreate = () => {
 					</div>
 
 					<div className={styles.selectFileContainer}>
-						<label htmlFor="imageInput">
+						<label
+							htmlFor="imageInput"
+							className={styles.addImage}>
 							<input
 								type="file"
 								id="imageInput"
@@ -418,7 +436,6 @@ const FormCreate = () => {
 							/>
 							<AddPhotoAlternateIcon
 								fontSize="large"
-								className={styles.addImage}
 								titleAccess="Add Image"
 							/>
 							<p>Add Image</p>

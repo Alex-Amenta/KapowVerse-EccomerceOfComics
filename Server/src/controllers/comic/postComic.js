@@ -32,9 +32,8 @@ const createComic = async (title, description, imagenURL, price, stock, category
         author,
         publisher,
     });
-
     if (!newComic) throw new Error(`El comic ${title} no pudo crearse.`);
-    return `El comic ${title} se creó exitosamente.`;
+    return newComic.dataValues;
 };
 
 
