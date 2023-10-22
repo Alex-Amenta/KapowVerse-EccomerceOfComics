@@ -25,7 +25,9 @@ function Reviews({ comicId }) {
   const [sortOrder, setSortOrder] = useState("");
 
   useEffect(() => {
-    dispatch(fetchReviewByComic(comicId));
+    if (comicId) {
+      dispatch(fetchReviewByComic(comicId));
+    }
   }, [dispatch]);
 
   useEffect(() => {

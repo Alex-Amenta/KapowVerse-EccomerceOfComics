@@ -84,6 +84,8 @@ const cartSlice = createSlice({
             } else {
                 alert("No hay productos en stock");
             }
+
+            state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         },
         removeItem: (state, action) => {
             const itemId = action.payload;
@@ -95,6 +97,8 @@ const cartSlice = createSlice({
                 state.totalPrice -= item.price * item.quantity;
                 state.cart.splice(itemIndex, 1);
             }
+
+            state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         },
         increaseItemQuantity: (state, action) => {
             const itemId = action.payload;
@@ -105,6 +109,8 @@ const cartSlice = createSlice({
                 state.itemQuantity += 1;
                 state.totalPrice += item.price;
             }
+
+            state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         },
         decreaseItemQuantity: (state, action) => {
             const itemId = action.payload;
@@ -115,6 +121,8 @@ const cartSlice = createSlice({
                 state.itemQuantity -= 1;
                 state.totalPrice -= item.price;
             }
+
+            state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
         },
         clearCart: (state, action) => {
             state.cart = [];
