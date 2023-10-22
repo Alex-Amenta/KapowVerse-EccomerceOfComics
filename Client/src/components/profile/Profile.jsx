@@ -1,9 +1,25 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Profile.module.css";
+import { logUserByLocalStorage } from "../../redux/features/userSlice";
+import { useEffect } from "react";
 
 function Profile() {
-	const user = useSelector((state) => state.user.user);
-	console.log(user)
+	if (!localStorage.getItem("token")) {
+		window.location.href = "/login";
+	}
+	const dispatch = useDispatch();
+	useEffect(() => {
+		if (localStorage.getItem("token")) {
+			dispatch(
+				logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+			);
+		}
+	}, []);
+
+	let user = useSelector((state) => state.user.user);
+	if (localStorage.getItem("token") !== null && user === null) {
+		user = JSON.parse(localStorage.getItem("token"));
+	}
 
 	return (
 		<div className={styles.container}>
@@ -11,7 +27,7 @@ function Profile() {
 			<div className={styles.profileContainer}>
 				<div className={styles.profileImageContainer}>
 					<img
-            className={styles.profileImage}
+						className={styles.profileImage}
 						src={user.image}
 						alt={user.name}
 					/>

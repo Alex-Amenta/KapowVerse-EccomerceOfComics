@@ -24,7 +24,6 @@ export const getCartByUserId = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
     'cart/addToCart', async ({ userId, comicId }, { rejectWithValue }) => {
-        console.log(comicId);
         try {
             const { data } = await axios.post(`${URL}/${userId}/add`, { comicId });
             return data;

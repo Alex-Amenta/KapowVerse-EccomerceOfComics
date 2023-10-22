@@ -9,7 +9,7 @@ import FormCreate from "./components/formCreate/FormCreate"
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
@@ -17,12 +17,18 @@ import { fetchComics } from "./redux/features/comicSlice";
 
 function App() {
   const dispatch = useDispatch();
+  const allComics = useSelector((state) => state.comic.allComics);
   useEffect(() => {
     dispatch(fetchComics());
     if (localStorage.getItem("token")) {
       dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
     }
   }, []);
+
+  useEffect(() => {
+    
+  }, [allComics]);
+
   const location = useLocation();
   return (
     <>

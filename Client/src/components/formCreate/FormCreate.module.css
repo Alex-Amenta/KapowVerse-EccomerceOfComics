@@ -102,7 +102,7 @@
   
 }
 
-.imagePreviewContainer img {
+.imagePreview {
   max-width: 512px;
   max-height: 512px;
   height: auto;
@@ -116,8 +116,7 @@ label {
   gap: 1rem;
 }
 
-.selectFileContainer label:hover {
-  color: gray;
+.addImage{
   cursor: pointer;
 }
 
@@ -251,5 +250,15 @@ label {
       "left2"
       "right";
     grid-template-columns: 1fr; /* Una columna en dispositivos móviles */
+  }
+
+  .imageContainer{
+    align-self: center;
+
+  }
+
+  .imagePreview {
+    max-width: 90%;
+    max-height: 100%;    
   }
 }

@@ -5,6 +5,9 @@
   padding: 3rem 0;
   gap: 10px;
   color: black;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 .Link {
@@ -89,3 +92,4 @@
   width: 125px;
   text-align: center;
 }
+

@@ -1,8 +1,9 @@
 import Cards from "../cards/Cards";
 import styles from "./CardsContainer.module.css";
-import { useSelector } from "react-redux"; // Add this line
+import { useSelector } from "react-redux"; 
 const CardsContainer = ({ allComics }) => {
-	const isLoading = useSelector((state) => state.comic.loading); // Add this line
+	const isLoading = useSelector((state) => state.comic.loading); 
+	const isError = useSelector((state) => state.comic.error); 
 	return (
 		<section className={styles.container}>
 			{allComics.length ? (
@@ -34,10 +35,15 @@ const CardsContainer = ({ allComics }) => {
 				)
 			) : (
 				<>
-					{isLoading ? (
+
+					{isLoading && !isError ? (
 						<h1>Loading...</h1>
 					) : (
+					isError ? (
+						<h1>There was an error</h1>
+					) : (
 						<h1>There are no items to show</h1>
+						)
 					)}
 				</>
 			)}

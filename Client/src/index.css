@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Rubik&display=swap");
 
+*{
+  transition: all 1s;
+}
+
 a {
   text-decoration: none;
 }
@@ -23,6 +27,10 @@ button {
   transition: border-color 0.25s;
 }
 
+.test{
+  display: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -30,8 +38,53 @@ button {
   }
 }
 @media (max-width: 768px) {
-  #root > section > div:first-child {
+
+  /* #root > nav { /* NavBar 
+    justify-content: flex-start;
+  } */
+
+  #root > nav > div {  /* Logo */
+    margin: 0 10px;
+  }
+
+
+
+  #root > nav > div:last-child { /* Menu Hamburguesa */
+    width: 100px;
+    right: 150px;
+    margin: 0 10px;
+  }
+  #root  > nav + section   { /* section */
+    margin: 0;
+    justify-content: center;
+    
+  }
+
+  #root  > nav + section  > div  { /* Filtros */
+    margin: 10px 10px;
+    justify-content: center;
+
+  }
+
+
+
+  #root > section > div:first-child {  /* Titulo pagina */
     display: none;
+    border: 3px solid red; 
   }
 }
 
+@media (max-width: 350px) {
+ #root > :not(.test) {
+  display: none;
+ }
+  
+  .test {
+    display: block !important;
+    font-family: "Bangers", sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    
+  }
+
+}

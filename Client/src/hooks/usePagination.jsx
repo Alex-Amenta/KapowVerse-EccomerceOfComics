@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useWindowDimensions  from "./useWindowDimensions.jsx";
+// import useWindowDimensions  from "./useWindowDimensions.jsx";
 
 const usePagination = (data, itemPerPage = 5, initialPage = 1) => {
-  const { height, width } = useWindowDimensions();
-  console.log("usePagination", height, width)
+  // const { height, width } = useWindowDimensions();
+
   const [currentPage, setCurrentPage] = useState(initialPage);
   const allComics = useSelector((state) => state.comic.allComics);
   const paginate = (pageNumber) => {
@@ -19,13 +19,11 @@ const usePagination = (data, itemPerPage = 5, initialPage = 1) => {
   // } else if (location === "all") {
   //   data = allComics;
   // }
-
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    console.log("usePagination")
     setCurrentPage(1);
   }, [allComics]);
 

@@ -70,7 +70,6 @@ function Login() {
 					return;
 				}
 				setRes("Success");
-				console.log(res.payload);
 				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
 			})
 			.catch((err) => {
@@ -79,7 +78,6 @@ function Login() {
 				else setRes("Error in server");
 			});
 
-		console.log(data); // Datos del usuario
 	};
 
 	return (
@@ -97,12 +95,12 @@ function Login() {
 				onSubmit={handleSubmit}
 				className={styles.form}>
 				<GoogleLogin
+				className={styles.googleButton}
 					onSuccess={(credentialResponse) => {
-						console.log(credentialResponse);
 						responseGoogle(credentialResponse);
 					}}
 					onError={() => {
-						console.log("Login Failed");
+						setRes("Login Failed")
 					}}
 				/>
 				<br />
