@@ -55,7 +55,7 @@
   gap: 1rem;
 }
 
-.icons button{
+.icons button, .starIcon{
   background: transparent;
   color: black;
   padding: 0;
@@ -64,4 +64,8 @@
 .icon:hover {
   cursor: pointer;
   color: gray;
+}
+
+.starIcon:hover {
+  color: rgb(181, 181, 20);;
 }

@@ -10,11 +10,15 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Reviews from "../reviews/Reviews";
+import { addItemToCart } from "../../redux/features/cartSlice";
+import { Toaster, toast } from "react-hot-toast";
+import imageAlert from "../../assets/murcielagos.png";
 
 function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comics = useSelector((state) => state.comic.comicDetails);
+  const reviews = useSelector((state) => state.review.reviews);
   const comicsRelated = useSelector((state) => state.comic.relatedComics);
   const { id } = useParams();
 
@@ -26,6 +30,26 @@ function Detail() {
 
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  const handleAddToCart = () => {
+    const { id, title, description, price, category, author, image, stock } =
+      comics;
+    dispatch(
+      addItemToCart({
+        id,
+        title,
+        description,
+        price,
+        category,
+        author,
+        image,
+        stock,
+      })
+    );
+    toast.success("Item added to cart successfully!", {
+      position: "bottom-center",
+    });
   };
 
   return (
@@ -59,7 +83,7 @@ function Detail() {
             </p>
           </div>
           <div className={styles.containerButtons}>
-            <button>
+            <button onClick={handleAddToCart}>
               Add to Cart <AddShoppingCartIcon className={styles.icons} />
             </button>
             <button>
@@ -88,9 +112,25 @@ function Detail() {
         </article>
       )}
 
-      <article className={styles.reviewContainer}>
-        <Reviews comicId={comics.id}/>
-      </article>
+      {reviews && (
+        <article className={styles.reviewContainer}>
+          <Reviews comicId={comics.id} />
+        </article>
+      )}
+
+      <Toaster
+        toastOptions={{
+          style: {
+            border: "2px solid #000000",
+            fontWeight: "bold",
+            fontFamily: "Rubik, sans-serif",
+            backgroundImage: `url(${imageAlert})`,
+            backgroundSize: "cover",
+            backgroundPosition: "right",
+            backgroundRepeat: "no-repeat",
+          },
+        }}
+      />
     </section>
   );
 }

@@ -7,6 +7,7 @@ const getUserById = require("../controllers/user/getUserById");
 const postUser = require("../controllers/user/postUser");
 const updateUser = require("../controllers/user/updateUser");
 const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
+const sendEmailConPlantilla = require("../nodemailer/plantillaEmail");
 
 const getAllUsersHandler = async (req, res) => {
 	const { name } = req.query;
@@ -38,7 +39,7 @@ const postUserHandler = async (req, res) => {
 	try {
 		const user = await postUser(name, email, password, image);
 		if (email) {
-			sendEmailConPlantilla(email, "User")
+			sendEmailConPlantilla(email, "User", { userName: name })
 		  }
 		res.status(201).json(user);
 	} catch (error) {

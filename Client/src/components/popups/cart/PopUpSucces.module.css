@@ -1,0 +1,52 @@
+.modal {
+  width: 37%;
+  height: 30%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.mainContainer {
+  padding: 3rem;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  font-family: "Bangers", sans-serif;
+  gap: 2rem;
+}
+
+.content {
+  background-color: aliceblue;
+  padding: 3rem;
+}
+
+.mainContainer p {
+  font-size: large;
+}
+
+.mainContainer button:hover {
+  background-color: green;
+}
+
+.mainContainer img {
+  width: 25rem;
+  position: absolute;
+  top: 20rem;
+  left: 8rem;
+}
