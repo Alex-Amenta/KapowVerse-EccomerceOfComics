@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { logUserByLocalStorage } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
@@ -32,7 +32,6 @@ function Home() {
 
   const [searchParams] = useSearchParams();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const popUp = searchParams.get("status");
   const popUpFail = searchParams.get("status");
   const popUpUserBlock = searchParams.get("error");
