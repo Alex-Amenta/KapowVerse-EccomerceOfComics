@@ -63,7 +63,7 @@ const Cart = () => {
     } else {
       try {
         axios
-          .post('http://localhost:3001/payment/create-order', { user, cart })
+          .post(`${base_url}/payment/create-order`, { user, cart })
           .then((res) => (
             localStorage.removeItem('cart'),
             window.location.href = res.data.init_point
