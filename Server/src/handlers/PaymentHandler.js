@@ -8,6 +8,7 @@ let comics = {};
 let loggedUser = {};
 
 const createOrder = async (req, res) => {
+
     const { user, cart } = req.body;
     try {
       if (!user) throw new Error("Usuario no Registrado");

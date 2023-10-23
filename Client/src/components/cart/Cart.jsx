@@ -64,7 +64,10 @@ const Cart = () => {
       try {
         axios
           .post('http://localhost:3001/payment/create-order', { user, cart })
-          .then((res) => (window.location.href = res.data.init_point));
+          .then((res) => (
+            localStorage.removeItem('cart'),
+            window.location.href = res.data.init_point
+            ));
       } catch (error) {
         console.log('Error al realizar la solicitud:', error);
       }
