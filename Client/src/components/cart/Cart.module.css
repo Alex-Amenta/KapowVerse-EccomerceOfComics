@@ -122,3 +122,17 @@
 .payButton:hover::before {
   width: 100%;
 }
+
+.inputComic {
+  font-family: "Rubik", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0 1rem;
+  outline: none;
+  border: none;
+  display: inline-block;
+  width: 30px;
+
+  height: 19px;
+
+}
