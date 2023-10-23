@@ -3,6 +3,7 @@ import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 import Filters from "../../components/filters/Filters";
+import Navbar from "../../components/navbar/Navbar";
 
 function ComicsSection() {
   const allComics = useSelector((state) => state.comic.allComics);
@@ -24,6 +25,7 @@ function ComicsSection() {
 
   return (
     <>
+    <Navbar/>
       <Filters
         onFilterChange={handleFilterChange}
         filterOptions={filterOptionsForPublisher}

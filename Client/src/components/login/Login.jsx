@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser, googleAuth } from "../../redux/features/userSlice";
 import { GoogleLogin } from "@react-oauth/google";
 import { Toaster, toast } from "react-hot-toast";
+import Navbar from "../navbar/Navbar";
 
 function Login() {
   const logState = useSelector((state) => state.user.logState);
@@ -91,6 +92,8 @@ function Login() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className={styles.container}>
       <h2>LogIn</h2> <hr />
       <h3
@@ -124,7 +127,7 @@ function Login() {
           className={styles.input}
         />
         <button type="submit" className={styles.submit}>
-          Submit
+          Login
         </button>
 
         <GoogleLogin
@@ -140,6 +143,7 @@ function Login() {
         <br />
       </form>
     </div>
+    </>
   );
 }
 

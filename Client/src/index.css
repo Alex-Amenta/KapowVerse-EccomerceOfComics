@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Rubik&display=swap");
 
 *{
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 a {
@@ -37,23 +37,15 @@ button {
     background-color: #ffffff;
   }
 }
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
 
-  /* #root > nav { /* NavBar 
-    justify-content: flex-start;
-  } */
-
-
-
-
-
-  #root  > nav + section   { /* section */
+  #root  > nav + section   { 
     margin: 0;
     justify-content: center;
     
   }
 
-  #root  > nav + section  > div  { /* Filtros */
+  #root  > nav + section  > div  { 
     margin: 10px 10px;
     justify-content: center;
 
@@ -61,11 +53,11 @@ button {
 
 
 
-  #root > section > div:first-child {  /* Titulo pagina */
+  #root > section > div:first-child {  
     display: none;
     border: 3px solid red; 
   }
-}
+} */
 
 @media (max-width: 350px) {
  #root > :not(.test) {

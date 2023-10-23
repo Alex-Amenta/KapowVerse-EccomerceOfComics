@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: black;
+}
+
+.form {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 4rem 4rem 1rem 4rem;
+  gap: 2rem;
+  border: 2px solid black;
+  border-radius: 10px;
+  box-shadow: 0px 0px 45px 0px red;
+  font-family: "Bangers", sans-serif;
+}
+
+.form h2 {
+  color: black;
+  font-size: 2rem;
+}
+
+.logInMsg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.emailContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.passwordContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.buttonLog {
+  width: 140px;
+  height: 40px;
+  margin-top: 1rem;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.buttonLog:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.Inputs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  outline: none;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 3px;
+  height: 25px;
+  width: 220px;
+}
+
+.labels {
+  align-self: flex-start;
+}
+
+.link {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-right: 1rem;
+    gap: 10px;
+}
+
+.link:hover {
+    color: red;
+}

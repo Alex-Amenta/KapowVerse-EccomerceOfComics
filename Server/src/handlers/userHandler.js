@@ -8,6 +8,7 @@ const postUser = require("../controllers/user/postUser");
 const updateUser = require("../controllers/user/updateUser");
 const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
 const sendEmailConPlantilla = require("../nodemailer/plantillaEmail");
+const deleteAccount = require("../controllers/user/deleteAccount");
 
 const getAllUsersHandler = async (req, res) => {
 	const { name } = req.query;
@@ -35,9 +36,9 @@ const getUserByIdHandler = async (req, res) => {
 };
 
 const postUserHandler = async (req, res) => {
-	const { name, email, password, image } = req.body;
+	const { name, email, password, image, role } = req.body;
 	try {
-		const user = await postUser(name, email, password, image);
+		const user = await postUser(name, email, password, image, role);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
 		  }
@@ -87,6 +88,16 @@ const loginUserHandler = async (req, res) => {
 	}
 };
 
+const deleteAccountHandler = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const user = await deleteAccount(id);
+		res.status(204).json(user);
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+};
+
 module.exports = {
 	loginUserHandler,
 	getAllUsersHandler,
@@ -94,4 +105,5 @@ module.exports = {
 	postUserHandler,
 	toggleUserActiveHandler,
 	updateUserHandler,
+	deleteAccountHandler
 };

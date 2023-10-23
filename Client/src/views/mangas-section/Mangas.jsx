@@ -3,6 +3,7 @@ import CardsContainer from "../../components/cards-container/CardsContainer";
 import usePagination from "../../hooks/usePagination";
 import Pagination from "../../components/pagination/Pagination";
 import Filters from "../../components/filters/Filters";
+import Navbar from "../../components/navbar/Navbar";
 
 function MangasSection() {
   const allComics = useSelector((state) => state.comic.allComics);
@@ -21,6 +22,7 @@ function MangasSection() {
 
   return (
     <>
+      <Navbar />
       <Filters
         onFilterChange={handleFilterChange}
         hidePublisherFilter={true}
@@ -31,7 +33,6 @@ function MangasSection() {
         totalPages={totalPages}
         currentPage={currentPage}
         onPageChange={paginate}
-        
       />
     </>
   );

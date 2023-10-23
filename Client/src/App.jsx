@@ -5,7 +5,7 @@ import Detail from "./views/detail/Detail";
 import Navbar from "./components/navbar/Navbar";
 import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
-import FormCreate from "./components/formCreate/FormCreate"
+import CreateComic from "./components/admin/createComic/CreateComic";
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
@@ -14,7 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
-
+import AdminGuard from "./components/guards/AdminGuard";
+import LogAdmin from "./components/admin/logAdmin/LogAdmin";
+import Sales from "./components/admin/sales/Sales";
+import Cards from "./components/admin/cards/Cards";
+import UserList from "./components/admin/usersList/UserList";
+import Comics from "./components/admin/comics/AdminHome";
+import AdminHome from "./components/admin/comics/AdminHome";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,29 +28,37 @@ function App() {
   useEffect(() => {
     dispatch(fetchComics());
     if (localStorage.getItem("token")) {
-      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("token"))));
+      dispatch(
+        logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+      );
     }
   }, []);
 
-  useEffect(() => {
-    
-  }, [allComics]);
+  useEffect(() => {}, [allComics]);
 
-  const location = useLocation();
   return (
     <>
-      {location.pathname !== "/" && <Navbar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/comic/:id" element={<Detail />} />
         <Route path="/mangas" element={<MangasSection />} />
         <Route path="/comics" element={<ComicsSection />} />
-        <Route path="/create" element={<FormCreate />} />
         <Route path="/login" element={<Login />} />
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+
+        {/* Rutas protegidas para admin */}
+        <Route element={<AdminGuard />}>
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin/create" element={<CreateComic />} />
+          <Route path="/admin/comics" element={<Comics />} />
+          <Route path="/admin/users" element={<UserList />} />
+          <Route path="/admin/comics" element={<Cards />} />
+          <Route path="/admin/sales" element={<Sales />} />
+        </Route>
+        <Route path="/admin/login" element={<LogAdmin />} />
       </Routes>
     </>
   );

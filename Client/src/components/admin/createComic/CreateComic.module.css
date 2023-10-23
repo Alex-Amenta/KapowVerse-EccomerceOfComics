@@ -1,4 +1,19 @@
-.container h2 {
+.container {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.containerForm {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.containerForm h2 {
   font-size: 3.5rem;
   text-align: center;
   color: #9f2d1c;
@@ -7,7 +22,7 @@
   text-shadow: 1px 1px black;
 }
 
-.container hr {
+.containerForm hr {
   width: 90%;
 }
 
