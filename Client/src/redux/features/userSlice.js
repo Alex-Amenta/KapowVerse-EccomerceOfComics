@@ -12,6 +12,7 @@ const initialState = {
     error: '',
     logState: false,
     user: null,
+    admin: null,
     pending: false,
 
 };
@@ -32,6 +33,11 @@ export const registerUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/register`, user);
+            if (data.role === 'user') {
+                return { type: 'user', user: data };
+            } else if (data.role === 'admin') {
+                return { type: 'admin', user: data };
+            }
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -57,13 +63,13 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
     'user/logoutUser',
     async (_, { rejectWithValue }) => {
-            return rejectWithValue('');
+        return rejectWithValue('');
     }
 );
 
 export const logUserByLocalStorage = createAsyncThunk(
     'user/logUserByLocalStorage',
-    async (data, ) => {
+    async (data,) => {
         return data;
     }
 );
@@ -112,6 +118,18 @@ export const updateUser = createAsyncThunk(
     async (userId, { rejectWithValue }) => {
         try {
             const { data } = await axios.put(`/user/${userId}`);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const deleteAccount = createAsyncThunk(
+    'user/deleteAccount',
+    async (userId, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.delete(`/user/${userId}/delete`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -183,7 +201,11 @@ const userSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            state.user = action.payload;
+            if (action.payload.role === 'user') {
+                state.user = action.payload;
+            } else if (action.payload.role === 'admin') {
+                state.admin = action.payload;
+            }
             state.error = '';
         });
         builder.addCase(loginUser.rejected, (state, action) => {
@@ -199,7 +221,11 @@ const userSlice = createSlice({
         builder.addCase(googleAuth.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            state.user = action.payload;
+            if (action.payload.role === 'user') {
+                state.user = action.payload;
+            } else if (action.payload.role === 'admin') {
+                state.admin = action.payload;
+            }
             state.error = '';
         });
         builder.addCase(googleAuth.rejected, (state, action) => {
@@ -216,7 +242,11 @@ const userSlice = createSlice({
         builder.addCase(registerUser.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            state.user = action.payload;
+            if (action.payload.type === 'user') {
+                state.user = action.payload.user;
+            } else if (action.payload.type === 'admin') {
+                state.admin = action.payload.user;
+            }
             state.error = '';
         });
         builder.addCase(registerUser.rejected, (state, action) => {
@@ -254,6 +284,22 @@ const userSlice = createSlice({
             state.error = (action.payload && action.payload.error) || action.error.message;
         });
 
+        builder.addCase(deleteAccount.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        
+        builder.addCase(deleteAccount.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = null; 
+            state.error = '';
+        });
+        
+        builder.addCase(deleteAccount.rejected, (state, action) => {
+            state.loading = false;
+            state.error = (action.payload && action.payload.error) || action.error.message;
+        });
+        
 
     },
 });

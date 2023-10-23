@@ -10,6 +10,7 @@ import imageAlert from "../../assets/murcielagos.png";
 import { useLocation } from "react-router-dom";
 import styles from "./Home.module.css";
 import axios from "axios";
+import Navbar from "../../components/navbar/Navbar";
 
 function Home() {
   const dispatch = useDispatch();
@@ -47,15 +48,12 @@ function Home() {
         position: "top-center",
         id: "error",
       });
-    } 
+    }
   }, [status]);
-
-
 
   return (
     <>
-
-
+      <Navbar />
       <Filters
         onFilterChange={handleFilterChange}
         filterOptions={filterOptionsForPublisher}

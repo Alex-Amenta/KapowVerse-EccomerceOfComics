@@ -13,6 +13,7 @@ import Reviews from "../reviews/Reviews";
 import { addItemToCart } from "../../redux/features/cartSlice";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../assets/murcielagos.png";
+import Navbar from "../../components/navbar/Navbar";
 
 function Detail() {
   const dispatch = useDispatch();
@@ -62,6 +63,8 @@ function Detail() {
   };
 
   return (
+    <>
+    <Navbar/>
     <section>
       <div className={styles.buttonBack}>
         <button onClick={handleGoBack}>
@@ -139,6 +142,7 @@ function Detail() {
         }}
       />
     </section>
+    </>
   );
 }
 

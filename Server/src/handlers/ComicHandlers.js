@@ -172,7 +172,7 @@ const updateComicHandler = async (req, res) => {
             });
             updatedComicData.image = imagen.secure_url;
         } else if (!updatedComicData.image) {
-            const existingComic = await getComicById(id);
+            const existingComic = await getComicsById(id);
             updatedComicData.image = existingComic.image;
         }
 

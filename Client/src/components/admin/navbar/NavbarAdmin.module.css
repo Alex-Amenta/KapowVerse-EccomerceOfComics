@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+  position: fixed;
+  width: 14rem;
+  padding: 1rem 0;
+  background-color: rgb(13, 13, 13);
+  color: white;
+  font-family: "Bangers", sans-serif;
+  box-shadow: 0px 7px 18px  black;
+}
+
+.container button {
+  background: transparent;
+}
+
+.imgContainer a {
+    color: green;
+ }
+
+
+.linkContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.link, .goBack {
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.link:hover {
+  color: grey;
+}
+
+.goBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10rem;
+}
+
+.goBack:hover {
+    color: tomato;
+}
