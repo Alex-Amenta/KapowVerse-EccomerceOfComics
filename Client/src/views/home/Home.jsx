@@ -5,15 +5,21 @@ import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 import Filters from "../../components/filters/Filters";
-import PopUpSuccess from "../../components/popups/cart/PopUpSucces";
-import PopUpFail from "../../components/popups/cart/PopUpFail";
-import PopUpUser from "../../components/popups/user/PopUpUser";
-import { useSearchParams } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
+import imageAlert from "../../assets/murcielagos.png";
+import { useLocation } from "react-router-dom";
+import styles from "./Home.module.css";
+import axios from "axios";
 
 function Home() {
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
   const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
+
+  // Mostrar notificación de compra exitosa
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const status = searchParams.get("status");
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -30,59 +36,38 @@ function Home() {
     paginate(1);
   };
 
-  const [searchParams] = useSearchParams();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const popUp = searchParams.get("status");
-  const popUpFail = searchParams.get("status");
-  const popUpUserBlock = searchParams.get("error");
 
-  if (popUpUserBlock === "unauthorized") {
-    return (
-      <>
-        <PopUpUser
-          isOpen={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      {/* {
+        status === "approved" && (
+          <div className={styles.msgContainer}>
+            <p>
+              <span>🎉</span>Thank you for shopping at KapowVerse! Your purchase was
+              successful, and you will receive a confirmation email shortly.
+            </p>
+            <button>Accept</button>
+          </div>
+        )
+      } */}
+      {/* {status === "rejected" &&
+        toast.error(
+          "We're sorry, but your purchase was rejected. Please check your email for more information.",
+          { position: "top-center" }
+        )} */}
 
-  if (popUpFail === "rejected") {
-    return (
-      <>
-        <PopUpFail
-          isOpen={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
-        />
-      </>
-    );
-  }
-
-  if (popUp === "approved") {
-    return (
-      <>
-        <PopUpSuccess
-          isOpen={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
-        />
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Filters
-          onFilterChange={handleFilterChange}
-          filterOptions={filterOptionsForPublisher}
-        />
-        <CardsContainer allComics={currentItems} />
-        <Pagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={paginate}
-        />
-      </>
-    );
-  }
+      <Filters
+        onFilterChange={handleFilterChange}
+        filterOptions={filterOptionsForPublisher}
+      />
+      <CardsContainer allComics={currentItems} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={paginate}
+      />
+    </>
+  );
 }
 
 export default Home;

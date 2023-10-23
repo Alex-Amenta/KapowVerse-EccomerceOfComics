@@ -51,6 +51,7 @@ const Cards = ({
         stock,
       })
     );
+    return toast.success("Item added to cart!", { position: "bottom-center" });
   };
 
   return (

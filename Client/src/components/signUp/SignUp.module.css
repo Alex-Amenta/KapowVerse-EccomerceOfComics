@@ -21,6 +21,15 @@
     width: 90%;
 }
 
+.link {
+    text-decoration: none;
+    color: #9f2d1c;
+}
+
+.link:hover { 
+    color: gray;
+}
+
 .form {
     display: flex;
     flex-direction: column;
