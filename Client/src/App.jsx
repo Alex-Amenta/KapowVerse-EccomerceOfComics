@@ -9,6 +9,7 @@ import FormCreate from "./components/formCreate/FormCreate"
 import Login from "./components/login/Login";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
+import EditUser from "./components/editUser/EditUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { logUserByLocalStorage } from "./redux/features/userSlice";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/comics" element={<ComicsSection />} />
         <Route path="/create" element={<FormCreate />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>

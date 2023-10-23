@@ -43,17 +43,10 @@ button {
     justify-content: flex-start;
   } */
 
-  #root > nav > div {  /* Logo */
-    margin: 0 10px;
-  }
 
 
 
-  #root > nav > div:last-child { /* Menu Hamburguesa */
-    width: 100px;
-    right: 150px;
-    margin: 0 10px;
-  }
+
   #root  > nav + section   { /* section */
     margin: 0;
     justify-content: center;

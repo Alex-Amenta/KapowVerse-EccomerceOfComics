@@ -14,7 +14,7 @@ const toggleActiveStatus = async (id, activate = false) => {
 
     await user.update({ active: activate });
 
-    return `El usuario con ID ${id} ha sido marcado como ${activate ? 'activo' : 'inactivo'}`;
+    return user;
 };
 
 module.exports = toggleActiveStatus;

@@ -66,6 +66,38 @@
     letter-spacing: 0.15ch;
   }
 
+  .profileButtonsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .deleteButton{
+    background-color: #9f2d1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.15ch;
+    cursor: pointer;
+  }
+
+  .profileButton{
+    background-color: #1c4a9f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.15ch;
+    cursor: pointer;
+  }
+  
   @media (max-width: 768px) {
     .profileInfoContainer{
       width: 80%;

@@ -13,8 +13,13 @@ import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../assets/murcielagos.png";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ClearIcon from "@mui/icons-material/Clear";
+import axios from "axios";
+import base_url from "../../utils/development";
+import { useParams } from "react-router-dom";
 
-function Reviews({ comicId }) {
+function Reviews() {
+  const { id } = useParams();
+  const comicId = id;
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.review.reviews);
   const user = useSelector((state) => state.user.user);
@@ -25,9 +30,7 @@ function Reviews({ comicId }) {
   const [sortOrder, setSortOrder] = useState("");
 
   useEffect(() => {
-    if (comicId) {
       dispatch(fetchReviewByComic(comicId));
-    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,13 +42,34 @@ function Reviews({ comicId }) {
     setSortOrder(e.target.value);
   };
 
-  const handleCreateReview = () => {
+  const checkUserPurchases = async () => {
+    try {
+      const response = await axios.get(`${base_url}/purchase`);
+      console.log(response)
+      const purchases = await response.data;
+      return purchases;
+    } catch (error) {
+      console.error("Error al verificar las compras:", error);
+    }
+  };
+
+  const handleCreateReview = async () => {
     if (!user) {
       toast.error("You must log in to create a review.", {
         position: "bottom-center",
       });
       setNewRating(0);
       setNewComment("");
+      return;
+    }
+
+    // Verifica si el usuario ha realizado compras
+    const userPurchases = await checkUserPurchases();
+
+    if (!userPurchases || userPurchases.length === 0) {
+      toast.error("You must make a purchase to leave a review.", {
+        position: "bottom-center",
+      });
       return;
     }
 
@@ -127,7 +151,6 @@ function Reviews({ comicId }) {
             <Rating
               name="simple-controlled"
               value={Number(newRating)}
-              // value="3"
               onChange={(e) => setNewRating(e.target.value)}
             />
           </div>

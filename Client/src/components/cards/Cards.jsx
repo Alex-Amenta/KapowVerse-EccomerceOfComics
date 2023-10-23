@@ -26,35 +26,33 @@ const Cards = ({
 	//   dispatch(addToCart({ userId: user.id, comicId: id }));
 	// };
 
-	const addToCart = () => {
-		const checkStock = items.find((item) => item.id === id);
-		let checkCart = cart.find((item) => item.id === id);
-		if (
-			(!checkCart && checkStock.stock === 0) ||
-			checkCart?.quantity === checkStock.stock
-		)
-			return toast.error(
-				"You have selected the maximum number of products in stock",
-				{
-					position: "bottom-center",
-				}
-			);
-      toast.success("Item added to cart successfully!", {
-        position: "bottom-center",
-      });
-		dispatch(
-			addItemToCart({
-				id,
-				title,
-				description,
-				price,
-				category,
-				author,
-				image,
-				stock,
-			})
-		);
-	};
+  const addToCart = () => {
+    const checkStock = items.find((item) => item.id === id);
+    let checkCart = cart.find((item) => item.id === id);
+    if (
+      (!checkCart && checkStock.stock === 0) ||
+      checkCart?.quantity === checkStock.stock
+    )
+      return toast.error(
+        "You have selected the maximum number of products in stock",
+        {
+          position: "bottom-center",
+        }
+      );
+    dispatch(
+      addItemToCart({
+        id,
+        title,
+        description,
+        price,
+        category,
+        author,
+        image,
+        stock,
+      })
+    );
+    return toast.success("Item added to cart!", { position: "bottom-center" });
+  };
 
 	return (
 		<main className={styles.container}>

@@ -109,10 +109,11 @@ export const toggleUserActiveStatus = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
     'user/updateUser',
-    async (userId, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
         try {
-            const { data } = await axios.put(`/user/${userId}`);
-            return data;
+            const response = await axios.put(`${URL}/${data.userId}`, data.data);
+            console.log("response", response.data)
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }

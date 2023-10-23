@@ -1,18 +1,25 @@
 /* eslint-disable no-irregular-whitespace */
-import { useState } from "react";
-import styles from "./SignUp.module.css";
+import { useEffect, useState } from "react";
+import styles from "./EditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/features/userSlice";
-import { Link } from "react-router-dom";
+import { updateUser } from "../../redux/features/userSlice";
+import { Link, useParams } from "react-router-dom";
+import { logUserByLocalStorage } from "../../redux/features/userSlice";
 
 function SignUp() {
-	const logState = useSelector((state) => state.user.logState);
-	if (logState) window.location.href = "/home";
-
-	const dispatch = useDispatch();
+    const {id} = useParams()
+    const dispatch = useDispatch();
+    useEffect(() => {
+		if (localStorage.getItem("token")) {
+			dispatch(
+				logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+			);
+		}
+	}, []);
+    const user = useSelector((state) => state.user.user);
 	const [data, setData] = useState({
-		name: "",
-		email: "",
+		name: user.name,
+		email: user.email,
 		password: "",
 		image: "",
 	});
@@ -59,36 +66,36 @@ function SignUp() {
 			err = true;
 		}
 		// ################# PASSWORD
-		if (data.password.length < 3) {
-			errores.password = "× Password must be at least 3 characters long ×";
-			err = true;
-		} else if (!data.password.match(/[0-9]/g)) {
+        if (data.password != ""){
+		if (!data.password.match(/[0-9]/g)) {
 			errores.password = "× Password must contain at least 1 number ×";
 			err = true;
 		} else if (!data.password.match(/[A-Z]/g)) {
 			errores.password =
 				"× Password must contain at least 1 uppercase letter ×";
 			err = true;
-		}
+		}}
 		// ################# IMAGE
-		if (data.image != "" && !data.image.includes("http")) {
+        if (data.image != ""){
+		if (!data.image.includes("http")) {
 			errores.image = "× Image must be a valid URL ×";
 			err = true;
-		}
+		}}
 
 		setError({ ...errores });
 		if (err) return;
 		// ############### FIN DE VALIDACIONES ###############
-		setRes("Creating user...");
+		setRes("Updating user...");
 		// ############### POSTEO ###############
-		dispatch(registerUser(data))
+		dispatch(updateUser({data:data, userId:id}))
 			.then((res) => {
 				if (res.error) {
-					setRes("Error creating user");
+					setRes("Error updating user");
 					return;
 				}
+                console.log(res)
 				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
-				setRes("User created successfully!");
+				setRes("User updated successfully!");
 			})
 			.catch((err) => {
 				if (err.response && err.response.data)
@@ -117,7 +124,7 @@ function SignUp() {
 					<label
 						htmlFor="name"
 						className={styles.label}>
-						Name <label style={{ color: "red" }}>*</label>
+						Name
 					</label>
 					<input
 						type="text"
@@ -141,7 +148,7 @@ function SignUp() {
 					<label
 						htmlFor="email"
 						className={styles.label}>
-						Email <label style={{ color: "red" }}>*</label>
+						Email
 					</label>
 					<input
 						type="email"
@@ -165,7 +172,7 @@ function SignUp() {
 					<label
 						htmlFor="password"
 						className={styles.label}>
-						Password <label style={{ color: "red" }}>*</label>
+						Password
 					</label>
 					<input
 						type="password"
@@ -213,12 +220,8 @@ function SignUp() {
 				<button
 					type="submit"
 					className={styles.submit}>
-					Submit
+					Update
 				</button>
-				<label style={{ marginBottom: "10px" }}>
-					<label style={{ color: "red" }}>*</label> required
-				</label>
-				<p>Do you already have an account? <Link to='/login' className={styles.link}>Log in</Link></p>
 			</form>
 		</div>
 	);
