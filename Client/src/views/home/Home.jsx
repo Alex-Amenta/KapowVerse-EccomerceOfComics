@@ -36,25 +36,25 @@ function Home() {
     paginate(1);
   };
 
+  useEffect(() => {
+    if (status === "success" || status === "approved") {
+      toast.success("Purchase completed successfully!", {
+        position: "top-center",
+        id: "success",
+      });
+    } else if (status === "failure" || status === "rejected") {
+      toast.error("Purchase failed!", {
+        position: "top-center",
+        id: "error",
+      });
+    } 
+  }, [status]);
+
+
 
   return (
     <>
-      {/* {
-        status === "approved" && (
-          <div className={styles.msgContainer}>
-            <p>
-              <span>🎉</span>Thank you for shopping at KapowVerse! Your purchase was
-              successful, and you will receive a confirmation email shortly.
-            </p>
-            <button>Accept</button>
-          </div>
-        )
-      } */}
-      {/* {status === "rejected" &&
-        toast.error(
-          "We're sorry, but your purchase was rejected. Please check your email for more information.",
-          { position: "top-center" }
-        )} */}
+
 
       <Filters
         onFilterChange={handleFilterChange}

@@ -51,8 +51,8 @@ const toggleUserActiveHandler = async (req, res) => {
 	const { id } = req.params;
 	const { activate } = req.body; // El frontend debe enviar un parámetro 'activate' que indique si se debe activar o inactivar al usuario
 	try {
-		const message = await toggleActiveStatus(id, activate);
-		res.status(200).json({ message });
+		const user = await toggleActiveStatus(id, activate);
+		res.status(200).json(user);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
@@ -60,9 +60,9 @@ const toggleUserActiveHandler = async (req, res) => {
 
 const updateUserHandler = async (req, res) => {
 	const { id } = req.params;
-	const { name, email, password } = req.body;
+	const { name, email, password, image } = req.body;
 	try {
-		const user = await updateUser(id, name, email, password);
+		const user = await updateUser(id, name, email, password, image);
 		res.status(200).json(user);
 	} catch (error) {
 		res.status(500).json({ message: error.message });

@@ -14,9 +14,12 @@ import imageAlert from "../../assets/murcielagos.png";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
-import back_host from "../../utils/development";
+import base_url from "../../utils/development";
+import { useParams } from "react-router-dom";
 
-function Reviews({ comicId }) {
+function Reviews() {
+  const { id } = useParams();
+  const comicId = id;
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.review.reviews);
   const user = useSelector((state) => state.user.user);
@@ -41,7 +44,8 @@ function Reviews({ comicId }) {
 
   const checkUserPurchases = async () => {
     try {
-      const response = await axios.get(`${back_host}/purchase`);
+      const response = await axios.get(`${base_url}/purchase`);
+      console.log(response)
       const purchases = await response.data;
       return purchases;
     } catch (error) {

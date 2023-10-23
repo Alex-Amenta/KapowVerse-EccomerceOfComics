@@ -1,7 +1,7 @@
 const mercadopago = require('mercadopago')
 require("dotenv").config();
 const { Purchase, Comic } = require("../db");
-const { FRONT_HOST, BACK_HOST, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, DEV } = process.env;
+const { FRONT_HOST, PORTS_SERVER, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, DEV, FE_DEPLOY, BE_DEPLOY } = process.env;
 const transporter = require("../nodemailer/postEmail");
 
 let comics = {};
@@ -31,15 +31,27 @@ const createOrder = async (req, res) => {
             },
         ],
         back_urls: {
-            success: `http://localhost:5173/home`,
-            failure: `http://localhost:5173/home`,
-            pending: `http://localhost:5173/payment/pending`,
+            success: `${
+            DEV === "development"
+                ? `${FRONT_HOST}/home`
+                : `${FE_DEPLOY}/home`
+            }`,
+            failure: `${
+                DEV === "development"
+                    ? `${FRONT_HOST}/home`
+                    : `${FE_DEPLOY}/home`
+                }`,
+            pending: `${
+                DEV === "development"
+                    ? `${FRONT_HOST}/payment/pending`
+                    : `${FE_DEPLOY}/payment/pending`
+                }`,
         },
         auto_return: "approved",
         notification_url:`${
             DEV === "development"
-                ? "https://1hrj4zrc-3001.brs.devtunnels.ms/payment/webhook"
-                : `${BACK_HOST}/payment/webhook`
+                ? `${PORTS_SERVER}/payment/webhook`
+                : `${BE_DEPLOY}/payment/webhook`
             }`,       
     });
     res.send(result.body);

@@ -35,25 +35,25 @@ const Navbar = () => {
             <CloseIcon className={styles.closeButton} fontSize="large" />
           </button>
         )}
-        <Link to="/home" className={styles.link}>
+        <Link to="/home" className={styles.link} onClick={() => setMenuOpen(false)}>
           Home
         </Link>
-        <Link to="/comics" className={styles.link}>
+        <Link to="/comics" className={styles.link} onClick={() => setMenuOpen(false)}>
           Comics
         </Link>
-        <Link to="/mangas" className={styles.link}>
+        <Link to="/mangas" className={styles.link} onClick={() => setMenuOpen(false)}>
           Mangas
         </Link>
-        <Link to="/create" className={styles.link}>
+        <Link to="/create" className={styles.link} onClick={() => setMenuOpen(false)}>
           Create
         </Link>
         {logState ? (
           <>
-            <Logged />
+            <Logged onClick={() => setMenuOpen(false)}/>
           </>
         ) : (
           <>
-            <Link to="/signup" className={styles.link}>
+            <Link to="/signup" className={styles.link} onClick={() => setMenuOpen(false)}>
               Sign Up
             </Link>
           </>

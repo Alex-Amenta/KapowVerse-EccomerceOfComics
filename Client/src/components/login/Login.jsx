@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, googleAuth } from "../../redux/features/userSlice";
 import { GoogleLogin } from "@react-oauth/google";
+import { Toaster, toast } from "react-hot-toast";
 
 function Login() {
   const logState = useSelector((state) => state.user.logState);
-  if (logState) window.location.href = "/home";
+  const userActive = useSelector((state) => state.user.user);
+  if (logState && userActive && userActive.active !== false) window.location.href = "/home";
 
   const [data, setData] = useState({
     email: "",
@@ -51,9 +53,13 @@ function Login() {
           setRes(res.payload);
           return;
         }
+        if (res.payload.active === false) {
+          toast.error("User is not active");
+          setRes("User is not active");
+          return;
+        }
         setRes("Success");
         localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
-        window.location.href = "/home";
       })
       .catch((err) => {
         if (err.response && err.response.data)
@@ -67,6 +73,11 @@ function Login() {
       .then((res) => {
         if (res.error) {
           setRes(res.payload);
+          return;
+        }
+        if (res.payload.active === false) {
+          toast.error("User is not active");
+          setRes("User is not active");
           return;
         }
         setRes("Success");
