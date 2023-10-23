@@ -38,7 +38,7 @@ const createOrder = async (req, res) => {
         auto_return: "approved",
         notification_url:`${
             DEV === "development"
-                ? "https://14d1krhh-3001.use2.devtunnels.ms/payment/webhook"
+                ? "https://1hrj4zrc-3001.brs.devtunnels.ms/payment/webhook"
                 : `${BACK_HOST}/payment/webhook`
             }`,       
     });

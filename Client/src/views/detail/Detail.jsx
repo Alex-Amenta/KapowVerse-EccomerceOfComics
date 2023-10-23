@@ -112,11 +112,9 @@ function Detail() {
         </article>
       )}
 
-      {reviews && (
         <article className={styles.reviewContainer}>
           <Reviews comicId={comics.id} />
         </article>
-      )}
 
       <Toaster
         toastOptions={{

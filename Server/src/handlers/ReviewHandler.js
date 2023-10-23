@@ -15,13 +15,12 @@ const getAllReviewsHandler = async (req, res) => {
 
 const getReviewsByIdHandler = async (req, res) => {
     const reviewId = req.params.id;
-
     try {
         const review = await getReviewById(reviewId);
         if (!review) {
-            return res.status(404).json({ error: 'Reseña no encontrada' });
+            return [];
         }
-        res.json(review);
+        res.status(200).json(review);
     } catch (error) {
         res.status(404).json({ error: error.message });
     }

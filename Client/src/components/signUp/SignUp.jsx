@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/features/userSlice";
+import { Link } from "react-router-dom";
 
 function SignUp() {
 	const logState = useSelector((state) => state.user.logState);
@@ -217,6 +218,7 @@ function SignUp() {
 				<label style={{ marginBottom: "10px" }}>
 					<label style={{ color: "red" }}>*</label> required
 				</label>
+				<p>Do you already have an account? <Link to='/login' className={styles.link}>Log in</Link></p>
 			</form>
 		</div>
 	);
