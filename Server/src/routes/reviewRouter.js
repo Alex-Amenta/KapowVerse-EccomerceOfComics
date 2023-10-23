@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const { getAllReviewsHandler, getReviewsByComicHandler, postReviewHandler, updateReviewHandler, deleteReviewHandler } = require('../handlers/ReviewHandler');
+const { getAllReviewsHandler, getReviewsByIdHandler, postReviewHandler, updateReviewHandler, deleteReviewHandler } = require('../handlers/ReviewHandler');
 
 const reviewRouter = Router();
 
 reviewRouter.get('/', getAllReviewsHandler);
-reviewRouter.get('/:comicId', getReviewsByComicHandler);
+reviewRouter.get('/:comicId', getReviewsByIdHandler);
 reviewRouter.post('/', postReviewHandler);
 reviewRouter.put('/:reviewId', updateReviewHandler);
 reviewRouter.delete('/:reviewId', deleteReviewHandler);
