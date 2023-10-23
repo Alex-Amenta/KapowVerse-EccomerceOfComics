@@ -7,7 +7,7 @@ const sendEmailConPlantilla = (to, template, data) => {
   switch (template) {
     case "User":
       emailOptions = {
-        from: "kaopwverse@gmail.com",
+        from: "kapowverse@gmail.com",
         to,
         subject: "Welcome to KapowVerse",
         html:

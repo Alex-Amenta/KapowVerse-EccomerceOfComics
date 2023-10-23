@@ -1,15 +1,15 @@
 const { Review } = require('../../db');
 
 const deleteReview = async (reviewId) => {
-    const review = await Review.findByPk(reviewId);
-
-    if (!review) {
-        throw new Error(`The review with ${reviewId} does not exist`)
-    };
-
-    await review.destroy();
-
-    return 'Review deleted successfully';
+    try {
+        const review = await Review.findByPk(reviewId);
+        if (!review) {
+            throw new Error('Reseña no encontrada');
+        }
+        await review.update({ status: false });
+    } catch (error) {
+        throw new Error('Error al eliminar la reseña');
+    }
 };
 
 module.exports = deleteReview;

@@ -2,6 +2,7 @@ const mercadopago = require('mercadopago')
 require("dotenv").config();
 const { Purchase, Comic } = require("../db");
 const { FRONT_HOST, BACK_HOST, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, DEV } = process.env;
+const transporter = require("../nodemailer/postEmail");
 
 let comics = {};
 let loggedUser = {};
@@ -67,23 +68,30 @@ const receiveWebhook = async (req, res) => {
                         await comicDB.save();
                     }
                 }
-                // const mailOptions = {
-                //     from: "kapowverse@gmail.com",
-                //     to: loggedUser.email,
-                //     subject: "Pago exitoso",
-                //     text: "Tu pago ha sido exitoso",
-                //     html: `
-                //     <!DOCTYPE html>
-                //     <html>
-                //     <head>
-                //     </head>
-                //     <body>
-                //         <h1>Pago exitoso</h1>
-                //         <p>Tu pago ha sido exitoso.</p>
-                //     </body>
-                //     </html>`,
-                //   };
-                //***********poner el mensaje para enviar al correo con nodemailer ************/
+                const emailOptions = {
+                    from: "kapowverse@gmail.com",
+                    to: loggedUser.email,
+                    subject: "Pago exitoso",
+                    text: "Tu pago ha sido exitoso",
+                    html: `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                    </head>
+                    <body>
+                        <h1>Pago exitoso</h1>
+                        <p>Tu pago ha sido exitoso.</p>
+                    </body>
+                    </html>`,
+                  };
+                  transporter.sendMail(emailOptions, (error, info) => {
+                    if (error) {
+                      console.log("Email error: ", error.message);
+                    } else {
+                      console.log("Correo enviado correctamente 📧");
+                    }
+                  });
+                
             }
             res.sendStatus(200);
         }

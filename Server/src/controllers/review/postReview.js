@@ -1,36 +1,54 @@
-const { Review, Comic, User } = require('../../db');
+const { Comic, User, Review, Purchase } = require('../../db');
 
-const postReview = async (rating, comment, userId, comicId) => {
-    const user = await User.findByPk(userId);
-    const comic = await Comic.findByPk(comicId);
+const postReview = async (rating, comment, comicId, userId) => {
+    try {
+        const comic = await Comic.findByPk(comicId);
+        const user = await User.findByPk(userId);
 
-    if (!user || !comic) {
-        throw new Error('The user or comic does not exist');
-    };
-
-    // Verificar si el usuario ya tiene una revisión para este cómic
-    const existingReview = await Review.findOne({
-        where: {
-            userId: user.id,
-            comicId: comic.id
+        if (!comic || !user) {
+            throw new Error('El comic o usuario no existe');
         }
-    });
 
-    if (existingReview) {
-        throw new Error('The user has already reviewed this comic');
+        const existingReview = await Review.findOne({
+            where: {
+                comicId,
+                userId,
+            },
+        });
+
+        if (existingReview) {
+            throw new Error(
+                'El usuario sólo puede enviar una única reseña por comic'
+            );
+        }
+
+        const purchase = await Purchase.findOne({
+            where: {
+                comicId,
+                userId,
+            },
+        });
+
+        if (!purchase) {
+            throw new Error(
+                'El usuario debe comprar el comic antes de realizar una reseña.'
+            );
+        }
+
+        const review = await Review.create({
+            rating,
+            comment,
+            name: user.name,
+            image: user.image,
+        });
+
+        await review.setUser(user);
+        await review.setProduct(comic);
+
+        return review;
+    } catch (error) {
+        console.log(error);
     }
-
-    const createReview = await Review.create({
-        rating,
-        comment,
-        userId,
-        comicId
-    });
-
-    await createReview.setComic(comic);
-    await createReview.setUser(user);
-
-    return createReview;
 };
 
 module.exports = postReview;

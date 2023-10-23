@@ -1,12 +1,12 @@
-const { Review, User } = require('../../db');
+const { Review } = require('../../db');
 
 const getAllReviews = async () => {
-    const review = await Review.findAll({
-        include: {
-            model: User
-        }
-    });
-    return review;
+    try {
+        const reviews = await Review.findAll();
+        return reviews;
+    } catch (error) {
+        throw new Error('Error al obtener reseñas');
+    }
 };
 
 module.exports = getAllReviews;
