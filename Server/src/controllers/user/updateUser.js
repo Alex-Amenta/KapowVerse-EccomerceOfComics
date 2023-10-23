@@ -1,8 +1,19 @@
 const { User } = require('../../db');
 
-const updateUser = async (id, name, email, password) => {
+const updateUser = async (id, name, email, password, image) => {
     const user = await User.findByPk(id);
-
+    if (!name) {
+        name = user.name;
+    }
+    if (!email) {
+        email = user.email;
+    }
+    if (!password) {
+        password = user.password;
+    }
+    if (!image) {
+        image = user.image;
+    }
     if (!user) {
         throw new Error('No hay usuario con ese id');
     }
@@ -10,10 +21,11 @@ const updateUser = async (id, name, email, password) => {
     await user.update({
         name: name,
         email: email,
-        password: password
+        password: password,
+        image: image
     });
 
-    return `El usuario ${id} se actualizó exitosamente!`;
+    return user;
 }
 
 module.exports = updateUser

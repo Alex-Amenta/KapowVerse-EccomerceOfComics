@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
@@ -18,15 +18,24 @@ function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comics = useSelector((state) => state.comic.comicDetails);
-  const reviews = useSelector((state) => state.review.reviews);
+  useSelector((state) => state.review.reviews);
   const comicsRelated = useSelector((state) => state.comic.relatedComics);
   const { id } = useParams();
+  const [response, setResponse] = useState("pending");
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(fetchComicDetail(id));
+    dispatch(fetchComicDetail(id)).then(() => {
+      setResponse("fulfilled");
+    });
     dispatch(fetchComicsRelated(id));
-  }, [dispatch, id]);
+  }, [response, id]);
+
+
+  if (response == "fulfilled" && comics.length == 0) {
+
+    setResponse("rejected")
+  }
 
   const handleGoBack = () => {
     navigate(-1);
@@ -113,7 +122,7 @@ function Detail() {
       )}
 
         <article className={styles.reviewContainer}>
-          <Reviews comicId={comics.id} />
+          <Reviews />
         </article>
 
       <Toaster

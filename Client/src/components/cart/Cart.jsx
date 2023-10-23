@@ -10,9 +10,10 @@ import {
   removeItem,
   increaseItemQuantity,
   decreaseItemQuantity,
+  setItemQuantity,
   clearCart,
 } from "../../redux/features/cartSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import base_url from "../../utils/development";
 import imageAlert from "../../assets/murcielagos.png";
@@ -23,7 +24,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const cartItems = useSelector((state) => state.cart.cart);
   const user = useSelector((state) => state.user.user);
-
   // const userId = user ? user.id : null;
 
   // const reduceQuantityOfItem = () => {
@@ -50,6 +50,11 @@ const Cart = () => {
     dispatch(removeItem(itemId));
   };
 
+  const handleQty = (e, itemId) => {
+    dispatch(setItemQuantity({itemId:itemId, quantity:e.target.value}));
+  };
+
+
   const handlePayFromMP = () => {
     if (!user) {
       toast.error("You must be logged in to make a purchase", {
@@ -59,12 +64,18 @@ const Cart = () => {
       try {
         axios
           .post('http://localhost:3001/payment/create-order', { user, cart })
-          .then((res) => (window.location.href = res.data.init_point));
+          .then((res) => (
+            localStorage.removeItem('cart'),
+            window.location.href = res.data.init_point
+            ));
       } catch (error) {
         console.log('Error al realizar la solicitud:', error);
       }
     }
   };
+
+
+  const handleFocus = (event) => event.target.select();
 
   return (
     <section className={styles.container}>
@@ -84,7 +95,7 @@ const Cart = () => {
             </div>
             <div className={styles.buttonContainer}>
               <button onClick={() => reduceQuantityOfItem(item.id)}>-</button>
-              <span>{item.quantity}</span>
+              <input onChange={(e) => handleQty(e, item.id)} value={item.quantity} onFocus={handleFocus} className={styles.inputComic}></input>
               <button onClick={() => incrementQuantityOfItem(item.id)}>
                 +
               </button>
