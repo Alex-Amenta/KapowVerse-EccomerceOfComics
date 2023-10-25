@@ -99,3 +99,11 @@
 		transform-origin: 50% 0%;
 	}
 }
+
+.dark {
+  color: aqua;
+}
+
+.light {
+  color:blue
+}

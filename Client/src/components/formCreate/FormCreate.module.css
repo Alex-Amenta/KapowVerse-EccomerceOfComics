@@ -75,7 +75,6 @@
   width: 249px;
   margin-bottom: 20px;
   height: 43px;
-
 }
 
 .inputContainer {
@@ -99,7 +98,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .imagePreview {
@@ -116,7 +114,7 @@ label {
   gap: 1rem;
 }
 
-.addImage{
+.addImage {
   cursor: pointer;
 }
 
@@ -238,7 +236,9 @@ label {
   border-color: transparent #aaa transparent transparent;
 }
 
-.input:focus + .tooltiptext, .select:focus + .tooltiptext, .textarea:focus + .tooltiptext {
+.input:focus + .tooltiptext,
+.select:focus + .tooltiptext,
+.textarea:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
@@ -252,13 +252,58 @@ label {
     grid-template-columns: 1fr; /* Una columna en dispositivos móviles */
   }
 
-  .imageContainer{
+  .imageContainer {
     align-self: center;
-
   }
 
   .imagePreview {
     max-width: 90%;
-    max-height: 100%;    
+    max-height: 100%;
   }
+}
+
+.dark h2 {
+  font-size: 3.5rem;
+  text-align: center;
+  color: #e8e8e8;
+  font-family: "Bangers", sans-serif;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.dark {
+  .formulario {
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px black;
+    font-size: 20px;
+    font-family: "Bangers", sans-serif;
+    color: #e8e8e8;
+    max-width: 90%;
+    margin: 2rem auto 4rem auto;
+    padding: 40px 0;
+    display: grid;
+    grid-template-areas:
+      "left1 left2"
+      "right right";
+    grid-template-columns: 1fr 1fr; /* Dos columnas arriba */
+    grid-gap: 2rem;
+  }
+}
+
+.dark button {
+  padding: 10px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  cursor: pointer;
+  z-index: 1;
+  background: white;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
 }

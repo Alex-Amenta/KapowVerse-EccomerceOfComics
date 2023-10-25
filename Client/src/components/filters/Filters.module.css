@@ -56,7 +56,7 @@
   background: transparent;
   color: black;
   padding: 0;
-} 
+}
 
 .closeModal:hover {
   color: gray;
@@ -107,7 +107,7 @@
   align-items: center;
 }
 
-.buttonsContainer button{
+.buttonsContainer button {
   background: transparent;
   color: black;
   z-index: 0;
@@ -119,4 +119,127 @@
 
 .cartIcon:hover {
   color: gray;
+}
+
+.dark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 3rem 10rem;
+  font-family: "Bangers", sans-serif;
+
+  .select {
+    height: 2.2rem;
+    width: 7rem;
+    cursor: pointer;
+    border-radius: 15px;
+    padding-left: 10px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  }
+
+  .filtersContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .noComicsMessage {
+    margin-top: 6rem;
+    align-self: center;
+    font-size: 2rem;
+  }
+
+  .textContainer {
+    font-size: 3.5rem;
+    width: 100%;
+    color: #e8e8e8;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px black;
+  }
+
+  .lastMessage {
+    font-size: 3.5rem;
+    width: 100%;
+    text-align: center;
+    color: #e8e8e8;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px black;
+  }
+
+  .shoppingTittle {
+    font-family: "Bangers", sans-serif;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .closeModal {
+    background: transparent;
+    color: black;
+    padding: 0;
+  }
+
+  .closeModal:hover {
+    color: gray;
+  }
+
+  .buttonReset {
+    padding: 8px 15px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 0;
+    background: white;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+    overflow: hidden;
+  }
+
+  .buttonReset::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #e2d2d2;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+  }
+
+  .buttonReset:hover {
+    color: #000000;
+  }
+
+  .buttonReset:hover::before {
+    width: 100%;
+  }
+
+  .buttonsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .buttonsContainer button {
+    background: transparent;
+    color: black;
+    z-index: 0;
+  }
+
+  .starIcon:hover {
+    color: rgb(181, 181, 20);
+  }
+
+  .cartIcon:hover {
+    color: gray;
+  }
 }

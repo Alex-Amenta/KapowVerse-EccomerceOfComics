@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import logoOficial from "../../assets/logo-navbar.png";
 import Searchbar from "../../components/searchbar/Searchbar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Logged from "../logged/Logged";
+import { selectDarkMode, toggleDarkMode } from "../../redux/features/darkModeSlice";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -15,6 +16,13 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
   const logState = useSelector((state) => state.user.logState);
+
+  const darkMode = useSelector(selectDarkMode);
+  const dispatch = useDispatch();
+
+  const handleToggleDarkMode = () => {
+    dispatch(toggleDarkMode());
+  }
 
   return (
     <nav className={styles.container}>
@@ -58,6 +66,7 @@ const Navbar = () => {
             </Link>
           </>
         )}
+        <button onClick={handleToggleDarkMode} className={darkMode ? styles.dark : styles.light}>THEME</button>
       </div>
     </nav>
   );

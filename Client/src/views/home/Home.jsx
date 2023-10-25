@@ -10,6 +10,7 @@ import imageAlert from "../../assets/murcielagos.png";
 import { useLocation } from "react-router-dom";
 import styles from "./Home.module.css";
 import axios from "axios";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Home() {
   const dispatch = useDispatch();
@@ -47,15 +48,17 @@ function Home() {
         position: "top-center",
         id: "error",
       });
-    } 
+    }
   }, [status]);
 
+  const darkMode = useSelector(selectDarkMode);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#271F1F";
+  }, [darkMode]);
 
   return (
     <>
-
-
       <Filters
         onFilterChange={handleFilterChange}
         filterOptions={filterOptionsForPublisher}
