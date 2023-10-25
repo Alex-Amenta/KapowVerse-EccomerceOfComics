@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { logUserByLocalStorage } from "../../redux/features/userSlice";
+import { loginUser } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
@@ -23,9 +23,9 @@ function Home() {
   const status = searchParams.get("status");
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("userlog")) {
       dispatch(
-        logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+        loginUser(JSON.parse(localStorage.getItem("userlog")))
       );
     }
   }, []);
@@ -39,6 +39,7 @@ function Home() {
 
   useEffect(() => {
     if (status === "success" || status === "approved") {
+      localStorage.removeItem('cart'),
       toast.success("Purchase completed successfully!", {
         position: "top-center",
         id: "success",

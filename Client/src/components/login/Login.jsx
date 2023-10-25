@@ -60,7 +60,7 @@ function Login() {
           return;
         }
         setRes("Success");
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
       })
       .catch((err) => {
         if (err.response && err.response.data)
@@ -82,7 +82,7 @@ function Login() {
           return;
         }
         setRes("Success");
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
       })
       .catch((err) => {
         if (err.response && err.response.data)

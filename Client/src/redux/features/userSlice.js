@@ -289,7 +289,7 @@ const userSlice = createSlice({
             state.error = '';
         });
         
-        builder.addCase(deleteAccount.fulfilled, (state, action) => {
+        builder.addCase(deleteAccount.fulfilled, (state) => {
             state.loading = false;
             state.user = null; 
             state.error = '';
