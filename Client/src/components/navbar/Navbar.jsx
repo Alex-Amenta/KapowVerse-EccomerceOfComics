@@ -44,9 +44,6 @@ const Navbar = () => {
         <Link to="/mangas" className={styles.link} onClick={() => setMenuOpen(false)}>
           Mangas
         </Link>
-        <Link to="/create" className={styles.link} onClick={() => setMenuOpen(false)}>
-          Create
-        </Link>
         {logState ? (
           <>
             <Logged onClick={() => setMenuOpen(false)}/>
