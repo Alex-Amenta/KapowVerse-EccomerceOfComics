@@ -3,7 +3,7 @@ const comics = require('./data.json');
 
 const loadDB = async () => {
     const transaction = await Comic.sequelize.transaction();
-    
+
     try {
         for (const comic of comics) {
             await Comic.findOrCreate({
@@ -22,7 +22,7 @@ const loadDB = async () => {
     }
 
     try {
-        await User.create({ name:"admin", email:"admin@admin.com", password:"password", role:'admin' });
+        await User.create({ name: "admin", email: "admin@admin.com", password: "password", role: 'admin', image: "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png" });
     } catch (error) {
         console.error('Error al crear el usuario admin:', error);
         throw error;
