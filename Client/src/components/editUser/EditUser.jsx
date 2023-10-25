@@ -4,15 +4,15 @@ import styles from "./EditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux/features/userSlice";
 import { Link, useParams } from "react-router-dom";
-import { logUserByLocalStorage } from "../../redux/features/userSlice";
+import { loginUser } from "../../redux/features/userSlice";
 
 function SignUp() {
     const {id} = useParams()
     const dispatch = useDispatch();
     useEffect(() => {
-		if (localStorage.getItem("token")) {
+		if (localStorage.getItem("userlog")) {
 			dispatch(
-				logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+				loginUser(JSON.parse(localStorage.getItem("userlog")))
 			);
 		}
 	}, []);
@@ -94,7 +94,7 @@ function SignUp() {
 					return;
 				}
                 console.log(res)
-				localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+				localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
 				setRes("User updated successfully!");
 			})
 			.catch((err) => {

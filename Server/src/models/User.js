@@ -33,6 +33,7 @@ const userModel = (sequelize) => {
             },
             image: {
                 type: DataTypes.TEXT,
+                defaultValue: "https://i.imgur.com/q5xbkmI.png",
                 
             }
         },

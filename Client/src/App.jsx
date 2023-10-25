@@ -12,7 +12,7 @@ import Profile from "./components/profile/Profile";
 import EditUser from "./components/editUser/EditUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { logUserByLocalStorage } from "./redux/features/userSlice";
+import { loginUser } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import LogAdmin from "./components/admin/logAdmin/LogAdmin";
@@ -27,9 +27,9 @@ function App() {
   const allComics = useSelector((state) => state.comic.allComics);
   useEffect(() => {
     dispatch(fetchComics());
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("userlog")) {
       dispatch(
-        logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+        loginUser(JSON.parse(localStorage.getItem("userlog")))
       );
     }
   }, []);

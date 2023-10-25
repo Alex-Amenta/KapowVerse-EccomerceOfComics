@@ -111,3 +111,17 @@
 .buttons .link:hover::before {
   width: 100%;
 }
+ @media (max-width: 1550px) {
+  .container{
+    background-blend-mode: soft-light;
+  }
+ }
+ @media (max-width: 450px){
+  .content{
+    margin-left: 1rem;
+    width: 80%;
+  }
+  .socialNetworks{
+    margin: 2rem 0 1rem 0;
+  }
+ }

@@ -78,9 +78,9 @@ El servidor se ejecutará en [http://localhost:3000](http://localhost:3000).
 Si deseas contribuir al desarrollo de KapowVerse, ¡estamos abiertos a colaboraciones! Siéntete libre de enviar pull requests o informar problemas en el [repositorio de GitHub](https://github.com/Alex-Amenta/PF-Comics).
 
 ## Autores
-- [Alexander Amenta]()
-- [Fabricio Rondinella](https://github.com/JackER4565)
-- [Fabricio Galán](https://github.com/MFabrizioGalan)
+- [Alexander Amenta](https://github.com/Alex-Amenta)
+- [Fabrizio Rondinella](https://github.com/JackER4565)
+- [Fabrizio Galán](https://github.com/MFabrizioGalan)
 - [Agus Postai](https://github.com/AgusPostai)
 - [Emerson Polo](https://github.com/emerson11DP)
 

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Profile.module.css";
 import {
   deleteAccount,
-  logUserByLocalStorage,
+  loginUser,
 } from "../../redux/features/userSlice";
 import { useEffect } from "react";
 import axios from "axios";
@@ -11,26 +11,26 @@ import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 
 function Profile() {
-  if (!localStorage.getItem("token")) {
+  if (!localStorage.getItem("userlog")) {
     window.location.href = "/login";
   }
   const dispatch = useDispatch();
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("userlog")) {
       dispatch(
-        logUserByLocalStorage(JSON.parse(localStorage.getItem("token")))
+        loginUser(JSON.parse(localStorage.getItem("userlog")))
       );
     }
   }, []);
 
   let user = useSelector((state) => state.user.user);
-  if (localStorage.getItem("token") !== null && user === null) {
-    user = JSON.parse(localStorage.getItem("token"));
+  if (localStorage.getItem("userlog") !== null && user === null) {
+    user = JSON.parse(localStorage.getItem("userlog"));
   }
 
   const handleDelete = (userId) => {
     dispatch(deleteAccount(userId));
-    localStorage.removeItem("token");
+    localStorage.removeItem("userlog");
     window.location.href = "/home";
   };
 

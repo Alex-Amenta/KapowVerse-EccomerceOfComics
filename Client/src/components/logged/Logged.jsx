@@ -20,7 +20,7 @@ const Logged = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("userlog");
     dispatch(logoutUser());
     window.alert("You have been logged out");
     window.location.href = "/home";
