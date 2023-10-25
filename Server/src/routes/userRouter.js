@@ -6,7 +6,7 @@ const verifyJWT = require('../utils/verifyJwt');
 
 const userRouter = Router();
 
-userRouter.get('/', verifyJWT, getAllUsersHandler); 
+userRouter.get('/', getAllUsersHandler); 
 userRouter.get('/:id', getUserByIdHandler); // profile
 userRouter.post('/register', postUserHandler); // sign up
 userRouter.put('/:id', updateUserHandler);

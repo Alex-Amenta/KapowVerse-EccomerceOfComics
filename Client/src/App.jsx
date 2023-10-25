@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import LandingPage from "./views/landing/LandingPage";
 import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
@@ -17,10 +17,10 @@ import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import LogAdmin from "./components/admin/logAdmin/LogAdmin";
 import Sales from "./components/admin/sales/Sales";
-import Cards from "./components/admin/cards/Cards";
 import UserList from "./components/admin/usersList/UserList";
-import Comics from "./components/admin/comics/AdminHome";
-import AdminHome from "./components/admin/comics/AdminHome";
+import AdminHome from "./components/admin/home/AdminHome";
+import EditComic from "./components/admin/editComic/Editcomic";
+import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,14 +50,14 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         {/* Rutas protegidas para admin */}
-        <Route element={<AdminGuard />}>
+        {/* <Route element={<AdminGuard onLogin={loginHandler}/>}> */}
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/create" element={<CreateComic />} />
-          <Route path="/admin/comics" element={<Comics />} />
+          <Route path="/admin/edit/:id" element={<EditComic />} />
+          <Route path="/admin/comics" element={<ComicsAdmin />} />
           <Route path="/admin/users" element={<UserList />} />
-          <Route path="/admin/comics" element={<Cards />} />
           <Route path="/admin/sales" element={<Sales />} />
-        </Route>
+        {/* </Route> */}
         <Route path="/admin/login" element={<LogAdmin />} />
       </Routes>
     </>

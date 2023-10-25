@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./CreateComic.module.css";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { createComic } from "../../../redux/features/comicSlice";
-import { Toaster, toast } from "react-hot-toast";
-import axios from "axios";
-import base_url from "../../../utils/development";
+import { useParams } from "react-router-dom";
 import NavbarAdmin from "../navbar/NavbarAdmin";
+import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import styles from "./EditComic.module.css";
+import { updateComic } from "../../../redux/features/comicSlice";
 
 const initialFormData = {
   title: "",
@@ -46,11 +45,25 @@ const categories = [
 
 const publishers = ["Marvel", "DC", "Manga"];
 
-const CreateComic = () => {
+const EditComic = () => {
   const dispatch = useDispatch();
-  const [imagePreview, setImagePreview] = useState("");
-  const [formData, setFormData] = useState(initialFormData);
+  const comics = useSelector((state) => state.comic.allComics);
+  const { id } = useParams();
+  const comicToEdit = comics.find((comic) => comic.id === id);
+
   const [error, setError] = useState(initialError);
+  const [imagePreview, setImagePreview] = useState(comicToEdit.image);
+
+  const [formData, setFormData] = useState({
+    title: comicToEdit.title,
+    description: comicToEdit.description,
+    price: comicToEdit.price,
+    category: comicToEdit.category,
+    author: comicToEdit.author,
+    image: comicToEdit.image,
+    stock: comicToEdit.stock,
+    publisher: comicToEdit.publisher,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -93,94 +106,40 @@ const CreateComic = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ############### VALIDACIONES ###############
-    let hasError = false;
-    const newErrors = { ...initialError };
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("author", formData.author);
+      formDataToSend.append("image", formData.image);
+      formDataToSend.append("stock", formData.stock);
+      formDataToSend.append("publisher", formData.publisher);
 
-    // Validación del título
-    if (formData.title.length < 3) {
-      newErrors.title = "Title must be at least 3 characters long";
-      hasError = true;
-    }
-
-    // Validación de la descripción
-    if (formData.description.length < 5) {
-      newErrors.description = "Description must be at least 5 characters long";
-      hasError = true;
-    }
-
-    // Validación del precio
-    if (isNaN(formData.price) || parseFloat(formData.price) <= 0) {
-      newErrors.price = "Price must be a valid positive number";
-      hasError = true;
-    }
-
-    // Validación de la categoría
-    if (!categories.includes(formData.category)) {
-      newErrors.category = "Please select a category";
-      hasError = true;
-    }
-
-    // Validación del autor
-    if (formData.author.length < 3) {
-      newErrors.author = "Author name must be at least 3 characters long";
-      hasError = true;
-    }
-
-    // Validación del stock
-    if (isNaN(formData.stock) || parseInt(formData.stock) < 0) {
-      newErrors.stock = "Stock must be a valid non-negative number";
-      hasError = true;
-    }
-
-    // Validación del editor (publisher)
-    if (!publishers.includes(formData.publisher)) {
-      newErrors.publisher = "Please select a publisher";
-      hasError = true;
-    }
-
-    if (hasError) {
-      setError(newErrors);
-      toast.error("You must complete the required fields!", {
+      toast.loading("Save changes...", {
         position: "bottom-center",
+        id: "loadingToast",
       });
-    } else {
-      try {
-        const formDataToSend = new FormData();
-        formDataToSend.append("title", formData.title);
-        formDataToSend.append("description", formData.description);
-        formDataToSend.append("price", formData.price);
-        formDataToSend.append("category", formData.category);
-        formDataToSend.append("author", formData.author);
-        formDataToSend.append("image", formData.image);
-        formDataToSend.append("stock", formData.stock);
-        formDataToSend.append("publisher", formData.publisher);
-
-        toast.loading("Creating comic...", {
-          position: "bottom-center",
-          id: "loadingToast",
-        });
-        dispatch(createComic(formDataToSend))
-          .then((res) => {
-            console.log(res);
-            toast.dismiss("loadingToast");
-            toast.success("Comic created successfully!", {
-              position: "bottom-center",
-            });
-            setFormData(initialFormData);
-            setImagePreview("");
-          })
-          .catch((error) => {
-            toast.dismiss("loadingToast");
-            console.error(error);
-            toast.error("Error creating comic!", {
-              position: "bottom-center",
-            });
-            return;
+      dispatch(updateComic({ id: id, data: formDataToSend }))
+        .then((res) => {
+          toast.dismiss("loadingToast");
+          toast.success("Comic updating successfully!", {
+            position: "bottom-right",
           });
-      } catch (error) {
-        console.error(error);
-      }
+          setFormData(initialFormData);
+          setImagePreview("");
+        })
+        .catch((error) => {
+          toast.dismiss("loadingToast");
+          console.error(error);
+          toast.error("Error updating comic!", {
+            position: "bottom-center",
+          });
+          return;
+        });
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -190,7 +149,7 @@ const CreateComic = () => {
         <NavbarAdmin />
       </div>
       <div className={styles.containerForm}>
-        <h2>Create new Comic</h2> <hr />
+        <h2>Updating Comic</h2> <hr />
         <form onSubmit={handleSubmit} className={styles.formulario}>
           <div className={styles.inputContainer}>
             <div className={styles.input__group}>
@@ -439,7 +398,7 @@ const CreateComic = () => {
             </div>
           </div>
           <div className={styles.buttonContainer}>
-            <button type="submit">Create Cómic</button>
+            <button type="submit">Save Changes</button>
           </div>
         </form>
       </div>
@@ -447,4 +406,4 @@ const CreateComic = () => {
   );
 };
 
-export default CreateComic;
+export default EditComic;

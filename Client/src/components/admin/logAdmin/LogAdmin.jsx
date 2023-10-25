@@ -1,25 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LogAdmin.module.css";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../../assets/murcielagos.png";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../../../redux/features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers, loginUser } from "../../../redux/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-
-const defaultData = {
-  email: "admin@hotmail.com",
-  password: "admin1010",
-};
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 const LogAdmin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
-    name: "admin",
     email: "",
     password: "",
-    role: "admin",
   });
 
   const handlerChange = (e) => {
@@ -32,11 +25,7 @@ const LogAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      userData.email === defaultData.email &&
-      userData.password === defaultData.password
-    ) {
-      dispatch(registerUser(userData));
+      dispatch(loginUser(userData));
 
       // Limpia los valores del formulario
       setUserData({
@@ -45,9 +34,6 @@ const LogAdmin = () => {
         password: "",
       });
       navigate("/admin");
-    } else {
-      toast.error("Wrong email or password", { position: "bottom-center" });
-    }
   };
 
   return (
@@ -85,7 +71,10 @@ const LogAdmin = () => {
         <button className={styles.buttonLog} type="submit">
           Log In
         </button>
-        <Link className={styles.link} to='/signup'><ExitToAppIcon/>Go Back</Link>
+        <Link className={styles.link} to="/signup">
+          <ExitToAppIcon />
+          Go Back
+        </Link>
       </form>
       <Toaster
         toastOptions={{

@@ -1,0 +1,63 @@
+.container {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.content {
+  grid-area: 1 / 2 / 2 / 3;
+  margin-right: 2rem;
+}
+
+.titleSearch {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4rem;
+}
+
+.title {
+  font-family: "Bangers", sans-serif;
+  font-size: 3.5rem;
+  color: #43a130e3;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.edit,
+.delete {
+  background: transparent;
+  padding: 0;
+}
+
+.edit {
+  color: rgb(9 122 9);
+}
+
+.edit:hover {
+  color: rgb(10, 95, 10);
+}
+
+.delete {
+  color: red;
+}
+
+.delete:hover {
+  color: rgb(185, 13, 13);
+}
+
+.tableHead {
+  font-weight: bold;
+  background: rgb(73, 253, 52);
+  background: radial-gradient(
+    circle,
+    rgba(73, 253, 52, 0.891281512605042) 0%,
+    rgba(106, 212, 138, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+}
