@@ -63,19 +63,7 @@ const Searchbar = () => {
 
       {title.length > 0 && <SearchClose className={style.btn} onClick={handleReset} />}
       <SavedSearchIcon className={style.btn} onClick={handleSubmit} />
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "2px solid #000000",
-            fontWeight: "bold",
-            fontFamily: "Rubik, sans-serif",
-            backgroundImage: `url(${imageAlert})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-            backgroundRepeat: "no-repeat",
-          },
-        }}
-      />
+      
     </div>
   );
 };

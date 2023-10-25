@@ -1,0 +1,117 @@
+.container {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.content {
+  grid-area: 1 / 2 / 2 / 3;
+  margin-right: 2rem;
+}
+
+.tableContainer {
+  overflow-x: hidden;
+}
+
+.tableCell {
+  font-weight: bold;
+  background: rgb(73, 253, 52);
+  background: radial-gradient(
+    circle,
+    rgba(73, 253, 52, 0.891281512605042) 0%,
+    rgba(106, 212, 138, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+}
+
+.titleSearch {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 4rem;
+}
+
+.title {
+  font-family: "Bangers", sans-serif;
+  font-size: 3.5rem;
+  color: #43a130e3;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
+
+.sortButton {
+  background: transparent;
+  color: black;
+  font-weight: bold;
+  padding: 0;
+}
+
+.sortButton span {
+  font-size: 1.2rem;
+  margin-left: 1rem;
+}
+
+.edit,
+.delete {
+  background: transparent;
+  padding: 0;
+}
+
+.edit {
+  color: rgb(9 122 9);
+}
+
+.edit:hover {
+  color: rgb(10, 95, 10);
+}
+
+.delete {
+  color: red;
+}
+
+.delete:hover {
+  color: rgb(185, 13, 13);
+}
+
+.containerToast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toastButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toastButtons button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.toastButtons button:nth-child(1):hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toastButtons button:nth-child(2):hover {
+  background-color: #b63232;
+  color: white;
+}

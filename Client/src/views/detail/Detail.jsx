@@ -12,7 +12,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Reviews from "../reviews/Reviews";
 import { addItemToCart } from "../../redux/features/cartSlice";
 import { Toaster, toast } from "react-hot-toast";
-import imageAlert from "../../assets/murcielagos.png";
 import Navbar from "../../components/navbar/Navbar";
 
 function Detail() {
@@ -127,20 +126,6 @@ function Detail() {
         <article className={styles.reviewContainer}>
           <Reviews />
         </article>
-
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "2px solid #000000",
-            fontWeight: "bold",
-            fontFamily: "Rubik, sans-serif",
-            backgroundImage: `url(${imageAlert})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-            backgroundRepeat: "no-repeat",
-          },
-        }}
-      />
     </section>
     </>
   );

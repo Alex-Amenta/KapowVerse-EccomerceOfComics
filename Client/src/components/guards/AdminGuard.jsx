@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-function AdminGuard({ redirectTo = "/admin/login" }) {
-  const user = useSelector((state) => state.user.admin);
+function AdminGuard({ onlogin, redirectTo = "/admin/login" }) {
+  const admin = useSelector((state) => state.user.admin);
 
-  if (!user) {
+  if (!admin) {
     return <Navigate to={redirectTo} />;
   }
 

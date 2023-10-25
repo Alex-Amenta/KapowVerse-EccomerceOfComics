@@ -1,0 +1,47 @@
+.container {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 30px; */
+  justify-content: flex-start;
+  gap: 4rem;
+  margin: 2rem;
+
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.content h2 {
+  font-size: 3rem;
+  margin-bottom: 0;
+  width: 100%;
+  color: #43a130e3;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+  font-family: "Bangers", sans-serif;
+}
+
+.comics ,.user, .purchases {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #ccc;
+  padding: 1rem 0;
+  background-color: gainsboro;
+}
+
+

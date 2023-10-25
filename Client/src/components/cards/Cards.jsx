@@ -77,19 +77,6 @@ const Cards = ({
 					</button>
 				</div>
 			</div>
-			<Toaster
-				toastOptions={{
-					style: {
-						border: "2px solid #000000",
-						fontWeight: "bold",
-						fontFamily: "Rubik, sans-serif",
-						backgroundImage: `url(${imageAlert})`,
-						backgroundSize: "cover",
-						backgroundPosition: "right",
-						backgroundRepeat: "no-repeat",
-					},
-				}}
-			/>
 		</main>
 	);
 };

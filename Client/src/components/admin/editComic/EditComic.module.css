@@ -16,7 +16,7 @@
 .containerForm h2 {
   font-size: 3.5rem;
   text-align: center;
-  color: #43a130e3;
+  color: #9f2d1c;
   font-family: "Bangers", sans-serif;
   letter-spacing: 6px;
   text-shadow: 1px 1px black;
@@ -90,7 +90,6 @@
   width: 249px;
   margin-bottom: 20px;
   height: 43px;
-
 }
 
 .inputContainer {
@@ -114,7 +113,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .imagePreview {
@@ -131,7 +129,7 @@ label {
   gap: 1rem;
 }
 
-.addImage{
+.addImage {
   cursor: pointer;
 }
 
@@ -233,7 +231,7 @@ label {
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  right: 15%;
+  right: -3rem;
   top: 20px;
   margin-left: -60px;
 
@@ -253,7 +251,9 @@ label {
   border-color: transparent #aaa transparent transparent;
 }
 
-.input:focus + .tooltiptext, .select:focus + .tooltiptext, .textarea:focus + .tooltiptext {
+.input:focus + .tooltiptext,
+.select:focus + .tooltiptext,
+.textarea:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
 }
@@ -267,13 +267,12 @@ label {
     grid-template-columns: 1fr; /* Una columna en dispositivos móviles */
   }
 
-  .imageContainer{
+  .imageContainer {
     align-self: center;
-
   }
 
   .imagePreview {
     max-width: 90%;
-    max-height: 100%;    
+    max-height: 100%;
   }
 }

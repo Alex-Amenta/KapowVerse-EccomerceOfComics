@@ -163,19 +163,6 @@ function Reviews() {
 
         <button onClick={handleCreateReview}>Send Review</button>
       </section>
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "2px solid #000000",
-            fontWeight: "bold",
-            fontFamily: "Rubik, sans-serif",
-            backgroundImage: `url(${imageAlert})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-            backgroundRepeat: "no-repeat",
-          },
-        }}
-      />
     </div>
   );
 }

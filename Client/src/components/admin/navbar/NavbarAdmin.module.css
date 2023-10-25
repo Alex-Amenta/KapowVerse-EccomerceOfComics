@@ -11,17 +11,51 @@
   background-color: rgb(13, 13, 13);
   color: white;
   font-family: "Bangers", sans-serif;
-  box-shadow: 0px 7px 18px  black;
+  box-shadow: 0px 7px 18px black;
 }
 
 .container button {
   background: transparent;
 }
 
-.imgContainer a {
-    color: green;
- }
+.imgContainer {
+  margin-bottom: 3rem;
+}
 
+.imgContainer hr{
+  width: 13rem;
+}
+
+.linkAdmin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.adminVerify {
+  margin-top: 10px;
+}
+
+.adminVerify p{
+  margin: 0;
+}
+
+.adminVerify p:first-child {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+}
+
+.verified {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: green;
+  font-size: 14px
+}
 
 .linkContainer {
   display: flex;
@@ -31,10 +65,15 @@
   gap: 2rem;
 }
 
-.link, .goBack {
+.link,
+.goBack {
   text-decoration: none;
   color: white;
   font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
 }
 
 .link:hover {
@@ -42,13 +81,13 @@
 }
 
 .goBack {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10rem;
 }
 
 .goBack:hover {
-    color: tomato;
+  color: tomato;
 }
