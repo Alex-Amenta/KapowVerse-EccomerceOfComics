@@ -187,7 +187,8 @@ const Filters = ({
         onRequestClose={closeModal}
         contentLabel="Carrito de Compras"
         ariaHideApp={false}
-        style={customModalStyles}
+        // style={customModalStyles}
+        className={styles.customModal}
       >
         <button className={styles.closeModal} onClick={closeModal}>
           <ArrowBackIcon />

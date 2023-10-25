@@ -19,6 +19,7 @@
 .filtersContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
@@ -56,7 +57,7 @@
   background: transparent;
   color: black;
   padding: 0;
-} 
+}
 
 .closeModal:hover {
   color: gray;
@@ -107,7 +108,7 @@
   align-items: center;
 }
 
-.buttonsContainer button{
+.buttonsContainer button {
   background: transparent;
   color: black;
   z-index: 0;
@@ -119,4 +120,40 @@
 
 .cartIcon:hover {
   color: gray;
+}
+
+.customModal {
+  position: absolute;
+  inset: 0px 0px 40px auto;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 0px;
+  outline: none;
+  padding: 20px;
+  right: 0;
+  width: 30%;
+  margin: 0px auto;
+  height: 100%;
+  animation: 0.5s ease-in-out 0s 1 normal none running slideIn;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 3rem 0;
+  }
+
+  .textContainer {
+    text-align: center;
+  }
+  .customModal {
+    width: 65%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 888px) {
+  .customModal {
+    width: 40%;
+  }
 }

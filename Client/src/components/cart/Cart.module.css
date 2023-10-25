@@ -132,7 +132,16 @@
   border: none;
   display: inline-block;
   width: 30px;
-
   height: 19px;
+}
 
+@media (max-width: 600px) {
+  .contentComic img {
+    width: 8rem;
+    height: 11rem;
+  }
+
+  .buttonContainer {
+    gap: 0;
+  }
 }
