@@ -1,9 +1,10 @@
 /* eslint-disable no-irregular-whitespace */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/features/userSlice";
 import { Link } from "react-router-dom";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function SignUp() {
 	const logState = useSelector((state) => state.user.logState);
@@ -99,8 +100,14 @@ function SignUp() {
 		// ############### FIN DE POSTEO ###############
 	};
 
+	const darkMode = useSelector(selectDarkMode);
+
+	useEffect(() => {
+		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+	  }, [darkMode]);
+
 	return (
-		<div className={styles.container}>
+		<div className={darkMode ? styles.container : styles.dark}>
 			<h2>SignUp</h2> <hr />
 			<h3
 				onClick={() => setRes("")}

@@ -18,6 +18,7 @@ import axios from "axios";
 import base_url from "../../utils/development";
 import imageAlert from "../../assets/murcielagos.png";
 import { Toaster, toast } from "react-hot-toast";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -51,9 +52,8 @@ const Cart = () => {
   };
 
   const handleQty = (e, itemId) => {
-    dispatch(setItemQuantity({itemId:itemId, quantity:e.target.value}));
+    dispatch(setItemQuantity({ itemId: itemId, quantity: e.target.value }));
   };
-
 
   const handlePayFromMP = () => {
     if (!user) {
@@ -64,21 +64,28 @@ const Cart = () => {
       try {
         axios
           .post(`${base_url}/payment/create-order`, { user, cart })
-          .then((res) => (
-            localStorage.removeItem('cart'),
-            window.location.href = res.data.init_point
-            ));
+          .then(
+            (res) => (
+              localStorage.removeItem("cart"),
+              (window.location.href = res.data.init_point)
+            )
+          );
       } catch (error) {
-        console.log('Error al realizar la solicitud:', error);
+        console.log("Error al realizar la solicitud:", error);
       }
     }
   };
 
-
   const handleFocus = (event) => event.target.select();
 
+  const darkMode = useSelector(selectDarkMode);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
+
   return (
-    <section className={styles.container}>
+    <section className={darkMode ? styles.container : styles.dark}>
       {cart &&
         cartItems?.map((item) => (
           <div key={item.id} className={styles.cartContainer}>
@@ -95,7 +102,12 @@ const Cart = () => {
             </div>
             <div className={styles.buttonContainer}>
               <button onClick={() => reduceQuantityOfItem(item.id)}>-</button>
-              <input onChange={(e) => handleQty(e, item.id)} value={item.quantity} onFocus={handleFocus} className={styles.inputComic}></input>
+              <input
+                onChange={(e) => handleQty(e, item.id)}
+                value={item.quantity}
+                onFocus={handleFocus}
+                className={styles.inputComic}
+              ></input>
               <button onClick={() => incrementQuantityOfItem(item.id)}>
                 +
               </button>

@@ -136,6 +136,9 @@
     padding-left: 10px;
     -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    background-color: #15172D;
+    border: 2px solid white;
+    color: white
   }
 
   .filtersContainer {
@@ -234,6 +237,14 @@
     color: black;
     z-index: 0;
   }
+
+.starIcon {
+  color: white
+}
+
+.cartIcon {
+  color: white
+}
 
   .starIcon:hover {
     color: rgb(181, 181, 20);

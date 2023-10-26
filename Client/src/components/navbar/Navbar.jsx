@@ -7,7 +7,12 @@ import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Logged from "../logged/Logged";
-import { selectDarkMode, toggleDarkMode } from "../../redux/features/darkModeSlice";
+import {
+  selectDarkMode,
+  toggleDarkMode,
+} from "../../redux/features/darkModeSlice";
+import reactorOff from "../../assets/reactor-off.png";
+import reactorOn from "../../assets/reactor-on.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,10 +27,10 @@ const Navbar = () => {
 
   const handleToggleDarkMode = () => {
     dispatch(toggleDarkMode());
-  }
+  };
 
   return (
-    <nav className={styles.container}>
+    <nav className={darkMode ? styles.container : styles.dark}>
       <div className={styles.imgContainer}>
         <Link to="/home" className={styles.link}>
           <img src={logoOficial} alt="Logo de KapowVerse" />
@@ -43,30 +48,52 @@ const Navbar = () => {
             <CloseIcon className={styles.closeButton} fontSize="large" />
           </button>
         )}
-        <Link to="/home" className={styles.link} onClick={() => setMenuOpen(false)}>
+        <Link
+          to="/home"
+          className={styles.link}
+          onClick={() => setMenuOpen(false)}
+        >
           Home
         </Link>
-        <Link to="/comics" className={styles.link} onClick={() => setMenuOpen(false)}>
+        <Link
+          to="/comics"
+          className={styles.link}
+          onClick={() => setMenuOpen(false)}
+        >
           Comics
         </Link>
-        <Link to="/mangas" className={styles.link} onClick={() => setMenuOpen(false)}>
+        <Link
+          to="/mangas"
+          className={styles.link}
+          onClick={() => setMenuOpen(false)}
+        >
           Mangas
         </Link>
-        <Link to="/create" className={styles.link} onClick={() => setMenuOpen(false)}>
+        <Link
+          to="/create"
+          className={styles.link}
+          onClick={() => setMenuOpen(false)}
+        >
           Create
         </Link>
         {logState ? (
           <>
-            <Logged onClick={() => setMenuOpen(false)}/>
+            <Logged onClick={() => setMenuOpen(false)} />
           </>
         ) : (
           <>
-            <Link to="/signup" className={styles.link} onClick={() => setMenuOpen(false)}>
+            <Link
+              to="/signup"
+              className={styles.link}
+              onClick={() => setMenuOpen(false)}
+            >
               Sign Up
             </Link>
           </>
         )}
-        <button onClick={handleToggleDarkMode} className={darkMode ? styles.dark : styles.light}>THEME</button>
+        <button onClick={handleToggleDarkMode} className={styles.buttonTheme}>
+          <img src={darkMode ? reactorOff : reactorOn} />
+        </button>
       </div>
     </nav>
   );

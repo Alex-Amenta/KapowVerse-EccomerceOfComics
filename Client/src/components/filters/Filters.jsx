@@ -110,7 +110,7 @@ const Filters = ({
   const darkMode = useSelector(selectDarkMode);
 
   useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#271F1F";
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
   }, [darkMode]);
 
 

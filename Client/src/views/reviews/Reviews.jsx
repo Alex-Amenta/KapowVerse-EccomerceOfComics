@@ -107,6 +107,7 @@ function Reviews() {
   };
 
   const darkMode = useSelector(selectDarkMode);
+  
   return (
     <div className={darkMode ? styles.container : styles.dark}>
       <h2>Reviews and ratings</h2>
