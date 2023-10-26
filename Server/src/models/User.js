@@ -35,7 +35,11 @@ const userModel = (sequelize) => {
                 type: DataTypes.TEXT,
                 defaultValue: "https://i.imgur.com/q5xbkmI.png",
                 
-            }
+            },
+            registrationDate: {
+                type: DataTypes.DATE,
+                defaultValue: DataTypes.NOW,
+            },
         },
         {
             timestamps: false,

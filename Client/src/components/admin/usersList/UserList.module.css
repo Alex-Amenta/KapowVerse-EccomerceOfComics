@@ -61,3 +61,41 @@
     rgba(148, 187, 233, 1) 100%
   );
 }
+
+.containerToast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toastButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toastButtons button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.toastButtons button:nth-child(1):hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toastButtons button:nth-child(2):hover {
+  background-color: #b63232;
+  color: white;
+}

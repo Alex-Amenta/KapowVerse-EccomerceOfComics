@@ -10,7 +10,7 @@ userRouter.get('/', getAllUsersHandler);
 userRouter.get('/:id', getUserByIdHandler); // profile
 userRouter.post('/register', postUserHandler); // sign up
 userRouter.put('/:id', updateUserHandler);
-userRouter.delete('/:id', toggleUserActiveHandler);
+userRouter.put('/toggle/:id', toggleUserActiveHandler);
 userRouter.post('/login', loginUserHandler); // login
 userRouter.post('/auth', googleLoginUserHandler); 
 userRouter.delete('/:id/delete', deleteAccountHandler);

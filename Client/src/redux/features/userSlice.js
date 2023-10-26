@@ -104,7 +104,7 @@ export const searchUsersByName = createAsyncThunk(
 export const toggleUserActiveStatus = createAsyncThunk(
     'user/toggleUserActiveStatus', async (userId, { rejectWithValue }) => {
         try {
-            const { data } = await axios.delete(`${URL}/${userId}`);
+            const { data } = await axios.put(`${URL}/toggle/${userId}`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -141,9 +141,9 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-
-
-
+        resetSearchUser: (state) => {
+            state.allUsers = state.allUsersCopy;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUsers.pending, (state) => {
@@ -154,7 +154,6 @@ const userSlice = createSlice({
             state.allUsers = action.payload;
             state.allUsersCopy = action.payload;
             state.filteredUsers = action.payload;
-            state.allUsers = action.payload;
             state.error = '';
         });
         builder.addCase(fetchUsers.rejected, (state, action) => {
@@ -185,7 +184,12 @@ const userSlice = createSlice({
 
         builder.addCase(toggleUserActiveStatus.fulfilled, (state, action) => {
             state.loading = false;
-            state.allUsers = action.payload;
+            const userId = action.payload;
+			const user = state.allUsers.find((u) => u.id === userId);
+
+			if (user) {
+				user.active = !user.active;
+			}
             state.error = '';
         });
         builder.addCase(toggleUserActiveStatus.rejected, (state, action) => {
@@ -288,20 +292,21 @@ const userSlice = createSlice({
             state.loading = true;
             state.error = '';
         });
-        
+
         builder.addCase(deleteAccount.fulfilled, (state) => {
             state.loading = false;
-            state.user = null; 
+            state.user = null;
             state.error = '';
         });
-        
+
         builder.addCase(deleteAccount.rejected, (state, action) => {
             state.loading = false;
             state.error = (action.payload && action.payload.error) || action.error.message;
         });
-        
+
 
     },
 });
 
+export const { resetSearchUser } = userSlice.actions;
 export default userSlice.reducer;
