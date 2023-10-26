@@ -19,7 +19,7 @@ import LogAdmin from "./components/admin/logAdmin/LogAdmin";
 import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
 import AdminHome from "./components/admin/home/AdminHome";
-// import EditComic from "./components/admin/editComic/Editcomic";
+import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 
 function App() {
