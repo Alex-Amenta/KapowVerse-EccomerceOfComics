@@ -74,6 +74,8 @@ const Logged = () => {
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={() => window.location.href = "/profile"}>Profile</MenuItem>
+        <MenuItem>Favorites</MenuItem>
+        <MenuItem>Purchases</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

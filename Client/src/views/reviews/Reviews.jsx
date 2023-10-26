@@ -84,7 +84,7 @@ function Reviews() {
         setNewRating(0);
         setNewComment("");
       } else {
-        dispatch(
+        await dispatch(
           createReview({
             rating: newRating,
             comment: newComment,

@@ -3,7 +3,7 @@ import NavbarAdmin from "../navbar/NavbarAdmin";
 import styles from "./UserList.module.css";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../../../redux/features/userSlice";
+import { fetchUsers, toggleUserActiveStatus } from "../../../redux/features/userSlice";
 import {
   TableContainer,
   Table,
@@ -14,9 +14,10 @@ import {
   Paper,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import SearchbarAdmin from "../searchbar/SearchbarAdmin";
-import BlockIcon from '@mui/icons-material/Block';
-import RestoreIcon from '@mui/icons-material/Restore';
+import BlockIcon from "@mui/icons-material/Block";
+import RestoreIcon from "@mui/icons-material/Restore";
+import UserSearch from "../userSearch/UserSearch";
+import { toast } from "react-hot-toast";
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,32 @@ const UserList = () => {
     dispatch(fetchUsers());
   }, []);
 
+  const handleToggleStatus = (userId, isActive) => {
+    const message = isActive ? "marked as inactive" : "marked as active";
+
+    toast(
+      <div className={styles.containerToast}>
+        <p>Are you sure you want to {message}?</p>
+        <div className={styles.toastButtons}>
+          <button
+            onClick={() => {
+              dispatch(toggleUserActiveStatus(userId));
+              toast.dismiss();
+              toast.success(`User ${message} successfully`, {
+                position: "top-center",
+                duration: 0,
+              });
+            }}
+          >
+            Accept
+          </button>
+          <button onClick={() => toast.dismiss()}>Cancel</button>
+        </div>
+      </div>,
+      { duration: 20000 }
+    );
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.navbar}>
@@ -34,13 +61,12 @@ const UserList = () => {
       <div className={styles.content}>
         <div className={styles.titleSearch}>
           <h1 className={styles.title}>List of Users</h1>
-          <SearchbarAdmin />
+          <UserSearch />
         </div>
         <TableContainer component={Paper} className={styles.tableContainer}>
           <Table>
             <TableHead className={styles.tableHead}>
-              <TableRow
-              >
+              <TableRow>
                 <TableCell>Image</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
@@ -70,8 +96,11 @@ const UserList = () => {
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <button className={styles.delete}>
-                      {user.active ? <BlockIcon/> : <RestoreIcon />}
+                    <button
+                      className={styles.delete}
+                      onClick={() => handleToggleStatus(user.id)}
+                    >
+                      {user.active ? <BlockIcon /> : <RestoreIcon />}
                     </button>
                   </TableCell>
                 </TableRow>

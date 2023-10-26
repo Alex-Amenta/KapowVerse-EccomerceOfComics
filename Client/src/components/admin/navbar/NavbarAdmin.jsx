@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./NavbarAdmin.module.css";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ComputerIcon from '@mui/icons-material/Computer';
 import FaceIcon from '@mui/icons-material/Face';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 const NavbarAdmin = () => {
   return (
@@ -20,19 +24,19 @@ const NavbarAdmin = () => {
       </div>
       <div className={styles.linkContainer}>
         <Link to="/admin" className={styles.link}>
-          <ComputerIcon/>Home
+          <BarChartIcon/>Statistics
         </Link>
         <Link to="/admin/comics" className={styles.link}>
-        <ComputerIcon/>Comics
+        <AssignmentIcon/>Products
         </Link>
         <Link to="/admin/create" className={styles.link}>
-        <ComputerIcon/>Create
+        <AddCircleIcon/>Add Product
         </Link>
         <Link to="/admin/users" className={styles.link}>
-        <ComputerIcon/>Users
+        <PeopleAltIcon/>Users
         </Link>
         <Link to="/admin/sales" className={styles.link}>
-        <ComputerIcon/>Sales
+        <TrendingUpIcon/>Sales
         </Link>
         <Link to="/home" className={styles.goBack}>
           <ExitToAppIcon/> Go back

@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,6 +9,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useEffect } from "react";
+import { fetchUsers } from "../../../redux/features/userSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -90,28 +92,27 @@ export function CategoryBarChart() {
 }
 
 export function UserRegistrationBarChart() {
-  // Supongamos que tienes datos de registro de usuarios en un formato similar a este ejemplo.
-  const userRegistrations = [
-    { date: "2023-01-01", count: 10 },
-    { date: "2023-01-02", count: 15 },
-    { date: "2023-02-05", count: 8 },
-    { date: "2023-02-15", count: 12 },
-    // Agrega más datos de registro aquí
-  ];
+  const dispatch = useDispatch();
+  const userRegistrations = useSelector((state) => state.user.allUsers);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   // Función para agrupar y sumar registros por mes
   const groupAndSumByMonth = (data) => {
     const monthlyData = {};
-    data.forEach((record) => {
-      const date = new Date(record.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
+
+    data.forEach((user) => {
+      const registrationDate = new Date(user.registrationDate);
+      const year = registrationDate.getFullYear();
+      const month = registrationDate.getMonth();
       const key = `${year}-${month}`;
 
       if (monthlyData[key]) {
-        monthlyData[key] += record.count;
+        monthlyData[key] += 1; // Suma uno por cada registro
       } else {
-        monthlyData[key] = record.count;
+        monthlyData[key] = 1;
       }
     });
 

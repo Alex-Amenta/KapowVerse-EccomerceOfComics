@@ -41,7 +41,7 @@ const postUserHandler = async (req, res) => {
 		const user = await postUser(name, email, password, image, role);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
-		  }
+		}
 		res.status(201).json(user);
 	} catch (error) {
 		res.status(500).json({ message: error.message });
@@ -50,12 +50,17 @@ const postUserHandler = async (req, res) => {
 
 const toggleUserActiveHandler = async (req, res) => {
 	const { id } = req.params;
-	const { activate } = req.body; // El frontend debe enviar un parámetro 'activate' que indique si se debe activar o inactivar al usuario
 	try {
-		const user = await toggleActiveStatus(id, activate);
-		res.status(200).json(user);
+		const user = await toggleActiveStatus(id);
+		if (user) {
+			res.status(200).json({
+				message: user.active ? 'Cómic reactivado exitosamente' : 'Cómic desactivado exitosamente'
+			});
+		} else {
+			res.status(404).json({ message: 'Cómic no encontrado' });
+		}
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		res.status(500).json({ message: 'Error al cambiar el estado del cómic' });
 	}
 };
 

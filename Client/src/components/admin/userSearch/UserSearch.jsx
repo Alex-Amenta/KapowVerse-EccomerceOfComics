@@ -1,32 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
-import { resetSearch, searchComics } from "../../../redux/features/comicSlice";
-import styles from "./SearchbarAdmin.module.css";
+import styles from "./UserSearch.module.css";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { Toaster, toast } from "react-hot-toast";
-import SearchClose from "@mui/icons-material/Close"
+import SearchClose from "@mui/icons-material/Close";
 import { useState } from "react";
+import { resetSearchUser, searchUsersByName } from "../../../redux/features/userSlice";
 
-const SearchbarAdmin = () => {
-  const [title, setTitle] = useState("");
-  const comicsCopy = useSelector((state) => state.comic.comicsCopy);
+const UserSearch = () => {
+  const [name, setName] = useState("");
+  const usersCopy = useSelector((state) => state.user.allUsersCopy);
   const dispatch = useDispatch();
+
   const handleSubmit = () => {
-    if (!title.length) {
-      toast.error("Please enter the title of a comic", {
+    if (!name.length) {
+      toast.error("Please enter the name of a user", {
         position: "top-center",
-        id: "toastId",
       });
       return;
     }
 
-    const foundComic = comicsCopy.find((comic) =>
-      comic.title.toLowerCase().includes(title.toLowerCase())
+    const foundUser = usersCopy.find((user) =>
+      user.name.toLowerCase().includes(name.toLowerCase())
     );
 
-    if (foundComic) {
-      dispatch(searchComics(title));
+    if (foundUser) {
+      dispatch(searchUsersByName(name));
     } else {
-      toast.error(`"${title}" not found, please try again`, {
+      toast.error(`"${name}" not found, please try again`, {
         position: "top-center",
         id: "toastId2",
       });
@@ -34,12 +34,12 @@ const SearchbarAdmin = () => {
   };
 
   const handleInputChange = (e) => {
-    setTitle(e.target.value);
+    setName(e.target.value);
   };
 
   const handleReset = () => {
-    setTitle("");
-    dispatch(resetSearch());
+    setName("");
+    dispatch(resetSearchUser());
   };
 
   const handleKeyPress = (e) => {
@@ -52,14 +52,14 @@ const SearchbarAdmin = () => {
     <div className={styles.container}>
       <input
         type="text"
-        name="title"
-        value={title}
+        name="name"
+        value={name}
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
-        placeholder="Search for title..."
+        placeholder="Search for name..."
       />
 
-      {title.length > 0 && (
+      {name.length > 0 && (
         <SearchClose className={styles.btn} onClick={handleReset} />
       )}
       <SavedSearchIcon className={styles.btn} onClick={handleSubmit} />
@@ -67,4 +67,4 @@ const SearchbarAdmin = () => {
   );
 };
 
-export default SearchbarAdmin;
+export default UserSearch;
