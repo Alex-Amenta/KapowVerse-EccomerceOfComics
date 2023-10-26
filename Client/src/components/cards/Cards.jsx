@@ -23,10 +23,6 @@ const Cards = ({
   const cart = useSelector((state) => state.cart.cart);
   const items = useSelector((state) => state.comic.allComics);
 
-  // const handleAddToCart = () => {
-  //   dispatch(addToCart({ userId: user.id, comicId: id }));
-  // };
-
   const addToCart = () => {
     const checkStock = items.find((item) => item.id === id);
     let checkCart = cart.find((item) => item.id === id);
@@ -77,19 +73,6 @@ const Cards = ({
           </button>
         </div>
       </div>
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "2px solid #000000",
-            fontWeight: "bold",
-            fontFamily: "Rubik, sans-serif",
-            backgroundImage: `url(${imageAlert})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-            backgroundRepeat: "no-repeat",
-          },
-        }}
-      />
     </main>
   );
 };

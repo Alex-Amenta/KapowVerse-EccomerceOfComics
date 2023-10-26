@@ -131,6 +131,8 @@
   outline: none;
   border: none;
   display: inline-block;
+  text-align: -webkit-center;
+  background: transparent;
   width: 30px;
   height: 19px;
 }
@@ -201,7 +203,7 @@
   .buttonContainer button {
     font-size: 2rem;
     background-color: transparent;
-    color: black;
+    color: white;
     padding: 0 1rem;
   }
 
@@ -274,6 +276,7 @@
     padding: 0 1rem;
     outline: none;
     border: none;
+    color: white;
     display: inline-block;
     width: 30px;
     height: 19px;

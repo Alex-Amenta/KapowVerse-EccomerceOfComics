@@ -15,12 +15,12 @@ import { useEffect } from "react";
 import { loginUser } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
-import LogAdmin from "./components/admin/logAdmin/LogAdmin";
 import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
 import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
+import LogAdmin from "./components/logAdmin/LogAdmin";
 
 function App() {
   const dispatch = useDispatch();

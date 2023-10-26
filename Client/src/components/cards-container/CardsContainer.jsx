@@ -1,9 +1,12 @@
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 import Cards from "../cards/Cards";
 import styles from "./CardsContainer.module.css";
 import { useSelector } from "react-redux"; 
 const CardsContainer = ({ allComics }) => {
 	const isLoading = useSelector((state) => state.comic.loading); 
 	const isError = useSelector((state) => state.comic.error); 
+	const darkMode = useSelector(selectDarkMode);
+
 	return (
 		<section className={styles.container}>
 			{allComics.length ? (
@@ -34,7 +37,7 @@ const CardsContainer = ({ allComics }) => {
 					}
 				)
 			) : (
-				<>
+				<div style={!darkMode ? {color: 'white'} : null}>
 
 					{isLoading && !isError ? (
 						<h1>Loading...</h1>
@@ -45,7 +48,7 @@ const CardsContainer = ({ allComics }) => {
 						<h1>There are no items to show</h1>
 						)
 					)}
-				</>
+				</div>
 			)}
 		</section>
 	);
