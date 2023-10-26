@@ -6,6 +6,7 @@
   font-family: "Bangers", sans-serif;
 }
 
+
 .select {
   height: 2.2rem;
   width: 7rem;
@@ -253,4 +254,28 @@
   .cartIcon:hover {
     color: gray;
   }
+}
+
+
+.dark__cart__overlay {
+  position: fixed;
+    inset: 0px;
+    background-color: rgba(107, 107, 107, 0.75);
+}
+
+
+.dark__cart {
+  position: absolute;
+  inset: 0px 0px 40px auto;
+  border: 1px solid rgb(0, 0, 0);
+  background: rgb(118, 118, 118);
+  overflow: auto;
+  border-radius: 0px;
+  outline: none;
+  padding: 20px;
+  width: 35%;
+  margin: 0px auto;
+  height: 100%;
+  animation: 0.5s ease-in-out 0s 1 normal none running slideIn;
+  z-index: 1;
 }

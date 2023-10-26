@@ -196,6 +196,8 @@ const Filters = ({
         contentLabel="Carrito de Compras"
         ariaHideApp={false}
         style={customModalStyles}
+        overlayClassName={darkMode ? "" : styles.dark__cart__overlay}
+        className={darkMode ? "" : styles.dark__cart}
       >
         <button className={styles.closeModal} onClick={closeModal}>
           <ArrowBackIcon />
