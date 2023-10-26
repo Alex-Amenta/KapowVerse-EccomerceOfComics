@@ -227,6 +227,13 @@ function SignUp() {
 					<label style={{ color: "red" }}>*</label> required
 				</label>
 				<p>Do you already have an account? <Link to='/login' className={styles.link}>Log in</Link></p>
+        <hr />
+          <p>
+            Are you an administrator of this website?{" "}
+            <Link to="/admin/login" className={styles.link}>
+              Log in
+            </Link>
+          </p>
 			</form>
 		</div>
 	);
