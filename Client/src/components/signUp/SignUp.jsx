@@ -108,6 +108,8 @@ function SignUp() {
 	  }, [darkMode]);
 
 	return (
+		<>
+			<Navbar />
 		<div className={darkMode ? styles.container : styles.dark}>
 			<h2>SignUp</h2> <hr />
 			<h3
@@ -236,6 +238,7 @@ function SignUp() {
           </p>
 			</form>
 		</div>
+				</>
 	);
 }
 
