@@ -23,6 +23,7 @@ import EditComic from "./components/admin/editComic/Editcomic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 
 function App() {
+  console.log("hola")
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
   useEffect(() => {
