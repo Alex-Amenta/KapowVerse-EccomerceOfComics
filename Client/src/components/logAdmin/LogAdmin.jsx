@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./LogAdmin.module.css";
 import { Toaster, toast } from "react-hot-toast";
-import imageAlert from "../../../assets/murcielagos.png";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, loginUser } from "../../../redux/features/userSlice";
+import { fetchUsers, loginUser } from "../../redux/features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const LogAdmin = () => {
   const dispatch = useDispatch();
@@ -25,19 +25,21 @@ const LogAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-      dispatch(loginUser(userData));
+    dispatch(loginUser(userData));
 
-      // Limpia los valores del formulario
-      setUserData({
-        ...userData,
-        email: "",
-        password: "",
-      });
-      navigate("/admin");
+    // Limpia los valores del formulario
+    setUserData({
+      ...userData,
+      email: "",
+      password: "",
+    });
+    navigate("/admin");
   };
 
+  const darkMode = useSelector(selectDarkMode);
+
   return (
-    <div className={styles.container}>
+    <div className={darkMode ? styles.container : styles.dark}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>Welcome Admin!</h2>
         <div className={styles.emailContainer}>
@@ -76,19 +78,6 @@ const LogAdmin = () => {
           Go Back
         </Link>
       </form>
-      <Toaster
-        toastOptions={{
-          style: {
-            border: "2px solid #000000",
-            fontWeight: "bold",
-            fontFamily: "Rubik, sans-serif",
-            backgroundImage: `url(${imageAlert})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-            backgroundRepeat: "no-repeat",
-          },
-        }}
-      />
     </div>
   );
 };
