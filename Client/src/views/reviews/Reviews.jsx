@@ -16,6 +16,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import axios from "axios";
 import base_url from "../../utils/development";
 import { useParams } from "react-router-dom";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Reviews() {
   const { id } = useParams();
@@ -30,7 +31,7 @@ function Reviews() {
   const [sortOrder, setSortOrder] = useState("");
 
   useEffect(() => {
-      dispatch(fetchReviewByComic(comicId));
+    dispatch(fetchReviewByComic(comicId));
   }, [dispatch]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ function Reviews() {
   const checkUserPurchases = async () => {
     try {
       const response = await axios.get(`${base_url}/purchase`);
-      console.log(response)
+      console.log(response);
       const purchases = await response.data;
       return purchases;
     } catch (error) {
@@ -105,8 +106,10 @@ function Reviews() {
     }
   };
 
+  const darkMode = useSelector(selectDarkMode);
+  
   return (
-    <div className={styles.container}>
+    <div className={darkMode ? styles.container : styles.dark}>
       <h2>Reviews and ratings</h2>
       {reviews.length === 0 ? (
         <div className={styles.notReview}>

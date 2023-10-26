@@ -189,3 +189,25 @@
     align-items: center;
   }
 }
+
+.dark {
+  color:#e8e8e8;
+  .buttonBack button{
+    margin: 1rem 0 0 4rem;
+    background: transparent;
+    color: #e8e8e8;
+  }
+  .relatedsContainer h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    color: #e8e8e8;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px black;
+  }
+  .content h3,
+.price {
+  color: #aa746c;
+}
+}

@@ -55,7 +55,8 @@
   gap: 1rem;
 }
 
-.icons button, .starIcon{
+.icons button,
+.starIcon {
   background: transparent;
   color: black;
   padding: 0;
@@ -67,5 +68,27 @@
 }
 
 .starIcon:hover {
-  color: rgb(181, 181, 20);;
+  color: rgb(181, 181, 20);
+}
+
+.dark {
+  width: 15rem;
+  height: 26.5rem;
+  padding: 2rem 1rem;
+  background: #080912;
+  text-align: center;
+  margin: 2rem 0;
+  box-shadow: 0 9px 28px rgba(75, 3, 3, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
+  font-family: "Rubik", sans-serif;
+  color: #e0d7d5;
+  .icons button,
+  .starIcon {
+    background: transparent;
+    color: #e0d7d5;
+    padding: 0;
+  }
+}
+
+.dark b {
+  color: #e0d7d5;
 }
