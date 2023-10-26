@@ -13,6 +13,8 @@ import Reviews from "../reviews/Reviews";
 import { addItemToCart } from "../../redux/features/cartSlice";
 import { Toaster, toast } from "react-hot-toast";
 import Navbar from "../../components/navbar/Navbar";
+import imageAlert from "../../assets/murcielagos.png";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Detail() {
   const dispatch = useDispatch();
@@ -22,6 +24,7 @@ function Detail() {
   const comicsRelated = useSelector((state) => state.comic.relatedComics);
   const { id } = useParams();
   const [response, setResponse] = useState("pending");
+  const darkMode = useSelector(selectDarkMode);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,6 +34,9 @@ function Detail() {
     dispatch(fetchComicsRelated(id));
   }, [response, id]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
 
   if (response == "fulfilled" && comics.length == 0) {
 
@@ -64,7 +70,7 @@ function Detail() {
   return (
     <>
     <Navbar/>
-    <section>
+    <section className={darkMode ? styles.light : styles.dark}>
       <div className={styles.buttonBack}>
         <button onClick={handleGoBack}>
           <ArrowBackIcon fontSize="large" />

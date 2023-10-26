@@ -9,6 +9,7 @@ import GradeIcon from "@mui/icons-material/Grade";
 import Modal from "react-modal";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Cart from "../cart/Cart";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const InitialCreate = {
   category: "",
@@ -106,8 +107,15 @@ const Filters = ({
     dispatch(resetFilters());
   }, [pathname]);
 
+  const darkMode = useSelector(selectDarkMode);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
+
+
   return (
-    <section className={styles.container}>
+    <section className={darkMode ? styles.container : styles.dark}>
       <div
         className={`${styles.textContainer} ${
           textFromSection === "Explore Our Diverse Collection!"
@@ -187,8 +195,9 @@ const Filters = ({
         onRequestClose={closeModal}
         contentLabel="Carrito de Compras"
         ariaHideApp={false}
-        // style={customModalStyles}
-        className={styles.customModal}
+        style={customModalStyles}
+        overlayClassName={darkMode ? "" : styles.dark__cart__overlay}
+        className={darkMode ? "" : styles.dark__cart}
       >
         <button className={styles.closeModal} onClick={closeModal}>
           <ArrowBackIcon />

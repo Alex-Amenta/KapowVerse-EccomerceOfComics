@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./Home.module.css";
 import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Home() {
   const dispatch = useDispatch();
@@ -51,7 +52,10 @@ function Home() {
       });
     }
   }, [status]);
-
+  const darkMode = useSelector(selectDarkMode);
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
   return (
     <>
       <Navbar />
