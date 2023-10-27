@@ -55,26 +55,27 @@ const favoriteSlice = createSlice({
             const listToSort = filteredFavorites.length ? 'filteredFavorites' : 'favorites';
 
             if (sortOrder === 'asc') {
-                state[listToSort].sort((a, b) => a.Comic.name.localeCompare(b.Comic.name));
+                state[listToSort].sort((a, b) => a.comic.title.localeCompare(b.comic.title));
             } else if (sortOrder === 'desc') {
-                state[listToSort].sort((a, b) => b.Comic.name.localeCompare(a.Comic.name));
+                state[listToSort].sort((a, b) => b.comic.title.localeCompare(a.comic.title));
             } else if (sortOrder === 'precioMin') {
-                state[listToSort].sort((a, b) => a.Comic.price - b.Comic.price);
+                state[listToSort].sort((a, b) => a.comic.price - b.comic.price);
             } else if (sortOrder === 'precioMax') {
-                state[listToSort].sort((a, b) => b.Comic.price - a.Comic.price);
+                state[listToSort].sort((a, b) => b.comic.price - a.comic.price);
             }
         },
         resetFilters: (state, action) => {
             state.filteredFavorites = state.favorites;
         },
-        favoriteType: (state, action) => {
+        favoriteCategory: (state, action) => {
             const { favorites } = state;
-            const filteredFavorites = favorites.filter(fav => fav.Comic.category === action.payload);
+            const filteredFavorites = favorites.filter(fav => fav.comic.category === action.payload);
+            console.log(action.payload);
             state.filteredFavorites = filteredFavorites;
         },
         favoritePublisher: (state, action) => {
             const { favorites } = state;
-            const filteredFavorites = favorites.filter(fav => fav.Comic.publisher === action.payload);
+            const filteredFavorites = favorites.filter(fav => fav.comic.publisher === action.payload);
             state.filteredFavorites = filteredFavorites;
         }
     },
@@ -121,6 +122,6 @@ const favoriteSlice = createSlice({
     }
 });
 
-export const { favoriteSort, resetFilters, favoriteType, favoritePublisher } = favoriteSlice.actions;
+export const { favoriteSort, resetFilters, favoriteCategory, favoritePublisher } = favoriteSlice.actions;
 
 export default favoriteSlice.reducer

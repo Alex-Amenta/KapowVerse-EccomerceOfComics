@@ -2,7 +2,7 @@ import { selectDarkMode } from "../../redux/features/darkModeSlice";
 import Cards from "../cards/Cards";
 import styles from "./CardsContainer.module.css";
 import { useSelector } from "react-redux"; 
-const CardsContainer = ({ allComics }) => {
+const CardsContainer = ({ allComics, isFavoritePage}) => {
 	const isLoading = useSelector((state) => state.comic.loading); 
 	const isError = useSelector((state) => state.comic.error); 
 	const darkMode = useSelector(selectDarkMode);
@@ -32,6 +32,7 @@ const CardsContainer = ({ allComics }) => {
 								author={author}
 								image={image}
 								stock={stock}
+								isFavoritePage={isFavoritePage}
 							/>
 						);
 					}

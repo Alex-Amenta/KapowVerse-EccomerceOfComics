@@ -5,12 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/features/cartSlice";
 import GradeIcon from "@mui/icons-material/Grade";
 import StarIcon from "@mui/icons-material/Star";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Toaster, toast } from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { fetchFavoritesByUser, deleteFavorite } from "../../redux/features/favoriteSlice";
+import {
+  fetchFavoritesByUser,
+  deleteFavorite,
+} from "../../redux/features/favoriteSlice";
 import axios from "axios";
-
+import { useState } from "react";
 
 const Cards = ({
   id,
@@ -20,7 +24,6 @@ const Cards = ({
   author,
   image,
   isFavoritePage,
-  isAuthenticated,
 }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -29,7 +32,7 @@ const Cards = ({
   const favorites = useSelector((state) => state.favorite.favorites);
   const isComicInFavorites = favorites.some((fav) => fav.comicId === id);
   const [isFavorite, setIsFavorite] = useLocalStorage(`favorite_${id}`, false);
-  
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const addToCart = () => {
     const checkStock = items.find((item) => item.id === id);
@@ -63,6 +66,11 @@ const Cards = ({
 
     if (favoriteToDelete) {
       dispatch(deleteFavorite(favoriteToDelete.id));
+      setIsRemoving(true);
+      setIsFavorite(false);
+      toast.success("Successfully removed from favorites!", {
+        position: "bottom-center",
+      });
     }
   };
 
@@ -73,7 +81,6 @@ const Cards = ({
       });
       setTimeout(() => {
         navigate("/signup");
-
       }, 2500);
       return;
     }
@@ -91,6 +98,10 @@ const Cards = ({
           if (response.status === 201) {
             setIsFavorite(true);
             dispatch(fetchFavoritesByUser(user.id));
+            toast.success("Item saved in favorites!", {
+              position: "bottom-center",
+              icon: "🌟",
+            });
           }
         })
         .catch((error) => {
@@ -114,23 +125,36 @@ const Cards = ({
         <b>{price} $</b>
         <div className={styles.icons}>
           <button onClick={addToCart}>
-            <ShoppingCartIcon className={styles.icon} />
+            <ShoppingCartIcon
+              className={styles.icon}
+              titleAccess="Add to cart"
+            />
           </button>
-          <div className={`${styles.icon} ${isFavoritePage && isRemoving ? styles.icon : ""}`}>
+          <div
+            className={`${styles.icon} ${
+              isFavoritePage && isRemoving ? styles.icon : ""
+            }`}
+          >
             {isFavoritePage ? (
-              <button className={styles.deleteButton} onClick={handleDeleteFavorites}>
-                <DeleteForeverIcon titleAccess="Eliminar" />
+              <button
+                className={styles.deleteButton}
+                onClick={handleDeleteFavorites}
+              >
+                <DeleteForeverIcon titleAccess="Delete favorite" />
               </button>
             ) : (
               <button
                 onClick={handleFavoriteClick}
                 className={styles.cardButtons}
               >
-                {isComicInFavorites ? (
-                  <StarIcon titleAccess="Guardar" style={{ color: "yellow" }} />
-                ) : (
-                  <GradeIcon titleAccess="Dejar de guardar" />
-                )}
+                <StarIcon
+                  titleAccess={isFavoritePage ? "Save" : "Delete"}
+                  className={
+                    isFavorite
+                      ? styles.starActive
+                      : styles.starIcon
+                  }
+                />
               </button>
             )}
           </div>

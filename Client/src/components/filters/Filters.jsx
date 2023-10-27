@@ -187,7 +187,7 @@ const Filters = ({
           </button>
           <button>
             <Link to="/favorites">
-              <GradeIcon fontSize="large" className={styles.starIcon} />
+              <GradeIcon fontSize="large" className={styles.starIcon}/>
             </Link>
           </button>
         </div>

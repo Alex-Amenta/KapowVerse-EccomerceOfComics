@@ -63,12 +63,22 @@
   justify-content: center;
   align-items: flex-start;
   gap: 2rem;
+  color: white;
 }
 
 .link,
 .goBack {
   text-decoration: none;
   color: white;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+}
+
+.active {
+  color: green;
   font-size: 1.2rem;
   display: flex;
   justify-content: center;

@@ -114,6 +114,11 @@
   z-index: 0;
 }
 
+.starIcon {
+  text-decoration: none;
+  color: black;
+}
+
 .starIcon:hover {
   color: rgb(181, 181, 20);
 }
