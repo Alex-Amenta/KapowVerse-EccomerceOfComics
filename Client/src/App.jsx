@@ -21,6 +21,7 @@ import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ function App() {
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/favorites" element={<Favorites />} />
 
         {/* Rutas protegidas para admin */}
         {/* <Route element={<AdminGuard onLogin={loginHandler}/>}> */}
