@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
-import styles from "./Filters.module.css";
-import { Link, useLocation } from "react-router-dom";
+import {
+  favoritePublisher,
+  favoriteSort,
+  favoriteType,
+  resetFilters,
+} from "../../redux/features/favoriteSlice";
+import { useEffect, useState } from "react";
+import styles from "./FilterFavorites.module.css";
+import { useLocation } from 'react-router-dom';
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
@@ -16,7 +21,6 @@ const InitialCreate = {
   publisher: "",
   sort: "",
 };
-
 const customModalStyles = {
   content: {
     width: "35%",
@@ -31,12 +35,7 @@ const customModalStyles = {
   },
 };
 
-const Filters = ({
-  onFilterChange,
-  filterOptions,
-  hidePublisherFilter,
-  noCategoryComics,
-}) => {
+const FilterFavorites = ({onFilterChange,filterOptions,hidePublisherFilter,noCategoryComics,}) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const itemQuantity = useSelector((state) => state.cart.itemQuantity);
@@ -44,75 +43,53 @@ const Filters = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const textFromSection =
-    pathname === "/comics"
-      ? "comics"
-      : pathname === "/mangas"
-      ? "mangas"
-      : "Explore Our Diverse Collection!";
+  pathname === "/comics"
+    ? "comics"
+    : pathname === "/mangas"
+    ? "mangas"
+    : "Explore Our Diverse Collection!";
 
   const openModal = () => {
     customModalStyles.content.right = "0";
     setModalIsOpen(true);
   };
-
   const closeModal = () => {
     customModalStyles.content.right = "-50%";
     setModalIsOpen(false);
   };
 
-  const handleSort = (event) => {
-    setInput({ ...input, sort: event.target.value });
-    dispatch(
-      filterAndSort({
-        sortBy: event.target.value,
-        category: input.category,
-        publisher: input.publisher,
-      })
-    );
-    onFilterChange();
-  };
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
 
-  const handleCategory = (event) => {
-    setInput({ ...input, category: event.target.value });
-    dispatch(
-      filterAndSort({
-        category: event.target.value,
-        sortBy: input.sort,
-        publisher: input.publisher,
-      })
-    );
-    onFilterChange();
-  };
-
-  const handlePublisher = (event) => {
-    setInput({ ...input, publisher: event.target.value });
-    dispatch(
-      filterAndSort({
-        publisher: event.target.value,
-        sortBy: input.sort,
-        category: input.category,
-      })
-    );
-    onFilterChange();
+    if (name === "sort") {
+      dispatch(favoriteSort(value));
+    } else if (name === "type") {
+      dispatch(favoriteType(value));
+    } else if (name === "publisher") {
+      dispatch(favoritePublisher(value));
+    }
   };
 
   const handleReset = () => {
-    dispatch(resetFilters());
-    setInput(InitialCreate);
+    dispatch(resetFilters(""));
+    setInput({ type: "", sort: "" });
   };
 
-  // Restablecer los filtros si la sección cambia
-  useEffect(() => {
-    setInput(InitialCreate);
-    dispatch(resetFilters());
-  }, [pathname]);
+    // Restablecer los filtros si la sección cambia
+    useEffect(() => {
+      setInput(InitialCreate);
+      dispatch(resetFilters());
+    }, [pathname]);
 
-  const darkMode = useSelector(selectDarkMode);
+    const darkMode = useSelector(selectDarkMode);
 
-  useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
-  }, [darkMode]);
-
+    useEffect(() => {
+      document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+    }, [darkMode]);
 
   return (
     <section className={darkMode ? styles.container : styles.dark}>
@@ -131,7 +108,7 @@ const Filters = ({
           id="sort"
           name="sort"
           value={input.sort}
-          onChange={handleSort}
+          onChange={handleFilterChange}
         >
           <option value="">Sort By</option>
           <option value="asc">A-Z</option>
@@ -144,7 +121,7 @@ const Filters = ({
           id="category"
           name="category"
           value={input.category}
-          onChange={handleCategory}
+          onChange={handleFilterChange}
         >
           <option value="">Category</option>
           <option value="Superheroes">Superheroes</option>
@@ -165,7 +142,7 @@ const Filters = ({
             id="publisher"
             name="publisher"
             value={input.publisher}
-            onChange={handlePublisher}
+            onChange={handleFilterChange}
           >
             <option value="">Publisher</option>
             {filterOptions.map((publisher) => (
@@ -186,9 +163,7 @@ const Filters = ({
             </Badge>
           </button>
           <button>
-            <Link to="/favorites">
-              <GradeIcon fontSize="large" className={styles.starIcon} />
-            </Link>
+            <GradeIcon fontSize="large" className={styles.starIcon} />
           </button>
         </div>
       </div>
@@ -213,4 +188,4 @@ const Filters = ({
   );
 };
 
-export default Filters;
+export default FilterFavorites;
