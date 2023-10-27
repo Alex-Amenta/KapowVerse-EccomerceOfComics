@@ -21,7 +21,7 @@ import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
-import Favorites from "./components/favorites/Favorites";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const dispatch = useDispatch();
