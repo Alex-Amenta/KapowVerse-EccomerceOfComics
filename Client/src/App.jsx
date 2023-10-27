@@ -29,9 +29,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchComics());
     if (localStorage.getItem("userlog")) {
-      dispatch(
-        loginUser(JSON.parse(localStorage.getItem("userlog")))
-      );
+      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
     }
   }, []);
 
@@ -52,7 +50,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
 
         {/* Rutas protegidas para admin */}
-        <Route element={<AdminGuard/>}>
+        <Route element={<AdminGuard />}>
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/create" element={<CreateComic />} />
           <Route path="/admin/edit/:id" element={<EditComic />} />
