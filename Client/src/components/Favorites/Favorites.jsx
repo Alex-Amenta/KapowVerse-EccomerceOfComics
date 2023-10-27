@@ -5,7 +5,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import styles from "./Favorites.module.css";
 import { useEffect } from "react";
 import { fetchFavoritesByUser } from "../../redux/features/favoriteSlice";
-import FilterFavorites from "../filterFavorites/FilterFavorites";
+import FilterFavorites from "../FilterFavorites/FilterFavorites";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
