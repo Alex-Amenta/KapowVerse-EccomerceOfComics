@@ -16,6 +16,7 @@ import { selectDarkMode } from "../../redux/features/darkModeSlice";
 function Home() {
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
+  const activeComics = allComics.filter((comic) => comic.active);
   const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
   // Mostrar notificación de compra exitosa
@@ -25,14 +26,12 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("userlog")) {
-      dispatch(
-        loginUser(JSON.parse(localStorage.getItem("userlog")))
-      );
+      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
     }
   }, []);
 
   const { currentPage, totalPages, currentItems, paginate } =
-    usePagination(allComics);
+    usePagination(activeComics);
 
   const handleFilterChange = () => {
     paginate(1);
@@ -40,11 +39,11 @@ function Home() {
 
   useEffect(() => {
     if (status === "success" || status === "approved") {
-      localStorage.removeItem('cart'),
-      toast.success("Purchase completed successfully!", {
-        position: "top-center",
-        id: "success",
-      });
+      localStorage.removeItem("cart"),
+        toast.success("Purchase completed successfully!", {
+          position: "top-center",
+          id: "success",
+        });
     } else if (status === "failure" || status === "rejected") {
       toast.error("Purchase failed!", {
         position: "top-center",
@@ -52,10 +51,13 @@ function Home() {
       });
     }
   }, [status]);
+
   const darkMode = useSelector(selectDarkMode);
+
   useEffect(() => {
     document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
   }, [darkMode]);
+
   return (
     <>
       <Navbar />

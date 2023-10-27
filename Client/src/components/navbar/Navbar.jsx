@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import logoOficial from "../../assets/logo-navbar.png";
 import Searchbar from "../../components/searchbar/Searchbar";
@@ -48,40 +48,46 @@ const Navbar = () => {
             <CloseIcon className={styles.closeButton} fontSize="large" />
           </button>
         )}
-        <Link
+        <NavLink
+          end
           to="/home"
-          className={styles.link}
+          className={({ isActive }) => (isActive ? styles.active : styles.link)}
           onClick={() => setMenuOpen(false)}
         >
           Home
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+          end
           to="/comics"
-          className={styles.link}
+          className={({ isActive }) => (isActive ? styles.active : styles.link)}
           onClick={() => setMenuOpen(false)}
         >
           Comics
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
+          end
           to="/mangas"
-          className={styles.link}
+          className={({ isActive }) => (isActive ? styles.active : styles.link)}
           onClick={() => setMenuOpen(false)}
         >
           Mangas
-        </Link>
+        </NavLink>
         {logState ? (
           <>
             <Logged onClick={() => setMenuOpen(false)} />
           </>
         ) : (
           <>
-            <Link
+            <NavLink
+              end
               to="/signup"
-              className={styles.link}
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.link
+              }
               onClick={() => setMenuOpen(false)}
             >
               Sign Up
-            </Link>
+            </NavLink>
           </>
         )}
         <button onClick={handleToggleDarkMode} className={styles.buttonTheme}>
