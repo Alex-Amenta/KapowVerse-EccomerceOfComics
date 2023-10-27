@@ -2,11 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {
-  addToCart,
-  getCartByUserId,
-  reduceQuantity,
-  removeItemFromCart,
-  addItemToCart,
   removeItem,
   increaseItemQuantity,
   decreaseItemQuantity,
@@ -16,7 +11,6 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import base_url from "../../utils/development";
-import imageAlert from "../../assets/murcielagos.png";
 import { Toaster, toast } from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
@@ -25,19 +19,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const cartItems = useSelector((state) => state.cart.cart);
   const user = useSelector((state) => state.user.user);
-  // const userId = user ? user.id : null;
-
-  // const reduceQuantityOfItem = () => {
-  //   dispatch(reduceQuantity(cartItemId));
-  // };
-
-  // const incrementQuantityOfItem = (comicId) => {
-  //   dispatch(addToCart({ userId: userId, comicId: comicId }));
-  // };
-
-  // const removeItem = () => {
-  //   dispatch(removeItemFromCart(cartItemId));
-  // };
 
   const reduceQuantityOfItem = (itemId) => {
     dispatch(decreaseItemQuantity(itemId));

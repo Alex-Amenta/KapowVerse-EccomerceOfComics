@@ -3,9 +3,8 @@ import styles from "./Cards.module.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, addToCart } from "../../redux/features/cartSlice";
+import { addItemToCart } from "../../redux/features/cartSlice";
 import { Toaster, toast } from "react-hot-toast";
-import imageAlert from "../../assets/murcielagos.png";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Cards = ({
