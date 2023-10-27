@@ -9,6 +9,7 @@ const updateUser = require("../controllers/user/updateUser");
 const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
 const sendEmailConPlantilla = require("../nodemailer/plantillaEmail");
 const deleteAccount = require("../controllers/user/deleteAccount");
+const generateJwt = require("../utils/generateJwt")
 
 const getAllUsersHandler = async (req, res) => {
 	const { name } = req.query;
@@ -39,10 +40,13 @@ const postUserHandler = async (req, res) => {
 	const { name, email, password, image, role } = req.body;
 	try {
 		const user = await postUser(name, email, password, image, role);
+		console.log("datos creados sin google", user);
+		const token = await generateJwt(user.id);
+		console.log("token", token);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
 		}
-		res.status(201).json(user);
+		res.status(201).json({...user.dataValues, token});
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}

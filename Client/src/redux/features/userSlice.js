@@ -20,8 +20,9 @@ export const googleAuth = createAsyncThunk(
     'user/googleAuth',
     async (response, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post(`${URL}/auth`, response);
-            return data;
+            const res = await axios.post(`${URL}/auth`, response);
+            console.log(res)
+            return res.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -50,6 +51,7 @@ export const loginUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/login`, user);
+            console.log(data)
             return data;
         } catch (error) {
             if (error.response) {

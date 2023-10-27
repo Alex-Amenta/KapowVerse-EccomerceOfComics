@@ -22,6 +22,7 @@ import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
 
+
 function App() {
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);

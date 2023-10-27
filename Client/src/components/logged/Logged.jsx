@@ -29,7 +29,11 @@ const Logged = () => {
 
   return (
     <div className={styles.loggedContainer}>
-      <img className={styles.picture} src={user.image} alt={user.name} />
+      {/* <img className={styles.picture} src={user.image} alt={user.name} /> */}
+      {user && user.image && (
+  <img className={styles.picture} src={user.image} alt={user.name} />
+)}
+
       <IconButton
         aria-controls="menu"
         aria-haspopup="true"
