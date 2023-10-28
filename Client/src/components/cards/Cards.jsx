@@ -15,6 +15,8 @@ import {
 } from "../../redux/features/favoriteSlice";
 import axios from "axios";
 import { useState } from "react";
+import base_url from "../../utils/development";
+
 
 const Cards = ({
   id,
@@ -33,7 +35,7 @@ const Cards = ({
   const isComicInFavorites = favorites.some((fav) => fav.comicId === id);
   const [isFavorite, setIsFavorite] = useLocalStorage(`favorite_${id}`, false);
   const [isRemoving, setIsRemoving] = useState(false);
-
+  const URL = `${base_url}`;
   const addToCart = () => {
     const checkStock = items.find((item) => item.id === id);
     let checkCart = cart.find((item) => item.id === id);
@@ -88,7 +90,7 @@ const Cards = ({
       setIsFavorite(false);
     } else {
       axios
-        .post("http://localhost:3001/favorites", {
+        .post( URL,"/favorites", {
           userId: user.id,
           comicId: id,
         })
