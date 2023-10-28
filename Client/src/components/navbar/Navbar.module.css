@@ -36,6 +36,12 @@
   font-size: 1.2rem;
 }
 
+.active {
+  text-decoration: none;
+  color: #9f2d1c;
+  font-size: 1.2rem;
+}
+
 .link:hover {
   color: grey;
 }
@@ -120,4 +126,8 @@
   font-family: "Bangers", sans-serif;
   box-shadow: 0px -15px 34px black;
   
+}
+
+.dark .active {
+  color: #fcff00
 }

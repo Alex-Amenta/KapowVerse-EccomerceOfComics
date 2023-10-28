@@ -36,6 +36,10 @@ const LogAdmin = () => {
     navigate("/admin");
   };
 
+  useEffect(() => {
+  dispatch(fetchUsers());
+  }, [dispatch])
+
   const darkMode = useSelector(selectDarkMode);
 
   return (

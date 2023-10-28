@@ -7,8 +7,9 @@ import Navbar from "../../components/navbar/Navbar";
 
 function ComicsSection() {
   const allComics = useSelector((state) => state.comic.allComics);
+  const activeComics = allComics.filter((comic) => comic.active);
 
-  const comicsFiltered = allComics.filter(
+  const comicsFiltered = activeComics.filter(
     (comic) => comic.publisher !== "Manga"
   );
 
@@ -25,7 +26,7 @@ function ComicsSection() {
 
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <Filters
         onFilterChange={handleFilterChange}
         filterOptions={filterOptionsForPublisher}

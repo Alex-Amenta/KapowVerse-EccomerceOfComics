@@ -47,7 +47,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Relaciones
 
-const { Comic, User, Purchase, Review } = sequelize.models;
+const { Comic, User, Purchase, Review, Favorite } = sequelize.models;
 
 
 // Relación User - Review
@@ -65,6 +65,11 @@ Purchase.belongsTo(User);
 // Relación Comic - Purchase
 Comic.hasMany(Purchase);
 Purchase.belongsTo(Comic);
+
+// Relación Comic - Favorite
+Comic.hasMany(Favorite);
+Favorite.belongsTo(Comic);
+
 
 module.exports = {
 	...sequelize.models,

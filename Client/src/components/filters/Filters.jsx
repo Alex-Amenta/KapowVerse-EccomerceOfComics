@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
@@ -186,7 +186,9 @@ const Filters = ({
             </Badge>
           </button>
           <button>
-            <GradeIcon fontSize="large" className={styles.starIcon} />
+            <Link to="/favorites">
+              <GradeIcon fontSize="large" className={styles.starIcon}/>
+            </Link>
           </button>
         </div>
       </div>

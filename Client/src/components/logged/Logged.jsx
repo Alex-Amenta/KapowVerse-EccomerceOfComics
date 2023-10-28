@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import { logoutUser } from "../../redux/features/userSlice";
+import { Link } from "react-router-dom";
 
 
 const Logged = () => {
@@ -78,8 +79,8 @@ const Logged = () => {
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={() => window.location.href = "/profile"}>Profile</MenuItem>
-        <MenuItem>Favorites</MenuItem>
-        <MenuItem>Purchases</MenuItem>
+        <MenuItem><Link to='/favorites' style={{color: '#000000DE'}}>Favorites</Link></MenuItem>
+        <MenuItem><Link to='/purchases' style={{color: '#000000DE'}}>Purchases</Link></MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

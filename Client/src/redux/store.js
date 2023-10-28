@@ -5,6 +5,7 @@ import reviewReducer from "./features/reviewSlice";
 import cartReducer from "./features/cartSlice";
 import darkModeReducer from "./features/darkModeSlice";
 import { loadState, saveState } from "./middleware";
+import favoriteReducer from "./features/favoriteSlice"
 
 const persistedState = loadState();
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     review: reviewReducer,
     cart: cartReducer,
     darkMode: darkModeReducer,
+    favorite: favoriteReducer,
   },
   preloadedState: persistedState,
 });

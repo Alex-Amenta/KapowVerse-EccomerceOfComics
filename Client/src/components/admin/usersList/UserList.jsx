@@ -24,8 +24,10 @@ const UserList = () => {
   const allUsers = useSelector((state) => state.user.allUsers);
 
   useEffect(() => {
+    if (allUsers) {
     dispatch(fetchUsers());
-  }, []);
+    }
+  }, [dispatch]);
 
   const handleToggleStatus = (userId, isActive) => {
     const message = isActive ? "marked as inactive" : "marked as active";
