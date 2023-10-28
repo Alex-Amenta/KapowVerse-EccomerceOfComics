@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 const Logged = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  let user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
+  const isAdmin = useSelector((state) => state.user.admin);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,7 +31,11 @@ const Logged = () => {
 
   return (
     <div className={styles.loggedContainer}>
-      <img className={styles.picture} src={user.image} alt={user.name} />
+      {/* <img className={styles.picture} src={user.image} alt={user.name} /> */}
+      {user && user.image && (
+  <img className={styles.picture} src={user.image} alt={user.name} />
+)}
+
       <IconButton
         aria-controls="menu"
         aria-haspopup="true"
@@ -77,6 +82,7 @@ const Logged = () => {
         <MenuItem onClick={() => window.location.href = "/profile"}>Profile</MenuItem>
         <MenuItem><Link to='/favorites' style={{color: '#000000DE'}}>Favorites</Link></MenuItem>
         <MenuItem><Link to='/purchases' style={{color: '#000000DE'}}>Purchases</Link></MenuItem>
+        {isAdmin && <MenuItem><Link to='/admin' style={{color: '#000000DE'}}>Admin</Link></MenuItem>}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

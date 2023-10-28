@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./EditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux/features/userSlice";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { loginUser } from "../../redux/features/userSlice";
 
 function SignUp() {
@@ -93,7 +93,6 @@ function SignUp() {
 					setRes("Error updating user");
 					return;
 				}
-                console.log(res)
 				localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
 				setRes("User updated successfully!");
 			})

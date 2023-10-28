@@ -76,12 +76,10 @@ const Cards = ({
 
   const handleFavoriteClick = () => {
     if (!user) {
-      toast.error("Debes iniciar sesión para agregar a favoritos", {
+      toast.error("You must be logged in to add a favorite", {
         position: "bottom-center",
+        id: "error",
       });
-      setTimeout(() => {
-        navigate("/signup");
-      }, 2500);
       return;
     }
 

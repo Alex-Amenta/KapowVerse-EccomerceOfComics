@@ -11,7 +11,6 @@ const toggleActiveStatus = async (id) => {
 
     await user.update({ active: updatedStatus });
 
-    console.log(`User marcado como ${updatedStatus ? 'activo' : 'inactivo'} con éxito: ${user.id}`);
     return { active: updatedStatus };
 };
 

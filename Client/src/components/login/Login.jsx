@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, googleAuth } from "../../redux/features/userSlice";
 import { GoogleLogin } from "@react-oauth/google";
-import { Toaster, toast } from "react-hot-toast";
+import {  toast } from "react-hot-toast";
 import Navbar from "../navbar/Navbar";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 

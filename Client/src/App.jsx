@@ -12,16 +12,18 @@ import Profile from "./components/profile/Profile";
 import EditUser from "./components/editUser/EditUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loginUser } from "./redux/features/userSlice";
+import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
+// import UserEdit from "./components/admin/usersList/UserEdit";
 import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
 import Favorites from "./components/Favorites/Favorites";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchComics());
     if (localStorage.getItem("userlog")) {
-      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
+      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog"))));
     }
   }, []);
 
@@ -53,7 +55,8 @@ function App() {
         <Route element={<AdminGuard />}>
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/create" element={<CreateComic />} />
-          <Route path="/admin/edit/:id" element={<EditComic />} />
+          <Route path="/admin/comicEdit/:id" element={<EditComic />} />
+          {/* <Route path="/admin/userEdit/:id" element={<UserEdit />} /> */}
           <Route path="/admin/comics" element={<ComicsAdmin />} />
           <Route path="/admin/users" element={<UserList />} />
           <Route path="/admin/sales" element={<Sales />} />

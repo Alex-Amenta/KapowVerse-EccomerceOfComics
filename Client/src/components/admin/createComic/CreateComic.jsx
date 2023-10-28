@@ -162,7 +162,6 @@ const CreateComic = () => {
         });
         dispatch(createComic(formDataToSend))
           .then((res) => {
-            console.log(res);
             toast.dismiss("loadingToast");
             toast.success("Comic created successfully!", {
               position: "bottom-center",

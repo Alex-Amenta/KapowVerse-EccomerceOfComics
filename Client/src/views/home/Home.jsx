@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { loginUser } from "../../redux/features/userSlice";
+import { logUserByLocalStorage, loginUser } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
@@ -26,7 +26,10 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("userlog")) {
-      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
+      dispatch(
+        // loginUser(JSON.parse(localStorage.getItem("userlog")))
+        logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog")))
+      );
     }
   }, []);
 
