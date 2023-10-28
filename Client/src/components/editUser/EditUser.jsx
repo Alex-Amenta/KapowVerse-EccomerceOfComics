@@ -93,7 +93,6 @@ function SignUp() {
 					setRes("Error updating user");
 					return;
 				}
-                console.log(res)
 				localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
 				setRes("User updated successfully!");
 			})

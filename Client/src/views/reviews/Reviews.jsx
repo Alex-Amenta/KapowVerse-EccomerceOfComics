@@ -46,7 +46,6 @@ function Reviews() {
   const checkUserPurchases = async () => {
     try {
       const response = await axios.get(`${base_url}/purchase`);
-      console.log(response);
       const purchases = await response.data;
       return purchases;
     } catch (error) {

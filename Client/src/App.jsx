@@ -17,6 +17,7 @@ import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
+// import UserEdit from "./components/admin/usersList/UserEdit";
 import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
@@ -54,7 +55,8 @@ function App() {
         <Route element={<AdminGuard />}>
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/create" element={<CreateComic />} />
-          <Route path="/admin/edit/:id" element={<EditComic />} />
+          <Route path="/admin/comicEdit/:id" element={<EditComic />} />
+          {/* <Route path="/admin/userEdit/:id" element={<UserEdit />} /> */}
           <Route path="/admin/comics" element={<ComicsAdmin />} />
           <Route path="/admin/users" element={<UserList />} />
           <Route path="/admin/sales" element={<Sales />} />

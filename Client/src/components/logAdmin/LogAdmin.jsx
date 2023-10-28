@@ -44,20 +44,15 @@ const LogAdmin = () => {
 
 		await dispatch(loginUser(userData))
 			.then((res) => {
-        console.log("ressssssss", res)
 				if (!res.error) {
 					toast.success("Logged in successfully!", {
 						position: "top-center",
 						id: "success",
 					});
 					localStorage.setItem("userlog", JSON.stringify(res.payload));
-					if (res.payload.role === "admin"){
-            console.log("navigate adm")}
-          // } navigate("/admin");
-					else {
-            console.log("navigate")
-						// navigate("/home");
-					}
+					if (res.payload.role === "admin") navigate("/admin");
+					else navigate("/home");
+					
 				} else {
 					toast.error(res.payload, {
 						position: "top-center",

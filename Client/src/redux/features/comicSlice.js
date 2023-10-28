@@ -218,9 +218,11 @@ const comicSlice = createSlice({
 
 		builder.addCase(toggleComicStatus.pending, (state) => {
 			state.loading = true;
+			state.error = '';
 		});
 
 		builder.addCase(toggleComicStatus.fulfilled, (state, action) => {
+			state.loading = false;
 			const comicId = action.payload;
 			const comic = state.allComics.find((comic) => comic.id === comicId);
 

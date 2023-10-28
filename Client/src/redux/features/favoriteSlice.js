@@ -70,7 +70,6 @@ const favoriteSlice = createSlice({
         favoriteCategory: (state, action) => {
             const { favorites } = state;
             const filteredFavorites = favorites.filter(fav => fav.comic.category === action.payload);
-            console.log(action.payload);
             state.filteredFavorites = filteredFavorites;
         },
         favoritePublisher: (state, action) => {

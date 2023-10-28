@@ -36,17 +36,17 @@ const ComicsAdmin = () => {
   );
 
   const handleToggleStatus = (comicId, isActive) => {
-    const message = isActive ? "marked as inactive" : "marked as active";
+    const message = isActive ? "inactive" : "active";
 
     toast(
       <div className={styles.containerToast}>
-        <p>Are you sure you want to {message}?</p>
+        <p>Are you sure you want to mark as {message}?</p>
         <div className={styles.toastButtons}>
           <button
             onClick={() => {
               dispatch(toggleComicStatus(comicId));
               toast.dismiss();
-              toast.success(`Comic ${message} successfully`, {
+              toast.success(`Comic marked as ${message} successfully`, {
                 position: "top-center",
                 duration: 0,
               });
@@ -127,7 +127,7 @@ const ComicsAdmin = () => {
                   <TableCell>{comic.stock}</TableCell>
                   <TableCell>{comic.active ? "active" : "inactive"}</TableCell>
                   <TableCell>
-                    <Link to={`/admin/edit/${comic.id}`}>
+                    <Link to={`/admin/comicEdit/${comic.id}`}>
                       <button className={styles.edit}>
                         <EditIcon />
                       </button>
@@ -135,7 +135,7 @@ const ComicsAdmin = () => {
                   </TableCell>
                   <TableCell>
                     <button
-                      onClick={() => handleToggleStatus(comic.id, true)}
+                      onClick={() => handleToggleStatus(comic.id, comic.active)}
                       className={styles.delete}
                     >
                       {comic.active ? <BlockIcon /> : <RestoreIcon />}

@@ -21,7 +21,6 @@ export const googleAuth = createAsyncThunk(
     async (response, { rejectWithValue }) => {
         try {
             const res = await axios.post(`${URL}/auth`, response);
-            console.log(res)
             return res.data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -36,7 +35,6 @@ export const registerUser = createAsyncThunk(
             const { data } = await axios.post(`${URL}/register`, user);
             return data;
         } catch (error) {
-            console.log('\x1B[45m err: ',error,' \x1b[0m')
             return rejectWithValue(error.message);
         }
     }
@@ -47,7 +45,6 @@ export const loginUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/login`, user);
-            console.log("loginuser data: ", data)
             return data;
         } catch (error) {
             if (error.response) {
@@ -113,8 +110,8 @@ export const searchUsersByName = createAsyncThunk(
 export const toggleUserActiveStatus = createAsyncThunk(
     'user/toggleUserActiveStatus', async (userId, { rejectWithValue }) => {
         try {
-            const { data } = await axios.put(`${URL}/toggle/${userId}`);
-            return data;
+            await axios.put(`${URL}/toggle/${userId}`);
+            return userId;
         } catch (error) {
             return rejectWithValue(error.response.data);
 
@@ -293,7 +290,6 @@ const userSlice = createSlice({
         builder.addCase(logUserByLocalStorage.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            console.log("userslicer: ",action)
             state.user = action.payload;
             if (action.payload.role === 'admin') {
                 state.admin = true;

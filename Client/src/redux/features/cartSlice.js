@@ -74,7 +74,6 @@ const cartSlice = createSlice({
 			state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
 		},
 		setItemQuantity: (state, action) => {
-			console.log(action);
 			let { itemId, quantity } = action.payload;
 			const item = state.cart.find((item) => item.id === itemId);
 			if (item && quantity > item.stock) quantity = item.stock;

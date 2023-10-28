@@ -26,7 +26,6 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("userlog")) {
-      console.log("aca?")
       dispatch(
         // loginUser(JSON.parse(localStorage.getItem("userlog")))
         logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog")))
