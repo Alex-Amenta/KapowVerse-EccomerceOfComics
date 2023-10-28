@@ -3,13 +3,17 @@ const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandl
 const {googleLoginUserHandler} = require('../handlers/googleLoginHandler');
 
 const verifyJWT = require('../utils/verifyJwt');
+const verifyAdmin = require('../utils/verifyIsAdmin');
 
 const userRouter = Router();
 
-userRouter.get('/',verifyJWT, getAllUsersHandler); 
+// para el admin
+userRouter.get('/',verifyJWT, verifyAdmin, getAllUsersHandler); 
+userRouter.put('/toggle/:id',verifyJWT, verifyAdmin, toggleUserActiveHandler);
+
+// para el user
 userRouter.get('/:id',verifyJWT, getUserByIdHandler); // profile
 userRouter.put('/:id',verifyJWT, updateUserHandler);
-userRouter.put('/toggle/:id',verifyJWT, toggleUserActiveHandler);
 userRouter.delete('/:id/delete',verifyJWT, deleteAccountHandler);
 
 

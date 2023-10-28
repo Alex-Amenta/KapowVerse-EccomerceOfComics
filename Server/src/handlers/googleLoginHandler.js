@@ -15,7 +15,7 @@ const googleLoginUserHandler = async (req, res) => {
         });
         const payload = ticket.getPayload();
         const user = await checkOrCreate(payload.name, payload.email, payload.picture, payload.sub);
-        const token = await generateJwt(user.id);
+        const token = await generateJwt(user.id, user.role);
         const response = {...user.dataValues, token}
         res.status(200).json(response);
     } catch (error) {
