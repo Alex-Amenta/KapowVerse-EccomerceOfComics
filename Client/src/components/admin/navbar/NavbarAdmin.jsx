@@ -8,8 +8,17 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../../redux/features/userSlice";
 
 const NavbarAdmin = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userlog");
+    dispatch(logoutUser());
+    window.alert("You have been logged out");
+  };
 
   return (
     <nav className={styles.container}>
@@ -67,7 +76,7 @@ const NavbarAdmin = () => {
           <TrendingUpIcon />
           Sales
         </NavLink>
-        <NavLink to='/home' className={styles.goBack} >
+        <NavLink onClick={handleLogout} to='/home' className={styles.goBack} >
           <ExitToAppIcon /> Logout
         </NavLink>
       </div>

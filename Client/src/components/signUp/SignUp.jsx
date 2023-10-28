@@ -89,7 +89,7 @@ function SignUp() {
           setRes("Error creating user");
           return;
         }
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar token
         setRes("User created successfully!");
       })
       .catch((err) => {

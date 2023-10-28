@@ -35,14 +35,12 @@ const getUserByIdHandler = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
-
-const postUserHandler = async (req, res) => {
+// REGISTER
+const postUserHandler = async (req, res) => { // register
 	const { name, email, password, image, role } = req.body;
 	try {
 		const user = await postUser(name, email, password, image, role);
-		console.log("datos creados sin google", user);
 		const token = await generateJwt(user.id);
-		console.log("token", token);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
 		}
@@ -73,19 +71,20 @@ const updateUserHandler = async (req, res) => {
 	const { name, email, password, image } = req.body;
 	try {
 		const user = await updateUser(id, name, email, password, image);
-		res.status(200).json(user);
+		res.status(200).json({...user.dataValues, token: await generateJwt(user.id)});
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
 };
-
+// res.status(201).json({...user.dataValues, token});
 const loginUserHandler = async (req, res) => {
 	const { email, password } = req.body;
 	try {
 		const user = await getUserByEmail(email);
-		if (user[0]) {
-			if (user[0].dataValues.password === password) {
-				res.status(200).json(user[0]);
+		if (user) {
+			if (user.dataValues.password === password) {
+				res.status(200).json({...user.dataValues, token: await generateJwt(user.id)});
+				// res.status(200).json(user);
 			} else {
 				res.status(401).json({ message: "Invalid credentials" });
 			}

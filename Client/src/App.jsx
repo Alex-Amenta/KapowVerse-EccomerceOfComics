@@ -12,7 +12,7 @@ import Profile from "./components/profile/Profile";
 import EditUser from "./components/editUser/EditUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loginUser } from "./redux/features/userSlice";
+import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import Sales from "./components/admin/sales/Sales";
@@ -30,7 +30,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchComics());
     if (localStorage.getItem("userlog")) {
-      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
+      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog"))));
     }
   }, []);
 

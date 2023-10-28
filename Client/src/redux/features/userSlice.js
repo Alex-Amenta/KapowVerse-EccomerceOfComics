@@ -12,7 +12,7 @@ const initialState = {
     error: '',
     logState: false,
     user: null,
-    admin: null,
+    admin: false,
     pending: false,
 
 };
@@ -34,13 +34,9 @@ export const registerUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/register`, user);
-            if (data.role === 'user') {
-                return { type: 'user', user: data };
-            } else if (data.role === 'admin') {
-                return { type: 'admin', user: data };
-            }
             return data;
         } catch (error) {
+            console.log('\x1B[45m err: ',error,' \x1b[0m')
             return rejectWithValue(error.message);
         }
     }
@@ -51,7 +47,7 @@ export const loginUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/login`, user);
-            console.log(data)
+            console.log("loginuser data: ", data)
             return data;
         } catch (error) {
             if (error.response) {
@@ -64,15 +60,26 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
     'user/logoutUser',
-    async (_, { rejectWithValue }) => {
-        return rejectWithValue('');
+    async () => {
+        return null;
     }
 );
 
 export const logUserByLocalStorage = createAsyncThunk(
     'user/logUserByLocalStorage',
-    async (data,) => {
-        return data;
+    async (data, { rejectWithValue }) => {
+        if (data.role === 'user') { // si el local storage dice user, devolver data 
+            return data;
+        }
+        try{
+            const res = await axios.post(`${URL}/login`, data); // si no, loguear con los datos del local storage
+            return res.data;
+        } catch (error) {
+            if (error.response) {
+                return rejectWithValue(error.response.data.message);
+            }
+            return rejectWithValue(error.message);
+        }
     }
 );
 
@@ -207,10 +214,11 @@ const userSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            if (action.payload.role === 'user') {
-                state.user = action.payload;
-            } else if (action.payload.role === 'admin') {
-                state.admin = action.payload;
+            state.user = action.payload;
+            if (action.payload.role === 'admin') {
+                state.admin = true;
+            } else {
+                state.admin = false;
             }
             state.error = '';
         });
@@ -227,10 +235,11 @@ const userSlice = createSlice({
         builder.addCase(googleAuth.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            if (action.payload.role === 'user') {
-                state.user = action.payload;
-            } else if (action.payload.role === 'admin') {
-                state.admin = action.payload;
+            state.user = action.payload;
+            if (action.payload.role === 'admin') {
+                state.admin = true;
+            } else {
+                state.admin = false;
             }
             state.error = '';
         });
@@ -248,10 +257,11 @@ const userSlice = createSlice({
         builder.addCase(registerUser.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
-            if (action.payload.type === 'user') {
-                state.user = action.payload.user;
-            } else if (action.payload.type === 'admin') {
-                state.admin = action.payload.user;
+            state.user = action.payload.user;
+            if (action.payload.role === 'admin') {
+                state.admin = true;
+            } else {
+                state.admin = false;
             }
             state.error = '';
         });
@@ -268,6 +278,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.logState = false;
             state.user = null;
+            state.admin = false;
             state.error = '';
         });
         builder.addCase(logoutUser.rejected, (state, action) => {
@@ -282,7 +293,13 @@ const userSlice = createSlice({
         builder.addCase(logUserByLocalStorage.fulfilled, (state, action) => {
             state.loading = false;
             state.logState = true;
+            console.log("userslicer: ",action)
             state.user = action.payload;
+            if (action.payload.role === 'admin') {
+                state.admin = true;
+            } else {
+                state.admin = false;
+            }
             state.error = '';
         });
         builder.addCase(logUserByLocalStorage.rejected, (state, action) => {
@@ -297,7 +314,7 @@ const userSlice = createSlice({
 
         builder.addCase(deleteAccount.fulfilled, (state) => {
             state.loading = false;
-            state.user = null;
+            state.user = null; 
             state.error = '';
         });
 

@@ -24,7 +24,7 @@ Axios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error(error);
+    console.error("axios", error);
     return Promise.reject(error);
   }
 );

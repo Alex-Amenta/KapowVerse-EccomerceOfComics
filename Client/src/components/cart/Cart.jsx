@@ -40,6 +40,7 @@ const Cart = () => {
     if (!user) {
       toast.error("You must be logged in to make a purchase", {
         position: "bottom-right",
+        id: "error",
       });
     } else {
       try {

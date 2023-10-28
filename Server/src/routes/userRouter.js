@@ -6,13 +6,19 @@ const verifyJWT = require('../utils/verifyJwt');
 
 const userRouter = Router();
 
-userRouter.get('/', getAllUsersHandler); 
-userRouter.get('/:id', getUserByIdHandler); // profile
-userRouter.post('/register', postUserHandler); // sign up
-userRouter.put('/:id', updateUserHandler);
-userRouter.put('/toggle/:id', toggleUserActiveHandler);
-userRouter.post('/login', loginUserHandler); // login
+userRouter.get('/',verifyJWT, getAllUsersHandler); 
+userRouter.get('/:id',verifyJWT, getUserByIdHandler); // profile
+userRouter.put('/:id',verifyJWT, updateUserHandler);
+userRouter.put('/toggle/:id',verifyJWT, toggleUserActiveHandler);
+userRouter.delete('/:id/delete',verifyJWT, deleteAccountHandler);
+
+
+// estas rutas no pueden tener verify JWT porque no tienen token
 userRouter.post('/auth', googleLoginUserHandler); 
-userRouter.delete('/:id/delete', deleteAccountHandler);
+userRouter.post('/register', postUserHandler); // sign up
+userRouter.post('/login', loginUserHandler); // login
+
+
+
 
 module.exports = userRouter;

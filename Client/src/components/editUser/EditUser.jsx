@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./EditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux/features/userSlice";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { loginUser } from "../../redux/features/userSlice";
 
 function SignUp() {
