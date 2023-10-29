@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { logUserByLocalStorage, loginUser } from "../../redux/features/userSlice";
+import {
+  logUserByLocalStorage,
+  loginUser,
+} from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 import Filters from "../../components/filters/Filters";
-import { Toaster, toast } from "react-hot-toast";
-import imageAlert from "../../assets/murcielagos.png";
+import { toast } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
-import styles from "./Home.module.css";
-import axios from "axios";
 import Navbar from "../../components/navbar/Navbar";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 

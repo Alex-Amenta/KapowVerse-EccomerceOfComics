@@ -23,15 +23,11 @@ const cartSlice = createSlice({
 					state.cart.push({ ...newItem, quantity: 1 });
 					state.itemQuantity += 1;
 					state.totalPrice += newItem.price;
-				} else {
-					alert("No hay productos en stock");
 				}
 			} else if (existingItem.quantity < existingItem.stock) {
 				existingItem.quantity += 1;
 				state.itemQuantity += 1;
 				state.totalPrice += newItem.price;
-			} else {
-				alert("No hay productos en stock");
 			}
 
 			state.totalPrice = parseFloat(state.totalPrice.toFixed(2));

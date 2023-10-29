@@ -37,29 +37,17 @@ const Cards = ({
   const [isRemoving, setIsRemoving] = useState(false);
 
   const addToCart = () => {
-    const checkStock = items.find((item) => item.id === id);
-    let checkCart = cart.find((item) => item.id === id);
-    if (
-      (!checkCart && checkStock.stock === 0) ||
-      checkCart?.quantity === checkStock.stock
-    ) {
-      return toast.error(
-        "You have selected the maximum number of products in stock",
-        {
-          position: "bottom-center",
-        }
-      );
+    const comic = items.find((item) => item.id === id);
+    const cartItem = cart.find((item) => item.id === id);
+
+    if (!comic || (cartItem && cartItem.quantity === comic.stock)) {
+      toast.error("Item out of stock or maximum quantity reached", {
+        position: "bottom-center",
+      });
+      return;
     }
-    dispatch(
-      addItemToCart({
-        id,
-        title,
-        description,
-        price,
-        author,
-        image,
-      })
-    );
+
+    dispatch(addItemToCart(comic));
     toast.success("Item added to cart!", { position: "bottom-center" });
   };
 
@@ -149,11 +137,7 @@ const Cards = ({
               >
                 <StarIcon
                   titleAccess={isFavorite ? "Save" : "Delete"}
-                  className={
-                    isFavorite
-                      ? styles.starActive
-                      : styles.starIcon
-                  }
+                  className={isFavorite ? styles.starActive : styles.starIcon}
                 />
               </button>
             )}
