@@ -39,13 +39,14 @@ const getUserByIdHandler = async (req, res) => {
 const postUserHandler = async (req, res) => { // register
 	const { name, email, password, image, role } = req.body;
 	try {
-		const user = await postUser(name, email, password, image, role);
+		const user = await postUser(name, email, password, image, role, active = false);
 		const token = await generateJwt(user.id, user.role);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
 		}
 		res.status(201).json({...user.dataValues, token});
 	} catch (error) {
+		console.log(error)
 		res.status(500).json({ message: error.message });
 	}
 };

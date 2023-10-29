@@ -1,6 +1,6 @@
 const { User } = require('../../db');
 
-const postUser = async (name, email, password, image, role) => {
+const postUser = async (name, email, password, image, role, active) => {
     if (!name || !email || !password) throw new Error('No se pudo crear el usuario');
     const user = await User.create({ 
         name, 
@@ -8,6 +8,7 @@ const postUser = async (name, email, password, image, role) => {
         password, 
         image: image || undefined, 
         role: role || undefined, 
+        active: active
     });
 
     return user;
