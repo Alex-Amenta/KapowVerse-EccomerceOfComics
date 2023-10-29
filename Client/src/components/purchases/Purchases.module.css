@@ -1,0 +1,157 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: "Bangers", sans-serif;
+  margin-bottom: 7rem;
+}
+
+.container h1 {
+  font-size: 3.5rem;
+  color: #9f2d1c;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+  margin-bottom: 0;
+}
+
+.container hr {
+  width: 70%;
+}
+
+.notPurchases {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 6rem 0 10rem 0;
+  font-size: 3rem;
+}
+
+.link {
+  color: black;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px black;
+  width: 34rem;
+  padding: 2rem;
+}
+
+.card img {
+  height: 17rem;
+  width: 13rem;
+}
+
+.purchaseContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.infoComic p {
+  color: #9f2d1c;
+}
+
+.infoPurchase {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ###########Dark Mode############ */
+.dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: "Bangers", sans-serif;
+  margin-bottom: 7rem;
+}
+
+.dark h1 {
+  font-size: 3.5rem;
+  color: #fcff00;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+  margin-bottom: 0;
+}
+
+.dark hr {
+  width: 70%;
+}
+
+.dark {
+  .notPurchases {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 6rem 0 10rem 0;
+    font-size: 3rem;
+  }
+
+  .link {
+    color: white;
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    border-radius: 10px;
+    background-color: black;
+    box-shadow: 0px 0px 10px 0px #fafe3aa7;
+    width: 34rem;
+    padding: 2rem;
+  }
+
+  .card img {
+    height: 17rem;
+    width: 13rem;
+  }
+
+  .purchaseContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .infoComic p {
+    color: #fcff00;
+  }
+
+  .infoPurchase {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    color: white;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 20rem;
+    gap: 1rem;
+  }
+  .form {
+    width: 80%;
+  }
+}
