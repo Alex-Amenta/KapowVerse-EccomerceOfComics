@@ -43,23 +43,35 @@ const Favorites = () => {
       <NavBar />
       <div className={styles.container}>
         {dataComics.length > 0 && (
-          <FilterFavorites filterOptions={filterOptionsForPublisher} dataComics={dataComics}/>
+          <FilterFavorites
+            filterOptions={filterOptionsForPublisher}
+            dataComics={dataComics}
+          />
         )}
         {isLoading ? (
           <div className={styles.loaderDiv}>Loading...</div>
         ) : dataComics.length === 0 && !isLoading ? (
           user ? (
             <div className={styles.notFavorites}>
-              <h3>You haven't added any comics to your favorites yet.</h3>
+              <h3 style={darkMode ? { color: "black" } : { color: "white" }}>
+                You haven't added any comics to your favorites yet.
+              </h3>
               <NavLink to="/home" className={styles.link}>
                 <AddCircleIcon
-                  style={{ fontSize: "3rem" }}
+                  style={
+                    darkMode
+                      ? { color: "black", fontSize: "3rem" }
+                      : { color: "white", fontSize: "3rem" }
+                  }
                   titleAccess="Add comics to favorites"
                 />
               </NavLink>
             </div>
           ) : (
-            <div className={styles.notFavorites}>
+            <div
+              className={styles.notFavorites}
+              style={darkMode ? { color: "black" } : { color: "white" }}
+            >
               <h3>You must log in to see your favorites.</h3>
               <div className={styles.buttonNotfavorites}>
                 <Link to="/login" className={styles.buttonLogIn}>
