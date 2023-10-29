@@ -40,7 +40,9 @@ export const registerUser = createAsyncThunk(
             }
             return data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            return rejectWithValue(
+                (error.response && error.response.data.message) || error.message
+            );
         }
     }
 );
@@ -241,17 +243,18 @@ const userSlice = createSlice({
         });
         builder.addCase(registerUser.fulfilled, (state, action) => {
             state.loading = false;
-            state.logState = true;
             if (action.payload.type === 'user') {
                 state.user = action.payload.user;
             } else if (action.payload.type === 'admin') {
                 state.admin = action.payload.user;
             }
             state.error = '';
+            state.logState = true;
         });
         builder.addCase(registerUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = (action.payload && action.payload.error) || action.error.message;
+            console.log(action)
+            state.error = (action.payload && (action.payload.error || action.payload)) || action.error.message;
         });
 
         builder.addCase(logoutUser.pending, (state) => {

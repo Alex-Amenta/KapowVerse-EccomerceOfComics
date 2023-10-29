@@ -5,10 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/features/userSlice";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
+import toast from "react-hot-toast";
 
 function SignUp() {
+  const reduxError = useSelector((state) => state.user.error);
   const logState = useSelector((state) => state.user.logState);
-  if (logState) window.location.href = "/home";
+  console.log("ls: ",logState)
+  console.log("re: ", reduxError) //re:  llave duplicada viola restricción de unicidad «users_email_key»
+
+  // if (logState) window.location.href = "/home";
+  if (reduxError.includes("llave duplicada viola restricción de unicidad «users_email_key»"))
+  toast.error("Email already in use!", {
+    position: "top-center",
+    id: "error",
+  });
+
 
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -36,7 +47,7 @@ function SignUp() {
       setError({ ...error, image: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // ############### VALIDACIONES ###############
     let err = false;
@@ -82,16 +93,19 @@ function SignUp() {
     // ############### FIN DE VALIDACIONES ###############
     setRes("Creating user...");
     // ############### POSTEO ###############
-    dispatch(registerUser(data))
+    await dispatch(registerUser(data))
       .then((res) => {
         if (res.error) {
+          console.log("res.error", res.error)
+
           setRes("Error creating user");
           return;
         }
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar token
         setRes("User created successfully!");
       })
       .catch((err) => {
+        console.log("err",err)
         if (err.response && err.response.data)
           setRes(err.response.data.message);
         else setRes("Error in server");

@@ -29,13 +29,17 @@ const userModel = (sequelize) => {
             },
             active: {
                 type: DataTypes.BOOLEAN,
-                defaultValue: true,
+                defaultValue: false,
             },
             image: {
                 type: DataTypes.TEXT,
                 defaultValue: "https://i.imgur.com/q5xbkmI.png",
                 
-            }
+            },
+            activationToken: {
+                type: DataTypes.STRING,
+                defaultValue: null,
+            },
         },
         {
             timestamps: false,

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler } = require('../handlers/userHandler');
+const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken } = require('../handlers/userHandler');
 const {googleLoginUserHandler} = require('../handlers/googleLoginHandler');
 
 const verifyJWT = require('../utils/verifyJwt');
@@ -14,5 +14,7 @@ userRouter.delete('/:id', toggleUserActiveHandler);
 userRouter.post('/login', loginUserHandler); // login
 userRouter.post('/auth', googleLoginUserHandler); 
 userRouter.delete('/:id/delete', deleteAccountHandler);
+userRouter.get('/verify/:token', userActivateByToken)
+
 
 module.exports = userRouter;
