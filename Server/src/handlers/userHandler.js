@@ -55,25 +55,10 @@ const postUserHandler = async (req, res) => { // register
 		const tokenJwt = await generateJwt(user.id, user.role);
 		if (email) {
 			sendEmailConPlantilla(email, "User", { userName: name })
-		  }
-		  res.status(201).json({...user.dataValues, tokenJwt});
-	} catch (error) {
-		res.status(500).json({ message: error.message });
-	}
-};
-
-const userActivateByToken = async (req, res) => {
-	const { token } = req.params;
-	try {
-		const user = await actTokenController(token);
-		if (token == user.activationToken) {
-			await toggleActiveStatus(user.id, true);
-
-			res.status(200).json({ message: "User activated!" });
-		} else {
-			res.status(401).json({ message: "Invalid token" });
 		}
+		res.status(201).json({...user.dataValues, token});
 	} catch (error) {
+		console.log(error)
 		res.status(500).json({ message: error.message });
 	}
 };

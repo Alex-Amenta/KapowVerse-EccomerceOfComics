@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/features/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import toast from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
@@ -103,7 +103,9 @@ function SignUp() {
           return;
         }
         localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar token
+		
         setRes("User created successfully!");
+		navigate('/activate')
       })
       .catch((err) => {
         console.log("err",err)

@@ -8,6 +8,7 @@ const postUser = async (name, email, password,status, image, role, activationTok
         password, 
         image: image || undefined, 
         role: role || undefined, 
+        active: active
     });
 
     return user;
