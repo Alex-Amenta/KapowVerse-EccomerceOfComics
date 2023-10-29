@@ -90,23 +90,6 @@ const toggleUserActiveHandler = async (req, res) => {
 	}
 };
 
-
-const toggleUserActiveHandler = async (req, res) => {
-	const { id } = req.params;
-	try {
-		const user = await toggleActiveStatus(id);
-		if (user) {
-			res.status(200).json({
-				message: user.active ? 'Cómic reactivado exitosamente' : 'Cómic desactivado exitosamente'
-			});
-		} else {
-			res.status(404).json({ message: 'Cómic no encontrado' });
-		}
-	} catch (error) {
-		res.status(500).json({ message: 'Error al cambiar el estado del cómic' });
-	}
-};
-
 const updateUserHandler = async (req, res) => {
 	const { id } = req.params;
 	const { name, email, password, image } = req.body;
