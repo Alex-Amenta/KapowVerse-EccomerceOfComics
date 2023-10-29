@@ -24,6 +24,7 @@ import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
 import Favorites from "./components/Favorites/Favorites";
+import Purchases from "./components/purchases/Purchases";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/activate/:token?" element={<Activate />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/purchases" element={<Purchases />} />
 
         {/* Rutas protegidas para admin */}
         <Route element={<AdminGuard />}>
