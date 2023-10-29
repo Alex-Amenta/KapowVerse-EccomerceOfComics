@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  border: 2px solid;
+  transition: all 0.3s ease-in-out;
+  align-items: center;
+  width: 30%;
+  color: black;
+  margin-left: 10px;
+}
+
+.container input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 8px 20px;
+  font-weight: 700;
+}
+
+.btn {
+  cursor: pointer;
+  padding-right: 1rem;
+}
+
+.btn:hover {
+  color: gray;
+}
+
+@media (max-width: 950px) {
+  .container {
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* .container {
+        justify-content: ;
+        align-items: center;
+        width: 50%;
+      } */
+
+  .container input {
+    width: 100%;
+    margin-bottom: 10px;
+    font-style: italic;
+    margin: 0;
+    font-size: 12px;
+  }
+}

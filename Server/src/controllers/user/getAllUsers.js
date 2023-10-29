@@ -26,8 +26,8 @@ const getUserByName = async (name) => {
 }
 
 const getUserByEmail = async (email) => {
-    const user = await User.findAll({
-        where: { email: { [Op.iLike]: `%${email}%` } }
+    const user = await User.findOne({
+        where: { email:  email }
     })
 
     if (!user) {

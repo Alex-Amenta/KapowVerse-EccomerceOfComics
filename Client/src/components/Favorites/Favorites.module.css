@@ -1,0 +1,83 @@
+.notFavorites {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  gap: 1.5rem;
+  margin: -6rem 0;
+  font-family: "Bangers" , sans-serif;
+}
+
+.notFavorites h3 {
+  font-size: 2.5rem;
+}
+
+.sectionFav {
+  margin-bottom: 5rem;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+  transform: scale(1.3);
+}
+
+.link:hover {
+  transform: scale(1.2);
+}
+
+.buttonLogIn {
+  padding: 11px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: #212121;
+  z-index: 0;
+  background: white;
+  position: relative;
+  font-weight: 1000;
+  font-size: 19px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.buttonLogIn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.buttonLogIn:hover {
+  color: #e8e8e8;
+}
+
+.buttonLogIn:hover::before {
+  width: 100%;
+}
+
+.buttonNotfavorites {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loaderDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+}

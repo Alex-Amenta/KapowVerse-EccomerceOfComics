@@ -3,7 +3,6 @@ const { getPurchase } = require('../controllers/purchase/getAllPurchase');
 const { getPurchaseById } = require('../controllers/purchase/getAllPurchaseById');
 
 const createPurchaseHandler = async (req, res) => {
-  console.log("CREATE PURCHASE HANDLER")
   const { userId, comicId, quantity } = req.body;
   try {
     const results = await createPurchase([{ comicId, userId, quantity }]);
@@ -28,7 +27,6 @@ const createPurchaseHandler = async (req, res) => {
 
 
 const getPurchaseHandler = async (req, res) => {
-  console.log("GET PURCHASE HANDLER")
     const { id } = req.params;
     try {
       if (id) {

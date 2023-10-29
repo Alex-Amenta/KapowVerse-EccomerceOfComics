@@ -2,7 +2,7 @@ const { getAllComicsByFilters, getAllComics } = require('../controllers/comic/ge
 const { getComicByTitle } = require('../controllers/comic/getComicByTitle');
 const { getComicsById } = require('../controllers/comic/getComicById');
 const { createComic } = require('../controllers/comic/postComic');
-const { deleteComic } = require('../controllers/comic/deleteComic');
+const { toggleComicStatus } = require('../controllers/comic/toggleComicStatus');
 const { updateComic } = require('../controllers/comic/updateComic');
 
 const multer = require("multer");
@@ -147,15 +147,19 @@ const postComicHandler = async (req, res) => {
 
 
 
-const deleteComicHandler = async (req, res) => {
+const toggleComicHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await deleteComic(id);
-        response
-            ? res.status(200).json({ message: 'Cómic eliminado exitosamente' })
-            : res.status(404).json({ message: 'Cómic no encontrado' });
+        const response = await toggleComicStatus(id);
+        if (response) {
+            res.status(200).json({
+                message: response.active ? 'Cómic reactivado exitosamente' : 'Cómic desactivado exitosamente'
+            });
+        } else {
+            res.status(404).json({ message: 'Cómic no encontrado' });
+        }
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el cómic' });
+        res.status(500).json({ message: 'Error al cambiar el estado del cómic' });
     }
 };
 
@@ -194,7 +198,7 @@ module.exports = {
     getAllComicsHandler,
     getComicsByIdHandler,
     postComicHandler,
-    deleteComicHandler,
+    toggleComicHandler,
     updateComicHandler,
     getComicsRelatedHandler
 };

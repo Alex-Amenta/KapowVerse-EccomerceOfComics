@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
 import Modal from "react-modal";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Cart from "../cart/Cart";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const InitialCreate = {
   category: "",
@@ -106,8 +107,15 @@ const Filters = ({
     dispatch(resetFilters());
   }, [pathname]);
 
+  const darkMode = useSelector(selectDarkMode);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
+
+
   return (
-    <section className={styles.container}>
+    <section className={darkMode ? styles.container : styles.dark}>
       <div
         className={`${styles.textContainer} ${
           textFromSection === "Explore Our Diverse Collection!"
@@ -178,7 +186,9 @@ const Filters = ({
             </Badge>
           </button>
           <button>
-            <GradeIcon fontSize="large" className={styles.starIcon} />
+            <Link to="/favorites">
+              <GradeIcon fontSize="large" className={styles.starIcon}/>
+            </Link>
           </button>
         </div>
       </div>
@@ -188,6 +198,8 @@ const Filters = ({
         contentLabel="Carrito de Compras"
         ariaHideApp={false}
         style={customModalStyles}
+        overlayClassName={darkMode ? "" : styles.dark__cart__overlay}
+        className={darkMode ? "" : styles.dark__cart}
       >
         <button className={styles.closeModal} onClick={closeModal}>
           <ArrowBackIcon />

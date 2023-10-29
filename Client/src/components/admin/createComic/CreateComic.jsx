@@ -5,6 +5,8 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { createComic } from "../../../redux/features/comicSlice";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../../../assets/murcielagos.png";
+import axios from "axios";
+import base_url from "../../../utils/development";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 
 const initialFormData = {
@@ -161,7 +163,6 @@ const CreateComic = () => {
         });
         dispatch(createComic(formDataToSend))
           .then((res) => {
-            console.log(res);
             toast.dismiss("loadingToast");
             toast.success("Comic created successfully!", {
               position: "bottom-center",
@@ -440,18 +441,6 @@ const CreateComic = () => {
           <div className={styles.buttonContainer}>
             <button type="submit">Create Cómic</button>
           </div>
-          <Toaster
-            toastOptions={{
-              style: {
-                border: "2px solid #000000",
-                fontFamily: "Rubik, sans-serif",
-                backgroundImage: `url(${imageAlert})`,
-                backgroundSize: "cover",
-                backgroundPosition: "right",
-                backgroundRepeat: "no-repeat",
-              },
-            }}
-          />
         </form>
       </div>
     </section>

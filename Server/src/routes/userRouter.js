@@ -3,18 +3,27 @@ const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandl
 const {googleLoginUserHandler} = require('../handlers/googleLoginHandler');
 
 const verifyJWT = require('../utils/verifyJwt');
+const verifyAdmin = require('../utils/verifyIsAdmin');
 
 const userRouter = Router();
 
-userRouter.get('/', verifyJWT, getAllUsersHandler); 
-userRouter.get('/:id', getUserByIdHandler); // profile
-userRouter.post('/register', postUserHandler); // sign up
-userRouter.put('/:id', updateUserHandler);
-userRouter.delete('/:id', toggleUserActiveHandler);
-userRouter.post('/login', loginUserHandler); // login
+// para el admin
+userRouter.get('/',verifyJWT, verifyAdmin, getAllUsersHandler); 
+userRouter.put('/toggle/:id',verifyJWT, verifyAdmin, toggleUserActiveHandler);
+
+// para el user
+userRouter.get('/:id',verifyJWT, getUserByIdHandler); // profile
+userRouter.put('/:id',verifyJWT, updateUserHandler);
+userRouter.delete('/:id/delete',verifyJWT, deleteAccountHandler);
+
+
+// estas rutas no pueden tener verify JWT porque no tienen token
 userRouter.post('/auth', googleLoginUserHandler); 
-userRouter.delete('/:id/delete', deleteAccountHandler);
 userRouter.get('/verify/:token', userActivateByToken)
+userRouter.post('/register', postUserHandler); // sign up
+userRouter.post('/login', loginUserHandler); // login
+
+
 
 
 module.exports = userRouter;

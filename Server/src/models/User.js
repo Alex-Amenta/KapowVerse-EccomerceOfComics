@@ -40,6 +40,10 @@ const userModel = (sequelize) => {
                 type: DataTypes.STRING,
                 defaultValue: null,
             },
+            registrationDate: {
+                type: DataTypes.DATE,
+                defaultValue: DataTypes.NOW,
+            },
         },
         {
             timestamps: false,
