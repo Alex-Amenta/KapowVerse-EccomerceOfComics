@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  favoriteCategory,
   favoritePublisher,
   favoriteSort,
   resetFilters,
@@ -17,7 +16,6 @@ const FilterFavorites = ({
 }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState({
-    category: "",
     publisher: "",
     sort: "",
   });
@@ -31,8 +29,6 @@ const FilterFavorites = ({
 
     if (name === "sort") {
       dispatch(favoriteSort(value));
-    } else if (name === "category") {
-      dispatch(favoriteCategory(value));
     } else if (name === "publisher") {
       dispatch(favoritePublisher(value));
     }
@@ -40,7 +36,7 @@ const FilterFavorites = ({
 
   const handleReset = () => {
     dispatch(resetFilters());
-    setInput({ publisher: "", sort: "", category: "" });
+    setInput({ publisher: "", sort: "" });
   };
 
   const darkMode = useSelector(selectDarkMode);
@@ -67,26 +63,6 @@ const FilterFavorites = ({
           <option value="desc">Z-A</option>
           <option value="precioMin">Lower Price</option>
           <option value="precioMax">Higher price</option>
-        </select>
-        <select
-          className={styles.select}
-          id="category"
-          name="category"
-          value={input.category}
-          onChange={handleFilterChange}
-        >
-          <option value="">Category</option>
-          <option value="Superheroes">Superheroes</option>
-          <option value="Science Fiction">Science Fiction</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Action">Action</option>
-          <option value="Horror">Horror</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Romance">Romance</option>
-          <option value="Suspense">Suspense</option>
         </select>
         {!hidePublisherFilter && (
           <select

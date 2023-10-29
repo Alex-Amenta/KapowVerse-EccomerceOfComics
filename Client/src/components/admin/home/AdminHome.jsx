@@ -7,7 +7,7 @@ import Cards from "../comicsAdmin/ComicsAdmin";
 import { useEffect } from "react";
 import { fetchComics } from "../../../redux/features/comicSlice";
 import {
-  CategoryBarChart,
+  MostSoldComicsBarChart,
   UserRegistrationBarChart,
 } from "../graphics/BarChart";
 import { PieChart } from "../graphics/PieChart";
@@ -33,7 +33,7 @@ const AdminHome = () => {
 
         <h2>Comics statistics</h2>
         <div className={styles.comics}>
-          <CategoryBarChart />
+          <MostSoldComicsBarChart />
           <PieChart />
         </div>
 

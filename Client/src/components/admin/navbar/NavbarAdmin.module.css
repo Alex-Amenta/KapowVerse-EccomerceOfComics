@@ -69,7 +69,7 @@
 .link,
 .goBack {
   text-decoration: none;
-  color: white;
+  color: gray;
   font-size: 1.2rem;
   display: flex;
   justify-content: center;
@@ -79,7 +79,7 @@
 
 .active {
   color: green;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,7 +87,7 @@
 }
 
 .link:hover {
-  color: grey;
+  color: rgb(96, 96, 96);
 }
 
 .goBack {
