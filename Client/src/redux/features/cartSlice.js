@@ -71,6 +71,7 @@ const cartSlice = createSlice({
 		},
 		setItemQuantity: (state, action) => {
 			let { itemId, quantity } = action.payload;
+			// quantity es el numero que llega del input
 			const item = state.cart.find((item) => item.id === itemId);
 			if (item && quantity > item.stock) quantity = item.stock;
 			if (item && item.quantity < quantity)
@@ -79,8 +80,13 @@ const cartSlice = createSlice({
 				state.itemQuantity -= item.quantity - quantity;
 
 			if (item && quantity > 0 && quantity <= item.stock) {
+				if (item.quantity > quantity) {
+					const diff = item.price * (item.quantity - quantity);
+					state.totalPrice = state.totalPrice - diff >= 0 ? state.totalPrice - diff : 0;
+				} else if (item.quantity < quantity) {
+					state.totalPrice += item.price * (quantity - item.quantity);
+				}
 				item.quantity = quantity;
-				state.totalPrice = item.price * item.quantity;
 			} else if (item && quantity > item.stock) {
 				item.quantity = item.stock;
 				// state.itemQuantity += item.stock;
