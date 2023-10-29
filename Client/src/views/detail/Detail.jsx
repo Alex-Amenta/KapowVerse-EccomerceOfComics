@@ -11,9 +11,8 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Reviews from "../reviews/Reviews";
 import { addItemToCart } from "../../redux/features/cartSlice";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Navbar from "../../components/navbar/Navbar";
-import imageAlert from "../../assets/murcielagos.png";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Detail() {

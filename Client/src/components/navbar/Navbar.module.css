@@ -32,18 +32,18 @@
 
 .link {
   text-decoration: none;
-  color: white;
+  color: gray;
   font-size: 1.2rem;
 }
 
 .active {
   text-decoration: none;
   color: #9f2d1c;
-  font-size: 1.2rem;
+  font-size: 1.7rem;
 }
 
 .link:hover {
-  color: grey;
+  color: rgb(96, 96, 96);
 }
 
 .menuButtonContainer {
