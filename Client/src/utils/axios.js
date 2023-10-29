@@ -1,18 +1,3 @@
-// import Axios from "axios";
-
-
-// Axios.interceptors.request.use(
-//   () => {
-//     const {token} = JSON.parse(localStorage.getItem("userlog")) ;
-//     return {
-//       headers: {
-//         ...(token && { Authorization: `${token}` }),
-//       },
-//     };
-//   },
-//   (error) => {console.log(error)}
-// );
-
 import Axios from "axios";
 
 Axios.interceptors.request.use(

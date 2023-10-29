@@ -50,7 +50,7 @@ const Favorites = () => {
         ) : dataComics.length === 0 && !isLoading ? (
           user ? (
             <div className={styles.notFavorites}>
-              <h3>You haven't added any comics to your favorites yet.</h3>
+              <h3>You haven&apos;t added any comics to your favorites yet.</h3>
               <NavLink to="/home" className={styles.link}>
                 <AddCircleIcon
                   style={{ fontSize: "3rem" }}

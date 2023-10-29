@@ -32,13 +32,13 @@ const getPurchaseHandler = async (req, res) => {
       if (id) {
         const purchase = await getPurchaseById(id);
         if (!purchase) {
-          return res.status(404).json({ error: 'Compra no encontrada' });
+          return res.status(404).json({ error: 'Purchases not found.' });
         }
         res.json(purchase);
       } else {
         const purchase = await getPurchase();
         if (!purchase) {
-          return res.status(404).json({ error: 'No se encontraron compras' });
+          return res.status(404).json({ error: 'Purchases not found.' });
         }
         res.json(purchase);
       }

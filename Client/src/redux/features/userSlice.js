@@ -123,10 +123,10 @@ export const toggleUserActiveStatus = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
     'user/updateUser',
-    async (userId, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
         try {
-            const { data } = await axios.put(`/user/${userId}`);
-            return data;
+            const { res } = await axios.put(`${URL}/${data.userId}`, data.data);
+            return res;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -324,6 +324,19 @@ const userSlice = createSlice({
         });
 
 
+        builder.addCase(updateUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(updateUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(updateUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = (action.payload && action.payload.error) || action.error.message;
+        });
     },
 });
 

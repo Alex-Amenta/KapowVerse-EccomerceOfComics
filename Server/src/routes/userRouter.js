@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken } = require('../handlers/userHandler');
+const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken, resender } = require('../handlers/userHandler');
 const {googleLoginUserHandler} = require('../handlers/googleLoginHandler');
 
 const verifyJWT = require('../utils/verifyJwt');
@@ -19,10 +19,10 @@ userRouter.delete('/:id/delete',verifyJWT, deleteAccountHandler);
 
 // estas rutas no pueden tener verify JWT porque no tienen token
 userRouter.post('/auth', googleLoginUserHandler); 
-userRouter.get('/verify/:token', userActivateByToken)
+userRouter.post('/verify/:token', userActivateByToken)
 userRouter.post('/register', postUserHandler); // sign up
 userRouter.post('/login', loginUserHandler); // login
-
+userRouter.post('/resend/:id', resender); // resend email')
 
 
 

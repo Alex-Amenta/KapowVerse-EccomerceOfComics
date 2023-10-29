@@ -6,55 +6,69 @@ import styles from "./Activate.module.css";
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 
-
 function Activate() {
+	const { token } = useParams();
 
-  const { token } = useParams();
-  const [input, setInput] = useState(token);
+	const [input, setInput] = useState(token || "");
+
 	const activateAccount = async () => {
-    console.log(token === undefined)
-		try {    
+		try {
 			await axios
-				.post(`${base_url}/verify/${token}`)
-				.then((res) =>
-					toast.success(res.data.message, {
-						duration: 4000,
+				.post(`${base_url}/user/verify/${input}`)
+				.then((res) => {
+					toast.success(res.data.message + " Redirecting...", {
+						duration: 2000,
 						position: "top-center",
-            id: "activate",
-					})
-				)
+						id: "activate",
+					});
+					let newUser = JSON.parse(localStorage.getItem("userlog"));
+					newUser.active = true;
+					localStorage.setItem("userlog", JSON.stringify(newUser));
+
+					setTimeout(() => {
+						window.location = "/home";
+					}, 2000);
+				})
 				.catch((err) => {
 					console.log(err);
-					toast.error(err.message, {
+					toast.error(err.response ? err.response.data.message : err.message, {
 						duration: 4000,
 						position: "top-center",
-            id: "error",
+						id: "error",
 					});
 				});
 		} catch (err) {
 			console.log("catch", err);
-			toast.error(err.message, {
+			toast.error(err.response ? err.response.data.message : err.message, {
 				duration: 4000,
 				position: "top-center",
-        id: "error",
+				id: "error",
 			});
 		}
 	};
 	if (token) activateAccount();
 
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
+	const handleInputChange = (e) => {
+		setInput(e.target.value);
+	};
 
 	return (
-    <>
-    <Navbar />
-    <div className={styles.container}>
-			<div className={styles.text}>Paset the code sent to your email here and press the button to Activate your account: </div>
-      <input className={styles.input} value={input} onChange={handleInputChange} type="text" />
-      <button onClick={activateAccount}>Activate</button>
-      </div>
-    </>
+		<>
+			<Navbar />
+			<div className={styles.container}>
+				<div className={styles.text}>
+					Paste the code sent to your email here and press the button to
+					Activate your account:{" "}
+				</div>
+				<input
+					className={styles.input}
+					value={input}
+					onChange={handleInputChange}
+					type="text"
+				/>
+				<button onClick={activateAccount}>Activate</button>
+			</div>
+		</>
 	);
 }
 

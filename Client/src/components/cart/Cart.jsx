@@ -48,9 +48,20 @@ const Cart = () => {
           .post(`${base_url}/payment/create-order`, { user, cart })
           .then((res) => (
             window.location.href = res.data.init_point
-            ));
+            )).catch((err) => {
+            toast.error(err.response ? err.response.data.message : err.message, {
+              duration: 4000,
+              position: "top-center",
+              id: "error",
+            });
+          }
+          );
       } catch (error) {
-        console.log("Error al realizar la solicitud:", error);
+        toast.error(error.response ? error.response.data.message : error.message, {
+          duration: 4000,
+          position: "top-center",
+          id: "error",
+        });
       }
     }
   };

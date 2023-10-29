@@ -8,17 +8,22 @@ const createPurchase = async (purchases) => {
         for (const { comicId, userId, quantity } of purchases) {
             const comic = await Comic.findByPk(comicId);
             const user = await User.findByPk(userId);
-
+            if (user.active === false) {
+                results.push({
+                    error: 'User not active! Please activate your account.',
+                });
+                continue;
+            }
             if (!comic || !user) {
                 results.push({
-                    error: 'El cómic o el usuario no existen',
+                    error: 'Comic or user not found',
                 });
                 continue;
             }
 
             if (comic.stock < quantity) {
                 results.push({
-                    error: 'No hay suficiente stock disponible',
+                    error: 'Not enough stock available',
                 });
                 continue;
             }

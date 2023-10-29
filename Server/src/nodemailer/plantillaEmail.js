@@ -1,13 +1,13 @@
 const transporter = require("../nodemailer/postEmail");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
-const { BACK_HOST, BE_DEPLOY, DEV} = process.env;
+const { FRONT_HOST, FE_DEPLOY, DEV} = process.env;
 let ruta;
 if (DEV && DEV === "development") 
-	ruta = BACK_HOST; 
-else ruta = BE_DEPLOY;
+	ruta = FRONT_HOST; 
+else ruta = FE_DEPLOY;
 
-const sendEmailConPlantilla = (to, template, data, activationToken) => {
+const sendEmailConPlantilla = (to, template, data) => {
 
   let emailOptions;
   switch (template) {
@@ -21,14 +21,34 @@ const sendEmailConPlantilla = (to, template, data, activationToken) => {
           <p>Welcome to our online store of comics, mangas and more!!! At our store we strive to offer you the best shopping experience possible, which is why we have created an easy-to-navigate website. Additionally, our customer service team is at your disposal to resolve any questions or concerns you may have.</p>
           <p>Thank You for registering on KapowVerse! <br/>
           Please copy the following code to activate your account: <br/>
-          <p>${activationToken}</p> <br/>
-          <a href="${ruta}/user/verify/${activationToken}">Alternatively click here to activate account</a></p>
+          <p>${data.activationToken}</p> <br/>
+          <a href="${ruta}/activate/${data.activationToken}">Alternatively click here to activate account</a></p>
           <p>Thank you for choosing us! <br/>
           if you have any questions, please email us at <b>kaopwverse@gmail.com</b></p>
           <p><b>Sincerely, <br/>
           Your KapowVerse Team</b></p>
           `
       };
+      break;
+    case "Resend":
+      emailOptions = {
+        from: "kapowverse@gmail.com",
+        to,
+        subject: "Activate your KapowVerse account!",
+        html:
+          `<h1> Welcome to KapowVerse ${data.userName}! </h1><hr/>
+          <p>Please click the link below to activate your account.</p>
+          (Or copy the following code): <br/>
+          <p>${data.activationToken}</p> <br/>
+          <a href="${ruta}/activate/${data.activationToken}">Activate!</a></p>
+          
+          <p>Thank you for choosing us! <br/>
+          if you have any questions, please email us at <b>kaopwverse@gmail.com</b></p>
+          <p><b>Sincerely, <br/>
+          Your KapowVerse Team</b></p>
+          `
+      };
+      break;
 
 
   }

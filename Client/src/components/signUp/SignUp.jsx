@@ -11,6 +11,7 @@ import { selectDarkMode } from "../../redux/features/darkModeSlice";
 function SignUp() {
   const reduxError = useSelector((state) => state.user.error);
   const logState = useSelector((state) => state.user.logState);
+  const navigate = useNavigate();
   console.log("ls: ",logState)
   console.log("re: ", reduxError) //re:  llave duplicada viola restricción de unicidad «users_email_key»
 
@@ -105,7 +106,9 @@ function SignUp() {
         localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar token
 		
         setRes("User created successfully!");
-		navigate('/activate')
+		setTimeout(() => {
+			window.location = "/activate";
+		}, 2000);
       })
       .catch((err) => {
         console.log("err",err)

@@ -93,7 +93,11 @@ const Cards = ({
           }
         })
         .catch((error) => {
-          console.log(error);
+          toast.error(error.response ? error.response.data.message : error.message, {
+            duration: 4000,
+            position: "top-center",
+            id: "error",
+          });
         });
     }
   };
@@ -136,7 +140,7 @@ const Cards = ({
                 className={styles.cardButtons}
               >
                 <StarIcon
-                  titleAccess={isFavorite ? "Save" : "Delete"}
+                  titleAccess={isFavorite ? "Delete" : "Save"}
                   className={isFavorite ? styles.starActive : styles.starIcon}
                 />
               </button>

@@ -22,7 +22,7 @@ const loadDB = async () => {
     }
 
     try {
-        await User.create({ name: "admin", email: "admin@admin.com", password: "password", role: 'admin', image: "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png" });
+        await User.create({ name: "admin", email: "admin@admin.com", password: "password", role: 'admin', image: "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png", active: true });
     } catch (error) {
         console.error('Error al crear el usuario admin:', error);
         throw error;
