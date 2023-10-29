@@ -24,7 +24,6 @@ function Reviews() {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.review.reviews);
   const user = useSelector((state) => state.user.user);
-  const userId = user ? user.id : null;
 
   const [newRating, setNewRating] = useState(0);
   const [newComment, setNewComment] = useState("");
@@ -45,7 +44,7 @@ function Reviews() {
 
   const checkUserPurchases = async () => {
     try {
-      const response = await axios.get(`${base_url}/purchase`);
+      const response = await axios.get(`${base_url}/purchase/${user?.id}`);
       const purchases = await response.data;
       return purchases;
     } catch (error) {
@@ -75,7 +74,9 @@ function Reviews() {
 
     if (newRating >= 1 && newRating <= 5) {
       // Verificar si el usuario ya ha creado una review de este cómic
-      const hasReviewed = reviews.some((review) => review.user?.id === userId);
+      const hasReviewed = reviews.some(
+        (review) => review.user?.id === user?.id
+      );
 
       if (hasReviewed) {
         toast.error("You have already reviewed this comic", {
@@ -88,7 +89,7 @@ function Reviews() {
           createReview({
             rating: newRating,
             comment: newComment,
-            userId,
+            userId: user.id,
             comicId,
           })
         );
@@ -106,7 +107,7 @@ function Reviews() {
   };
 
   const darkMode = useSelector(selectDarkMode);
-  
+
   return (
     <div className={darkMode ? styles.container : styles.dark}>
       <h2>Reviews and ratings</h2>
@@ -133,10 +134,10 @@ function Reviews() {
             <div key={review.id} className={styles.reviewUsers}>
               <div className={styles.userAvatar}>
                 <img
-                  src={review.user?.image}
-                  alt={`${review.user?.name}'s avatar`}
+                  src={review.image}
+                  alt={`${review.name}'s avatar`}
                 />
-                <p>{review.user?.name}</p>
+                <p>{review.name}</p>
               </div>
               <Rating name="read-only" value={review.rating} readOnly />
               <p>{review.comment}</p>
@@ -149,7 +150,7 @@ function Reviews() {
         <h3>Create a Review</h3>
         <div className={styles.formulario}>
           <div className={styles.rating}>
-            <Typography component="legend">Rating:</Typography>
+            <Typography component="legend" className={styles.rating}>Rating:</Typography>
             <Rating
               name="simple-controlled"
               value={Number(newRating)}
