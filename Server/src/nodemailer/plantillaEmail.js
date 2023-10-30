@@ -1,6 +1,5 @@
 const transporter = require("../nodemailer/postEmail");
-const logoOficial = require ("../../../Client/src/assets/logo-navbar.png")
-import naruto from "../../assets/naruto-alert.png";
+
 const sendEmailConPlantilla = (to, template, data) => {
 
   let emailOptions;
