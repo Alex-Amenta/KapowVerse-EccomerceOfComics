@@ -16,6 +16,7 @@ export const fetchFavoritesByUser = createAsyncThunk(
 	async (userId, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.get(`${URL}/${userId}`);
+			console.log("data fetch", data)
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -52,26 +53,24 @@ const favoriteSlice = createSlice({
 	initialState,
 	reducers: {
 		favoriteSort: (state, action) => {
-			const { filteredFavorites } = state;
-			const sortOrder = action.payload;
-
-			const listToSort = filteredFavorites.length
-				? "filteredFavorites"
-				: "favorites";
-
-			if (sortOrder === "asc") {
-				state[listToSort].sort((a, b) =>
-					a.comic.title.localeCompare(b.comic.title)
-				);
-			} else if (sortOrder === "desc") {
-				state[listToSort].sort((a, b) =>
-					b.comic.title.localeCompare(a.comic.title)
-				);
-			} else if (sortOrder === "precioMin") {
-				state[listToSort].sort((a, b) => a.comic.price - b.comic.price);
-			} else if (sortOrder === "precioMax") {
-				state[listToSort].sort((a, b) => b.comic.price - a.comic.price);
+			let favs = [...state.favorites];
+			if (action.payload.category !== '') {
+				favs = favs.filter((comic) => comic.category === action.payload.category);
 			}
+			if (action.payload.publisher !== '') {
+				favs = favs.filter((comic) => comic.publisher === action.payload.publisher);
+			}
+
+			if (action.payload.sortBy === 'asc') {
+				favs.sort((a, b) => a.title.localeCompare(b.title));
+			} else if (action.payload.sortBy === 'desc') {
+				favs.sort((a, b) => b.title.localeCompare(a.title));
+			} else if (action.payload.sortBy === 'precioMin') {
+				favs.sort((a, b) => a.price - b.price);
+			} else if (action.payload.sortBy === 'precioMax') {
+				favs.sort((a, b) => b.price - a.price);
+			}
+			state.filteredFavorites = favs;
 		},
 		resetFilters: (state, action) => {
 			state.filteredFavorites = state.favorites;
@@ -79,14 +78,14 @@ const favoriteSlice = createSlice({
 		favoriteCategory: (state, action) => {
 			const { favorites } = state;
 			const filteredFavorites = favorites.filter(
-				(fav) => fav.comic.category === action.payload
+				(fav) => fav.category === action.payload
 			);
 			state.filteredFavorites = filteredFavorites;
 		},
 		favoritePublisher: (state, action) => {
 			const { favorites } = state;
 			const filteredFavorites = favorites.filter(
-				(fav) => fav.comic.publisher === action.payload
+				(fav) => fav.publisher === action.payload
 			);
 			state.filteredFavorites = filteredFavorites;
 		},

@@ -10,109 +10,90 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Favorites = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const userId = user ? user.id : null;
-  const favorites = useSelector((state) => state.favorite.favorites);
-  const isLoading = useSelector((state) => state.favorite.loading);
-  const filteredFavorites = useSelector(
-    (state) => state.favorite.filteredFavorites
-  );
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.user);
+	const userId = user ? user.id : null;
+	const favorites = useSelector((state) => state.favorite.favorites);
+	const isLoading = useSelector((state) => state.favorite.loading);
+	const filteredFavorites = useSelector(
+		(state) => state.favorite.filteredFavorites
+	);
 
-  const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
-
-  const dataComics = favorites.map((f) => f.id);
-  console.log("dataComics", dataComics)
-  const filteredDataComics = filteredFavorites.map((f) => f.id);
-  console.log("filteredDataComics", filteredDataComics)
-  const comicsToDisplay =
-    filteredFavorites.length > 0 ? filteredDataComics : dataComics;
-    console.log("comicsToDisplay", comicsToDisplay)
-    useEffect(() => {
-      if (user) dispatch(fetchFavoritesByUser(userId))
-      
-    }, [user]);
-    console.log("favorites", favorites)
+	const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
 
-  const darkMode = useSelector(selectDarkMode);
-//     return (
-//       <>
-//         <div> Favoritos: </div>
-//         {favorites.map((fav) => {
-//           return (
-//             <div key={fav.id}>
-//               <div> {fav.comic.title} </div>
-//               <div> {fav.comic.description} </div>
-//               <div> {fav.comic.price} </div>
-//               <div> {fav.comic.author} </div>
-//               <div> {fav.comic.image} </div>
-//             </div>
-//           );
-//         }
-//         )}
+  
+	useEffect(() => {
+		if (user) dispatch(fetchFavoritesByUser(userId));
+	}, [user]);
 
-//       </>
-//     )
-// }
 
-  useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
-  }, [darkMode]);
-
-  return (
-    <>
-      <NavBar />
-      <div className={styles.container}>
-        {dataComics.length > 0 && (
-          <FilterFavorites
-            filterOptions={filterOptionsForPublisher}
-            dataComics={dataComics}
-          />
-        )}
-        {isLoading ? (
-          <div className={styles.loaderDiv}>Loading...</div>
-        ) : dataComics.length === 0 && !isLoading ? (
-          user ? (
-            <div className={styles.notFavorites}>
-              <h3 style={darkMode ? { color: "black" } : { color: "white" }}>
-                You haven&apos;t added any comics to your favorites yet.
-              </h3>
-              <NavLink to="/home" className={styles.link}>
-                <AddCircleIcon
-                  style={
-                    darkMode
-                      ? { color: "black", fontSize: "3rem" }
-                      : { color: "white", fontSize: "3rem" }
-                  }
-                  titleAccess="Add comics to favorites"
-                />
-              </NavLink>
-            </div>
-          ) : (
-            <div
-              className={styles.notFavorites}
-              style={darkMode ? { color: "black" } : { color: "white" }}
-            >
-              <h3>You must log in to see your favorites.</h3>
-              <div className={styles.buttonNotfavorites}>
-                <Link to="/login" className={styles.buttonLogIn}>
-                  Log In
-                </Link>
-                <Link to="/signup" className={styles.buttonLogIn}>
-                  Sign In
-                </Link>
-              </div>
-            </div>
-          )
-        ) : (
-          <section className={styles.sectionFav}>
-            <CardsContainer allComics={comicsToDisplay} isFavoritePage={true} />
-          </section>
-        )}
-      </div>
-    </>
-  );
+	const darkMode = useSelector(selectDarkMode);
+	useEffect(() => {
+		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+	}, [darkMode]);
+	return (
+		<>
+			<NavBar />
+			<div className={styles.container}>
+				{isLoading && <div className={styles.loaderDiv}>Loading...</div>}
+				{user && favorites.length == 0 ? (
+					<div className={styles.notFavorites}>
+						<h3 style={darkMode ? { color: "black" } : { color: "white" }}>
+							You haven&apos;t added any comics to your favorites yet.
+						</h3>
+						<NavLink
+							to="/home"
+							className={styles.link}>
+							<AddCircleIcon
+								style={
+									darkMode
+										? { color: "black", fontSize: "3rem" }
+										: { color: "white", fontSize: "3rem" }
+								}
+								titleAccess="Add comics to favorites"
+							/>
+						</NavLink>
+					</div>
+				) : null}{" "}
+				{/* end user no favorites */}
+				{!user && (
+					<div
+						className={styles.notFavorites}
+						style={darkMode ? { color: "black" } : { color: "white" }}>
+						<h3>You must log in to see your favorites.</h3>
+						<div className={styles.buttonNotfavorites}>
+							<Link
+								to="/login"
+								className={styles.buttonLogIn}>
+								Log In
+							</Link>
+							<Link
+								to="/signup"
+								className={styles.buttonLogIn}>
+								Sign In
+							</Link>
+						</div>
+					</div>
+				)}
+				{/* end user no login */}
+				{user && favorites.length > 0 && (
+					<>
+						<FilterFavorites
+							filterOptions={filterOptionsForPublisher}
+							favorites={favorites}
+						/>
+						<section className={styles.sectionFav}>
+							<CardsContainer
+								allComics={filteredFavorites}
+								isFavoritePage={true}
+							/>
+						</section>
+					</>
+				)}
+			</div>
+		</>
+	);
 };
 
 export default Favorites;

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  favoritePublisher,
   favoriteSort,
   resetFilters,
 } from "../../redux/features/favoriteSlice";
@@ -15,28 +14,49 @@ const FilterFavorites = ({
   noCategoryComics,
 }) => {
   const dispatch = useDispatch();
-  const [input, setInput] = useState({
+  const InitialCreate = {
     publisher: "",
     sort: "",
-  });
+    category: "",
+  };
+  const [input, setInput] = useState(InitialCreate);
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
+  const handleSort = (event) => {
+    setInput({ ...input, sort: event.target.value });
+    dispatch(
+      favoriteSort({
+        sortBy: event.target.value,
+        category: input.category,
+        publisher: input.publisher,
+      })
+    );
+  };
 
-    if (name === "sort") {
-      dispatch(favoriteSort(value));
-    } else if (name === "publisher") {
-      dispatch(favoritePublisher(value));
-    }
+  const handleCategory = (event) => {
+    setInput({ ...input, category: event.target.value });
+    dispatch(
+      favoriteSort({
+        category: event.target.value,
+        sortBy: input.sort,
+        publisher: input.publisher,
+      })
+    );
+  };
+
+  const handlePublisher = (event) => {
+    setInput({ ...input, publisher: event.target.value });
+    dispatch(
+      favoriteSort({
+        publisher: event.target.value,
+        sortBy: input.sort,
+        category: input.category,
+      })
+    );
   };
 
   const handleReset = () => {
     dispatch(resetFilters());
-    setInput({ publisher: "", sort: "" });
+    setInput(InitialCreate);
   };
 
   const darkMode = useSelector(selectDarkMode);
@@ -56,7 +76,7 @@ const FilterFavorites = ({
           id="sort"
           name="sort"
           value={input.sort}
-          onChange={handleFilterChange}
+          onChange={handleSort}
         >
           <option value="">Sort By</option>
           <option value="asc">A-Z</option>
@@ -64,13 +84,32 @@ const FilterFavorites = ({
           <option value="precioMin">Lower Price</option>
           <option value="precioMax">Higher price</option>
         </select>
-        {!hidePublisherFilter && (
+        <select
+          className={styles.select}
+          id="category"
+          name="category"
+          value={input.category}
+          onChange={handleCategory}
+        >
+          <option value="">Category</option>
+          <option value="Superheroes">Superheroes</option>
+          <option value="Science Fiction">Science Fiction</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Action">Action</option>
+          <option value="Horror">Horror</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Drama">Drama</option>
+          <option value="Romance">Romance</option>
+          <option value="Suspense">Suspense</option>
+        </select>
           <select
             className={styles.select}
             id="publisher"
             name="publisher"
             value={input.publisher}
-            onChange={handleFilterChange}
+            onChange={handlePublisher}
           >
             <option value="">Publisher</option>
             {filterOptions.map((publisher) => (
@@ -79,7 +118,6 @@ const FilterFavorites = ({
               </option>
             ))}
           </select>
-        )}
 
         <button className={styles.buttonReset} onClick={handleReset}>
           Reset Filters
