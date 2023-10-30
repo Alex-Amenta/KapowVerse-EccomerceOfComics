@@ -12,8 +12,6 @@ function SignUp() {
   const reduxError = useSelector((state) => state.user.error);
   const logState = useSelector((state) => state.user.logState);
   const navigate = useNavigate();
-  console.log("ls: ",logState)
-  console.log("re: ", reduxError) //re:  llave duplicada viola restricción de unicidad «users_email_key»
 
   // if (logState) window.location.href = "/home";
   if (reduxError.includes("llave duplicada viola restricción de unicidad «users_email_key»"))
@@ -98,7 +96,6 @@ function SignUp() {
     await dispatch(registerUser(data))
       .then((res) => {
         if (res.error) {
-          console.log("res.error", res.error)
 
           setRes("Error creating user");
           return;
@@ -111,7 +108,6 @@ function SignUp() {
 		}, 2000);
       })
       .catch((err) => {
-        console.log("err",err)
         if (err.response && err.response.data)
           setRes(err.response.data.message);
         else setRes("Error in server");

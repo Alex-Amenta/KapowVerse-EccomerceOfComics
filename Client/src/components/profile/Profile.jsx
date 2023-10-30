@@ -60,7 +60,6 @@ function Profile() {
           });
         })
         .catch((err) => {
-          console.log(err);
           toast.error(err.response ? err.response.data.message : err.message, {
             duration: 4000,
             position: "top-center",
@@ -68,7 +67,6 @@ function Profile() {
           });
         });
     } catch (err) {
-      console.log("catch", err);
       toast.error(err.response ? err.response.data.message : err.message, {
         duration: 4000,
         position: "top-center",
