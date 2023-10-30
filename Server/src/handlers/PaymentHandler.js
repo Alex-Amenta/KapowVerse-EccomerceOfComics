@@ -84,18 +84,74 @@ const receiveWebhook = async (req, res) => {
                 const emailOptions = {
                     from: "kapowverse@gmail.com",
                     to: loggedUser.email,
-                    subject: "Pago exitoso",
-                    text: "Tu pago ha sido exitoso",
+                    subject: "Successful payment",
+                    text: "Your purchase has been successful!",
                     html: `
                     <!DOCTYPE html>
-                    <html>
-                    <head>
-                    </head>
-                    <body>
-                        <h1>Pago exitoso</h1>
-                        <p>Tu pago ha sido exitoso.</p>
-                    </body>
-                    </html>`,
+<html>
+<head>
+  <title>Thank you for your purchase!!!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .thank-you {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .message {
+      margin-bottom: 20px;
+    }
+    .comics-image {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+    .footer {
+      text-align: center;
+      font-size: 14px;
+    .white-background {
+      background-color: #ffffff;
+      color: #000000;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    
+    .black-background {
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header white-background">
+      <h1>¡Thank you for your purchase!</h1>
+    </div>
+    <div class="thank-you white-background">
+      <p>Dear ${loggedUser.name},</p>
+      <p>Thank you very much for choosing us! We are delighted that you have successfully made your purchase and we hope you enjoy your new acquisition. If you encounter any issues, please do not hesitate to contact us 24/7.</p>
+    </div>
+    <div class="footer white-background">
+      <p>Enjoy your comics!</p>
+      <p>Sincerely, <br> your KapowVerse team</p>
+    </div>
+  </div>
+</body>
+</html>`,
                   };
                   transporter.sendMail(emailOptions, (error, info) => {
                     if (error) {
