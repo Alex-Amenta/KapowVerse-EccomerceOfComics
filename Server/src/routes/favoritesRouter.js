@@ -4,7 +4,7 @@ const { createFavoritesHandler, deleteFavoritesHandler, getFavoritesByUserHandle
 const favoritesRouter = Router();
 
 favoritesRouter.post('/', createFavoritesHandler);
-favoritesRouter.delete('/:id', deleteFavoritesHandler);
-favoritesRouter.get('/:id', getFavoritesByUserHandler);
+favoritesRouter.delete('/', deleteFavoritesHandler);
+favoritesRouter.get('/:userId', getFavoritesByUserHandler);
 
 module.exports = favoritesRouter;

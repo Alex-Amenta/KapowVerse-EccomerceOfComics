@@ -67,9 +67,8 @@ Comic.hasMany(Purchase);
 Purchase.belongsTo(Comic);
 
 // Relación Comic - Favorite
-Comic.hasMany(Favorite);
-Favorite.belongsTo(Comic);
-
+User.belongsToMany(Comic, { through: Favorite });
+Comic.belongsToMany(User, { through: Favorite });
 
 module.exports = {
 	...sequelize.models,

@@ -9,29 +9,32 @@ const postFavorite = async (userId, comicId) => {
     if (!comic || !user) {
         throw new Error('User or comic not found');
     };
-
-    let existingFavorite = await Favorite.findOne({
-        where: { userId, comicId },
-        include: Comic,
-    });
-
-    if (existingFavorite) {
-        if (!existingFavorite.status) {
-            // Si está inactivo, actualízalo a activo
-            await existingFavorite.update({ status: true });
-        } else {
-            throw new Error('Comic already favorited');
-        }
-    } else {
-        existingFavorite = await Favorite.create({
-            userId,
-            comicId,
+    const favorite =
+        await Favorite.findOne({
+            where: {
+                userId: user.id,
+                comicId: comic.id
+            }
         });
-
-        await comic.addFavorite(existingFavorite);
+    if (favorite) {
+        throw new Error('Comic already in favorites');
     }
 
-    return existingFavorite;
+    
+    await Favorite.create({
+        userId: user.id,
+        comicId: comic.id
+    });
+
+    // return await Favorite.findAll({
+    //     where: {
+    //         userId: userId
+    //     },
+    //     include: {
+    //         model: Comic,
+    //         attributes: ['id', 'title', 'description', 'price', 'stock', 'image', 'publicationDate', 'pages', 'author', 'editorial', 'format', 'language', 'category', 'createdAt', 'updatedAt']
+    //     }
+    // });
 
 };
 

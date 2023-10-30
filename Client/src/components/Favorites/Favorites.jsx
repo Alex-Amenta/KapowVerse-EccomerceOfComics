@@ -21,18 +21,40 @@ const Favorites = () => {
 
   const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
-  const dataComics = favorites.map((f) => f.comic);
-  const filteredDataComics = filteredFavorites.map((f) => f.comic);
+  const dataComics = favorites.map((f) => f.id);
+  console.log("dataComics", dataComics)
+  const filteredDataComics = filteredFavorites.map((f) => f.id);
+  console.log("filteredDataComics", filteredDataComics)
   const comicsToDisplay =
     filteredFavorites.length > 0 ? filteredDataComics : dataComics;
+    console.log("comicsToDisplay", comicsToDisplay)
+    useEffect(() => {
+      if (user) dispatch(fetchFavoritesByUser(userId))
+      
+    }, [user]);
+    console.log("favorites", favorites)
 
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchFavoritesByUser(userId));
-    }
-  }, [dispatch, filteredFavorites]);
 
   const darkMode = useSelector(selectDarkMode);
+//     return (
+//       <>
+//         <div> Favoritos: </div>
+//         {favorites.map((fav) => {
+//           return (
+//             <div key={fav.id}>
+//               <div> {fav.comic.title} </div>
+//               <div> {fav.comic.description} </div>
+//               <div> {fav.comic.price} </div>
+//               <div> {fav.comic.author} </div>
+//               <div> {fav.comic.image} </div>
+//             </div>
+//           );
+//         }
+//         )}
+
+//       </>
+//     )
+// }
 
   useEffect(() => {
     document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
