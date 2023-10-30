@@ -25,6 +25,7 @@ import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
 import LogAdmin from "./components/logAdmin/LogAdmin";
 import Favorites from "./components/Favorites/Favorites";
 import Purchases from "./components/purchases/Purchases";
+import ErrorPage from "./views/page-error/PageError";
 
 
 function App() {
@@ -66,6 +67,9 @@ function App() {
           <Route path="/admin/sales" element={<Sales />} />
         </Route>
         <Route path="/admin/login" element={<LogAdmin />} />
+
+        {/* Ruta para manejar rutas no coincidentes (Página de error) */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
