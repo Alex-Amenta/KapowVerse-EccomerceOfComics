@@ -26,15 +26,15 @@ const AdminHome = () => {
         <NavbarAdmin />
       </article>
       <article className={styles.content}>
-        <h2>User statistics</h2>
-        <div className={styles.user}>
-          <UserRegistrationBarChart />
-        </div>
-
         <h2>Comics statistics</h2>
         <div className={styles.comics}>
           <MostSoldComicsBarChart />
           <PieChart />
+        </div>
+
+        <h2>User statistics</h2>
+        <div className={styles.user}>
+          <UserRegistrationBarChart />
         </div>
 
         <h2>Purchases statistics</h2>

@@ -128,7 +128,7 @@ function Detail() {
         </article>
       )}
 
-        <article className={styles.reviewContainer}>
+        <article className={styles.reviewContainer} id="reviews">
           <Reviews />
         </article>
     </section>
