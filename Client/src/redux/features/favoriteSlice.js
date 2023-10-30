@@ -16,7 +16,6 @@ export const fetchFavoritesByUser = createAsyncThunk(
 	async (userId, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.get(`${URL}/${userId}`);
-			console.log("data fetch", data)
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
