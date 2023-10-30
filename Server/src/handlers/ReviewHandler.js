@@ -34,7 +34,7 @@ const postReviewHandler = async (req, res) => {
 };
 
 const updateReviewHandler = async (req, res) => {
-    const reviewId = req.params.id;
+    const reviewId = req.params.reviewId;
     const { rating, comment } = req.body;
 
     try {
@@ -55,14 +55,8 @@ const updateReviewHandler = async (req, res) => {
 };
 
 const deleteReviewHandler = async (req, res) => {
-    const reviewId = req.params.id;
-
+    const reviewId = req.params.reviewId;
     try {
-        const review = await getReviewById(reviewId);
-        if (!review) {
-            return res.status(404).json({ error: 'Reseña no encontrada' });
-        }
-        // Eliminar la review
         await deleteReview(reviewId);
         res.sendStatus(204);
     } catch (error) {

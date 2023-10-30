@@ -81,14 +81,44 @@
   width: 4rem;
 }
 
-.userAvatar {
+.userContainer {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.userAvatar p,
+.userAvatar,
+.editDeleteButtons {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  gap: 1rem;
+}
+
+.editDeleteButtons button {
+  background: transparent;
+  padding: 0;
+}
+
+.editDeleteButtons button:first-child {
+  color: green;
+}
+
+.editDeleteButtons button:first-child:hover {
+  color: rgba(7, 108, 7, 0.998);
+}
+
+.editDeleteButtons button:last-child {
+  color: red;
+}
+
+.editDeleteButtons button:last-child:hover {
+  color: rgb(189, 9, 9);
+}
+
+.userContainer p,
 .rating {
   font-family: "Bangers", sans-serif !important;
 }
@@ -117,7 +147,7 @@
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
 }
 
-.container button {
+.createReview button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -137,7 +167,7 @@
   overflow: hidden;
 }
 
-.container button::before {
+.createReview button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -152,12 +182,50 @@
   transition: all 250ms;
 }
 
-.container button:hover {
+.createReview button:hover {
   color: #e8e8e8;
 }
 
-.container button:hover::before {
+.createReview button:hover::before {
   width: 100%;
+}
+
+.containerToast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toastButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toastButtons button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.toastButtons button:nth-child(1):hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toastButtons button:nth-child(2):hover {
+  background-color: #b63232;
+  color: white;
 }
 
 .dark {
@@ -203,7 +271,7 @@
     color: #fcff00;
   }
 
-  .userAvatar p,
+  .userContainer p,
   .rating {
     font-family: "Bangers", sans-serif !important;
   }
@@ -236,7 +304,7 @@
     width: 4rem;
   }
 
-  .userAvatar {
+  .userContainer {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -266,6 +334,62 @@
     -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   }
+
+  .userAvatar,
+  .editDeleteButtons {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 1rem;
+  }
+
+  .editDeleteButtons button {
+    background: transparent;
+    padding: 0;
+  }
+
+  .createReview button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: white;
+    position: relative;
+    font-family: "Bangers", sans-serif;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+    overflow: hidden;
+  }
+
+  .createReview button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+  }
+
+  .createReview button:hover {
+    color: #e8e8e8;
+  }
+
+  .createReview button:hover::before {
+    width: 100%;
+  }
 }
 
 .dark h2 {
@@ -277,43 +401,4 @@
   letter-spacing: 6px;
   text-shadow: 1px 1px black;
   font-family: "Bangers", sans-serif;
-}
-
-.dark button {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 15px 25px;
-  border: unset;
-  border-radius: 15px;
-  color: #212121;
-  z-index: 1;
-  background: white;
-  position: relative;
-  font-family: "Bangers", sans-serif;
-  font-weight: 1000;
-  font-size: 17px;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  transition: all 250ms;
-  overflow: hidden;
-}
-
-.dark button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  border-radius: 15px;
-  background-color: #212121;
-  z-index: -1;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  transition: all 250ms;
-}
-
-.dark button:hover {
-  color: #000000;
 }

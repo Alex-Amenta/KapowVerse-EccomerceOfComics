@@ -3,6 +3,7 @@ import styles from "./Logged.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Menu, MenuItem, IconButton } from "@mui/material";
+import {toast} from "react-hot-toast";
 import { logoutUser } from "../../redux/features/userSlice";
 import { Link } from "react-router-dom";
 
@@ -21,10 +22,26 @@ const Logged = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userlog");
-    dispatch(logoutUser());
-    window.alert("You have been logged out");
-    window.location.href = "/home";
+    toast(
+      <div className={styles.containerToast}>
+        <p>&#128680; You are about to disconnect, are you sure?</p>
+        <div className={styles.toastButtons}>
+          <button
+            onClick={() => {
+              localStorage.removeItem("userlog");
+              dispatch(logoutUser());
+              window.location.href = "/home";
+              toast.dismiss();
+            }}
+          >
+            Accept
+          </button>
+          <button onClick={() => toast.dismiss()}>Cancel</button>
+        </div>
+      </div>,
+      { duration: 20000 }
+    );
+
     handleMenuClose();
   };
 
