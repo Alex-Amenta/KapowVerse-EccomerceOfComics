@@ -10,142 +10,170 @@ import { Toaster, toast } from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import {
-  fetchFavoritesByUser,
-  deleteFavorite,
+	fetchFavoritesByUser,
+	deleteFavorite,
+	createFavorites,
 } from "../../redux/features/favoriteSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import base_url from "../../utils/development";
 
 const Cards = ({
-  id,
-  title,
-  description,
-  price,
-  author,
-  image,
-  isFavoritePage,
+	id,
+	title,
+	description,
+	price,
+	author,
+	image,
+	isFavoritePage,
 }) => {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const cart = useSelector((state) => state.cart.cart);
-  const items = useSelector((state) => state.comic.allComics);
-  const favorites = useSelector((state) => state.favorite.favorites);
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.user);
+	const cart = useSelector((state) => state.cart.cart);
+	const items = useSelector((state) => state.comic.allComics);
+	const favorites = useSelector((state) => state.favorite.favorites);
 
-  const isComicInFavorites = favorites.some((fav) => fav.comicId === id);
-  const [isFavorite, setIsFavorite] = useLocalStorage(`favorite_${id}`, false);
-  const [isRemoving, setIsRemoving] = useState(false);
+	const isComicInFavorites = favorites.some((fav) => fav.id === id);
 
-  const addToCart = () => {
-    const comic = items.find((item) => item.id === id);
-    const cartItem = cart.find((item) => item.id === id);
 
-    if (!comic || (cartItem && cartItem.quantity === comic.stock)) {
-      toast.error("Item out of stock or maximum quantity reached", {
-        position: "bottom-center",
-      });
-      return;
-    }
+	useEffect(() => {
+		if (user) dispatch(fetchFavoritesByUser(user.id));
+	}, []);
 
-    dispatch(addItemToCart(comic));
-    toast.success("Item added to cart!", { position: "bottom-center" });
-  };
+	const addToCart = () => {
+		const comic = items.find((item) => item.id === id);
+		const cartItem = cart.find((item) => item.id === id);
 
-  const handleDeleteFavorites = () => {
-    const favoriteToDelete = favorites.find((fav) => fav.comicId === id);
+		if (!comic || (cartItem && cartItem.quantity === comic.stock)) {
+			toast.error("Item out of stock or maximum quantity reached", {
+				position: "bottom-center",
+			});
+			return;
+		}
 
-    if (favoriteToDelete) {
-      dispatch(deleteFavorite(favoriteToDelete.id));
-      setIsRemoving(true);
-      setIsFavorite(false);
-      toast.success("Successfully removed from favorites!", {
-        position: "bottom-center",
-      });
-    }
-  };
+		dispatch(addItemToCart(comic));
+		toast.success("Item added to cart!", { position: "bottom-center" });
+	};
 
-  const handleFavoriteClick = () => {
-    if (!user) {
-      toast.error("You must be logged in to add a favorite", {
-        position: "bottom-center",
-        id: "error",
-      });
-      return;
-    }
+	const handleDeleteFavorites = () => {
+		dispatch(deleteFavorite({ userId: user.id, comicId: id }))
+			.then((res) => {
+				if (res.error) {
+					toast.error((res.payload && res.payload.message) || res.error, {
+						position: "bottom-center",
+						id: "error",
+					});
+				} else {
+					dispatch(fetchFavoritesByUser(user.id));
+					toast.success("Successfully removed from favorites!", {
+						position: "bottom-center",
+					});
+				}
+			})
+			.catch((error) => {
+				toast.error(
+					error.response ? error.response.data.message : error.message,
+					{
+						duration: 4000,
+						position: "top-center",
+						id: "error",
+					}
+				);
+			});
+	};
 
-    if (isComicInFavorites) {
-      handleDeleteFavorites();
-      setIsFavorite(false);
-    } else {
-      axios
-        .post(`${base_url}/favorites`, {
-          userId: user.id,
-          comicId: id,
-        })
-        .then((response) => {
-          if (response.status === 201) {
-            setIsFavorite(true);
-            dispatch(fetchFavoritesByUser(user.id));
-            toast.success("Item saved in favorites!", {
-              position: "bottom-center",
-              icon: "🌟",
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
+	const handleFavoriteClick = () => {
+		if (!user) {
+			toast.error("You must be logged in to add a favorite", {
+				position: "bottom-center",
+				id: "error",
+			});
+			return;
+		}
 
-  const darkMode = useSelector(selectDarkMode);
+		if (isComicInFavorites) {
+			handleDeleteFavorites();
+		} else {
+			dispatch(createFavorites({ userId: user.id, comicId: id }))
+				.then((res) => {
+					if (res.error) {
+						toast.error(res.error, {
+							position: "bottom-center",
+							id: "error",
+						});
+						return;
+					}
+					dispatch(fetchFavoritesByUser(user.id));
+					toast.success("Item saved in favorites!", {
+						position: "bottom-center",
+						icon: "🌟",
+					});
+				})
+				.catch((error) => {
+					toast.error(
+						error.response ? error.response.data.message : error.message,
+						{
+							duration: 4000,
+							position: "top-center",
+							id: "error",
+						}
+					);
+				});
+		}
+	};
 
-  return (
-    <main className={darkMode ? styles.container : styles.dark}>
-      <div className={styles.cardImage}>
-        <Link to={`/comic/${id}`}>
-          <img src={image} alt={`imagen de ${title}`} />
-        </Link>
-      </div>
-      <h3>{title}</h3>
-      <p>{author}</p>
-      <div className={styles.iconsContainer}>
-        <b>{price} $</b>
-        <div className={styles.icons}>
-          <button onClick={addToCart}>
-            <ShoppingCartIcon
-              className={styles.icon}
-              titleAccess="Add to cart"
-            />
-          </button>
-          <div
-            className={`${styles.icon} ${
-              isFavoritePage && isRemoving ? styles.icon : ""
-            }`}
-          >
-            {isFavoritePage ? (
-              <button
-                className={styles.deleteButton}
-                onClick={handleDeleteFavorites}
-              >
-                <DeleteForeverIcon titleAccess="Delete favorite" />
-              </button>
-            ) : (
-              <button
-                onClick={handleFavoriteClick}
-                className={styles.cardButtons}
-              >
-                <StarIcon
-                  titleAccess={isFavorite ? "Save" : "Delete"}
-                  className={isFavorite ? styles.starActive : styles.starIcon}
-                />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+	const darkMode = useSelector(selectDarkMode);
+
+	return (
+		<main className={darkMode ? styles.container : styles.dark}>
+			<div className={styles.cardImage}>
+				<Link to={`/comic/${id}`}>
+					<img
+						src={image}
+						alt={`imagen de ${title}`}
+					/>
+				</Link>
+			</div>
+			<h3>{title}</h3>
+			<p>{author}</p>
+			<div className={styles.iconsContainer}>
+				<b>{price} $</b>
+				<div className={styles.icons}>
+					<button onClick={addToCart}>
+						<ShoppingCartIcon
+							className={styles.icon}
+							titleAccess="Add to cart"
+						/>
+					</button>
+					<div
+						className={styles.icon}
+						// className={`${styles.icon} ${
+						//   isFavoritePage && isRemoving ? styles.icon : ""
+						// }`}
+					>
+						{isFavoritePage ? (
+							<button
+								className={styles.deleteButton}
+								onClick={handleDeleteFavorites}>
+								<DeleteForeverIcon titleAccess="Delete favorite" />
+							</button>
+						) : (
+							<button
+								onClick={handleFavoriteClick}
+								className={styles.cardButtons}>
+								<StarIcon
+									titleAccess={isComicInFavorites ? "Delete" : "Save"}
+									className={
+										isComicInFavorites ? styles.starActive : styles.starIcon
+									}
+								/>
+							</button>
+						)}
+					</div>
+				</div>
+			</div>
+		</main>
+	);
 };
 
 export default Cards;

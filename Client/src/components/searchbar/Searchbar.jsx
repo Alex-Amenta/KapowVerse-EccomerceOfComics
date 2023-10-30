@@ -9,6 +9,22 @@ import SearchClose from "@mui/icons-material/Close"
 import { resetSearch } from "../../redux/features/comicSlice";
 
 const Searchbar = () => {
+  
+  const pathname = window.location.pathname;
+  if (
+    pathname.includes("signup") || 
+    pathname.includes("login") || 
+    pathname.includes("edituser") ||
+    pathname.includes("profile")  ||
+    pathname.includes("edit")  ||
+    pathname.includes("favorites") ||
+    pathname.includes("purchases")
+    
+    ) return null;
+  
+
+
+
   const [title, setTitle] = useState("");
   const comicsCopy = useSelector((state) => state.comic.comicsCopy);
   const dispatch = useDispatch();
@@ -57,7 +73,7 @@ const Searchbar = () => {
         name="title"
         value={title}
         onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown ={handleKeyPress}
         placeholder="Search for title..."
       />
 

@@ -3,13 +3,23 @@ import { useState, useEffect } from "react";
 import styles from "./SignUp.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/features/userSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
+import toast from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function SignUp() {
+  const reduxError = useSelector((state) => state.user.error);
   const logState = useSelector((state) => state.user.logState);
-  if (logState) window.location.href = "/home";
+  const navigate = useNavigate();
+
+  // if (logState) window.location.href = "/home";
+  if (reduxError.includes("llave duplicada viola restricción de unicidad «users_email_key»"))
+  toast.error("Email already in use!", {
+    position: "top-center",
+    id: "error",
+  });
+
 
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -37,7 +47,7 @@ function SignUp() {
       setError({ ...error, image: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // ############### VALIDACIONES ###############
     let err = false;
@@ -83,14 +93,19 @@ function SignUp() {
     // ############### FIN DE VALIDACIONES ###############
     setRes("Creating user...");
     // ############### POSTEO ###############
-    dispatch(registerUser(data))
+    await dispatch(registerUser(data))
       .then((res) => {
         if (res.error) {
+
           setRes("Error creating user");
           return;
         }
         localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar token
+		
         setRes("User created successfully!");
+		setTimeout(() => {
+			window.location = "/activate";
+		}, 2000);
       })
       .catch((err) => {
         if (err.response && err.response.data)

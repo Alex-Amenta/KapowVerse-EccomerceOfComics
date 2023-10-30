@@ -4,9 +4,11 @@ import styles from "./EditUser.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../redux/features/userSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { loginUser } from "../../redux/features/userSlice";
+import { logUserByLocalStorage } from "../../redux/features/userSlice";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import Navbar from "../navbar/Navbar";
+
 
 function SignUp() {
   const { id } = useParams();
@@ -14,15 +16,18 @@ function SignUp() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem("userlog")) {
-      dispatch(loginUser(JSON.parse(localStorage.getItem("userlog"))));
+      dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog"))));
     }
   }, []);
-  const user = useSelector((state) => state.user.user);
+  let user = useSelector((state) => state.user.user);
+  if (localStorage.getItem("userlog") !== null && user === null) {
+    user = JSON.parse(localStorage.getItem("userlog"));
+  }
   const [data, setData] = useState({
-    name: user.name,
-    email: user.email,
+    name: (user && user.name) || "",
+    email: (user && user.email) || "",
     password: "",
-    image: "",
+    image: (user && user.image) || "",
   });
   const [res, setRes] = useState("");
   const [error, setError] = useState({
@@ -119,6 +124,9 @@ function SignUp() {
   }, [darkMode]);
 
   return (
+    <>
+      <Navbar />
+    
     <div className={styles.container}>
       <div className={styles.buttonBack}>
         <button onClick={handleGoBack}>
@@ -184,7 +192,7 @@ function SignUp() {
         </div>
         <div className={styles.input__group}>
           <label htmlFor="password" className={styles.label}>
-            Password
+            New Password
           </label>
           <input
             type="password"
@@ -214,6 +222,7 @@ function SignUp() {
           <input
             type="text"
             id="image"
+            value={data.image}
             onChange={handleChange}
             className={`${styles.input} ${
               error.image ? styles["input-error"] : ""
@@ -234,6 +243,7 @@ function SignUp() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 

@@ -28,21 +28,22 @@ const createPurchaseHandler = async (req, res) => {
 
 
 const getPurchaseHandler = async (req, res) => {
-  const { id } = req.params;
-  try {
-    if (id) {
-      const purchase = await getPurchaseById(id);
-      if (!purchase) {
-        return res.status(404).json({ error: 'Compra no encontrada' });
+    const { id } = req.params;
+    try {
+      if (id) {
+        const purchase = await getPurchaseById(id);
+        if (!purchase) {
+          return res.status(404).json({ error: 'Purchases not found.' });
+        }
+        res.json(purchase);
+      } else {
+        const purchase = await getPurchase();
+        if (!purchase) {
+          return res.status(404).json({ error: 'Purchases not found.' });
+        }
+        res.json(purchase);
       }
       res.json(purchase);
-    } else {
-      const purchase = await getPurchase();
-      if (!purchase) {
-        return res.status(404).json({ error: 'No se encontraron compras' });
-      }
-      res.json(purchase);
-    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

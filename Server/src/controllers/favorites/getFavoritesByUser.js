@@ -1,19 +1,16 @@
 const { Comic, Favorite, User } = require('../../db');
 
 
-const getFavoritesByUser = async (id) => {
-    const user = await await User.findByPk(id);
+const getFavoritesByUser = async (userId) => {
+    const user = await await User.findByPk(userId);
 
     if (!user) {
-        throw new Error('Usuario no encontrado');
+        throw new Error('User not found');
     };
 
-    const favorites = await Favorite.findAll({
-        where: { userId: id, status: true },
-        include: Comic
-    });
+    const comicsFavoritos = await user.getComics();
 
-    return favorites;
+    return comicsFavoritos;
 }
 
 module.exports = getFavoritesByUser;

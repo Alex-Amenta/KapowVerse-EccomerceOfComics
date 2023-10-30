@@ -35,7 +35,9 @@ export const registerUser = createAsyncThunk(
             const { data } = await axios.post(`${URL}/register`, user);
             return data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            return rejectWithValue(
+                (error.response && error.response.data.message) || error.message
+            );
         }
     }
 );
@@ -121,10 +123,10 @@ export const toggleUserActiveStatus = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
     'user/updateUser',
-    async (userId, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
         try {
-            const { data } = await axios.put(`/user/${userId}`);
-            return data;
+            const { res } = await axios.put(`${URL}/${data.userId}`, data.data);
+            return res;
         } catch (error) {
             return rejectWithValue(error.response.data);
         }
@@ -261,10 +263,11 @@ const userSlice = createSlice({
                 state.admin = false;
             }
             state.error = '';
+            state.logState = true;
         });
         builder.addCase(registerUser.rejected, (state, action) => {
             state.loading = false;
-            state.error = (action.payload && action.payload.error) || action.error.message;
+            state.error = (action.payload && (action.payload.error || action.payload)) || action.error.message;
         });
 
         builder.addCase(logoutUser.pending, (state) => {
@@ -320,6 +323,19 @@ const userSlice = createSlice({
         });
 
 
+        builder.addCase(updateUser.pending, (state) => {
+            state.loading = true;
+            state.error = '';
+        });
+        builder.addCase(updateUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload;
+            state.error = '';
+        });
+        builder.addCase(updateUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = (action.payload && action.payload.error) || action.error.message;
+        });
     },
 });
 

@@ -1,15 +1,14 @@
-const { Favorite } = require('../../db');
+const { Comic, Favorite, User } = require('../../db');
 
-const deleteFavorite = async (id) => {
-    const favorite = await Favorite.findByPk(id);
+const deleteFavorite = async (userId, comicId) => {
+    const user = await User.findByPk(userId)
+    const comic = await Comic.findByPk(comicId);
 
-    if (!favorite) {
-        throw new Error('Favorito no encontrado');
+    if (!comic || !user) {
+        throw new Error('User or comic not found');
     }
 
-    await favorite.update({ status: false });
-
-    return "Favorito eliminado exitosamente"
+    await user.removeComic(comic);
 };
 
 module.exports = deleteFavorite;

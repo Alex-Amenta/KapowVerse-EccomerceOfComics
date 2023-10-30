@@ -15,6 +15,8 @@ const LogAdmin = () => {
 		email: "",
 		password: "",
 	});
+
+	
 	const userLogState = useSelector((state) => state.user.logState);
 	const isAdmin = useSelector((state) => state.user.admin);
 
@@ -24,13 +26,7 @@ const LogAdmin = () => {
       else navigate("/home"); //si no, lo mando a home
 		}
 	}, [userLogState, isAdmin]);
-	// useEffect(() => {
-	// 		if (localStorage.getItem("userlog")) {
-	// 			dispatch(
-	// 				logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog")))
-	// 			);
-	// 		}
-	// }, []);
+
 
 	const handlerChange = (e) => {
 		setUserData({

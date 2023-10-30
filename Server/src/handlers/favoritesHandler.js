@@ -4,29 +4,37 @@ const postFavorite = require("../controllers/favorites/postFavorite");
 
 const createFavoritesHandler = async (req, res) => {
     const { userId, comicId } = req.body;
+
+    if (!userId || !comicId) {
+        return res.status(400).json({ message: "Missing required information" })
+    }
     try {
-        const favorites = await postFavorite(userId, comicId);
-        res.status(201).json(favorites);
+        // const favorites = await postFavorite(userId, comicId);
+        await postFavorite(userId, comicId);
+        res.status(201).json({ message: "Favorite created" });
     } catch (error) {
-        res.status(404).json({ error: error.message })
+        res.status(404).json({ message: error.message })
     }
 };
 const deleteFavoritesHandler = async (req, res) => {
-    const { id } = req.params;
+    const { userId, comicId } = req.body;
+    console.log("userId", userId, "comicId", comicId)
     try {
-        await deleteFavorite(id);
-        res.sendStatus(204);
+        await deleteFavorite(userId, comicId);
+        res.status(204).json({ message: "Favorite deleted" });
     } catch (error) {
-        res.status(404).json({ error: error.message })
+        res.status(404).json({ message: error.message })
     }
 };
 const getFavoritesByUserHandler = async (req, res) => {
-    const { id } = req.params;
+    const { userId } = req.params;
     try {
-        const favorite = await getFavoritesByUser(id);
+        console.log("userId", userId)
+        const favorite = await getFavoritesByUser(userId);
         res.status(200).json(favorite);
     } catch (error) {
-        res.status(404).json({ error: error.message })
+        console.log("error", error)
+        res.status(404).json({ message: error.message })
     }
 };
 

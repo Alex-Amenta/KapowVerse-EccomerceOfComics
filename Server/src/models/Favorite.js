@@ -1,19 +1,23 @@
 const { DataTypes } = require('sequelize');
 
-module.exports = (sequelize) => {
+const favoriteModel = (sequelize) => {
     sequelize.define('favorite', {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
-        },
-        status: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true,
-        },
         userId: {
-            type: DataTypes.UUID,
-            allowNull: false,
+          type: DataTypes.UUID,
+          references: {
+            model: 'users',
+            key: 'id'
+          }
+        },
+        comicId: {
+          type: DataTypes.UUID,
+          references: {
+            model: 'comics',
+            key: 'id'
+          }
         }
-    }, { timestamps: false })
+      }, { timestamps: false })
 } 
+
+
+module.exports = favoriteModel;

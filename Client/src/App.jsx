@@ -7,6 +7,7 @@ import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
 import CreateComic from "./components/admin/createComic/CreateComic";
 import Login from "./components/login/Login";
+import Activate from "./views/activate/Activate";
 import SignUp from "./components/signUp/SignUp";
 import Profile from "./components/profile/Profile";
 import EditUser from "./components/editUser/EditUser";
@@ -51,6 +52,7 @@ function App() {
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/activate/:token?" element={<Activate />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/purchases" element={<Purchases />} />
 

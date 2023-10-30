@@ -4,7 +4,7 @@ const toggleActiveStatus = async (id) => {
     const user = await User.findByPk(id);
 
     if (!user) {
-        throw new Error('No se encontraron usuarios con ese ID');
+        throw new Error('User not found');
     }
 
     const updatedStatus = !user.active;
