@@ -58,7 +58,9 @@ const favoriteSlice = createSlice({
 			}
 			let favs = [...state.favorites];
 			if (action.payload.category !== '') {
-				favs = favs.filter((comic) => comic.category === action.payload.category);
+				comics = comics.filter(comic => 
+					comic.categories.some(category => category.name === action.payload.category)
+				);
 			}
 			if (action.payload.publisher !== '') {
 				favs = favs.filter((comic) => comic.publisher === action.payload.publisher);
