@@ -41,6 +41,24 @@ const getUserByIdHandler = async (req, res) => {
 const postUserHandler = async (req, res) => {
 	// register
 	const { name, email, password, image, role } = req.body;
+	const uploadedImage= await cloudinary.uploader.upload(image,
+{
+upload_preset: 'undsigned_upload',
+public_id: `${username}avatar`,
+allowed_formats : ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
+},
+function(error, result) {
+	if (error){
+		console.log(error);
+	}
+	console.log(result); })
+try {
+	res.status(200).json(uploadedImage)
+} catch (error) {
+	
+}
+
+	
 	try {
 		let rand = function () {
 			return Math.random().toString(36).substr(2); // remove `0.`

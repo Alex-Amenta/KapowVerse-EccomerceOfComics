@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import toast from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import Img from "./Img"
 
 function SignUp() {
   const reduxError = useSelector((state) => state.user.error);
@@ -36,6 +37,20 @@ function SignUp() {
     image: "",
   });
 
+  const [file, setFile] = useState("");
+const [image, setImage] = useState("");
+const [uploadedImg, setUploaded] = useState("")
+
+  function previewFiles(file){
+	const reader = new FilerReader()
+	reader.readAsDataURL(file)
+
+reader.onloadend = () => {
+	setImage(reader.result)
+}
+console.log(image);
+  }
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.id]: e.target.value });
     if (error.name && e.target.id == "name") setError({ ...error, name: "" });
@@ -45,6 +60,8 @@ function SignUp() {
       setError({ ...error, password: "" });
     if (error.image && e.target.id == "image")
       setError({ ...error, image: "" });
+	const file= e.target.files[0];
+	setFile(file)
   };
 
   const handleSubmit = async (e) => {
@@ -83,6 +100,15 @@ function SignUp() {
       err = true;
     }
     // ################# IMAGE
+	const result = await axios.post("http://localhost:3001",{
+		image : image
+	})
+	try {
+		const uploadedImg= result.data.pubblic_id;
+	setUploaded(uploadedImg);
+	} catch (err) {
+		console.log(err);
+	}
     if (data.image != "" && !data.image.includes("http")) {
       errores.image = "× Image must be a valid URL ×";
       err = true;
@@ -214,14 +240,14 @@ function SignUp() {
 				</div>
 				<div className={styles.input__group}>
 					<label
-						htmlFor="image"
+						htmlFor="fileInput"
 						className={styles.label}>
 						Image
 					</label>
 					<input
-						type="text"
-						id="image"
-						onChange={handleChange}
+						type="file"
+						id="fileInput"
+						onChange={e => handleChange(e)} required accept ="image/png, image/jpg, image/jfif"
 						className={`${styles.input} ${
 							error.image ? styles["input-error"] : ""
 						}`}
@@ -253,6 +279,7 @@ function SignUp() {
           </p>
 			</form>
 		</div>
+<img src="{image}" alt="" />
 				</>
 	);
 }
