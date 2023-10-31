@@ -11,7 +11,6 @@ const getComicsById = async (id) => {
                 },
                 {
                     model: Category,
-                    attributes: ['name'],
                     through: {
                         attributes: [],
                     },

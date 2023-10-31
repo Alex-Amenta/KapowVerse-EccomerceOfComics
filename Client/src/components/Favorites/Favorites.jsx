@@ -10,9 +10,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Favorites = () => {
-	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.user);
-	const userId = user ? user.id : null;
 	const favorites = useSelector((state) => state.favorite.favorites);
 	const isLoading = useSelector((state) => state.favorite.loading);
 	const filteredFavorites = useSelector(
@@ -20,11 +18,6 @@ const Favorites = () => {
 	);
 
 	const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
-
-	useEffect(() => {
-		if (user) dispatch(fetchFavoritesByUser(userId));
-	}, [user]);
-
 
 	const darkMode = useSelector(selectDarkMode);
 	useEffect(() => {

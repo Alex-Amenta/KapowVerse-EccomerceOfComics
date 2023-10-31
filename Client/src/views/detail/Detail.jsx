@@ -92,7 +92,7 @@ function Detail() {
               <p>
                 Category:{" "}
                 <b>
-                  {comics.categories.map((category) => (
+                  {comics.categories?.map((category) => (
                     <span key={category.id}>{category.name}</span>
                   ))}
                 </b>

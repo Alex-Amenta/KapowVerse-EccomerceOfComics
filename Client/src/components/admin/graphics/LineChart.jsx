@@ -25,27 +25,49 @@ ChartJS.register(
   Legend
 );
 
+const monthNames = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
+
 export function PurchasesLineChart() {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
 
   useEffect(() => {
-    // Realizar una solicitud HTTP para obtener los datos de compras mensuales desde el backend
     axios
       .get(`${base_url}/purchase/monthly`)
       .then((response) => {
         const monthlyData = response.data;
 
-        // Procesa los datos para el gráfico
-        const months = monthlyData.map((item) => {
-          // Convierte la fecha en un objeto Date para extraer el mes
-          const purchaseDate = new Date(item.purchaseDate);
-          const month = purchaseDate.toLocaleString("default", {
-            month: "long",
-          });
-          return month;
-        });
+        // Crear un objeto para almacenar los totales de compras por mes
+        const monthlyTotals = {};
 
-        const quantities = monthlyData.map((item) => item.total);
+        // Inicializar el objeto con ceros para cada mes
+        for (const month of monthNames) {
+          monthlyTotals[month] = 0;
+        }
+
+        // Agregar los totales de compras al objeto
+        for (const item of monthlyData) {
+          const purchaseDate = new Date(item.purchaseDate);
+          const month = purchaseDate.getMonth(); // Obtener el número de mes (0-11)
+          const monthName = monthNames[month];
+          monthlyTotals[monthName] += item.total;
+        }
+
+        // Obtener las etiquetas y cantidades
+        const months = monthNames;
+        const quantities = months.map((month) => monthlyTotals[month]);
 
         const chartData = {
           labels: months,
@@ -63,10 +85,7 @@ export function PurchasesLineChart() {
         setChartData(chartData);
       })
       .catch((error) => {
-        console.error(
-          "Error al obtener los datos de compras mensuales:",
-          error
-        );
+        console.error("Error al obtener los datos de compras mensuales:", error);
       });
   }, []);
 
