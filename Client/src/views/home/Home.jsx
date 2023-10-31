@@ -16,9 +16,9 @@ import { selectDarkMode } from "../../redux/features/darkModeSlice";
 function Home() {
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
+
   const activeComics = allComics.filter((comic) => comic.active);
   const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
-
   // Mostrar notificación de compra exitosa
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);

@@ -6,6 +6,7 @@ import styles from "./AdminHome.module.css";
 import Cards from "../comicsAdmin/ComicsAdmin";
 import { useEffect } from "react";
 import { fetchComics } from "../../../redux/features/comicSlice";
+import { fetchCategories } from "../../../redux/features/categorySlice";
 import {
   MostSoldComicsBarChart,
   UserRegistrationBarChart,
@@ -18,6 +19,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     dispatch(fetchComics());
+    dispatch(fetchCategories());
   }, []);
 
   return (

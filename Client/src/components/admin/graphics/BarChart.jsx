@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../../../redux/features/userSlice";
 import axios from "axios";
-import back_url from "../../../utils/development";
+import base_url from "../../../utils/development";
 
 ChartJS.register(
   CategoryScale,
@@ -39,19 +39,21 @@ export function MostSoldComicsBarChart() {
 
   useEffect(() => {
     axios
-      .get(`${back_url}/purchase/comics`)
+      .get(`${base_url}/purchase/comics`)
       .then((response) => {
         const comicsWithSales = response.data;
 
         // Agrupa cómics por categoría y calcula la cantidad total vendida en cada categoría
         const categorySales = comicsWithSales.reduce((sales, comic) => {
-          const category = comic.category;
+          comic.categories.forEach(categoryObj => {
+            const category = categoryObj.name;
 
-          if (!sales[category]) {
-            sales[category] = 0;
-          }
+            if (!sales[category]) {
+              sales[category] = 0;
+            }
 
-          sales[category] += comic.totalComicPurchased;
+            sales[category] += comic.totalComicPurchased;
+          });
 
           return sales;
         }, {});

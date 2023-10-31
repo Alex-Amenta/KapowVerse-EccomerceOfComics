@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import { updateReview } from "../../redux/features/reviewSlice";
 import { useDispatch } from "react-redux";
 import styles from "./EditReview.module.css";
-import back_url from "../../utils/development";
+import base_url from "../../utils/development";
 import axios from "axios";
 
 function EditReviewModal({ open, onClose, review }) {

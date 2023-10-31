@@ -3,7 +3,7 @@ const { Purchase, Comic } = require('../../db');
 const getPurchaseByComic = async (req, res) => {
     try {
         const comicId = req.params.comicId;
-        const comic = await Comic.findByPk(comicId);
+        const comic = await Comic.findByPk(comicId); // TODO ver si hace falta agregar el include con el model de categorys
         if (!comic) {
             return res.status(404).json({ message: 'Cómic no encontrado' });
         }

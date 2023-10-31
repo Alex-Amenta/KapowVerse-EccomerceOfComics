@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
+import { fetchCategories } from "./redux/features/categorySlice";
 import AdminGuard from "./components/guards/AdminGuard";
 import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
@@ -33,6 +34,7 @@ function App() {
   const allComics = useSelector((state) => state.comic.allComics);
   useEffect(() => {
     dispatch(fetchComics());
+    dispatch(fetchCategories());
     if (localStorage.getItem("userlog")) {
       dispatch(logUserByLocalStorage(JSON.parse(localStorage.getItem("userlog"))));
     }

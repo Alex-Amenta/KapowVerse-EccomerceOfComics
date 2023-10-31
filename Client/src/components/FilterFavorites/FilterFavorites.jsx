@@ -13,6 +13,8 @@ const FilterFavorites = ({
   hidePublisherFilter,
   noCategoryComics,
 }) => {
+
+  const allCategories = useSelector((state) => state.category.allCategory);
   const dispatch = useDispatch();
   const InitialCreate = {
     publisher: "",
@@ -20,6 +22,9 @@ const FilterFavorites = ({
     category: "",
   };
   const [input, setInput] = useState(InitialCreate);
+  useEffect(() => {
+  dispatch(favoriteSort());
+  }, []);
 
   const handleSort = (event) => {
     setInput({ ...input, sort: event.target.value });
@@ -92,17 +97,11 @@ const FilterFavorites = ({
           onChange={handleCategory}
         >
           <option value="">Category</option>
-          <option value="Superheroes">Superheroes</option>
-          <option value="Science Fiction">Science Fiction</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Action">Action</option>
-          <option value="Horror">Horror</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Romance">Romance</option>
-          <option value="Suspense">Suspense</option>
+          {allCategories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
           <select
             className={styles.select}

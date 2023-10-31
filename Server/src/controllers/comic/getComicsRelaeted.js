@@ -1,24 +1,31 @@
 const { Op } = require('sequelize');
-const { Comic } = require('../../db');
+const { Comic, Category } = require('../../db');
 
 const getComicsRelated = async (id) => {
-    const currentComic = await Comic.findByPk(id);
+    const currentComic = await Comic.findByPk(id, {
+      include: Category // Incluye las categorías relacionadas con el cómic
+  });
 
       if (!currentComic) {
-        return res.status(404).json({ error: 'Cómic no encontrado' });
+        throw new Error( 'Comic not found' );
       }
 
-      const category = currentComic.category;
+      const categoryIds = currentComic.categories.map(cat => cat.id);
 
       const relatedComics = await Comic.findAll({
-        where: {
-          category: category,
-          id: {
-            [Op.not]: id, // Excluye el cómic actual
-          },
+        include: {
+            model: Category,
+            where: {
+                id: categoryIds
+            }
         },
-        limit: 6,
-      });
+        where: {
+            id: {
+                [Op.not]: id, // Excluye el cómic actual
+            }
+        },
+        limit: 6
+    });
 
       return relatedComics;
 };

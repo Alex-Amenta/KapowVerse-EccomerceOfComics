@@ -35,7 +35,6 @@ const Cards = ({
 
 	const isComicInFavorites = favorites.some((fav) => fav.id === id);
 
-
 	useEffect(() => {
 		if (user) dispatch(fetchFavoritesByUser(user.id));
 	}, []);
@@ -97,7 +96,7 @@ const Cards = ({
 			dispatch(createFavorites({ userId: user.id, comicId: id }))
 				.then((res) => {
 					if (res.error) {
-						toast.error(res.error, {
+						toast.error(res.payload ? res.payload.message : res.error.message, {
 							position: "bottom-center",
 							id: "error",
 						});

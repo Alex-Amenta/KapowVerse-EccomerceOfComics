@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken, resender } = require('../handlers/userHandler');
-const {googleLoginUserHandler} = require('../handlers/googleLoginHandler');
+const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken, resender } = require('../../handlers/userHandler');
+const {googleLoginUserHandler} = require('../../handlers/googleLoginHandler');
 
-const verifyJWT = require('../utils/verifyJwt');
-const verifyAdmin = require('../utils/verifyIsAdmin');
+const verifyJWT = require('../../utils/verifyJwt');
+const verifyAdmin = require('../../utils/verifyIsAdmin');
 
 const userRouter = Router();
 
