@@ -8,6 +8,14 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { NavLink, useNavigate } from "react-router-dom";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 import ReviewsIcon from "@mui/icons-material/Reviews";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Grid,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Purchases = () => {
   const user = useSelector((state) => state.user.user);
@@ -54,23 +62,35 @@ const Purchases = () => {
         )}
         <div className={styles.purchaseContainer}>
           {purchases?.map((purchase) => (
-            <div key={purchase.id} className={styles.card}>
-              <div className={styles.infoComic}>
-                <img src={purchase.comic.image} alt={purchase.comic.title} />
-                <p>{purchase.comic.title}</p>
-              </div>
-              <div key={purchase.id} className={styles.infoPurchase}>
-                <p>Quantity: {purchase.quantity}</p>
-                <p>Total: {purchase.total} $</p>
-                <p>Date: {purchase.purchaseDate.slice(0, 10)}</p>
-                <NavLink
-                  to={`/comic/${purchase.comic.id}`}
-                  className={styles.link}
-                >
-                  <ReviewsIcon /> Leave a review about the product
-                </NavLink>
-              </div>
-            </div>
+            <Accordion key={purchase.id} className={styles.Accordion}>
+              <AccordionSummary
+                expandIcon={
+                  <ExpandMoreIcon
+                    style={darkMode ? { color: "gray" } : { color: "white" }}
+                  />
+                }
+              >
+                <Typography>{purchase.comic.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails className={styles.AccordionDetails}>
+                <div className={styles.infoComic}>
+                  <img src={purchase.comic.image} alt={purchase.comic.title} />
+                  <p>{purchase.comic.title}</p>
+                </div>
+                <div key={purchase.id} className={styles.infoPurchase}>
+                  <h3>Info of purchase</h3> <hr />
+                  <p>Quantity: <span>{purchase.quantity}</span></p>
+                  <p>Total: <span>{purchase.total} $</span></p>
+                  <p>Date: <span>{purchase.purchaseDate.slice(0, 10)}</span></p> <hr />
+                  <NavLink
+                    to={`/comic/${purchase.comic.id}`}
+                    className={styles.link}
+                  >
+                    <ReviewsIcon /> Leave a review about the product
+                  </NavLink>
+                </div>
+              </AccordionDetails>
+            </Accordion>
           ))}
         </div>
       </section>

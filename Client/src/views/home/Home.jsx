@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import { clearCart } from "../../redux/features/cartSlice";
 
 function Home() {
   const dispatch = useDispatch();
@@ -41,11 +42,12 @@ function Home() {
 
   useEffect(() => {
     if (status === "success" || status === "approved") {
-      localStorage.removeItem("cart"),
-        toast.success("Purchase completed successfully!", {
-          position: "top-center",
-          id: "success",
-        });
+      localStorage.removeItem("cart");
+      dispatch(clearCart());
+      toast.success("Purchase completed successfully!", {
+        position: "top-center",
+        id: "success",
+      });
     } else if (status === "failure" || status === "rejected") {
       toast.error("Purchase failed!", {
         position: "top-center",
