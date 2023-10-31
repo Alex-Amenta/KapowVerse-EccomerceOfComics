@@ -6,7 +6,6 @@ const CardsContainer = ({ allComics, isFavoritePage}) => {
 	const isLoading = useSelector((state) => state.comic.loading); 
 	const isError = useSelector((state) => state.comic.error); 
 	const darkMode = useSelector(selectDarkMode);
-
 	return (
 		<section className={styles.container}>
 			{allComics.length ? (

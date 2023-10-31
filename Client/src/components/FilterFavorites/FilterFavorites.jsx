@@ -20,6 +20,9 @@ const FilterFavorites = ({
     category: "",
   };
   const [input, setInput] = useState(InitialCreate);
+  useEffect(() => {
+  dispatch(favoriteSort());
+  }, []);
 
   const handleSort = (event) => {
     setInput({ ...input, sort: event.target.value });

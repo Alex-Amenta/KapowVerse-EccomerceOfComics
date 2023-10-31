@@ -1,11 +1,11 @@
 const transporter = require("../nodemailer/postEmail");
-// const path = require("path");
-// require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
-// const { FRONT_HOST, FE_DEPLOY, DEV} = process.env;
-// let ruta;
-// if (DEV && DEV === "development") 
-// 	ruta = FRONT_HOST; 
-// else ruta = FE_DEPLOY;
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
+const { FRONT_HOST, FE_DEPLOY, DEV} = process.env;
+let ruta;
+if (DEV && DEV === "development") 
+	ruta = FRONT_HOST; 
+else ruta = FE_DEPLOY;
 
 const sendEmailConPlantilla = (to, template, data) => {
 

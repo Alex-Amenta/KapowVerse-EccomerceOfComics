@@ -3,7 +3,7 @@ import NavBar from "../navbar/Navbar";
 import CardsContainer from "../cards-container/CardsContainer";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import styles from "./Favorites.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchFavoritesByUser } from "../../redux/features/favoriteSlice";
 import FilterFavorites from "../FilterFavorites/FilterFavorites";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -21,8 +21,6 @@ const Favorites = () => {
 
 	const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
 
-
-  
 	useEffect(() => {
 		if (user) dispatch(fetchFavoritesByUser(userId));
 	}, [user]);
@@ -32,6 +30,7 @@ const Favorites = () => {
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
 	}, [darkMode]);
+
 	return (
 		<>
 			<NavBar />
@@ -81,7 +80,7 @@ const Favorites = () => {
 					<>
 						<FilterFavorites
 							filterOptions={filterOptionsForPublisher}
-							favorites={favorites}
+							filteredFavorites={filteredFavorites}
 						/>
 						<section className={styles.sectionFav}>
 							<CardsContainer

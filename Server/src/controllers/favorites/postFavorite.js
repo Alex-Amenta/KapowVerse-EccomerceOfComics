@@ -3,11 +3,12 @@ const { Comic, Favorite, User } = require('../../db');
 const postFavorite = async (userId, comicId) => {
     const user = await User.findByPk(userId)
     const comic = await Comic.findByPk(comicId);
-    if (user.active === false) {
-        throw new Error('User not active! Please activate your account.');
-    };
+    
     if (!comic || !user) {
         throw new Error('User or comic not found');
+    };
+    if (user.active === false) {
+        throw new Error('User not active! Please activate your account.');
     };
     const favorite =
         await Favorite.findOne({

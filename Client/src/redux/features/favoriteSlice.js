@@ -39,8 +39,8 @@ export const deleteFavorite = createAsyncThunk(
 	"favorites/deleteFavorite",
 	async ({ userId, comicId }, { rejectWithValue }) => {
 		try {
-			const { data } = await axios.delete(URL, {data:{ userId: userId, comicId: comicId }});
-			return data;
+			await axios.delete(URL, {data:{ userId: userId, comicId: comicId }});
+			return {id:comicId};
 		} catch (error) {
 			return rejectWithValue(error.response.data);
 		}
@@ -52,6 +52,10 @@ const favoriteSlice = createSlice({
 	initialState,
 	reducers: {
 		favoriteSort: (state, action) => {
+			if (!action.payload) {
+				state.filteredFavorites = state.favorites;
+				return;
+			}
 			let favs = [...state.favorites];
 			if (action.payload.category !== '') {
 				favs = favs.filter((comic) => comic.category === action.payload.category);
@@ -121,6 +125,9 @@ const favoriteSlice = createSlice({
 		});
 		builder.addCase(deleteFavorite.fulfilled, (state, action) => {
 			state.loading = false;
+			state.filteredFavorites = state.filteredFavorites.filter(
+				(fav) => fav.id !== action.payload.id
+			);
 			state.error = "";
 		});
 		builder.addCase(deleteFavorite.rejected, (state, action) => {

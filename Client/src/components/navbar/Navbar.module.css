@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   background-color: rgb(13, 13, 13);
   color: white;
   font-family: "Bangers", sans-serif;
@@ -14,10 +14,10 @@
   background: transparent;
 }
 
-.imgContainer {
+/* .imgContainer {
   margin-left: 3rem;
   margin-right: 25px;
-}
+} */
 
 .imgContainer img {
   width: 60px;
@@ -48,7 +48,11 @@
 
 .menuButtonContainer {
   display: none;
-  margin: 0 1rem 0 4rem;
+  /* margin: 0 1rem 0 4rem; */
+}
+
+.menuButtonContainer button {
+  padding: unset;
 }
 
 .menuButton:hover {
