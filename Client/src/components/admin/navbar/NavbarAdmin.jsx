@@ -15,9 +15,24 @@ const NavbarAdmin = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    localStorage.removeItem("userlog");
-    dispatch(logoutUser());
-    window.alert("You have been logged out");
+    toast(
+      <div className={styles.containerToast}>
+        <p>&#128680; You are about to disconnect, are you sure?</p>
+        <div className={styles.toastButtons}>
+          <button
+            onClick={() => {
+              localStorage.removeItem("userlog");
+              dispatch(logoutUser());
+              toast.dismiss();
+            }}
+          >
+            Accept
+          </button>
+          <button onClick={() => toast.dismiss()}>Cancel</button>
+        </div>
+      </div>,
+      { duration: 20000 }
+    );
   };
 
   return (
@@ -76,7 +91,7 @@ const NavbarAdmin = () => {
           <TrendingUpIcon />
           Sales
         </NavLink>
-        <NavLink onClick={handleLogout} to='/home' className={styles.goBack} >
+        <NavLink onClick={handleLogout} to="/home" className={styles.goBack}>
           <ExitToAppIcon /> Logout
         </NavLink>
       </div>

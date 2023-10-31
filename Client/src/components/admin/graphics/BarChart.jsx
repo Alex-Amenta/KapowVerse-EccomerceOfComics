@@ -24,27 +24,50 @@ ChartJS.register(
 );
 
 export function MostSoldComicsBarChart() {
-  const [mostSoldComicsData, setMostSoldComicsData] = useState(null);
+  const [mostSoldComicsData, setMostSoldComicsData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Total Sold",
+        data: [],
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  });
 
   useEffect(() => {
-    // Realiza una petición para obtener datos de compras de cómics desde la API
     axios
-      .get(`${back_url}/purchase/comic`)
+      .get(`${back_url}/purchase/comics`)
       .then((response) => {
         const comicsWithSales = response.data;
 
-        // Ordena los cómics por la cantidad vendida de mayor a menor
-        comicsWithSales.sort(
-          (a, b) => b.totalComicPurchased - a.totalComicPurchased
+        // Agrupa cómics por categoría y calcula la cantidad total vendida en cada categoría
+        const categorySales = comicsWithSales.reduce((sales, comic) => {
+          const category = comic.category;
+
+          if (!sales[category]) {
+            sales[category] = 0;
+          }
+
+          sales[category] += comic.totalComicPurchased;
+
+          return sales;
+        }, {});
+
+        // Ordena las categorías por la cantidad total vendida de mayor a menor
+        const sortedCategories = Object.keys(categorySales).sort(
+          (a, b) => categorySales[b] - categorySales[a]
         );
 
-        // Toma solo los 5 cómics más vendidos
-        const top5Comics = comicsWithSales.slice(0, 5);
+        // Toma las 5 categorías más vendidas
+        const top5Categories = sortedCategories.slice(0, 5);
 
-        const labels = top5Comics.map((comic) => comic.title);
-        const data = top5Comics.map((comic) => comic.totalComicPurchased);
+        const labels = top5Categories;
+        const data = top5Categories.map((category) => categorySales[category]);
 
-        const chartDataComics = {
+        const chartDataCategories = {
           labels,
           datasets: [
             {
@@ -57,15 +80,15 @@ export function MostSoldComicsBarChart() {
           ],
         };
 
-        setMostSoldComicsData(chartDataComics);
+        setMostSoldComicsData(chartDataCategories);
       })
       .catch((error) => {
         console.error("Error al obtener datos de compras de cómics:", error);
+        // Puedes manejar el error aquí si es necesario
       });
   }, []);
 
-  // Define las opciones del gráfico
-  const chartOptionsComics = {
+  const chartOptionsCategories = {
     scales: {
       y: {
         type: "linear",
@@ -82,7 +105,7 @@ export function MostSoldComicsBarChart() {
       x: {
         title: {
           display: true,
-          text: "Comic Titles",
+          text: "Comic Categories",
           font: {
             size: 16,
             weight: "bold",
@@ -92,16 +115,14 @@ export function MostSoldComicsBarChart() {
     },
     plugins: {
       legend: {
-        display: false, // Ocultar la leyenda
+        display: false,
       },
     },
   };
 
   return (
     <div style={{ width: "502px", height: "16rem" }}>
-      {mostSoldComicsData && (
-        <Bar data={mostSoldComicsData} options={chartOptionsComics} />
-      )}
+      <Bar data={mostSoldComicsData} options={chartOptionsCategories} />
     </div>
   );
 }

@@ -5,11 +5,13 @@ import axios from "axios";
 import Navbar from "../navbar/Navbar";
 import styles from "./Purchases.module.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import ReviewsIcon from "@mui/icons-material/Reviews";
 
 const Purchases = () => {
   const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,6 +63,12 @@ const Purchases = () => {
                 <p>Quantity: {purchase.quantity}</p>
                 <p>Total: {purchase.total} $</p>
                 <p>Date: {purchase.purchaseDate.slice(0, 10)}</p>
+                <NavLink
+                  to={`/comic/${purchase.comic.id}`}
+                  className={styles.link}
+                >
+                  <ReviewsIcon /> Leave a review about the product
+                </NavLink>
               </div>
             </div>
           ))}

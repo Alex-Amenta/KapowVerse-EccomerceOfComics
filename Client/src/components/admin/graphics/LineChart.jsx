@@ -10,6 +10,9 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import back_url from "../../../utils/development";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -23,41 +26,49 @@ ChartJS.register(
 );
 
 export function PurchasesLineChart() {
-  const purchaseData = [
-    { date: "2023-01-15", quantity: 10 },
-    { date: "2023-02-20", quantity: 15 },
-    { date: "2023-03-10", quantity: 8 },
-    // Agrega más datos de compra aquí
-  ];
+  const [chartData, setChartData] = useState({ labels: [], datasets: [] });
 
-  const monthlyData = purchaseData.reduce((data, purchase) => {
-    const purchaseDate = new Date(purchase.date);
-    const month = purchaseDate.toLocaleString("default", { month: "long" }); // Obtiene el nombre del mes
+  useEffect(() => {
+    // Realizar una solicitud HTTP para obtener los datos de compras mensuales desde el backend
+    axios
+      .get(`${back_url}/purchase/monthly`)
+      .then((response) => {
+        const monthlyData = response.data;
 
-    if (!data[month]) {
-      data[month] = 0;
-    }
+        // Procesa los datos para el gráfico
+        const months = monthlyData.map((item) => {
+          // Convierte la fecha en un objeto Date para extraer el mes
+          const purchaseDate = new Date(item.purchaseDate);
+          const month = purchaseDate.toLocaleString("default", {
+            month: "long",
+          });
+          return month;
+        });
 
-    data[month] += purchase.quantity;
+        const quantities = monthlyData.map((item) => item.total);
 
-    return data;
-  }, {});
+        const chartData = {
+          labels: months,
+          datasets: [
+            {
+              label: "Total Purchases per Month",
+              data: quantities,
+              fill: true,
+              borderColor: "rgba(238, 130, 238)",
+              backgroundColor: "rgba(238, 130, 238, 0.2)",
+            },
+          ],
+        };
 
-  const months = Object.keys(monthlyData);
-  const quantities = Object.values(monthlyData);
-
-  const chartData = {
-    labels: months, // Usar los nombres de los meses como etiquetas
-    datasets: [
-      {
-        label: "Total Purchases per Month",
-        data: quantities,
-        fill: true,
-        borderColor: "rgba(238, 130, 238)",
-        backgroundColor: "rgba(238, 130, 238, 0.2)",
-      },
-    ],
-  };
+        setChartData(chartData);
+      })
+      .catch((error) => {
+        console.error(
+          "Error al obtener los datos de compras mensuales:",
+          error
+        );
+      });
+  }, []);
 
   const chartOptions = {
     scales: {

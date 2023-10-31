@@ -16,6 +16,7 @@
 .containerForm h2 {
   font-size: 3.5rem;
   text-align: center;
+  margin-top: 0;
   color: #43a130e3;
   font-family: "Bangers", sans-serif;
   letter-spacing: 6px;
@@ -133,6 +134,16 @@ label {
   cursor: pointer;
 }
 
+.buttonBack button {
+  margin: 1rem 0 0 4rem;
+  background: transparent;
+  color: #000;
+}
+
+.buttonBack button:hover {
+  color: gray;
+}
+
 .selectFileContainer button {
   margin-left: 2rem;
 }
@@ -144,7 +155,7 @@ label {
   margin-top: 2rem;
 }
 
-.container button {
+.formulario button {
   padding: 10px 25px;
   border: unset;
   border-radius: 15px;
@@ -161,7 +172,7 @@ label {
   overflow: hidden;
 }
 
-.container button::before {
+.formulario button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -176,11 +187,11 @@ label {
   transition: all 250ms;
 }
 
-.container button:hover {
+.formulario button:hover {
   color: #e8e8e8;
 }
 
-.container button:hover::before {
+.formulario button:hover::before {
   width: 100%;
 }
 
