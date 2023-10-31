@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
-import Button from "@mui/material/Button";
 import { toast } from "react-hot-toast";
 import { updateReview } from "../../redux/features/reviewSlice";
 import { useDispatch } from "react-redux";
 import styles from "./EditReview.module.css";
-import base_url from "../../utils/development";
-import axios from "axios";
 
 function EditReviewModal({ open, onClose, review }) {
   const dispatch = useDispatch();

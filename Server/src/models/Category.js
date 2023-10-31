@@ -13,6 +13,10 @@ const Category = (sequelize) => {
             allowNull: false,
             unique: true,
         },
+        status: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+        },
     }, {
         timestamps: false,
     });

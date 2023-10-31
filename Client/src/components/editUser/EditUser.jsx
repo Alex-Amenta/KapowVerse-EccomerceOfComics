@@ -107,6 +107,9 @@ function SignUp() {
         }
         localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
         setRes("User updated successfully!");
+        setTimeout(() => {
+          navigate('/profile');
+        }, 3000);
       })
       .catch((err) => {
         if (err.response && err.response.data)

@@ -8,6 +8,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import CategoryIcon from '@mui/icons-material/Category';
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../redux/features/userSlice";
 
@@ -85,11 +86,11 @@ const NavbarAdmin = () => {
         </NavLink>
         <NavLink
           end
-          to="/admin/sales"
+          to="/admin/categories"
           className={({ isActive }) => (isActive ? styles.active : styles.link)}
         >
-          <TrendingUpIcon />
-          Sales
+          <CategoryIcon />
+          Categories
         </NavLink>
         <NavLink onClick={handleLogout} to="/home" className={styles.goBack}>
           <ExitToAppIcon /> Logout
