@@ -1,4 +1,4 @@
-const { Comic, Purchase } = require('../../db');
+const { Comic, Purchase,Category } = require('../../db');
 
 
 const getComicsById = async (id) => {
@@ -8,7 +8,15 @@ const getComicsById = async (id) => {
                 {
                     model: Purchase,
                     attributes: ['id', 'comicId', 'userId'],
+                },
+                {
+                    model: Category,
+                    attributes: ['name'],
+                    through: {
+                        attributes: [],
+                    },
                 }
+
             ],
         });
         return comic;
