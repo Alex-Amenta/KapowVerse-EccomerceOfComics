@@ -29,5 +29,5 @@ myImage
 </>
   )
 }
-
+ 
 export default Img

@@ -43,6 +43,7 @@ const postUserHandler = async (req, res) => {
 	const { name, email, password, image, role } = req.body;
 	const uploadedImage= await cloudinary.uploader.upload(image,
 {
+	
 upload_preset: 'undsigned_upload',
 public_id: `${username}avatar`,
 allowed_formats : ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']

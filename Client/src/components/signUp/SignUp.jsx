@@ -37,6 +37,7 @@ function SignUp() {
     image: "",
   });
 
+  
   const [file, setFile] = useState("");
 const [image, setImage] = useState("");
 const [uploadedImg, setUploaded] = useState("")
