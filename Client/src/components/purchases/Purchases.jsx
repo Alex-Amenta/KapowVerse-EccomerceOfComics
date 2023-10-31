@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import back_url from "../../utils/development";
+import base_url from "../../utils/development";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Navbar from "../navbar/Navbar";
@@ -19,7 +19,7 @@ const Purchases = () => {
     if (user) {
       setIsLoading(true);
       axios
-        .get(`${back_url}/purchase/${user?.id}`)
+        .get(`${base_url}/purchase/${user?.id}`)
         .then((res) => {
           setPurchases(res.data);
         })

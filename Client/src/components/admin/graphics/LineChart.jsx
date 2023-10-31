@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import back_url from "../../../utils/development";
+import base_url from "../../../utils/development";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -31,7 +31,7 @@ export function PurchasesLineChart() {
   useEffect(() => {
     // Realizar una solicitud HTTP para obtener los datos de compras mensuales desde el backend
     axios
-      .get(`${back_url}/purchase/monthly`)
+      .get(`${base_url}/purchase/monthly`)
       .then((response) => {
         const monthlyData = response.data;
 

@@ -1,12 +1,23 @@
-const { Purchase, Comic } = require('../../db');
+const { Purchase, Comic, Category } = require('../../db');
 
 const getAllComicByPurchase = async (req, res) => {
     try {
-        const comics = await Comic.findAll();
+        const comics = await Comic.findAll(
+            {include: [
+                {
+                    model: Category,
+                    attributes: ['name'],
+                    through: {
+                        attributes: [],
+                    },
+                },
+            ], },
+        );
 
         const comicsWithTotalPurchased = await Promise.all(comics.map(async (comic) => {
             const totalComicPurchased = await Purchase.sum('quantity', {
                 where: { comicId: comic.id },
+                
             });
             return {
                 ...comic.dataValues,
