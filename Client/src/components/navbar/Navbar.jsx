@@ -30,7 +30,6 @@ const Navbar = () => {
 	};
 
   const location = useLocation();
-  console.log(location)
 
 	return (
 		<nav className={darkMode ? styles.container : styles.dark}>

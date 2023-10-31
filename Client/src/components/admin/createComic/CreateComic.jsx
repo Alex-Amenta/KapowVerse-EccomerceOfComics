@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./CreateComic.module.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { createComic } from "../../../redux/features/comicSlice";
@@ -8,6 +8,8 @@ import imageAlert from "../../../assets/murcielagos.png";
 import axios from "axios";
 import base_url from "../../../utils/development";
 import NavbarAdmin from "../navbar/NavbarAdmin";
+
+
 
 const initialFormData = {
   title: "",
@@ -31,23 +33,13 @@ const initialError = {
   publisher: "",
 };
 
-const categories = [
-  "Superheroes",
-  "Science Fiction",
-  "Fantasy",
-  "Adventure",
-  "Action",
-  "Horror",
-  "Mystery",
-  "Comedy",
-  "Drama",
-  "Romance",
-  "Suspense",
-];
+
 
 const publishers = ["Marvel", "DC", "Manga"];
 
 const CreateComic = () => {
+  const allCategories = useSelector((state) => state.category.allCategory);
+  const categories = allCategories.map((category) => category.name);
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState("");
   const [formData, setFormData] = useState(initialFormData);

@@ -42,6 +42,7 @@ const Filters = ({
   const itemQuantity = useSelector((state) => state.cart.itemQuantity);
   const [input, setInput] = useState(InitialCreate);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const allCategories = useSelector((state) => state.category.allCategory);
 
   const textFromSection =
     pathname === "/comics"
@@ -147,17 +148,12 @@ const Filters = ({
           onChange={handleCategory}
         >
           <option value="">Category</option>
-          <option value="Superheroes">Superheroes</option>
-          <option value="Science Fiction">Science Fiction</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Action">Action</option>
-          <option value="Horror">Horror</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Romance">Romance</option>
-          <option value="Suspense">Suspense</option>
+          {allCategories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+
         </select>
         {!hidePublisherFilter && (
           <select

@@ -30,23 +30,11 @@ const initialError = {
   publisher: "",
 };
 
-const categories = [
-  "Superheroes",
-  "Science Fiction",
-  "Fantasy",
-  "Adventure",
-  "Action",
-  "Horror",
-  "Mystery",
-  "Comedy",
-  "Drama",
-  "Romance",
-  "Suspense",
-];
 
 const publishers = ["Marvel", "DC", "Manga"];
 
 const EditComic = () => {
+  const categories = useSelector((state) => state.category.allCategory);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const comics = useSelector((state) => state.comic.allComics);
