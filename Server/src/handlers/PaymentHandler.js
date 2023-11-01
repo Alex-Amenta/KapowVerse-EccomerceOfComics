@@ -19,7 +19,7 @@ const createOrder = async (req, res) => {
 	const { user, cart } = req.body;
 	try {
 		if (!user) throw new Error("User not found");
-		if (user.active === false)	throw new Error("User not active! Please activate your account.");
+		if (user.verified === false)	throw new Error("User not verified! Please verified your account.");
 
 		comics = cart;
 		loggedUser = user;
