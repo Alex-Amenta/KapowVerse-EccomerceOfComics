@@ -137,7 +137,13 @@ const loginUserHandler = async (req, res) => {
 					token: await generateJwt(user.id, user.role),
 				});
 				// res.status(200).json(user);
-			} else {
+			} 
+			if (!user.dataValues.active){
+				sendEmailConPlantilla(email, "Baned", {
+					userName: user.name,
+				});
+			}
+			else {
 				res.status(401).json({ message: "Invalid credentials" });
 			}
 		} else {
