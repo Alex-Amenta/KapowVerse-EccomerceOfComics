@@ -176,7 +176,22 @@ const sendEmailConPlantilla = (to, template, data) => {
           `
       };
       break;
-
+      case "Reset":
+        emailOptions = {
+          from: "kapowverse@gmail.com",
+          to,
+          subject: "Reset Your KapowVerse Password!",
+          html:`
+          <h1> Reset Your KapowVerse Password </h1><hr/>
+          <p>Click the button below to reset your password:</p>
+          <a href="${ruta}/reset-password">Reset Password</a>
+          <br/>
+          Or copy the following code: <br/>
+          <p>${data.token}</p> <br/>
+          <p>If you didn't request this, please ignore this email.</p>
+        `
+        };
+        break;
 
   }
   transporter.sendMail(emailOptions, (error, info) => {

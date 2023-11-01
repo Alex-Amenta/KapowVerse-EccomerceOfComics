@@ -41,23 +41,46 @@
 
   display: grid;
   grid-template-areas:
-    "left1 left2"
-    "right right";
-  grid-template-columns: 1fr 1fr; /* Dos columnas arriba */
+    "title title imgContainer"
+    "price stock imgContainer"
+    "publisher author imgContainer"
+    "category description imgContainer";
+  grid-template-columns: 0.5fr 0.5fr 1fr; /* Dos columnas arriba */
   grid-gap: 2rem;
 }
 
 .formulario div:nth-child(1) {
-  grid-area: left1;
+  grid-area: title;
 }
 
 .formulario div:nth-child(2) {
-  grid-area: left2;
+  grid-area: description;
 }
 
 .formulario div:nth-child(3) {
-  grid-area: right;
+  grid-area: price;
 }
+
+.formulario div:nth-child(4) {
+  grid-area: stock;
+}
+
+.formulario div:nth-child(5) {
+  grid-area: category;
+}
+
+.formulario div:nth-child(6) {
+  grid-area: author;
+}
+
+.formulario div:nth-child(7) {
+  grid-area: publisher;
+}
+
+.formulario div:nth-child(8) {
+  grid-area: imgContainer;
+}
+
 
 .input {
   padding: 0.5rem;
@@ -79,10 +102,21 @@
   font-family: "Rubik", sans-serif;
   padding: 0.5rem;
   margin-bottom: 20px;
-  height: 25px;
+  height: 100%;
 }
 
 .select {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  text-align: start;
+  cursor: pointer;
+  width: 249px;
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.publisher_select {
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid black;
@@ -109,6 +143,7 @@
   align-self: self-end;
   gap: 2rem;
 }
+
 
 .imagePreviewContainer {
   display: flex;
@@ -225,7 +260,7 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 85px;
+  /* height: 85px; */
 }
 
 /* Tooltip text */
@@ -264,7 +299,8 @@ label {
 
 .input:focus + .tooltiptext,
 .select:focus + .tooltiptext,
-.textarea:focus + .tooltiptext {
+.textarea:focus + .tooltiptext,
+.publisher_select:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
 }

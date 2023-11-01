@@ -14,6 +14,7 @@ const checkOrCreate = async (name, email, image, password) => {
 				image: image,
 				password: password,
 				active: true,
+				verified: false,
 			},
 		});
 		return user[0]; // [user, created]

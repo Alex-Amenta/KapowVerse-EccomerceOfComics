@@ -288,7 +288,9 @@ function Reset() {
           onChange={handleEmailInputChange}
           type="text"
         />
+
         <button className={styles.res_button} onClick={send} disabled={countdown > 0}>
+
           Send
         </button>
         {countdown > 0 && (
@@ -312,7 +314,9 @@ function Reset() {
           onChange={handleNewPasswordInputChange}
           type="password" 
         />
+
         <button className={styles.res_button} onClick={reset}>Reset</button>
+
       </div>
     </>
   );
