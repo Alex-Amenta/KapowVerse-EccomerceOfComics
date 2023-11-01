@@ -11,6 +11,7 @@ const initialState = {
 	comicDetails: [],
 	relatedComics: [],
 	error: "",
+
 };
 
 export const fetchComics = createAsyncThunk(
@@ -23,7 +24,7 @@ export const fetchComics = createAsyncThunk(
 			return rejectWithValue(error.response.data);
 		}
 	}
-);
+); 
 
 export const searchComics = createAsyncThunk(
 	"comics/searchComics",
@@ -108,7 +109,9 @@ const comicSlice = createSlice({
 		filterAndSort: (state, action) => {
 			let comics = [...state.comicsCopy];
 			if (action.payload.category !== '') {
-				comics = comics.filter((comic) => comic.category === action.payload.category);
+				comics = comics.filter(comic => 
+					comic.categories.some(category => category.name === action.payload.category)
+				);
 			}
 			if (action.payload.publisher !== '') {
 				comics = comics.filter((comic) => comic.publisher === action.payload.publisher);
@@ -218,9 +221,11 @@ const comicSlice = createSlice({
 
 		builder.addCase(toggleComicStatus.pending, (state) => {
 			state.loading = true;
+			state.error = '';
 		});
 
 		builder.addCase(toggleComicStatus.fulfilled, (state, action) => {
+			state.loading = false;
 			const comicId = action.payload;
 			const comic = state.allComics.find((comic) => comic.id === comicId);
 

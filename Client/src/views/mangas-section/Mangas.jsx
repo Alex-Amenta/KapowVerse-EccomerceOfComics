@@ -7,7 +7,8 @@ import Navbar from "../../components/navbar/Navbar";
 
 function MangasSection() {
   const allComics = useSelector((state) => state.comic.allComics);
-  const mangasFiltered = allComics.filter(
+  const activeComics = allComics.filter((comic) => comic.active);
+  const mangasFiltered = activeComics.filter(
     (comic) => comic.publisher === "Manga"
   );
 

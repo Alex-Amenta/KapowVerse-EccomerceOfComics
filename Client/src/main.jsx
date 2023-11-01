@@ -8,6 +8,7 @@ import { store } from "./redux/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster, toast } from "react-hot-toast";
 import imageAlert from "../src/assets/murcielagos.png";
+import'./utils/axios.js'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

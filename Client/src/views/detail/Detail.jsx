@@ -11,20 +11,19 @@ import StarIcon from "@mui/icons-material/Star";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Reviews from "../reviews/Reviews";
 import { addItemToCart } from "../../redux/features/cartSlice";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import Navbar from "../../components/navbar/Navbar";
-import imageAlert from "../../assets/murcielagos.png";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
   const comics = useSelector((state) => state.comic.comicDetails);
   useSelector((state) => state.review.reviews);
   const comicsRelated = useSelector((state) => state.comic.relatedComics);
-  const { id } = useParams();
-  const [response, setResponse] = useState("pending");
   const darkMode = useSelector(selectDarkMode);
+  const [response, setResponse] = useState("pending");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,8 +38,7 @@ function Detail() {
   }, [darkMode]);
 
   if (response == "fulfilled" && comics.length == 0) {
-
-    setResponse("rejected")
+    setResponse("rejected");
   }
 
   const handleGoBack = () => {
@@ -69,70 +67,75 @@ function Detail() {
 
   return (
     <>
-    <Navbar/>
-    <section className={darkMode ? styles.light : styles.dark}>
-      <div className={styles.buttonBack}>
-        <button onClick={handleGoBack}>
-          <ArrowBackIcon fontSize="large" />
-        </button>
-      </div>
-      <article className={styles.container}>
-        <div className={styles.imageContainer}>
-          <img src={comics.image} alt={`Imagen de ${comics.title}`} />
+      <Navbar />
+      <section className={darkMode ? styles.light : styles.dark}>
+        <div className={styles.buttonBack}>
+          <button onClick={handleGoBack}>
+            <ArrowBackIcon fontSize="large" />
+          </button>
         </div>
-        <div className={styles.content}>
-          <h1>{comics.title}</h1>
-          <h3>{comics.author}</h3>
-          <p>
-            Stock Available: <b>{comics.stock}</b>
-          </p>
-          <h3 className={styles.price}>{comics.price} $</h3>
-          <hr />
-          <div className={styles.descriptionContainer}>
-            <h4>Description:</h4>
-            <p>{comics.description}</p>
+        <article className={styles.container}>
+          <div className={styles.imageContainer}>
+            <img src={comics.image} alt={`Imagen de ${comics.title}`} />
+          </div>
+          <div className={styles.content}>
+            <h1>{comics.title}</h1>
+            <h3>{comics.author}</h3>
             <p>
-              Category: <b>{comics.category}</b>
+              Stock Available: <b>{comics.stock}</b>
             </p>
+            <h3 className={styles.price}>{comics.price} $</h3>
+            <hr />
+            <div className={styles.descriptionContainer}>
+              <h4>Description:</h4>
+              <p>{comics.description}</p>
+              <p>
+                Category:{" "}
+                <b>
+                  {comics.categories?.map((category) => (
+                    <span key={category.id}>{category.name}</span>
+                  ))}
+                </b>
+              </p>
 
-            <p>
-              Publisher: <b>{comics.publisher}</b>
-            </p>
-          </div>
-          <div className={styles.containerButtons}>
-            <button onClick={handleAddToCart}>
-              Add to Cart <AddShoppingCartIcon className={styles.icons} />
-            </button>
-            <button>
-              Add to Favorites{" "}
-              <StarIcon color="secondary" className={styles.icons} />
-            </button>
-          </div>
-        </div>
-      </article>
-      {comicsRelated.length > 0 && (
-        <article className={styles.relatedsContainer}>
-          <h2>Related Comics</h2>
-          <div className={styles.comicsRelated}>
-            {comicsRelated.map((relatedComic) => (
-              <div className={styles.card} key={relatedComic.id}>
-                <Link to={`/comic/${relatedComic.id}`}>
-                  <img
-                    src={relatedComic.image}
-                    alt={relatedComic.title}
-                    title={relatedComic.title}
-                  />
-                </Link>
-              </div>
-            ))}
+              <p>
+                Publisher: <b>{comics.publisher}</b>
+              </p>
+            </div>
+            <div className={styles.containerButtons}>
+              <button onClick={handleAddToCart}>
+                Add to Cart <AddShoppingCartIcon className={styles.icons} />
+              </button>
+              <button>
+                Add to Favorites{" "}
+                <StarIcon color="secondary" className={styles.icons} />
+              </button>
+            </div>
           </div>
         </article>
-      )}
+        {comicsRelated.length > 0 && (
+          <article className={styles.relatedsContainer}>
+            <h2>Related Comics</h2>
+            <div className={styles.comicsRelated}>
+              {comicsRelated.map((relatedComic) => (
+                <div className={styles.card} key={relatedComic.id}>
+                  <Link to={`/comic/${relatedComic.id}`}>
+                    <img
+                      src={relatedComic.image}
+                      alt={relatedComic.title}
+                      title={relatedComic.title}
+                    />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </article>
+        )}
 
-        <article className={styles.reviewContainer}>
+        <article className={styles.reviewContainer} id="reviews">
           <Reviews />
         </article>
-    </section>
+      </section>
     </>
   );
 }

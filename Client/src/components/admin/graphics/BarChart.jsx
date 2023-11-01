@@ -9,8 +9,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchUsers } from "../../../redux/features/userSlice";
+import axios from "axios";
+import base_url from "../../../utils/development";
 
 ChartJS.register(
   CategoryScale,
@@ -21,72 +23,107 @@ ChartJS.register(
   Legend
 );
 
-export function CategoryBarChart() {
-  const allComics = useSelector((state) => state.comic.comicsCopy);
-
-  // Función para contar los cómics por categoría
-  const countComicsByCategory = () => {
-    const categoryCounts = {};
-
-    allComics.forEach((comic) => {
-      const category = comic.category;
-      if (categoryCounts[category]) {
-        categoryCounts[category]++;
-      } else {
-        categoryCounts[category] = 1;
-      }
-    });
-
-    return categoryCounts;
-  };
-
-  const categoryCounts = countComicsByCategory();
-
-  // Ordenar categorías por la cantidad de cómics de menor a mayor
-  const sortedCategories = Object.keys(categoryCounts).sort(
-    (a, b) => categoryCounts[a] - categoryCounts[b]
-  );
-
-  // Obtener las cantidades correspondientes a las categorías ordenadas
-  const counts = sortedCategories.map((category) => categoryCounts[category]);
-
-  // Datos para el gráfico
-  const chartDataComics = {
-    labels: sortedCategories,
+export function MostSoldComicsBarChart() {
+  const [mostSoldComicsData, setMostSoldComicsData] = useState({
+    labels: [],
     datasets: [
       {
-        label: "Comic numbers",
-        data: counts,
+        label: "Total Sold",
+        data: [],
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
       },
     ],
-  };
+  });
 
-  // Define las opciones del gráfico
-  const chartOptionsComics = {
+  useEffect(() => {
+    axios
+      .get(`${base_url}/purchase/comics`)
+      .then((response) => {
+        const comicsWithSales = response.data;
+
+        // Crear un objeto para rastrear las ventas por categoría
+        const categorySales = {};
+
+        // Iterar sobre los cómics y sus categorías para calcular las ventas
+        comicsWithSales.forEach((comic) => {
+          comic.categories.forEach((categoryObj) => {
+            const category = categoryObj.name;
+            if (!categorySales[category]) {
+              categorySales[category] = 0;
+            }
+            categorySales[category] += comic.totalComicPurchased;
+          });
+        });
+
+        // Ordenar las categorías por la cantidad total vendida de mayor a menor
+        const sortedCategories = Object.keys(categorySales).sort(
+          (a, b) => categorySales[b] - categorySales[a]
+        );
+
+        // Tomar las 5 categorías más vendidas
+        const top5Categories = sortedCategories.slice(0, 5);
+
+        const labels = top5Categories;
+        const data = top5Categories.map((category) => categorySales[category]);
+
+        const chartDataCategories = {
+          labels,
+          datasets: [
+            {
+              label: "Total Sold",
+              data,
+              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
+            },
+          ],
+        };
+
+        setMostSoldComicsData(chartDataCategories);
+      })
+      .catch((error) => {
+        console.error("Error al obtener datos de compras de cómics:", error);
+        // Puedes manejar el error aquí si es necesario
+      });
+  }, []);
+
+  const chartOptionsCategories = {
     scales: {
       y: {
         type: "linear",
         beginAtZero: true,
         title: {
           display: true,
-          text: "Comic numbers",
+          text: "Total Sold",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
         },
       },
       x: {
         title: {
           display: true,
-          text: "Categories",
+          text: "Comic Categories",
+          font: {
+            size: 16,
+            weight: "bold",
+          },
         },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
       },
     },
   };
 
   return (
     <div style={{ width: "502px", height: "16rem" }}>
-      <Bar data={chartDataComics} options={chartOptionsComics} />
+      <Bar data={mostSoldComicsData} options={chartOptionsCategories} />
     </div>
   );
 }

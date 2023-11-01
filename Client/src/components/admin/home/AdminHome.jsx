@@ -6,8 +6,9 @@ import styles from "./AdminHome.module.css";
 import Cards from "../comicsAdmin/ComicsAdmin";
 import { useEffect } from "react";
 import { fetchComics } from "../../../redux/features/comicSlice";
+import { fetchCategories } from "../../../redux/features/categorySlice";
 import {
-  CategoryBarChart,
+  MostSoldComicsBarChart,
   UserRegistrationBarChart,
 } from "../graphics/BarChart";
 import { PieChart } from "../graphics/PieChart";
@@ -18,6 +19,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     dispatch(fetchComics());
+    dispatch(fetchCategories());
   }, []);
 
   return (
@@ -26,15 +28,15 @@ const AdminHome = () => {
         <NavbarAdmin />
       </article>
       <article className={styles.content}>
+        <h2>Comics statistics</h2>
+        <div className={styles.comics}>
+          <MostSoldComicsBarChart />
+          <PieChart />
+        </div>
+
         <h2>User statistics</h2>
         <div className={styles.user}>
           <UserRegistrationBarChart />
-        </div>
-
-        <h2>Comics statistics</h2>
-        <div className={styles.comics}>
-          <CategoryBarChart />
-          <PieChart />
         </div>
 
         <h2>Purchases statistics</h2>

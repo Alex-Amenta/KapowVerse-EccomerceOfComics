@@ -29,6 +29,10 @@
   );
 }
 
+.tableCell th {
+  font-weight: bold;
+}
+
 .titleSearch {
   display: flex;
   justify-content: space-around;

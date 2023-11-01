@@ -62,6 +62,10 @@
   );
 }
 
+.tableRow th {
+  font-weight: bold;
+}
+
 .containerToast {
   display: flex;
   justify-content: center;

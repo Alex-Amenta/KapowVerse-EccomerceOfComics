@@ -11,7 +11,6 @@ const toggleComicStatus = async (id) => {
 
     await comic.update({ active: updatedStatus });
 
-    console.log(`Cómic marcado como ${updatedStatus ? 'activo' : 'inactivo'} con éxito: ${comic.id}`);
     return { active: updatedStatus };
     
 };

@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import styles from "./UserList.module.css";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, toggleUserActiveStatus } from "../../../redux/features/userSlice";
+import {
+  fetchUsers,
+  toggleUserActiveStatus,
+} from "../../../redux/features/userSlice";
 import {
   TableContainer,
   Table,
@@ -23,22 +26,18 @@ const UserList = () => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.user.allUsers);
 
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
-
   const handleToggleStatus = (userId, isActive) => {
-    const message = isActive ? "marked as inactive" : "marked as active";
+    const message = isActive ? "inactive" : "active";
 
     toast(
       <div className={styles.containerToast}>
-        <p>Are you sure you want to {message}?</p>
+        <p>Are you sure you want to mark as {message}?</p>
         <div className={styles.toastButtons}>
           <button
             onClick={() => {
               dispatch(toggleUserActiveStatus(userId));
               toast.dismiss();
-              toast.success(`User ${message} successfully`, {
+              toast.success(`User marked as ${message} successfully`, {
                 position: "top-center",
                 duration: 0,
               });
@@ -66,12 +65,12 @@ const UserList = () => {
         <TableContainer component={Paper} className={styles.tableContainer}>
           <Table>
             <TableHead className={styles.tableHead}>
-              <TableRow>
+              <TableRow className={styles.tableRow}>
                 <TableCell>Image</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
+                <TableCell>Role</TableCell>
                 <TableCell>State</TableCell>
-                <TableCell>Edit</TableCell>
                 <TableCell>Block user</TableCell>
               </TableRow>
             </TableHead>
@@ -87,18 +86,12 @@ const UserList = () => {
                   </TableCell>
                   <TableCell>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.role}</TableCell>
                   <TableCell>{user.active ? "active" : "inactive"}</TableCell>
                   <TableCell>
-                    <Link to={`/admin/edit/${user.id}`}>
-                      <button className={styles.edit}>
-                        <EditIcon />
-                      </button>
-                    </Link>
-                  </TableCell>
-                  <TableCell>
                     <button
+                      onClick={() => handleToggleStatus(user.id, user.active)}
                       className={styles.delete}
-                      onClick={() => handleToggleStatus(user.id)}
                     >
                       {user.active ? <BlockIcon /> : <RestoreIcon />}
                     </button>

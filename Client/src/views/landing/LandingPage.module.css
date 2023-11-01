@@ -45,7 +45,7 @@
 
 .content p {
   font-size: 1.6rem;
-  font-weight: normal;
+  font-weight: bold;
   font-family: "Rubik", sans-serif;
 }
 
@@ -111,16 +111,29 @@
 .buttons .link:hover::before {
   width: 100%;
 }
- @media (max-width: 1550px) {
+ @media (max-width: 1250px) {
   .container{
     background-blend-mode: soft-light;
   }
  }
- @media (max-width: 450px){
+ @media (max-width: 600px){
   .content{
     margin-left: 1rem;
     width: 80%;
   }
+
+  .content p {
+    font-size: 1rem;
+  }
+
+  .content h1 {
+    font-size: 3.5rem;
+  }
+
+  .welcome, .name {
+    font-size: 4rem;
+  }
+
   .socialNetworks{
     margin: 2rem 0 1rem 0;
   }

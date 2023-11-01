@@ -1,9 +1,9 @@
 const { createPurchase } = require('../controllers/purchase/postPurchase');
 const { getPurchase } = require('../controllers/purchase/getAllPurchase');
 const { getPurchaseById } = require('../controllers/purchase/getAllPurchaseById');
+const { getPurchaseByUser } = require('../controllers/purchase/getPurchaseById');
 
 const createPurchaseHandler = async (req, res) => {
-  console.log("CREATE PURCHASE HANDLER")
   const { userId, comicId, quantity } = req.body;
   try {
     const results = await createPurchase([{ comicId, userId, quantity }]);
@@ -13,12 +13,12 @@ const createPurchaseHandler = async (req, res) => {
     if (allPurchasesSuccessful) {
       res.status(201).json({
         msg: 'Compra realizada con éxito',
-        results: results.map(result => result.purchase), 
+        results: results.map(result => result.purchase),
       });
     } else {
       res.status(400).json({
         msg: 'No se pudo realizar la compra debido a la falta de stock',
-        results: results, 
+        results: results,
       });
     }
   } catch (error) {
@@ -28,26 +28,34 @@ const createPurchaseHandler = async (req, res) => {
 
 
 const getPurchaseHandler = async (req, res) => {
-  console.log("GET PURCHASE HANDLER")
     const { id } = req.params;
     try {
       if (id) {
         const purchase = await getPurchaseById(id);
         if (!purchase) {
-          return res.status(404).json({ error: 'Compra no encontrada' });
+          return res.status(404).json({ error: 'Purchases not found.' });
         }
         res.json(purchase);
       } else {
         const purchase = await getPurchase();
         if (!purchase) {
-          return res.status(404).json({ error: 'No se encontraron compras' });
+          return res.status(404).json({ error: 'Purchases not found.' });
         }
         res.json(purchase);
       }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-module.exports = {createPurchaseHandler, getPurchaseHandler};
-  
+const getPurchaseByUserHandler = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const purchase = await getPurchaseByUser(userId);
+    res.status(200).json(purchase);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { createPurchaseHandler, getPurchaseHandler, getPurchaseByUserHandler };

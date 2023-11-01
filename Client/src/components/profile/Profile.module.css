@@ -1,122 +1,124 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* margin-top: 20px; */
-    font-family: 'Bangers', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 20px; */
+  font-family: "Bangers", sans-serif;
 }
 
 .container h2 {
-    font-size: 4rem;
-    text-align: center;
-    color: #9f2d1c;
-    font-family: "Bangers", sans-serif;
-    letter-spacing: 6px;
-    text-shadow: 1px 1px black;
-  }
-  
-  .container hr {
-    width: 90%;
-  }
+  font-size: 4rem;
+  text-align: center;
+  color: #9f2d1c;
+  font-family: "Bangers", sans-serif;
+  letter-spacing: 6px;
+  text-shadow: 1px 1px black;
+}
 
-  .profileContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2%;
-    width: 100%;
-    height: 100%;
-    gap: 5%;
-    
-  }
+.container hr {
+  width: 90%;
+}
 
-  .profileImageContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2%;
-    width: 150px;
-    height: 150px;
-    background-color: #f5f5f5;
-    border-radius: 100%;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-  }
+.profileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  width: 31rem;
+  padding: 1rem;
+  gap: 5%;
+}
 
-  .profileImage{
-    /* border: 3px solid red; */
-    min-width: 150px;
-    min-height: 150px;
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 100%;
-    color: #9f2d1c;
-  }
+.profileImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2%;
+  width: 150px;
+  height: 150px;
+}
 
-  .profileInfoContainer{
-    display: flex;
-    padding: 20px 20px;
-    flex-direction: column;
-    /* width: 80vh; */
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    letter-spacing: 0.15ch;
-  }
+.profileImage {
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 100%;
+  color: #9f2d1c;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
 
-  .profileButtonsContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
-    margin-top: 20px;
-  }
+.profileInfoContainer {
+  display: flex;
+  padding: 20px 20px;
+  flex-direction: column;
+  /* width: 80vh; */
+  letter-spacing: 0.15ch;
+}
 
-  .deleteButton{
-    background-color: #9f2d1c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    letter-spacing: 0.15ch;
-    cursor: pointer;
-  }
+.profileInfoContainer span {
+  color: #681f13;
+}
 
-  .profileButton{
-    background-color: #1c4a9f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    letter-spacing: 0.15ch;
-    cursor: pointer;
-  }
-  
-  @media (max-width: 768px) {
-    .profileInfoContainer{
-      width: 80%;
-    }
-  }
+.profileButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  gap: 1rem;
+}
 
-  .dark {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* margin-top: 20px; */
-    font-family: 'Bangers', sans-serif;
+.deleteButton {
+  background-color: #9f2d1c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.15ch;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #681f13;
+}
+
+.profileButton {
+  background-color: #1c4a9f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.15ch;
+  cursor: pointer;
+}
+
+.profileButton:hover {
+  background-color: #122e61;
+}
+
+/* ############Dark mode############ */
+.dark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 20px; */
+  font-family: "Bangers", sans-serif;
 }
 
 .dark h2 {
   font-size: 4rem;
   text-align: center;
-  color: #e8e8e8;
+  color: #fcff00;
+
   font-family: "Bangers", sans-serif;
   letter-spacing: 6px;
   text-shadow: 1px 1px black;
@@ -125,18 +127,18 @@
 .dark hr {
   width: 90%;
 }
-
 .dark {
   .profileContainer {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 2%;
-    width: 100%;
-    height: 100%;
+    background-color: #1c2041;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    width: 31rem;
+    padding: 1rem;
     gap: 5%;
-    
   }
 
   .profileImageContainer {
@@ -147,42 +149,37 @@
     margin-bottom: 2%;
     width: 150px;
     height: 150px;
-    background-color: #f5f5f5;
-    border-radius: 100%;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
   }
 
-  .profileImage{
-    /* border: 3px solid red; */
+  .profileImage {
     min-width: 150px;
     min-height: 150px;
     max-width: 150px;
     max-height: 150px;
     border-radius: 100%;
-    color: #9f2d1c;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
   }
 
-  .profileInfoContainer{
+  .profileInfoContainer {
     display: flex;
     padding: 20px 20px;
     flex-direction: column;
-    /* width: 80vh; */
-    background-color: #080912;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px white;
+    color: white;
     letter-spacing: 0.15ch;
-    color: white
   }
 
-  .profileButtonsContainer{
+  .profileInfoContainer span {
+    color: #852415;
+  }
+
+  .profileButtonsContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    width: 100%;
     margin-top: 20px;
+    gap: 1rem;
   }
 
-  .deleteButton{
+  .deleteButton {
     background-color: #9f2d1c;
     color: white;
     border: none;
@@ -194,7 +191,11 @@
     cursor: pointer;
   }
 
-  .profileButton{
+  .deleteButton:hover {
+    background-color: #681f13;
+  }
+
+  .profileButton {
     background-color: #1c4a9f;
     color: white;
     border: none;
@@ -204,5 +205,54 @@
     font-weight: bold;
     letter-spacing: 0.15ch;
     cursor: pointer;
+  }
+
+  .profileButton:hover {
+    background-color: #122e61;
+  }
+}
+
+.containerToast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toastButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toastButtons button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.toastButtons button:nth-child(1):hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toastButtons button:nth-child(2):hover {
+  background-color: #b63232;
+  color: white;
+}
+
+
+@media (max-width: 768px) {
+  .profileInfoContainer {
+    width: 80%;
   }
 }

@@ -21,22 +21,6 @@ const Comic = (sequelize) => {
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
-            category: {
-                type: DataTypes.ENUM(
-                    'Superheroes',
-                    'Science Fiction',
-                    'Fantasy',
-                    'Adventure',
-                    'Action',
-                    'Horror',
-                    'Mystery',
-                    'Comedy',
-                    'Drama',
-                    'Romance',
-                    'Suspense'
-                ),
-                allowNull: false,
-            },
             publisher: {
                 type: DataTypes.ENUM(
                     'Marvel',

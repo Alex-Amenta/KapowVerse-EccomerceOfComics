@@ -44,7 +44,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row-reverse;
   margin-top: 2rem;
 }
 
@@ -71,6 +70,14 @@
   color: rgb(181, 181, 20);
 }
 
+.deleteButton:hover {
+  color: red;
+}
+
+.starActive {
+  color: rgb(181, 181, 20)
+}
+
 .dark {
   width: 15rem;
   height: 26.5rem;
@@ -81,11 +88,20 @@
   box-shadow: 0 9px 28px rgba(75, 3, 3, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
   font-family: "Rubik", sans-serif;
   color: #e0d7d5;
+
   .icons button,
   .starIcon {
     background: transparent;
     color: #e0d7d5;
     padding: 0;
+  }
+
+  .cardImage:hover {
+    box-shadow: rgba(226, 226, 63, 0.25) 0px 13px 47px -5px,
+      rgba(180, 171, 71, 0.3) 0px 8px 16px -8px;
+  }
+  .deleteButton:hover {
+    color: red;
   }
 }
 

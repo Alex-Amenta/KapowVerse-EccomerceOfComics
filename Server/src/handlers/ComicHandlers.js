@@ -4,18 +4,15 @@ const { getComicsById } = require('../controllers/comic/getComicById');
 const { createComic } = require('../controllers/comic/postComic');
 const { toggleComicStatus } = require('../controllers/comic/toggleComicStatus');
 const { updateComic } = require('../controllers/comic/updateComic');
+const { getOne } = require('../controllers/category/categoryController');
 
-const multer = require("multer");
 const getComicsRelated = require('../controllers/comic/getComicsRelaeted');
 const cloudinary = require("cloudinary").v2;
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 const getAllComicsByFiltersHandler = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 4;
-        const category = req.query.category || null;
         const price = req.query.price || null;
         const stock = req.query.stock || null;
         const title = req.query.title || '';
@@ -26,7 +23,6 @@ const getAllComicsByFiltersHandler = async (req, res) => {
         const result = await getAllComicsByFilters(
             page,
             pageSize,
-            category,
             price,
             stock,
             title,
@@ -38,7 +34,7 @@ const getAllComicsByFiltersHandler = async (req, res) => {
         if (!result) {
             let message = `No se han encontrado resultados`;
 
-            if (category || price || sort || author || active) {
+            if ( price || sort || author || active) {
                 message += ` para los filtros especificados`;
             }
 
@@ -120,7 +116,7 @@ const getComicsRelatedHandler = async (req, res) => {
 
 
 const postComicHandler = async (req, res) => {
-    const { title, description, price, stock, category, author, publisher } = req.body;
+    const { title, description, price, stock, author, publisher, categoryIds  } = req.body;
 
     try {
         const imagenDataUri = `data:${req.files[0].mimetype
@@ -135,10 +131,10 @@ const postComicHandler = async (req, res) => {
             imagen.secure_url,
             price,
             stock,
-            category,
             author,
             publisher,
-        );
+            categoryIds
+        ); //TODO verificar que los categoryIds proporcionados realmente existen en tu base de datos antes de intentar crear un cómic.
         return res.status(201).json(createdComic || {});
     } catch (error) {
         return res.status(400).json({ error: error.message });
@@ -192,6 +188,61 @@ const updateComicHandler = async (req, res) => {
     }
 };
 
+const addCategoryToComic = async (req, res) => {
+    const { comicId } = req.params;
+    const { categoryId } = req.body;
+    if (!categoryId) {
+        return res.status(400).json({ message: 'You must provide a category' });
+    }
+    if (!comicId) {
+        return res.status(400).json({ message: 'You must provide a comic' });
+    }
+
+    try {
+        const comic = await getComicsById(comicId);
+        if (!comic) {
+            return res.status(404).json({ message: 'Comic not found' });
+        }
+
+        const category = await getOne({id:categoryId});
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        await comic.addCategory(category);
+        return res.status(200).json({ message: 'Category added successfully' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error adding category to comic', error: error.message });
+    }
+};
+
+const removeCategoryFromComic = async (req, res) => {
+    const { comicId, categoryId } = req.params;
+    if (!categoryId) {
+        return res.status(400).json({ message: 'You must provide a category' });
+    }
+    if (!comicId) {
+        return res.status(400).json({ message: 'You must provide a comic' });
+    }
+
+    try {
+        const comic = await getComicsById(comicId);
+        if (!comic) {
+            return res.status(404).json({ message: 'Comic not found' });
+        }
+
+        const category = await getOne({id:categoryId});
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        await comic.removeCategory(category);
+        return res.status(200).json({ message: 'Category removed successfully' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error removing category from comic', error: error.message });
+    }
+
+};
 
 module.exports = {
     getAllComicsByFiltersHandler,
@@ -200,5 +251,7 @@ module.exports = {
     postComicHandler,
     toggleComicHandler,
     updateComicHandler,
-    getComicsRelatedHandler
+    getComicsRelatedHandler,
+    addCategoryToComic,
+    removeCategoryFromComic
 };

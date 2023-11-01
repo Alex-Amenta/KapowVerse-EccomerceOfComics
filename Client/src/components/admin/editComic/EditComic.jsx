@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import { useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import styles from "./EditComic.module.css";
 import { updateComic } from "../../../redux/features/comicSlice";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const initialFormData = {
   title: "",
@@ -29,24 +30,13 @@ const initialError = {
   publisher: "",
 };
 
-const categories = [
-  "Superheroes",
-  "Science Fiction",
-  "Fantasy",
-  "Adventure",
-  "Action",
-  "Horror",
-  "Mystery",
-  "Comedy",
-  "Drama",
-  "Romance",
-  "Suspense",
-];
 
 const publishers = ["Marvel", "DC", "Manga"];
 
 const EditComic = () => {
+  const categories = useSelector((state) => state.category.allCategory);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const comics = useSelector((state) => state.comic.allComics);
   const { id } = useParams();
   const comicToEdit = comics.find((comic) => comic.id === id);
@@ -143,12 +133,21 @@ const EditComic = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.navbar}>
         <NavbarAdmin />
       </div>
       <div className={styles.containerForm}>
+      <div className={styles.buttonBack}>
+        <button onClick={handleGoBack}>
+          <ArrowBackIcon fontSize="large" />
+        </button>
+      </div>
         <h2>Updating Comic</h2> <hr />
         <form onSubmit={handleSubmit} className={styles.formulario}>
           <div className={styles.inputContainer}>
