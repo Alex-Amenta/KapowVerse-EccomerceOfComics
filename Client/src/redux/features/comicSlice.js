@@ -42,7 +42,9 @@ export const createComic = createAsyncThunk(
 	"comics/createComic",
 	async (comicData, { rejectWithValue }) => {
 		try {
+			console.log("comicData", comicData)
 			const { data } = await axios.post(URL, comicData);
+			console.log("data create comic", data)
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -90,8 +92,9 @@ export const updateComic = createAsyncThunk(
 	"comics/updateComic",
 	async ({ id, data }, { rejectWithValue }) => {
 		try {
-			const { data: updatedComic } = await axios.put(`${URL}/${id}`, data);
-			return updatedComic;
+			const  res  = await axios.put(`${URL}/${id}`, data);
+			console.log(res.data.updatedComic)
+			return res.data.updatedComic;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
 		}
@@ -204,10 +207,8 @@ const comicSlice = createSlice({
 
 		builder.addCase(updateComic.fulfilled, (state, action) => {
 			state.loading = false;
-			// Actualiza el producto en el estado con los datos actualizados
 			const updatedComic = action.payload;
 			state.comicDetails = updatedComic;
-			// También puedes actualizar otros estados si es necesario
 			state.allComics = state.allComics.map((comic) =>
 				comic.id === updatedComic.id ? updatedComic : comic
 			);
