@@ -263,6 +263,10 @@ label {
   /* height: 85px; */
 }
 
+.input__group:nth-child(1) .tooltiptext {
+  right: 5%;
+}
+
 /* Tooltip text */
 .input__group .tooltiptext {
   visibility: hidden;
@@ -277,7 +281,7 @@ label {
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  right: -3rem;
+  right: -45%;
   top: 20px;
   margin-left: -60px;
 

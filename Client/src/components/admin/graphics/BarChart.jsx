@@ -200,6 +200,10 @@ export function UserRegistrationBarChart() {
     scales: {
       y: {
         beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          precision: 0
+        },
         title: {
           display: true,
           text: "Registered users",
