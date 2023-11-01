@@ -1,4 +1,107 @@
 {
+	"user": [
+		{
+			"id": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+			"name": "Fabrizio “JackER” Cosson",
+			"email": "jacker4565@gmail.com",
+			"password": "110298949859387187898",
+			"role": "user",
+			"active": true,
+			"image": "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
+			"activationToken": null,
+			"registrationDate": "2023-10-01T05:57:03.912Z"
+		},
+		{
+			"id": "daab7d11-f8d6-4c4a-b111-d6101f2e2e11",
+			"name": "Test “User” Test",
+			"email": "test@gmail.com",
+			"password": "password",
+			"role": "user",
+			"active": true,
+			"image": "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
+			"activationToken": null,
+			"registrationDate": "2023-09-01T05:57:03.912Z"
+		},
+		{
+			"id": "daab7d22-f8d6-4c4a-b222-d6101f2e2e22",
+			"name": "Prueba Usuario",
+			"email": "otrotest@gmail.com",
+			"password": "password",
+			"role": "user",
+			"active": true,
+			"image": "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
+			"activationToken": null,
+			"registrationDate": "2023-08-01T05:57:03.912Z"
+		},
+		{
+			"id": "daab7d33-f8d6-4c4a-b333-d6101f2e2e33",
+			"name": "otra mas",
+			"email": "otra@mas.com",
+			"password": "password",
+			"role": "user",
+			"active": true,
+			"image": "https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg",
+			"activationToken": null,
+			"registrationDate": "2023-08-01T05:57:03.912Z"
+		},
+		{
+			"name": "admin",
+			"email": "admin@admin.com",
+			"password": "password",
+			"role": "admin",
+			"active": true,
+			"image": "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png",
+			"activationToken": null,
+			"registrationDate": "2023-08-01T05:57:03.912Z"
+		}
+	],
+	"purchases": [
+		{
+			"mpId": "1315739756",
+			"comicId": "c6d8b2a4-3e1f-9c7b-4e6a-9a9c9d0b2022",
+			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+			"quantity": 1,
+			"total": 12.48,
+			"status": "approved",
+			"purchaseDate": "2023-11-01T05:57:22.279Z"
+		},
+		{
+			"mpId": "1315739756",
+			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
+			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+			"quantity": 2,
+			"total": 12.48,
+			"status": "approved",
+			"purchaseDate": "2023-11-01T05:57:22.316Z"
+		},
+		{
+			"mpId": "1111111111",
+			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
+			"userId": "daab7d33-f8d6-4c4a-b333-d6101f2e2e33",
+			"quantity": 2,
+			"total": 12.48,
+			"status": "approved",
+			"purchaseDate": "2023-10-01T05:57:22.316Z"
+		},
+		{
+			"mpId": "3333333333",
+			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
+			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+			"quantity": 2,
+			"total": 12.48,
+			"status": "approved",
+			"purchaseDate": "2023-08-01T05:57:22.316Z"
+		},
+		{
+			"mpId": "3333333333",
+			"comicId": "a45ed6a7-8b1f-2c9d-3e4f-5c2b3a1d0b20",
+			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+			"quantity": 2,
+			"total": 12.48,
+			"status": "approved",
+			"purchaseDate": "2023-08-01T05:57:22.316Z"
+		}
+	],
 	"categories": [
 		{
 			"name": "Superheroes"
