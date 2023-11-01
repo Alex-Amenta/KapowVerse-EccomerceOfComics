@@ -71,6 +71,7 @@ const UserList = () => {
                 <TableCell>Email</TableCell>
                 <TableCell>Role</TableCell>
                 <TableCell>State</TableCell>
+                <TableCell>Verify</TableCell>
                 <TableCell>Block user</TableCell>
               </TableRow>
             </TableHead>
@@ -88,6 +89,7 @@ const UserList = () => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
                   <TableCell>{user.active ? "active" : "inactive"}</TableCell>
+                  <TableCell>{user.verify ? "active" : "inactive"}</TableCell>
                   <TableCell>
                     <button
                       onClick={() => handleToggleStatus(user.id, user.active)}
