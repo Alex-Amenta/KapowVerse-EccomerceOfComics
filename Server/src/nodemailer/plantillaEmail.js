@@ -1,6 +1,6 @@
 const transporter = require("../nodemailer/postEmail");
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
+require("dotenv").config();
 const { FRONT_HOST, FE_DEPLOY, DEV} = process.env;
 let ruta;
 if (DEV && DEV === "development") 
