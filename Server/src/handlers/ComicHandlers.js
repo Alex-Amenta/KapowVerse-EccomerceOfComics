@@ -116,8 +116,8 @@ const getComicsRelatedHandler = async (req, res) => {
 
 
 const postComicHandler = async (req, res) => {
-    const { title, description, price, stock, author, publisher, categoryIds  } = req.body;
-
+    const { title, description, price, stock, author, publisher, categories  } = req.body;
+    console.log("categories: antes del coso", categories)
     try {
         const imagenDataUri = `data:${req.files[0].mimetype
             };base64,${req.files[0].buffer.toString("base64")}`;
@@ -133,11 +133,12 @@ const postComicHandler = async (req, res) => {
             stock,
             author,
             publisher,
-            categoryIds
+            categories
         ); //TODO verificar que los categoryIds proporcionados realmente existen en tu base de datos antes de intentar crear un cómic.
         return res.status(201).json(createdComic || {});
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(error)
+        return res.status(400).json({message:"Error trying to create comic", error: error.message });
     }
 };
 
@@ -163,7 +164,7 @@ const toggleComicHandler = async (req, res) => {
 const updateComicHandler = async (req, res) => {
     const { id } = req.params;
     const updatedComicData = req.body;
-
+    console.log("ucd: ", updatedComicData)
     try {
         if (req.file) {
             const imagenDataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
@@ -181,7 +182,7 @@ const updateComicHandler = async (req, res) => {
         if (updatedComic) {
             return res.status(200).json({ message: 'Cómic actualizado exitosamente', updatedComic });
         } else {
-            return res.status(404).json({ message: 'Cómic no encontrado' });
+            return res.status(404).json({ message: 'Cómic no encontrado', error: error.message });
         }
     } catch (error) {
         return res.status(500).json({ message: 'Error al actualizar el cómic' });
@@ -191,6 +192,7 @@ const updateComicHandler = async (req, res) => {
 const addCategoryToComic = async (req, res) => {
     const { comicId } = req.params;
     const { categoryId } = req.body;
+    console.log()
     if (!categoryId) {
         return res.status(400).json({ message: 'You must provide a category' });
     }
