@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 //Requerimos dotenv
-require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+require("dotenv").config();
 
 //Obtenemos las variables del env
 const { DB_INT, DB_USER, DB_PASSWORD, DB_HOST, DEV} = process.env;
