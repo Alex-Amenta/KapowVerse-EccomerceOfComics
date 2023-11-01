@@ -20,11 +20,9 @@ const Favorites = () => {
 	);
 
 	const filterOptionsForPublisher = ["Marvel", "DC", "Manga"];
-
 	useEffect(() => {
 		if (user) dispatch(fetchFavoritesByUser(userId));
 	}, [user]);
-
 
 	const darkMode = useSelector(selectDarkMode);
 	useEffect(() => {

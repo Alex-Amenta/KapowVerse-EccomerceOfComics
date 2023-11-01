@@ -4,13 +4,13 @@ const { Comic, User, Purchase } = require('../../db');
 const createPurchase = async (purchases) => {
     try {
         const results = [];
-
+        
         for (const { comicId, userId, quantity } of purchases) {
             const comic = await Comic.findByPk(comicId);
             const user = await User.findByPk(userId);
-            if (user.active === false) {
+            if (user.verified === false) {
                 results.push({
-                    error: 'User not active! Please activate your account.',
+                    error: 'User not verified! Please verify your account.',
                 });
                 continue;
             }
@@ -31,8 +31,7 @@ const createPurchase = async (purchases) => {
             comic.stock -= quantity;
             await comic.save();
             
-            const total = comic.price * quantity;
-
+            const total = (comic.price * quantity).toFixed(2);
 
             const purchase = await Purchase.create({
                 comicId,

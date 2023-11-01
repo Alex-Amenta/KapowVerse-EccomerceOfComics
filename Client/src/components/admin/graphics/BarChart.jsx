@@ -43,27 +43,26 @@ export function MostSoldComicsBarChart() {
       .then((response) => {
         const comicsWithSales = response.data;
 
-        // Agrupa cómics por categoría y calcula la cantidad total vendida en cada categoría
-        const categorySales = comicsWithSales.reduce((sales, comic) => {
-          comic.categories.forEach(categoryObj => {
+        // Crear un objeto para rastrear las ventas por categoría
+        const categorySales = {};
+
+        // Iterar sobre los cómics y sus categorías para calcular las ventas
+        comicsWithSales.forEach((comic) => {
+          comic.categories.forEach((categoryObj) => {
             const category = categoryObj.name;
-
-            if (!sales[category]) {
-              sales[category] = 0;
+            if (!categorySales[category]) {
+              categorySales[category] = 0;
             }
-
-            sales[category] += comic.totalComicPurchased;
+            categorySales[category] += comic.totalComicPurchased;
           });
+        });
 
-          return sales;
-        }, {});
-
-        // Ordena las categorías por la cantidad total vendida de mayor a menor
+        // Ordenar las categorías por la cantidad total vendida de mayor a menor
         const sortedCategories = Object.keys(categorySales).sort(
           (a, b) => categorySales[b] - categorySales[a]
         );
 
-        // Toma las 5 categorías más vendidas
+        // Tomar las 5 categorías más vendidas
         const top5Categories = sortedCategories.slice(0, 5);
 
         const labels = top5Categories;
@@ -161,18 +160,18 @@ export function UserRegistrationBarChart() {
 
   // Nombres de los meses
   const monthNames = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const labels = Object.keys(monthlyData).map((key) => {

@@ -89,7 +89,7 @@ const userActivateByToken = async (req, res) => {
 		if (user) {
 			if (token == user.activationToken) {
 				await toggleActiveStatus(user.id, true);
-				res.status(200).json({ message: "User activated!" });
+				res.status(200).json({ message: "User activated!", user:user});
 			} else {
 				res.status(401).json({ message: "Invalid token" });
 			}

@@ -65,7 +65,7 @@ const UserList = () => {
         <TableContainer component={Paper} className={styles.tableContainer}>
           <Table>
             <TableHead className={styles.tableHead}>
-              <TableRow>
+              <TableRow className={styles.tableRow}>
                 <TableCell>Image</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>

@@ -17,9 +17,7 @@ import { logUserByLocalStorage } from "./redux/features/userSlice";
 import { fetchComics } from "./redux/features/comicSlice";
 import { fetchCategories } from "./redux/features/categorySlice";
 import AdminGuard from "./components/guards/AdminGuard";
-import Sales from "./components/admin/sales/Sales";
 import UserList from "./components/admin/usersList/UserList";
-// import UserEdit from "./components/admin/usersList/UserEdit";
 import AdminHome from "./components/admin/home/AdminHome";
 import EditComic from "./components/admin/editComic/EditComic";
 import ComicsAdmin from "./components/admin/comicsAdmin/ComicsAdmin";
@@ -28,6 +26,7 @@ import Favorites from "./components/Favorites/Favorites";
 import Purchases from "./components/purchases/Purchases";
 import ErrorPage from "./views/page-error/PageError";
 import Reset from "./components/reset-password/Reset";
+import Categories from "./components/admin/categories/Categories";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +66,7 @@ function App() {
           {/* <Route path="/admin/userEdit/:id" element={<UserEdit />} /> */}
           <Route path="/admin/comics" element={<ComicsAdmin />} />
           <Route path="/admin/users" element={<UserList />} />
-          <Route path="/admin/sales" element={<Sales />} />
+          <Route path="/admin/categories" element={<Categories />} />
         </Route>
         <Route path="/admin/login" element={<LogAdmin />} />
 

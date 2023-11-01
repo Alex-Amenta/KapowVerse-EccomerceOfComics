@@ -33,19 +33,11 @@
   color: black;
 }
 
-.card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0px 0px 10px 0px black;
-  width: 34rem;
-  padding: 2rem;
+.infoComic {
+  align-self: flex-start;
 }
 
-.card img {
+.infoComic img {
   height: 17rem;
   width: 13rem;
 }
@@ -56,6 +48,11 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
+  width: 50%;
+}
+
+.purchaseContainer hr {
+  width: 100%;
 }
 
 .infoComic p {
@@ -70,6 +67,15 @@
   gap: 1rem;
 }
 
+.infoPurchase h3 {
+  margin: 0;
+  color: #9f2d1c;
+}
+
+.infoPurchase span {
+  color: green;
+}
+
 .link {
   display: flex;
   justify-content: center;
@@ -80,6 +86,22 @@
 
 .link:hover {
   color: gray;
+}
+
+.Accordion {
+  width: 100%;
+}
+
+.AccordionDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.Accordion p:first-child {
+  font-weight: bold;
 }
 
 /* ###########Dark Mode############ */
@@ -119,19 +141,7 @@
     color: white;
   }
 
-  .card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    border-radius: 10px;
-    background-color: black;
-    box-shadow: 0px 0px 10px 0px #fafe3aa7;
-    width: 34rem;
-    padding: 2rem;
-  }
-
-  .card img {
+  .infoComic img {
     height: 17rem;
     width: 13rem;
   }
@@ -141,6 +151,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    width: 50%;
     gap: 2rem;
   }
 
@@ -156,6 +167,38 @@
     color: white;
     gap: 1rem;
   }
+
+  .Accordion {
+    width: 100%;
+    background-color: black;
+    color: white;
+  }
+
+  .Accordion p:first-child {
+    font-weight: bold;
+  }
+
+  .AccordionDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  margin-top: 2rem;
+
+  }
+
+  .infoPurchase h3 {
+    margin: 0;
+    color: #fcff00;
+  }
+
+  .purchaseContainer hr {
+    width: 100%;
+  }
+
+  .infoComic {
+    align-self: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
@@ -165,5 +208,9 @@
   }
   .form {
     width: 80%;
+  }
+
+  .purchaseContainer {
+    width: 90%;
   }
 }

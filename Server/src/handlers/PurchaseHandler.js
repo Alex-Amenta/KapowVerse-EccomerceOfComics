@@ -43,7 +43,6 @@ const getPurchaseHandler = async (req, res) => {
         }
         res.json(purchase);
       }
-      res.json(purchase);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

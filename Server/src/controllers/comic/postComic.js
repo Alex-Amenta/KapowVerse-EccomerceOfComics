@@ -1,24 +1,4 @@
-const { Comic } = require("../../db");
-
-// const validateComic = async (comic) => {
-//     if (!comic.title) {
-//         return { error: 'El título del cómic es obligatorio' };
-//     }
-
-//     if (!comic.price) {
-//         return { error: 'El precio del cómic es obligatorio' };
-//     }
-
-//     const existingComic = await Comic.findOne({
-//         where: { title: comic.title },
-//     });
-
-//     if (existingComic) {
-//         return { error: 'Ya existe un cómic con este título' };
-//     }
-
-//     return {};
-// };
+const { Comic, Category } = require("../../db");
 
 const createComic = async (
 	title,
@@ -28,7 +8,7 @@ const createComic = async (
 	stock,
 	author,
 	publisher,
-	categoryIds
+	categories
 ) => {
 	const newComic = await Comic.create({
 		title,
@@ -39,17 +19,23 @@ const createComic = async (
 		author,
 		publisher,
 	});
-	if (!newComic) throw new Error(`El comic ${title} no pudo crearse.`);
-
+	if (!newComic) throw new Error(`Couldn't create comic`);
 	// Si se proporcionan categorías, establecemos la relación
-	if (categoryIds && categoryIds.length) {
-		const categories = await Category.findAll({
-			where: { id: categoryIds },
+	if (categories && categories.length) {
+		const categorys = await Category.findAll({
+			where: { name: categories },
 		});
-		await newComic.setCategories(categories);
+		await newComic.setCategories(categorys);
+	} else {
+		// Si no se proporcionan categorías, eliminamos todas las asociaciones
+		await newComic.setCategories([]);
 	}
-
-	return newComic.dataValues;
+	return await Comic.findByPk(newComic.dataValues.id, {
+		include: {
+			model: Category,
+			attributes: ["name"],
+		},
+	});;
 };
 
 module.exports = { createComic };

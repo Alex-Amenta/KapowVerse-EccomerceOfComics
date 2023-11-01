@@ -36,18 +36,6 @@ function Login() {
       setRes("Email must be valid");
       return;
     }
-    if (data.password.length < 3) {
-      setRes("Password must be at least 3 characters long");
-      return;
-    }
-    if (!data.password.match(/[0-9]/g)) {
-      setRes("Password must contain at least one number");
-      return;
-    }
-    if (!data.password.match(/[A-Z]/g)) {
-      setRes("Password must contain at least one uppercase");
-      return;
-    }
     setRes("Loading...");
     dispatch(loginUser(data))
       .then((res) => {
