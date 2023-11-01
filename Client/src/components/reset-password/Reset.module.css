@@ -32,7 +32,7 @@
     border: 1px solid black;
 }
   
-button {
+.res_button {
     width: 140px;
     font-weight: bold;
     height: 40px;
@@ -46,71 +46,71 @@ button {
     color: black;
 }
   
-button:hover {
+.res_button:hover {
     background-color: #4caf50;
     color: white;
 }
   
-button:active {
+.res_button:active {
     background-color: #4caf50;
     color: white;
 }
   
-button:focus {
+.res_button:focus {
     outline: none;
 }
   
-button:disabled {
+.res_button:disabled {
     background-color: #b63232;
     color: white;
     cursor: not-allowed;
 }
   
-button:disabled:hover {
+.res_button:disabled:hover {
     background-color: #b63232;
     color: white;
 }
   
-button:disabled:active {
+.res_button:disabled:active {
     background-color: #b63232;
     color: white;
 }
   
-button:disabled:focus {
+.res_button:disabled:focus {
     outline: none;
 }
   
-button a {
+.res_button a {
     text-decoration: none;
     color: black;
 }
   
-button a:hover {
+.res_button a:hover {
     text-decoration: none;
     color: white;
 }
   
-button a:active {
+.res_button a:active {
     text-decoration: none;
     color: white;
 }
   
-button a:focus {
+.res_button a:focus {
     outline: none;
 }
   
-button a:disabled {
+.res_button a:disabled {
     text-decoration: none;
     color: white;
     cursor: not-allowed;
 }
   
-button a:disabled:hover {
+.res_button a:disabled:hover {
     text-decoration: none;
     color: white;
 }
   
-button a:disabled:active {
+.res_button a:disabled:active {
     text-decoration: none;
     color: white;
 }
