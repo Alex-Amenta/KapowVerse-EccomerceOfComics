@@ -31,8 +31,7 @@ const createPurchase = async (purchases) => {
             comic.stock -= quantity;
             await comic.save();
             
-            const total = comic.price * quantity;
-
+            const total = (comic.price * quantity).toFixed(2);
 
             const purchase = await Purchase.create({
                 comicId,

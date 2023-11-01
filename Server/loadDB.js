@@ -57,6 +57,11 @@ const loadDB = async () => {
     try {
         for (const purchase of data.purchases) {
             const { userId, comicId } = purchase;
+            const comicInstance = await Comic.findByPk(comicId, {
+                transaction: purchaseTransaction,
+            });
+            purchase.total = (comicInstance.price * purchase.quantity).toFixed(2);
+
             const purchaseInstance = await Purchase.create(purchase, {
                 transaction: purchaseTransaction,
             });
@@ -64,9 +69,7 @@ const loadDB = async () => {
             const userInstance = await User.findByPk(userId, {
                 transaction: purchaseTransaction,
             });
-            const comicInstance = await Comic.findByPk(comicId, {
-                transaction: purchaseTransaction,
-            });
+
 
             await purchaseInstance.setUser(userInstance, {
                 transaction: purchaseTransaction,

@@ -34,9 +34,12 @@ const Searchbar = () => {
 		dispatch(resetSearch());
 	};
 
+
 	useEffect(() => {
 		handleSubmit();
 	}, [variable]);
+
+
 
 	return (
 		<div className={style.container}>

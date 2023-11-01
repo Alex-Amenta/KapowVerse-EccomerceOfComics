@@ -24,7 +24,6 @@ function Home() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const status = searchParams.get("status");
-
   useEffect(() => {
     if (localStorage.getItem("userlog")) {
       dispatch(
@@ -40,21 +39,35 @@ function Home() {
     paginate(1);
   };
 
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    if (mounted) toast.dismiss("toastId2");
     if (status === "success" || status === "approved") {
+      console.log("Compra exitosa")
       localStorage.removeItem("cart");
       dispatch(clearCart());
-      toast.success("Purchase completed successfully!", {
-        position: "top-center",
-        id: "success",
-      });
+      if (mounted) {
+        toast.success("Purchase completed successfully!", {
+          position: "top-center",
+          id: "success",
+          duration: 5000,
+        });
+      }
     } else if (status === "failure" || status === "rejected") {
-      toast.error("Purchase failed!", {
-        position: "top-center",
-        id: "error",
-      });
+      if (mounted) {
+        toast.error("Purchase failed!", {
+          position: "top-center",
+          id: "error",
+          duration: 5000,
+        });
+      }
     }
-  }, [status]);
+  }, [status, mounted]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const darkMode = useSelector(selectDarkMode);
 

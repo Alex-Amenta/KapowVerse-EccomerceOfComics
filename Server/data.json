@@ -58,10 +58,9 @@
 	"purchases": [
 		{
 			"mpId": "1315739756",
-			"comicId": "c6d8b2a4-3e1f-9c7b-4e6a-9a9c9d0b2022",
+			"comicId": "3f7ed6cc-d1c5-4e35-9bb6-c6da8a488618",
 			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
-			"quantity": 1,
-			"total": 12.48,
+			"quantity": 20,
 			"status": "approved",
 			"purchaseDate": "2023-11-01T05:57:22.279Z"
 		},
@@ -69,17 +68,15 @@
 			"mpId": "1315739756",
 			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
 			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
-			"quantity": 2,
-			"total": 12.48,
+			"quantity": 1,
 			"status": "approved",
 			"purchaseDate": "2023-11-01T05:57:22.316Z"
 		},
 		{
 			"mpId": "1111111111",
-			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
+			"comicId": "1c01b67b-e8a2-4745-86f9-94ec8799b1ae",
 			"userId": "daab7d33-f8d6-4c4a-b333-d6101f2e2e33",
 			"quantity": 2,
-			"total": 12.48,
 			"status": "approved",
 			"purchaseDate": "2023-10-01T05:57:22.316Z"
 		},
@@ -87,8 +84,7 @@
 			"mpId": "3333333333",
 			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
 			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
-			"quantity": 2,
-			"total": 12.48,
+			"quantity": 7,
 			"status": "approved",
 			"purchaseDate": "2023-08-01T05:57:22.316Z"
 		},
@@ -96,8 +92,7 @@
 			"mpId": "3333333333",
 			"comicId": "a45ed6a7-8b1f-2c9d-3e4f-5c2b3a1d0b20",
 			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
-			"quantity": 2,
-			"total": 12.48,
+			"quantity": 10,
 			"status": "approved",
 			"purchaseDate": "2023-08-01T05:57:22.316Z"
 		}

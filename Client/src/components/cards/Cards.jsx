@@ -53,6 +53,7 @@ const Cards = ({
     if (cartItem) {
       toast.error("Item is already in the cart", {
         position: "bottom-center",
+        id: "error",
       });
     } else {
       dispatch(addItemToCart(comic));

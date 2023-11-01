@@ -191,8 +191,8 @@ function Reviews() {
                   </div>
                 )}
               </div>
-              <Rating name="read-only" value={review.rating} readOnly />
-              <p>{review.comment}</p>
+                <Rating name="read-only" value={Number(review.rating)} readOnly />
+                <p>{review.comment}</p>
             </div>
           ))}
         </div>

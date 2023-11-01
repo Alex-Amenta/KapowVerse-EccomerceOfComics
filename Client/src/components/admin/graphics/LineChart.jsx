@@ -26,18 +26,18 @@ ChartJS.register(
 );
 
 const monthNames = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 export function PurchasesLineChart() {
@@ -61,6 +61,7 @@ export function PurchasesLineChart() {
         for (const item of monthlyData) {
           const purchaseDate = new Date(item.purchaseDate);
           const month = purchaseDate.getMonth(); // Obtener el número de mes (0-11)
+          console.log("mes: ", month)
           const monthName = monthNames[month];
           monthlyTotals[monthName] += item.total;
         }
@@ -73,7 +74,7 @@ export function PurchasesLineChart() {
           labels: months,
           datasets: [
             {
-              label: "Total Purchases per Month",
+              label: "Total Earned per Month",
               data: quantities,
               fill: true,
               borderColor: "rgba(238, 130, 238)",
