@@ -82,7 +82,7 @@ const sendEmailConPlantilla = (to, template, data) => {
             </div>
             </div>
         </body>
-        </html>
+        </html> 
            `
       };
       break;
