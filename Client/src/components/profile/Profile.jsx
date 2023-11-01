@@ -9,6 +9,8 @@ import axios from "axios";
 import base_url from "../../utils/development";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
+
 
 function Profile() {
   if (!localStorage.getItem("userlog")) {
@@ -34,10 +36,17 @@ function Profile() {
     window.location.href = "/home";
   };
 
+  const darkMode = useSelector(selectDarkMode);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
+
+
   return (
 	<>
 	<Navbar/>
-    <div className={styles.container}>
+    <div className={darkMode ? styles.container : styles.dark}>
       <h2>Profile</h2> <hr />
       <div className={styles.profileContainer}>
         <div className={styles.profileImageContainer}>
