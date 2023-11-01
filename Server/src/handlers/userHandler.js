@@ -10,8 +10,12 @@ const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
 const sendEmailConPlantilla = require("../nodemailer/plantillaEmail");
 const deleteAccount = require("../controllers/user/deleteAccount");
 const actTokenController = require("../controllers/user/actTokenController");
+const generateResetPasswordToken = require("../controllers/user/generateResetPasswordToken")
+const verifyResetPasswordToken = require("../controllers/user/verifyResetPasswordToken")
+const updatePassword = require("../controllers/user/updatePassword")
 
 const generateJwt = require("../utils/generateJwt");
+// const verifyJwtPassword = require('../../utils/verifyJwtPassword')
 
 const getAllUsersHandler = async (req, res) => {
 	const { name } = req.query;
@@ -176,6 +180,50 @@ const resender = async (req, res) => {
 	}
 }
 
+const ResetPassword = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await getUserByEmail(email);
+        if (user) {
+            const resetPasswordToken = await generateResetPasswordToken(email);
+			console.log("Reset Password Token:", resetPasswordToken);
+            // sendEmailConPlantilla(email, resetPasswordToken);
+			sendEmailConPlantilla(user.email, "Reset", {
+				userName: user.dataValues.name,
+				token: resetPasswordToken.dataValues.token,
+			});
+
+            res.status(200).json({ message: "Password reset email sent!" });
+			// res.status(200).json(resetPasswordToken);
+			
+        } else {
+            res.status(401).json({ message: "User does not exist." });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const changePassword = async (req, res) => {
+    const { token } = req.params;
+    const newPassword = req.body.newPassword;
+
+    try {
+        const user = await verifyResetPasswordToken(token);
+        if (user) {
+            await updatePassword(user.email, newPassword);
+
+            res.status(200).json({ message: 'Contraseña actualizada con éxito' });
+        } else {
+            res.status(401).json({ message: 'Token de restablecimiento de contraseña inválido' });
+        }
+    } catch (error) {
+		console.error('Error:', error)
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 module.exports = {
 	loginUserHandler,
 	getAllUsersHandler,
@@ -186,4 +234,6 @@ module.exports = {
 	deleteAccountHandler,
 	userActivateByToken,
 	resender,
+	ResetPassword,
+	changePassword,
 };
