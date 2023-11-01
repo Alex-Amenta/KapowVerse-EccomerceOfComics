@@ -10,7 +10,7 @@ const createPurchase = async (purchases) => {
             const user = await User.findByPk(userId);
             if (user.verified === false) {
                 results.push({
-                    error: 'User not verified! Please verified your account.',
+                    error: 'User not verified! Please verify your account.',
                 });
                 continue;
             }
