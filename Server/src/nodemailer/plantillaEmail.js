@@ -76,7 +76,7 @@ const sendEmailConPlantilla = (to, template, data) => {
           if you have any questions, please email us at <b>kaopwverse@gmail.com</b></p>
           <p><b>Sincerely, <br/>
           Your KapowVerse Team</b></p>
-                </div>
+                </div> 
             </div>
         </body>
         </html>
