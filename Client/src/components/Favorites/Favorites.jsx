@@ -11,8 +11,8 @@ import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Favorites = () => {
 	const dispatch = useDispatch();
-	const userId = user ? user.id : null;
 	const user = useSelector((state) => state.user.user);
+	const userId = user ? user.id : null;
 	const favorites = useSelector((state) => state.favorite.favorites);
 	const isLoading = useSelector((state) => state.favorite.loading);
 	const filteredFavorites = useSelector(
