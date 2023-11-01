@@ -1,66 +1,70 @@
-const mercadopago = require('mercadopago')
+const mercadopago = require("mercadopago");
 require("dotenv").config();
 const { Purchase, Comic } = require("../db");
-const { FRONT_HOST, PORTS_SERVER, MP_AR_ACCESS_TOKEN, MP_PE_ACCESS_TOKEN, DEV, FE_DEPLOY, BE_DEPLOY } = process.env;
+const {
+	FRONT_HOST,
+	PORTS_SERVER,
+	MP_AR_ACCESS_TOKEN,
+	MP_PE_ACCESS_TOKEN,
+	DEV,
+	FE_DEPLOY,
+	BE_DEPLOY,
+} = process.env;
 const transporter = require("../nodemailer/postEmail");
 
 let comics = {};
 let loggedUser = {};
 
 const createOrder = async (req, res) => {
+	const { user, cart } = req.body;
+	try {
+		if (!user) throw new Error("User not found");
+		if (user.verified === false)	throw new Error("User not verified! Please verified your account.");
 
-    const { user, cart } = req.body;
-    try {
-      if (!user) throw new Error("Usuario no Registrado");
-    } catch (error) {
-      console.log(error);
-    }
-    comics = cart;
-    loggedUser = user;
+		comics = cart;
+		loggedUser = user;
 
-    mercadopago.configure({
-        access_token: MP_AR_ACCESS_TOKEN,
-    });
-    const result = await mercadopago.preferences.create({
-        items: [
-        
-            {
-                title: 'Pago KapowVerse',
-                unit_price: cart.totalPrice,
-                currency_id: 'ARS',
-                quantity: 1,
-            },
-        ],
-        back_urls: {
-            success: `${
-            DEV === "development"
-                ? `${FRONT_HOST}/home`
-                : `${FE_DEPLOY}/home`
-            }`,
-            failure: `${
-                DEV === "development"
-                    ? `${FRONT_HOST}/home`
-                    : `${FE_DEPLOY}/home`
-                }`,
-            pending: `${
-                DEV === "development"
-                    ? `${FRONT_HOST}/payment/pending`
-                    : `${FE_DEPLOY}/payment/pending`
-                }`,
-        },
-        auto_return: "approved",
-        notification_url:`${
-            DEV === "development"
-                ? `${PORTS_SERVER}/payment/webhook`
-                : `${BE_DEPLOY}/payment/webhook`
-            }`,       
-    });
-    res.send(result.body);
-
+		mercadopago.configure({
+			access_token: MP_AR_ACCESS_TOKEN,
+		});
+		const result = await mercadopago.preferences.create({
+			items: [
+				{
+					title: "Pago KapowVerse",
+					unit_price: cart.totalPrice,
+					currency_id: "ARS",
+					quantity: 1,
+				},
+			],
+			back_urls: {
+				success: `${
+					DEV === "development" ? `${FRONT_HOST}/home` : `${FE_DEPLOY}/home`
+				}`,
+				failure: `${
+					DEV === "development" ? `${FRONT_HOST}/home` : `${FE_DEPLOY}/home`
+				}`,
+				pending: `${
+					DEV === "development"
+						? `${FRONT_HOST}/payment/pending`
+						: `${FE_DEPLOY}/payment/pending`
+				}`,
+			},
+			auto_return: "approved",
+			notification_url: `${
+				DEV === "development"
+					? `${PORTS_SERVER}/payment/webhook`
+					: `${BE_DEPLOY}/payment/webhook`
+			}`,
+		});
+		res.send(result.body);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: error.message });
+	}
 };
 
 const receiveWebhook = async (req, res) => {
-    const payment = req.query;
+	const payment = req.query;
 
     try {
         if (payment.type === 'payment') {
@@ -166,6 +170,4 @@ const receiveWebhook = async (req, res) => {
     }
 };
 
-
 module.exports = { createOrder, receiveWebhook };
-

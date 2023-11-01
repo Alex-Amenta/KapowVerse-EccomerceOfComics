@@ -1,6 +1,6 @@
 const { Comic, User, Review, Purchase } = require('../../db');
 
-const postReview = async (rating, comment, comicId, userId) => {
+const postReview = async (rating, comment, userId, comicId) => {
     try {
         const comic = await Comic.findByPk(comicId);
         const user = await User.findByPk(userId);
@@ -11,8 +11,8 @@ const postReview = async (rating, comment, comicId, userId) => {
 
         const existingReview = await Review.findOne({
             where: {
-                comicId,
                 userId,
+                comicId,
             },
         });
 
@@ -24,8 +24,8 @@ const postReview = async (rating, comment, comicId, userId) => {
 
         const purchase = await Purchase.findOne({
             where: {
-                comicId,
                 userId,
+                comicId,
             },
         });
 
@@ -43,7 +43,7 @@ const postReview = async (rating, comment, comicId, userId) => {
         });
 
         await review.setUser(user);
-        await review.setProduct(comic);
+        await review.setComic(comic);
 
         return review;
     } catch (error) {

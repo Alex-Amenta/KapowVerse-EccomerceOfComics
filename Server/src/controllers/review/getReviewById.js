@@ -1,9 +1,11 @@
 const { Review } = require('../../db');
 
-const getReviewById = async (reviewId) => {
+const getReviewById = async (comicId) => {
     try {
-        const review = await Review.findByPk(reviewId);
-        return review;
+        const reviews = await Review.findAll({
+            where: { comicId: comicId }
+        });
+        return reviews;
     } catch (error) {
         throw new Error('Error al obtener la reseña');
     }

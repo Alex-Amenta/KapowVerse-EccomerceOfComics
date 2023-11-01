@@ -1,10 +1,12 @@
 /* eslint-disable no-irregular-whitespace */
 import styles from "./Login.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, googleAuth } from "../../redux/features/userSlice";
 import { GoogleLogin } from "@react-oauth/google";
-import { Toaster, toast } from "react-hot-toast";
+import {  toast } from "react-hot-toast";
+import Navbar from "../navbar/Navbar";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 function Login() {
   const logState = useSelector((state) => state.user.logState);
@@ -34,18 +36,6 @@ function Login() {
       setRes("Email must be valid");
       return;
     }
-    if (data.password.length < 3) {
-      setRes("Password must be at least 3 characters long");
-      return;
-    }
-    if (!data.password.match(/[0-9]/g)) {
-      setRes("Password must contain at least one number");
-      return;
-    }
-    if (!data.password.match(/[A-Z]/g)) {
-      setRes("Password must contain at least one uppercase");
-      return;
-    }
     setRes("Loading...");
     dispatch(loginUser(data))
       .then((res) => {
@@ -59,7 +49,7 @@ function Login() {
           return;
         }
         setRes("Success");
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
       })
       .catch((err) => {
         if (err.response && err.response.data)
@@ -81,7 +71,7 @@ function Login() {
           return;
         }
         setRes("Success");
-        localStorage.setItem("token", JSON.stringify(res.payload)); //TODO agregar token
+        localStorage.setItem("userlog", JSON.stringify(res.payload)); //TODO agregar userlog
       })
       .catch((err) => {
         if (err.response && err.response.data)
@@ -90,9 +80,17 @@ function Login() {
       });
   };
 
+  const darkMode = useSelector(selectDarkMode);
+
+	useEffect(() => {
+		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+	  }, [darkMode]);
+
   return (
+    <>
+    <Navbar/>
     <div className={styles.container}>
-      <h2>LogIn</h2> <hr />
+      <h2 style={!darkMode ? { color: "#fcff00" } : null}>LogIn</h2> <hr />
       <h3
         onClick={() => setRes("")}
         style={{
@@ -102,7 +100,7 @@ function Login() {
       >
         {res ? <>&times; {res} &times;</> : null} 
       </h3>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form} style={!darkMode ? {color: "white"} : null}>
         <label htmlFor="email" className={styles.label}>
           Email <label style={{ color: "red" }}>*</label>
         </label>
@@ -124,7 +122,7 @@ function Login() {
           className={styles.input}
         />
         <button type="submit" className={styles.submit}>
-          Submit
+          Login
         </button>
 
         <GoogleLogin
@@ -140,6 +138,7 @@ function Login() {
         <br />
       </form>
     </div>
+    </>
   );
 }
 

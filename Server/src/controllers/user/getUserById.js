@@ -5,7 +5,7 @@ const getUserById = async (id) => {
         include: Purchase,
     });
     if (!user) {
-        throw new Error('No se encontraron usuarios con ese id');
+        throw new Error('User not found');
     }
 
     return user;

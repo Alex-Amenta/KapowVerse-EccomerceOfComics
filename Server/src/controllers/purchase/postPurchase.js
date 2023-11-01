@@ -4,21 +4,26 @@ const { Comic, User, Purchase } = require('../../db');
 const createPurchase = async (purchases) => {
     try {
         const results = [];
-
+        
         for (const { comicId, userId, quantity } of purchases) {
             const comic = await Comic.findByPk(comicId);
             const user = await User.findByPk(userId);
-
+            if (user.verified === false) {
+                results.push({
+                    error: 'User not verified! Please verify your account.',
+                });
+                continue;
+            }
             if (!comic || !user) {
                 results.push({
-                    error: 'El cómic o el usuario no existen',
+                    error: 'Comic or user not found',
                 });
                 continue;
             }
 
             if (comic.stock < quantity) {
                 results.push({
-                    error: 'No hay suficiente stock disponible',
+                    error: 'Not enough stock available',
                 });
                 continue;
             }
@@ -26,8 +31,7 @@ const createPurchase = async (purchases) => {
             comic.stock -= quantity;
             await comic.save();
             
-            const total = comic.price * quantity;
-
+            const total = (comic.price * quantity).toFixed(2);
 
             const purchase = await Purchase.create({
                 comicId,

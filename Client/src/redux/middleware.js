@@ -1,4 +1,3 @@
-
 export const loadState = () => {
     try {
         const serializedState = localStorage.getItem('cart');
@@ -9,7 +8,7 @@ export const loadState = () => {
         const loadedState = JSON.parse(serializedState);
         
 
-        const expectedKeys = ["cart", "error", "itemQuantity", "loading", "totalItemsInCart", "totalPrice"];
+        const expectedKeys = ["cart", "error", "itemQuantity", "loading", "totalItemsInCart", "totalPrice", "darkMode"];
         const loadedStateKeys = Object.keys(loadedState);
         const isValidState = loadedStateKeys.every(key => expectedKeys.includes(key));
 
@@ -24,7 +23,7 @@ export const loadState = () => {
 
 export const saveState = (state) => {
     try {
-        const serializedState = JSON.stringify({cart:state.cart});
+        const serializedState = JSON.stringify({cart:state.cart, darkMode: state.darkMode});
         localStorage.setItem('cart', serializedState);
     } catch {
         // Ignorar errores de write

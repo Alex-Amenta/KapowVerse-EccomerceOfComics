@@ -15,7 +15,7 @@ const updateUser = async (id, name, email, password, image) => {
         image = user.image;
     }
     if (!user) {
-        throw new Error('No hay usuario con ese id');
+        throw new Error('User not found');
     }
 
     await user.update({

@@ -3,11 +3,13 @@ import CardsContainer from "../../components/cards-container/CardsContainer";
 import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 import Filters from "../../components/filters/Filters";
+import Navbar from "../../components/navbar/Navbar";
 
 function ComicsSection() {
   const allComics = useSelector((state) => state.comic.allComics);
+  const activeComics = allComics.filter((comic) => comic.active);
 
-  const comicsFiltered = allComics.filter(
+  const comicsFiltered = activeComics.filter(
     (comic) => comic.publisher !== "Manga"
   );
 
@@ -24,6 +26,7 @@ function ComicsSection() {
 
   return (
     <>
+      <Navbar />
       <Filters
         onFilterChange={handleFilterChange}
         filterOptions={filterOptionsForPublisher}

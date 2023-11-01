@@ -8,7 +8,7 @@
   font-family: "Rubik", sans-serif;
 }
 
-.buttonBack button{
+.buttonBack button {
   margin: 1rem 0 0 4rem;
   background: transparent;
   color: #000;
@@ -165,5 +165,49 @@
 }
 
 .icons {
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 1rem;
+  }
+
+  .content {
+    width: 80%;
+  }
+
+  .containerButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.dark {
+  color:#e8e8e8;
+  .buttonBack button{
+    margin: 1rem 0 0 4rem;
+    background: transparent;
+    color: #e8e8e8;
+  }
+  .relatedsContainer h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+    width: 100%;
+    color: #fcff00;
+    letter-spacing: 6px;
+    text-shadow: 1px 1px black;
+  }
+  .content h3,
+.price {
+  color: #aa746c;
+}
 }

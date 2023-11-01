@@ -8,7 +8,8 @@
   transition: all 0.3s ease-in-out;
   align-items: center;
   width: 27%;
-  margin-left: 10px;
+  /* margin-left: 10px; */
+  padding-left: 13px;
 }
 
 .container input {
@@ -40,17 +41,16 @@
 }
 
 @media (max-width: 768px) {
-  /* .container {
-    justify-content: ;
+  .container {
+    justify-content: space-between;
     align-items: center;
-    width: 50%;
-  } */
+    /* width: 100%; */
+  }
 
   .container input {
     width: 100%;
-    margin-bottom: 10px;
+    /* max-width: 100px; */
     font-style: italic;
-    margin: 0;
     font-size: 12px;
   }
 }

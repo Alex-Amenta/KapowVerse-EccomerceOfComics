@@ -1,4 +1,4 @@
-const { Comic, Purchase } = require('../../db');
+const { Comic, Purchase, Category } = require('../../db');
 // const comics = require('../../../data.json');
 const Op = require('sequelize');
 
@@ -17,15 +17,12 @@ const Op = require('sequelize');
 //     }
 // };
 
-const getAllComicsByFilters = async(page, pageSize, title, price, category, author, stock, sort, publish, active) => {
+const getAllComicsByFilters = async(page, pageSize, title, price, author, stock, sort, publish, active) => {
     try {
         const offset = (page - 1) * pageSize;
         const limit = pageSize;
         let whereCondition = {};
 
-        if (category) {
-            whereCondition.category = category;
-        }
         if (publish) {
             whereCondition.publish = publish;
         }
@@ -77,6 +74,13 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
                     model: Purchase,
                     attributes: ['id', 'comicId', 'userId'],
                 },
+                {
+                    model: Category,
+                    attributes: ['id', 'name'],
+                    through: {
+                        attributes: [],
+                    },
+                },
             ],
         });
 
@@ -85,7 +89,7 @@ const getAllComicsByFilters = async(page, pageSize, title, price, category, auth
 
         if (totalItems === 0) {
             await saveComicsToDatabase();
-            return await getAllComicsByFilters(page, pageSize, title, price, category, author, stock, sort,publish, active);
+            return await getAllComicsByFilters(page, pageSize, title, price, author, stock, sort,publish, active);
         }
 
         return {
@@ -109,12 +113,20 @@ const getAllComics = async () => {
             'title',
             'description',
             'price',
-            'category',
             'author',
             'image',
             'stock',
             'publisher',
             'active',
+        ],
+        include: [
+            {
+                model: Category,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                },
+            },
         ],
     });
     if (comic.length === 0) throw new Error('No hay comics para mostrar');

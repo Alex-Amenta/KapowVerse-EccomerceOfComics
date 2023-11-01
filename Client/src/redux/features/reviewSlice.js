@@ -23,7 +23,7 @@ export const fetchReviewByComic = createAsyncThunk(
 );
 
 export const createReview = createAsyncThunk(
-    'review/createReview', async ({ rating, comment, userId, comicId }, { rejectWithValue , dispatch}) => {
+    'review/createReview', async ({ rating, comment, userId, comicId }, { rejectWithValue, dispatch }) => {
         try {
             const { data } = await axios.post(URL, { rating, comment, userId, comicId });
             return data;
@@ -66,7 +66,7 @@ const reviewSlice = createSlice({
                 state.reviews.sort((a, b) => a.rating - b.rating);
             } else if (sortOrder === 'desc') {
                 state.reviews.sort((a, b) => b.rating - a.rating);
-            }else if (sortOrder === '') {
+            } else if (sortOrder === '') {
                 state.reviews = state.reviewsCopy;
             }
         },
@@ -102,7 +102,10 @@ const reviewSlice = createSlice({
             })
             .addCase(updateReview.fulfilled, (state, action) => {
                 const updatedReview = action.payload;
+
                 const index = state.reviews.findIndex((review) => review.id === updatedReview.id);
+
+                // Si se encuentra el índice (la revisión existe en el estado), actualiza la revisión en ese índice.
                 if (index !== -1) {
                     state.reviews[index] = updatedReview;
                 }
@@ -116,7 +119,7 @@ const reviewSlice = createSlice({
             })
             .addCase(deleteReview.fulfilled, (state, action) => {
                 const deletedReviewId = action.payload;
-                state.reviews = state.reviews.filter((review) => review.id !== deletedReviewId);
+                state.reviews = state.reviews.filter((review) => review.id === deletedReviewId);
             })
             .addCase(deleteReview.rejected, (state, action) => {
                 state.loading = false;

@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Rubik&display=swap");
+
+.container {
+  background-image: url("../../assets/error404-sinfondo.png");
+  background-position: right;
+  background-size: auto;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  height: 100vh;
+  font-family: "Bangers", sans-serif;
+
+  background-color: #e8e8e8;
+  position: relative;
+}
+.content {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 7rem;
+    width: 52%;
+    margin-top: 5rem;
+    gap: 1rem;
+}
+.content h1 {
+    font-size: 4.5rem;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.content h2 {
+    font-size: 3rem;
+    margin: 0;
+    /* letter-spacing: 1px; */
+    font-family: "Rubik", sans-serif;
+    
+}
+.content p {
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: "Rubik", sans-serif;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 2rem;
+}
+  
+.buttons .link {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: white;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+    overflow: hidden;
+}
+  
+.buttons .link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+}
+  
+.buttons .link:hover {
+    color: #e8e8e8;
+}
+  
+.buttons .link:hover::before {
+    width: 100%;
+}
+@media (max-width: 1250px) {
+    .container{
+        background-blend-mode: soft-light;
+    }
+}
+@media (max-width: 600px){
+    .content{
+        margin-left: 1rem;
+        width: 80%;
+    }
+  
+    .content p,h2 {
+        font-size: 1rem;
+    }
+  
+    .content h1 {
+        font-size: 3.5rem;
+    } 
+}

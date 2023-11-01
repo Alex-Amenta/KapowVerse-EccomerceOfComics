@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 //Requerimos dotenv
-require("dotenv").config({ path: path.resolve(__dirname, "./.env") });
+require("dotenv").config();
 
 //Obtenemos las variables del env
 const { DB_INT, DB_USER, DB_PASSWORD, DB_HOST, DEV} = process.env;
@@ -47,7 +47,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Relaciones
 
-const { Comic, User, Cart, CartItem, Purchase, Review } = sequelize.models;
+const { Comic, User, Purchase, Review, Favorite, Category, Token } = sequelize.models;
 
 
 // Relación User - Review
@@ -66,13 +66,16 @@ Purchase.belongsTo(User);
 Comic.hasMany(Purchase);
 Purchase.belongsTo(Comic);
 
-// Relación User - Cart
-User.hasOne(Cart);
-Cart.belongsTo(User);
+// Relación Comic - Favorite
+User.belongsToMany(Comic, { through: Favorite });
+Comic.belongsToMany(User, { through: Favorite });
 
-// Relación Cart - CartItem
-Cart.hasMany(CartItem);
-CartItem.belongsTo(Cart);
+Comic.belongsToMany(Category, { through: 'ComicCategory' });
+Category.belongsToMany(Comic, { through: 'ComicCategory' });
+
+// Relación User - Token
+User.hasMany(Token, { foreignKey: 'email' });
+Token.belongsTo(User, { foreignKey: 'email' });
 
 module.exports = {
 	...sequelize.models,

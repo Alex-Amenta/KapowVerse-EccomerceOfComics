@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
 import styles from "./Filters.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GradeIcon from "@mui/icons-material/Grade";
 import Modal from "react-modal";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Cart from "../cart/Cart";
+import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const InitialCreate = {
   category: "",
@@ -41,6 +42,7 @@ const Filters = ({
   const itemQuantity = useSelector((state) => state.cart.itemQuantity);
   const [input, setInput] = useState(InitialCreate);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const allCategories = useSelector((state) => state.category.allCategory);
 
   const textFromSection =
     pathname === "/comics"
@@ -106,8 +108,15 @@ const Filters = ({
     dispatch(resetFilters());
   }, [pathname]);
 
+  const darkMode = useSelector(selectDarkMode);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
+  }, [darkMode]);
+
+
   return (
-    <section className={styles.container}>
+    <section className={darkMode ? styles.container : styles.dark}>
       <div
         className={`${styles.textContainer} ${
           textFromSection === "Explore Our Diverse Collection!"
@@ -139,17 +148,12 @@ const Filters = ({
           onChange={handleCategory}
         >
           <option value="">Category</option>
-          <option value="Superheroes">Superheroes</option>
-          <option value="Science Fiction">Science Fiction</option>
-          <option value="Fantasy">Fantasy</option>
-          <option value="Adventure">Adventure</option>
-          <option value="Action">Action</option>
-          <option value="Horror">Horror</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Comedy">Comedy</option>
-          <option value="Drama">Drama</option>
-          <option value="Romance">Romance</option>
-          <option value="Suspense">Suspense</option>
+          {allCategories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+
         </select>
         {!hidePublisherFilter && (
           <select
@@ -178,7 +182,9 @@ const Filters = ({
             </Badge>
           </button>
           <button>
-            <GradeIcon fontSize="large" className={styles.starIcon} />
+            <Link to="/favorites">
+              <GradeIcon fontSize="large" className={styles.starIcon}/>
+            </Link>
           </button>
         </div>
       </div>
@@ -188,6 +194,8 @@ const Filters = ({
         contentLabel="Carrito de Compras"
         ariaHideApp={false}
         style={customModalStyles}
+        overlayClassName={darkMode ? "" : styles.dark__cart__overlay}
+        className={darkMode ? "" : styles.dark__cart}
       >
         <button className={styles.closeModal} onClick={closeModal}>
           <ArrowBackIcon />

@@ -2,20 +2,17 @@ const { getAllComicsByFilters, getAllComics } = require('../controllers/comic/ge
 const { getComicByTitle } = require('../controllers/comic/getComicByTitle');
 const { getComicsById } = require('../controllers/comic/getComicById');
 const { createComic } = require('../controllers/comic/postComic');
-const { deleteComic } = require('../controllers/comic/deleteComic');
+const { toggleComicStatus } = require('../controllers/comic/toggleComicStatus');
 const { updateComic } = require('../controllers/comic/updateComic');
+const { getOne } = require('../controllers/category/categoryController');
 
-const multer = require("multer");
 const getComicsRelated = require('../controllers/comic/getComicsRelaeted');
 const cloudinary = require("cloudinary").v2;
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 
 const getAllComicsByFiltersHandler = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = parseInt(req.query.pageSize) || 4;
-        const category = req.query.category || null;
         const price = req.query.price || null;
         const stock = req.query.stock || null;
         const title = req.query.title || '';
@@ -26,7 +23,6 @@ const getAllComicsByFiltersHandler = async (req, res) => {
         const result = await getAllComicsByFilters(
             page,
             pageSize,
-            category,
             price,
             stock,
             title,
@@ -38,7 +34,7 @@ const getAllComicsByFiltersHandler = async (req, res) => {
         if (!result) {
             let message = `No se han encontrado resultados`;
 
-            if (category || price || sort || author || active) {
+            if ( price || sort || author || active) {
                 message += ` para los filtros especificados`;
             }
 
@@ -120,8 +116,8 @@ const getComicsRelatedHandler = async (req, res) => {
 
 
 const postComicHandler = async (req, res) => {
-    const { title, description, price, stock, category, author, publisher } = req.body;
-
+    const { title, description, price, stock, author, publisher, categories  } = req.body;
+    console.log("categories: antes del coso", categories)
     try {
         const imagenDataUri = `data:${req.files[0].mimetype
             };base64,${req.files[0].buffer.toString("base64")}`;
@@ -135,27 +131,32 @@ const postComicHandler = async (req, res) => {
             imagen.secure_url,
             price,
             stock,
-            category,
             author,
             publisher,
-        );
+            categories
+        ); //TODO verificar que los categoryIds proporcionados realmente existen en tu base de datos antes de intentar crear un cómic.
         return res.status(201).json(createdComic || {});
     } catch (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(error)
+        return res.status(400).json({message:"Error trying to create comic", error: error.message });
     }
 };
 
 
 
-const deleteComicHandler = async (req, res) => {
+const toggleComicHandler = async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await deleteComic(id);
-        response
-            ? res.status(200).json({ message: 'Cómic eliminado exitosamente' })
-            : res.status(404).json({ message: 'Cómic no encontrado' });
+        const response = await toggleComicStatus(id);
+        if (response) {
+            res.status(200).json({
+                message: response.active ? 'Cómic reactivado exitosamente' : 'Cómic desactivado exitosamente'
+            });
+        } else {
+            res.status(404).json({ message: 'Cómic no encontrado' });
+        }
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar el cómic' });
+        res.status(500).json({ message: 'Error al cambiar el estado del cómic' });
     }
 };
 
@@ -163,7 +164,7 @@ const deleteComicHandler = async (req, res) => {
 const updateComicHandler = async (req, res) => {
     const { id } = req.params;
     const updatedComicData = req.body;
-
+    console.log("ucd: ", updatedComicData)
     try {
         if (req.file) {
             const imagenDataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
@@ -172,7 +173,7 @@ const updateComicHandler = async (req, res) => {
             });
             updatedComicData.image = imagen.secure_url;
         } else if (!updatedComicData.image) {
-            const existingComic = await getComicById(id);
+            const existingComic = await getComicsById(id);
             updatedComicData.image = existingComic.image;
         }
 
@@ -181,20 +182,78 @@ const updateComicHandler = async (req, res) => {
         if (updatedComic) {
             return res.status(200).json({ message: 'Cómic actualizado exitosamente', updatedComic });
         } else {
-            return res.status(404).json({ message: 'Cómic no encontrado' });
+            return res.status(404).json({ message: 'Cómic no encontrado', error: error.message });
         }
     } catch (error) {
         return res.status(500).json({ message: 'Error al actualizar el cómic' });
     }
 };
 
+const addCategoryToComic = async (req, res) => {
+    const { comicId } = req.params;
+    const { categoryId } = req.body;
+    console.log()
+    if (!categoryId) {
+        return res.status(400).json({ message: 'You must provide a category' });
+    }
+    if (!comicId) {
+        return res.status(400).json({ message: 'You must provide a comic' });
+    }
+
+    try {
+        const comic = await getComicsById(comicId);
+        if (!comic) {
+            return res.status(404).json({ message: 'Comic not found' });
+        }
+
+        const category = await getOne({id:categoryId});
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        await comic.addCategory(category);
+        return res.status(200).json({ message: 'Category added successfully' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error adding category to comic', error: error.message });
+    }
+};
+
+const removeCategoryFromComic = async (req, res) => {
+    const { comicId, categoryId } = req.params;
+    if (!categoryId) {
+        return res.status(400).json({ message: 'You must provide a category' });
+    }
+    if (!comicId) {
+        return res.status(400).json({ message: 'You must provide a comic' });
+    }
+
+    try {
+        const comic = await getComicsById(comicId);
+        if (!comic) {
+            return res.status(404).json({ message: 'Comic not found' });
+        }
+
+        const category = await getOne({id:categoryId});
+        if (!category) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+
+        await comic.removeCategory(category);
+        return res.status(200).json({ message: 'Category removed successfully' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Error removing category from comic', error: error.message });
+    }
+
+};
 
 module.exports = {
     getAllComicsByFiltersHandler,
     getAllComicsHandler,
     getComicsByIdHandler,
     postComicHandler,
-    deleteComicHandler,
+    toggleComicHandler,
     updateComicHandler,
-    getComicsRelatedHandler
+    getComicsRelatedHandler,
+    addCategoryToComic,
+    removeCategoryFromComic
 };

@@ -14,12 +14,9 @@ const getAllReviewsHandler = async (req, res) => {
 };
 
 const getReviewsByIdHandler = async (req, res) => {
-    const reviewId = req.params.id;
+    const { comicId } = req.params;
     try {
-        const review = await getReviewById(reviewId);
-        if (!review) {
-            return [];
-        }
+        const review = await getReviewById(comicId);
         res.status(200).json(review);
     } catch (error) {
         res.status(404).json({ error: error.message });
@@ -37,7 +34,7 @@ const postReviewHandler = async (req, res) => {
 };
 
 const updateReviewHandler = async (req, res) => {
-    const reviewId = req.params.id;
+    const reviewId = req.params.reviewId;
     const { rating, comment } = req.body;
 
     try {
@@ -58,14 +55,8 @@ const updateReviewHandler = async (req, res) => {
 };
 
 const deleteReviewHandler = async (req, res) => {
-    const reviewId = req.params.id;
-
+    const reviewId = req.params.reviewId;
     try {
-        const review = await getReviewById(reviewId);
-        if (!review) {
-            return res.status(404).json({ error: 'Reseña no encontrada' });
-        }
-        // Eliminar la review
         await deleteReview(reviewId);
         res.sendStatus(204);
     } catch (error) {
