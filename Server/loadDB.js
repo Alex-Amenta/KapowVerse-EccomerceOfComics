@@ -1,11 +1,12 @@
-const { Comic, User, Category } = require('./src/db');
+const { Comic, User, Category, Purchase } = require('./src/db');
 const data  = require('./data.json');
 
 const loadDB = async () => {
     const transaction = await Comic.sequelize.transaction();
+    const userTransaction = await User.sequelize.transaction();
+    const purchaseTransaction = await Purchase.sequelize.transaction();
 
-
-
+    // comics y categorias.
     try {
         // Load categories first
         for (const category of data.categories) {
@@ -16,6 +17,7 @@ const loadDB = async () => {
             });
         }
 
+        // Load comics
         for (const comic of data.comics) {
             const { categories, ...comicData } = comic;
             const [comicInstance] = await Comic.findOrCreate({
@@ -24,7 +26,7 @@ const loadDB = async () => {
                 transaction,
             });
         
-            // Assuming you have a many-to-many relationship with a through table
+            // Load categories for each comic
             await comicInstance.setCategories(categories, { transaction });
         }
         await transaction.commit();
@@ -35,10 +37,51 @@ const loadDB = async () => {
         throw error;
     }
 
+    // user
     try {
-        await User.create({ name: "admin", email: "admin@admin.com", password: "password", role: 'admin', image: "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png", active: true });
+        for (const usuario of data.user) {
+            await User.findOrCreate({
+                where: { email: usuario.email },
+                defaults: usuario,
+                userTransaction,
+            });
+        }
+        await userTransaction.commit();
     } catch (error) {
-        console.error('Error al crear el usuario admin:', error);
+        await userTransaction.rollback();
+        console.error('Error al crear los usuarios:', error);
+        throw error;
+    }
+
+    // purchase
+    try {
+        for (const purchase of data.purchases) {
+            const { userId, comicId } = purchase;
+            const comicInstance = await Comic.findByPk(comicId, {
+                transaction: purchaseTransaction,
+            });
+            purchase.total = (comicInstance.price * purchase.quantity).toFixed(2);
+
+            const purchaseInstance = await Purchase.create(purchase, {
+                transaction: purchaseTransaction,
+            });
+
+            const userInstance = await User.findByPk(userId, {
+                transaction: purchaseTransaction,
+            });
+
+
+            await purchaseInstance.setUser(userInstance, {
+                transaction: purchaseTransaction,
+            });
+            await purchaseInstance.setComic(comicInstance, {
+                transaction: purchaseTransaction,
+            });
+        }
+        await purchaseTransaction.commit();
+    } catch (error) {
+        await purchaseTransaction.rollback();
+        console.error('Error al crear purchase:', error);
         throw error;
     }
 };
