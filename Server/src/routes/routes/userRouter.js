@@ -1,9 +1,11 @@
 const { Router } = require('express');
-const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken, resender } = require('../../handlers/userHandler');
+const { getAllUsersHandler, getUserByIdHandler, postUserHandler, updateUserHandler, toggleUserActiveHandler, loginUserHandler, deleteAccountHandler, userActivateByToken, resender, ResetPassword, changePassword } = require('../../handlers/userHandler');
 const {googleLoginUserHandler} = require('../../handlers/googleLoginHandler');
 
 const verifyJWT = require('../../utils/verifyJwt');
 const verifyAdmin = require('../../utils/verifyIsAdmin');
+
+const verifyJwtPassword = require('../../utils/verifyJwtPassword')
 
 const userRouter = Router();
 
@@ -24,6 +26,11 @@ userRouter.post('/verify/:token', userActivateByToken)
 userRouter.post('/register', postUserHandler); // sign up
 userRouter.post('/login', loginUserHandler); // login
 
+
+
+// para restaurar contraseña
+userRouter.post('/reset-password', ResetPassword);
+userRouter.post('/reset-password/:token', changePassword)
 
 
 module.exports = userRouter;

@@ -1,148 +1,148 @@
 .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 50vh;
-    font-family: 'Bangers', sans-serif;
-    gap: 1rem;
-    font-size: larger;
-  }
-  
-  .container h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .container p {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .container button {
-    width: 140px;
-    font-weight: bold;
-    height: 40px;
-    margin: 1rem 0;
-    border: 2px solid rgb(0, 0, 0);
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .container button:hover {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .container button:active {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .container button:focus {
-    outline: none;
-  }
-  
-  .container button:disabled {
-    background-color: #b63232;
-    color: white;
-    cursor: not-allowed;
-  }
-  
-  .container button:disabled:hover {
-    background-color: #b63232;
-    color: white;
-  }
-  
-  .container button:disabled:active {
-    background-color: #b63232;
-    color: white;
-  }
-  
-  .container button:disabled:focus {
-    outline: none;
-  }
-  
-  .container button a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  .container button a:hover {
-    text-decoration: none;
-    color: white;
-  }
-  
-  .container button a:active {
-    text-decoration: none;
-    color: white;
-  }
-  
-  .container button a:focus {
-    outline: none;
-  }
-  
-  .container button a:disabled {
-    text-decoration: none;
-    color: white;
-    cursor: not-allowed;
-  }
-  
-  .container button a:disabled:hover {
-    text-decoration: none;
-    color: white;
-  }
-  
-  .container button a:disabled:active {
-    text-decoration: none;
-    color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 70vh;
+  font-family: 'Bangers', sans-serif;
+  gap: 1rem;
+  font-size: larger;
+}
+
+.container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.container button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.container button:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.container button:active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.container button:focus {
+  outline: none;
+}
+
+.container button:disabled {
+  background-color: #b63232;
+  color: white;
+  cursor: not-allowed;
+}
+
+.container button:disabled:hover {
+  background-color: #b63232;
+  color: white;
+}
+
+.container button:disabled:active {
+  background-color: #b63232;
+  color: white;
+}
+
+.container button:disabled:focus {
+  outline: none;
+}
+
+.container button a {
+  text-decoration: none;
+  color: black;
+}
+
+.container button a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.container button a:active {
+  text-decoration: none;
+  color: white;
+}
+
+.container button a:focus {
+  outline: none;
+}
+
+.container button a:disabled {
+  text-decoration: none;
+  color: white;
+  cursor: not-allowed;
+}
+
+.container button a:disabled:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.container button a:disabled:active {
+  text-decoration: none;
+  color: white;
 }
 
 .input {
-    width: 30%;
-    height: 25px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid black;
+  width: 30%;
+  height: 25px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 .containerToast {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .toastButtons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .toastButtons button {
-    width: 140px;
-    font-weight: bold;
-    height: 40px;
-    margin: 1rem 0;
-    border: 2px solid rgb(0, 0, 0);
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-decoration: none;
-    color: black;
-  }
-  
-  .toastButtons button:nth-child(1):hover {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .toastButtons button:nth-child(2):hover {
-    background-color: #b63232;
-    color: white;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.toastButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toastButtons button {
+  width: 140px;
+  font-weight: bold;
+  height: 40px;
+  margin: 1rem 0;
+  border: 2px solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  color: black;
+}
+
+.toastButtons button:nth-child(1):hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toastButtons button:nth-child(2):hover {
+  background-color: #b63232;
+  color: white;
+}

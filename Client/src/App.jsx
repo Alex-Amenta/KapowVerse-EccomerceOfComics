@@ -27,7 +27,7 @@ import LogAdmin from "./components/logAdmin/LogAdmin";
 import Favorites from "./components/Favorites/Favorites";
 import Purchases from "./components/purchases/Purchases";
 import ErrorPage from "./views/page-error/PageError";
-
+import Reset from "./components/reset-password/Reset";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ function App() {
         <Route path="/activate/:token?" element={<Activate />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/purchases" element={<Purchases />} />
+        <Route path="/reset-password" element={<Reset />} />
 
         {/* Rutas protegidas para admin */}
         <Route element={<AdminGuard />}>
