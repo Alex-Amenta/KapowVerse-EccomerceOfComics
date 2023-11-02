@@ -77,9 +77,7 @@ function Reviews() {
 
     if (newRating >= 1 && newRating <= 5) {
       // Verificar si el usuario ya ha creado una review de este cómic
-      const hasReviewed = reviews.some(
-        (review) => review.user?.id === user?.id
-      );
+      const hasReviewed = reviews.some((review) => review.userId === user?.id);
 
       if (hasReviewed) {
         toast.error("You have already reviewed this comic", {
@@ -191,8 +189,13 @@ function Reviews() {
                   </div>
                 )}
               </div>
-                <Rating name="read-only" className={styles.starIconReview} value={Number(review.rating)} readOnly />
-                <p>{review.comment}</p>
+              <Rating
+                name="read-only"
+                className={styles.starIconReview}
+                value={Number(review.rating)}
+                readOnly
+              />
+              <p>{review.comment}</p>
             </div>
           ))}
         </div>

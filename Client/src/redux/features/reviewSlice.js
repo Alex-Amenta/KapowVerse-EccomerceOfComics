@@ -91,7 +91,13 @@ const reviewSlice = createSlice({
             })
             .addCase(createReview.fulfilled, (state, action) => {
                 state.loading = false;
-                state.reviews.push(action.payload);
+                const { reviews } = state;
+                const newReview = action.payload;
+                const hasReviewed = reviews.some((review) => review.userId === newReview.userId);
+                
+                if (!hasReviewed) {
+                    state.reviews.push(newReview);
+                }
             })
             .addCase(createReview.rejected, (state, action) => {
                 state.loading = false;
