@@ -170,14 +170,14 @@ const resender = async (req, res) => {
 	try {
 		const user = await getUserById(id);
 		if (user) {
-			if (!user.dataValues.active) {
+			if (!user.dataValues.verified) {
 				sendEmailConPlantilla(user.email, "Resend", {
 					userName: user.dataValues.name,
 					activationToken: user.dataValues.activationToken,
 				});
 				res.status(200).json({ message: "Email sent!" });
 			} else {
-				res.status(401).json({ message: "User already activated" });
+				res.status(401).json({ message: "User already verified" });
 			}
 		} else {
 			res.status(401).json({ message: "User does not exist." });
@@ -219,9 +219,9 @@ const changePassword = async (req, res) => {
 		if (user) {
 			await updatePassword(user.email, newPassword);
 
-			res.status(200).json({ message: 'Contraseña actualizada con éxito' });
+			res.status(200).json({ message: 'Password updated' });
 		} else {
-			res.status(401).json({ message: 'Token de restablecimiento de contraseña inválido' });
+			res.status(401).json({ message: 'Invalid token' });
 		}
 	} catch (error) {
 		console.error('Error:', error)
