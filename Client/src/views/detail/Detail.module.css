@@ -164,6 +164,13 @@
   width: 100%;
 }
 
+.containerButtons button:last-child:disabled {
+  background-color: gray;
+  color: rgba(211, 211, 211, 0.625);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .icons {
   margin-left: 10px;
 }

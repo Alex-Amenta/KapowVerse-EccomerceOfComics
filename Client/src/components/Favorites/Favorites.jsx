@@ -14,7 +14,6 @@ const Favorites = () => {
 	const user = useSelector((state) => state.user.user);
 	const userId = user ? user.id : null;
 	const favorites = useSelector((state) => state.favorite.favorites);
-	const isLoading = useSelector((state) => state.favorite.loading);
 	const filteredFavorites = useSelector(
 		(state) => state.favorite.filteredFavorites
 	);
@@ -33,7 +32,6 @@ const Favorites = () => {
 		<>
 			<NavBar />
 			<div className={styles.container}>
-				{isLoading && <div className={styles.loaderDiv}>Loading...</div>}
 				{user && favorites.length == 0 ? (
 					<div className={styles.notFavorites}>
 						<h3 style={darkMode ? { color: "black" } : { color: "white" }}>

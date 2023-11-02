@@ -7,6 +7,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import {  toast } from "react-hot-toast";
 import Navbar from "../navbar/Navbar";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import { Link } from "react-router-dom";
 
 function Login() {
   const logState = useSelector((state) => state.user.logState);
@@ -125,6 +126,7 @@ function Login() {
           Login
         </button>
 
+        <p>Did you forget your password? <Link to='/reset-password' className={styles.link}>Reset password</Link></p> <br />
         <GoogleLogin
           className={styles.googleButton}
           size="3rem"
