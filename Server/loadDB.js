@@ -1,10 +1,11 @@
-const { Comic, User, Category, Purchase } = require('./src/db');
-const data  = require('./data.json');
+const { Comic, User, Category, Purchase, Review } = require('./src/db');
+const data = require('./data.json');
 
 const loadDB = async () => {
     const transaction = await Comic.sequelize.transaction();
     const userTransaction = await User.sequelize.transaction();
     const purchaseTransaction = await Purchase.sequelize.transaction();
+    const reviewTransaction = await Review.sequelize.transaction();
 
     // comics y categorias.
     try {
@@ -25,7 +26,7 @@ const loadDB = async () => {
                 defaults: comicData,
                 transaction,
             });
-        
+
             // Load categories for each comic
             await comicInstance.setCategories(categories, { transaction });
         }
@@ -82,6 +83,36 @@ const loadDB = async () => {
     } catch (error) {
         await purchaseTransaction.rollback();
         console.error('Error al crear purchase:', error);
+        throw error;
+    }
+
+    try {
+        // Cargar revisiones
+        for (const review of data.reviews) {
+            const { userId, comicId, rating, comment } = review;
+
+            // Obtener el usuario correspondiente al userId
+            const user = await User.findByPk(userId, {
+                transaction: reviewTransaction,
+            });
+
+            if (user) {
+                // Crear la revisión con el nombre y la imagen del usuario
+                await Review.create({
+                    userId,
+                    comicId,
+                    rating,
+                    comment,
+                    name: user.name,
+                    image: user.image,
+                });
+            }
+        }
+
+        await reviewTransaction.commit();
+    } catch (error) {
+        await reviewTransaction.rollback();
+        console.error('Error al crear los usuarios:', error);
         throw error;
     }
 };

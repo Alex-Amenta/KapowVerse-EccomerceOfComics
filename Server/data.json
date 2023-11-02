@@ -146,6 +146,20 @@
 			"purchaseDate": "2023-05-01T05:57:22.316Z"
 		}
 	],
+	"reviews": [
+		{
+		  "userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+		  "comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
+		  "rating": 5,
+		  "comment": "Great comic!"
+		},
+		{
+		  "userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
+		  "comicId": "3f7ed6cc-d1c5-4e35-9bb6-c6da8a488618",
+		  "rating": 4,
+		  "comment": "Nice comic!"
+		}
+	  ],
 	"categories": [
 		{
 			"name": "Superheroes"
