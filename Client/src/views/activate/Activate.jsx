@@ -22,12 +22,12 @@ function Activate() {
 					});
 					const newUser = JSON.parse(localStorage.getItem("userlog"));
 					if (newUser) {
-						newUser.active = true;
+						newUser.verified = true;
 						localStorage.setItem("userlog", JSON.stringify(newUser));
 					} else {
 						localStorage.setItem(
 							"userlog",
-							JSON.stringify({ ...res.data.user, active: true })
+							JSON.stringify({ ...res.data.user, verified: true })
 						);
 					}
 
