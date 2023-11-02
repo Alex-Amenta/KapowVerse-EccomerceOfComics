@@ -1,17 +1,17 @@
 const { User } = require('../../db');
 
-const toggleVerifyStatus = async (id) => {
+const toggleVerifyStatus = async (id, status) => {
     const user = await User.findByPk(id);
 
     if (!user) {
         throw new Error('User not found');
     }
 
-    const updatedStatus = !user.verified;
+    if (status !== user.verified) {
+        await user.update({ verified: status });
+    }
 
-    await user.update({ verified: updatedStatus });
-
-    return { verified: updatedStatus };
+    return { verified: status };
 };
 
 module.exports = toggleVerifyStatus;
