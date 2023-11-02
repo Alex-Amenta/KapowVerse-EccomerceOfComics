@@ -28,7 +28,7 @@ function LandingPage() {
         </div>
         <div className={styles.socialNetworks}>
           <a
-            href="https://es-la.facebook.com/"
+            href="https://www.facebook.com/profile.php?id=61553242162593"
             target="_blank"
             title="Facebook"
             rel="noopener noreferrer"
@@ -36,7 +36,7 @@ function LandingPage() {
             <FacebookIcon />
           </a>
           <a
-            href="https://www.instagram.com/"
+            href="https://www.instagram.com/kapow_verse/"
             target="_blank"
             title="Instagram"
             rel="noopener noreferrer"
@@ -44,7 +44,7 @@ function LandingPage() {
             <InstagramIcon />
           </a>
           <a
-            href="https://twitter.com/?lang=es"
+            href="https://twitter.com/KapowVerse65266"
             target="_blank"
             title="Twitter"
             rel="noopener noreferrer"
