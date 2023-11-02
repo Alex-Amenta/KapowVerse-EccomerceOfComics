@@ -103,8 +103,21 @@
   .deleteButton:hover {
     color: red;
   }
-}
 
+  
+}
+.dark p {
+  margin-top: 0;
+}
 .dark b {
   color: #e0d7d5;
+}
+
+.dark h3 {
+  height: 68.7px;
+  overflow: hidden;
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

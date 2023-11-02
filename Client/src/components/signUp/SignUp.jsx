@@ -108,7 +108,7 @@ function SignUp() {
         setRes("User created successfully!");
 		setTimeout(() => {
 			window.location = "/activate";
-		}, 2000);
+		}, 1000);
       })
       .catch((err) => {
         if (err.response && err.response.data)

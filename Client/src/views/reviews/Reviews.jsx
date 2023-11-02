@@ -191,7 +191,7 @@ function Reviews() {
                   </div>
                 )}
               </div>
-                <Rating name="read-only" value={Number(review.rating)} readOnly />
+                <Rating name="read-only" className={styles.starIconReview} value={Number(review.rating)} readOnly />
                 <p>{review.comment}</p>
             </div>
           ))}
@@ -208,6 +208,7 @@ function Reviews() {
             <Rating
               name="simple-controlled"
               value={Number(newRating)}
+              className={styles.starIconReview}
               onChange={(e) => setNewRating(e.target.value)}
             />
           </div>

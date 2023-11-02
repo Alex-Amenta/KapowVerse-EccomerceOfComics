@@ -30,6 +30,8 @@ function Detail() {
   const user = useSelector((state) => state.user.user);
   const darkMode = useSelector(selectDarkMode);
   const [response, setResponse] = useState("pending");
+  const cart = useSelector((state) => state.cart.cart);
+  const items = useSelector((state) => state.comic.allComics);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,23 +54,25 @@ function Detail() {
   };
 
   const handleAddToCart = () => {
-    const { id, title, description, price, category, author, image, stock } =
-      comics;
-    dispatch(
-      addItemToCart({
-        id,
-        title,
-        description,
-        price,
-        category,
-        author,
-        image,
-        stock,
-      })
-    );
-    toast.success("Item added to cart successfully!", {
-      position: "bottom-center",
-    });
+    const comic = items.find((item) => item.id === id);
+    const cartItem = cart.find((item) => item.id === id);
+
+    if (!comic || (cartItem && cartItem.quantity === comic.stock)) {
+      toast.error("Item out of stock or maximum quantity reached", {
+        position: "bottom-center",
+      });
+      return;
+    }
+
+    if (cartItem) {
+      toast.error("Item is already in the cart", {
+        position: "bottom-center",
+        id: "error",
+      });
+    } else {
+      dispatch(addItemToCart(comic));
+      toast.success("Item added to cart!", { position: "bottom-center" });
+    }
   };
 
   const handleAddFavorite = () => {

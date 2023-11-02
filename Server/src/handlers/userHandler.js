@@ -7,6 +7,7 @@ const getUserById = require("../controllers/user/getUserById");
 const postUser = require("../controllers/user/postUser");
 const updateUser = require("../controllers/user/updateUser");
 const toggleActiveStatus = require("../controllers/user/toggleActiveStatus");
+const toggleVerifyStatus = require("../controllers/user/toggleVerifyStatus");
 const sendEmailConPlantilla = require("../nodemailer/plantillaEmail");
 const deleteAccount = require("../controllers/user/deleteAccount");
 const actTokenController = require("../controllers/user/actTokenController");
@@ -88,8 +89,8 @@ const userActivateByToken = async (req, res) => {
 		const user = await actTokenController(token);
 		if (user) {
 			if (token == user.activationToken) {
-				await toggleActiveStatus(user.id, true);
-				res.status(200).json({ message: "User activated!", user: user });
+				await toggleVerifyStatus(user.id, true);
+				res.status(200).json({ message: "User activated!", user: await actTokenController(token) });
 			} else {
 				res.status(401).json({ message: "Invalid token" });
 			}

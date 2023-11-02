@@ -47,6 +47,7 @@ export const loginUser = createAsyncThunk(
     async (user, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(`${URL}/login`, user);
+            console.log(data)
             return data;
         } catch (error) {
             if (error.response) {
@@ -137,7 +138,7 @@ export const deleteAccount = createAsyncThunk(
     'user/deleteAccount',
     async (userId, { rejectWithValue }) => {
         try {
-            const { data } = await axios.delete(`/user/${userId}/delete`);
+            const { data } = await axios.delete(`${URL}/${userId}/delete`);
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data);

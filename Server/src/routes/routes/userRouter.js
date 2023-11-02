@@ -16,14 +16,14 @@ userRouter.put('/toggle/:id',verifyJWT, verifyAdmin, toggleUserActiveHandler);
 // para el user
 userRouter.get('/:id',verifyJWT, getUserByIdHandler); // profile
 userRouter.put('/:id',verifyJWT, updateUserHandler);
-userRouter.delete('/:id/delete', verifyJWT, deleteAccountHandler);
 userRouter.post('/resend/:id',verifyJWT, resender); // resend email')
 
+userRouter.delete('/:id/delete', deleteAccountHandler);
 
 // estas rutas no pueden tener verify JWT porque no tienen token
 userRouter.post('/auth', googleLoginUserHandler); 
 userRouter.post('/verify/:token', userActivateByToken)
-userRouter.post('/register', postUserHandler); // sign up
+userRouter.post('/register', postUserHandler); // sign up   
 userRouter.post('/login', loginUserHandler); // login
 
 

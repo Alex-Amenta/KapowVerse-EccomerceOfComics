@@ -126,7 +126,7 @@ const FilterFavorites = ({
 };
 
 FilterFavorites.propTypes = {
-  filterOptions: PropTypes.object.isRequired,
+  filterOptions: PropTypes.array,
 };
 
 export default FilterFavorites;
