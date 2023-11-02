@@ -1,7 +1,7 @@
 const { User } = require("../../db");
 
 const checkOrCreate = async (name, email, image, password) => {
-	if (!name || !email) throw new Error("No se pudo crear el usuario");
+	if (!name || !email) throw new Error("Name and email are required");
 
 	try {
 		const user = await User.findOrCreate({
@@ -14,7 +14,7 @@ const checkOrCreate = async (name, email, image, password) => {
 				image: image,
 				password: password,
 				active: true,
-				verified: false,
+				verified: true,
 			},
 		});
 		return user[0]; // [user, created]

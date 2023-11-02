@@ -43,7 +43,7 @@ const updatePassword = async (userEmail, newPassword) => {
         user.password = newPassword;
         await user.save();
 
-        return { message: 'Contraseña actualizada correctamente' };
+        return { message: 'Password updated!' };
     } catch (error) {
         throw error;
     }
