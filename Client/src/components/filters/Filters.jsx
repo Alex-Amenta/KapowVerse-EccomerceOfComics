@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterAndSort, resetFilters } from "../../redux/features/comicSlice";
@@ -10,6 +11,7 @@ import Modal from "react-modal";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Cart from "../cart/Cart";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import PropTypes from "prop-types";
 
 const InitialCreate = {
   category: "",
@@ -35,7 +37,6 @@ const Filters = ({
   onFilterChange,
   filterOptions,
   hidePublisherFilter,
-  noCategoryComics,
 }) => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -207,6 +208,13 @@ const Filters = ({
       </Modal>
     </section>
   );
+};
+
+
+Filters.propTypes = {
+  filterOptions: PropTypes.object.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  hidePublisherFilter: PropTypes.bool,
 };
 
 export default Filters;

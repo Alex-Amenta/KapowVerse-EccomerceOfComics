@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CreateComic.module.css";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import { createComic } from "../../../redux/features/comicSlice";
-import { Toaster, toast } from "react-hot-toast";
-import imageAlert from "../../../assets/murcielagos.png";
-import axios from "axios";
-import base_url from "../../../utils/development";
+import {  toast } from "react-hot-toast";
 import NavbarAdmin from "../navbar/NavbarAdmin";
-import { fetchComics } from "../../../redux/features/comicSlice";
-import { fetchCategories } from "../../../redux/features/categorySlice";
 
 const initialFormData = {
 	title: "",
