@@ -93,7 +93,7 @@ const NavbarAdmin = () => {
           Categories
         </NavLink>
         <NavLink onClick={handleLogout} to="/home" className={styles.goBack}>
-          <ExitToAppIcon /> Logout
+          <ExitToAppIcon /> Go back
         </NavLink>
       </div>
     </nav>

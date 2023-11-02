@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import styles from "./UserList.module.css";
-import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchUsers,
   toggleUserActiveStatus,
 } from "../../../redux/features/userSlice";
 import {
@@ -16,7 +13,6 @@ import {
   TableCell,
   Paper,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import BlockIcon from "@mui/icons-material/Block";
 import RestoreIcon from "@mui/icons-material/Restore";
 import UserSearch from "../userSearch/UserSearch";
@@ -71,6 +67,7 @@ const UserList = () => {
                 <TableCell>Email</TableCell>
                 <TableCell>Role</TableCell>
                 <TableCell>State</TableCell>
+                <TableCell>Verify</TableCell>
                 <TableCell>Block user</TableCell>
               </TableRow>
             </TableHead>
@@ -88,6 +85,7 @@ const UserList = () => {
                   <TableCell>{user.email}</TableCell>
                   <TableCell>{user.role}</TableCell>
                   <TableCell>{user.active ? "active" : "inactive"}</TableCell>
+                  <TableCell>{user.verify ? "active" : "inactive"}</TableCell>
                   <TableCell>
                     <button
                       onClick={() => handleToggleStatus(user.id, user.active)}

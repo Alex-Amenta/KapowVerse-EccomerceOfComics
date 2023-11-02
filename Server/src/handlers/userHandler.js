@@ -192,7 +192,6 @@ const ResetPassword = async (req, res) => {
 		const user = await getUserByEmail(email);
 		if (user) {
 			const resetPasswordToken = await generateResetPasswordToken(email);
-			console.log("Reset Password Token:", resetPasswordToken);
 			// sendEmailConPlantilla(email, resetPasswordToken);
 			sendEmailConPlantilla(user.email, "Reset", {
 				userName: user.dataValues.name,

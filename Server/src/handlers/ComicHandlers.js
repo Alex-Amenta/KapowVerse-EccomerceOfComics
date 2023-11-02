@@ -117,7 +117,6 @@ const getComicsRelatedHandler = async (req, res) => {
 
 const postComicHandler = async (req, res) => {
     const { title, description, price, stock, author, publisher, categories  } = req.body;
-    console.log("categories: antes del coso", categories)
     try {
         const imagenDataUri = `data:${req.files[0].mimetype
             };base64,${req.files[0].buffer.toString("base64")}`;
@@ -164,7 +163,6 @@ const toggleComicHandler = async (req, res) => {
 const updateComicHandler = async (req, res) => {
     const { id } = req.params;
     const updatedComicData = req.body;
-    console.log("ucd: ", updatedComicData)
     try {
         if (req.file) {
             const imagenDataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
@@ -192,7 +190,6 @@ const updateComicHandler = async (req, res) => {
 const addCategoryToComic = async (req, res) => {
     const { comicId } = req.params;
     const { categoryId } = req.body;
-    console.log()
     if (!categoryId) {
         return res.status(400).json({ message: 'You must provide a category' });
     }

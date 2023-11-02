@@ -56,7 +56,7 @@ const Navbar = () => {
 			</div>
 			<div className={menuOpen ? styles.linksMobile : styles.linkContainer}>
 				{menuOpen && (
-					<button onClick={() => setMenuOpen(false)}>
+					<button aria-label="hamburger" onClick={() => setMenuOpen(false)}>
 						<CloseIcon
 							className={styles.closeButton}
 							fontSize="large"

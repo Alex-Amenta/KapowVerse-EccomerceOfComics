@@ -4,7 +4,6 @@ const postFavorite = async (userId, comicId) => {
     const comic = await Comic.findByPk(comicId);
     const user = await User.findByPk(userId)
     
-    console.log(user);
     if (!comic || !user) {
         throw new Error('User or comic not found');
     };

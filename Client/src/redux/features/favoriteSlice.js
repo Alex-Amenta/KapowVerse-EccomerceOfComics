@@ -58,7 +58,7 @@ const favoriteSlice = createSlice({
 			}
 			let favs = [...state.favorites];
 			if (action.payload.category !== '') {
-				comics = comics.filter(comic => 
+				favs = favs.filter(comic => 
 					comic.categories.some(category => category.name === action.payload.category)
 				);
 			}
@@ -77,7 +77,7 @@ const favoriteSlice = createSlice({
 			}
 			state.filteredFavorites = favs;
 		},
-		resetFilters: (state, action) => {
+		resetFilters: (state) => {
 			state.filteredFavorites = state.favorites;
 		},
 		favoriteCategory: (state, action) => {
@@ -112,9 +112,8 @@ const favoriteSlice = createSlice({
 		builder.addCase(createFavorites.pending, (state) => {
 			state.loading = true;
 		});
-		builder.addCase(createFavorites.fulfilled, (state, action) => {
+		builder.addCase(createFavorites.fulfilled, (state) => {
 			state.loading = false;
-			// state.favorites = [...state.favorites, action.payload];
 			state.error = "";
 		});
 		builder.addCase(createFavorites.rejected, (state, action) => {

@@ -8,8 +8,6 @@ import Navbar from "../../components/navbar/Navbar";
 
 function Activate() {
 	const { token } = useParams();
-	const user = JSON.parse(localStorage.getItem("userlog"));
-	console.log(user);
 	const [input, setInput] = useState(token || "");
 
 	const activateAccount = async () => {

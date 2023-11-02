@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from "react-redux";
 import {
   favoriteSort,
@@ -6,12 +7,10 @@ import {
 import { useEffect, useState } from "react";
 import styles from "./FilterFavorites.module.css";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import PropTypes from "prop-types";
 
 const FilterFavorites = ({
-  onFilterChange,
   filterOptions,
-  hidePublisherFilter,
-  noCategoryComics,
 }) => {
 
   const allCategories = useSelector((state) => state.category.allCategory);
@@ -124,6 +123,10 @@ const FilterFavorites = ({
       </div>
     </section>
   );
+};
+
+FilterFavorites.propTypes = {
+  filterOptions: PropTypes.object.isRequired,
 };
 
 export default FilterFavorites;

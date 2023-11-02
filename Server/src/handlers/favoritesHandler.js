@@ -18,7 +18,6 @@ const createFavoritesHandler = async (req, res) => {
 };
 const deleteFavoritesHandler = async (req, res) => {
     const { userId, comicId } = req.body;
-    console.log("userId", userId, "comicId", comicId)
     try {
         await deleteFavorite(userId, comicId);
         res.status(204).json({ message: "Favorite deleted" });
@@ -29,7 +28,6 @@ const deleteFavoritesHandler = async (req, res) => {
 const getFavoritesByUserHandler = async (req, res) => {
     const { userId } = req.params;
     try {
-        console.log("userId", userId)
         const favorite = await getFavoritesByUser(userId);
         res.status(200).json(favorite);
     } catch (error) {

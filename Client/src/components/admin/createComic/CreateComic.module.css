@@ -253,7 +253,16 @@ label {
   align-items: center;
   /* height: 85px; */
 }
-
+/* .input:focus + .tooltiptext,
+.select:focus + .tooltiptext,
+.textarea:focus + .tooltiptext,
+.publisher_select:focus + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+} */
+.input__group:nth-child(1) .tooltiptext {
+  right: 5%;
+}
 /* Tooltip text */
 .input__group .tooltiptext {
   visibility: hidden;
@@ -268,7 +277,7 @@ label {
   /* Position the tooltip text */
   position: absolute;
   z-index: 1;
-  right: 15%;
+  right: -45%;
   top: 20px;
   margin-left: -60px;
 
