@@ -85,7 +85,7 @@ function Login() {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
-	  }, [darkMode]);
+  }, [darkMode]);
 
   return (
     <>
@@ -103,21 +103,23 @@ function Login() {
       </h3>
       <form onSubmit={handleSubmit} className={styles.form} style={!darkMode ? {color: "white"} : null}>
         <label htmlFor="email" className={styles.label}>
-          Email <label style={{ color: "red" }}>*</label>
+          Email <span style={{ color: "red" }}>*</span>
         </label>
         <input
           type="email"
           id="email"
+          autoComplete="email"
           value={data.email}
           onChange={handleChange}
           className={styles.input}
         />
         <label htmlFor="password" className={styles.label}>
-          Password <label style={{ color: "red" }}>*</label>
+          Password <span style={{ color: "red" }}>*</span>
         </label>
         <input
           type="password"
           id="password"
+          autoComplete="current-password"
           value={data.password}
           onChange={handleChange}
           className={styles.input}

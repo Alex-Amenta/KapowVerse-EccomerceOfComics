@@ -134,6 +134,7 @@ const Filters = ({
           name="sort"
           value={input.sort}
           onChange={handleSort}
+          aria-label="sort by filter"
         >
           <option value="">Sort By</option>
           <option value="asc">A-Z</option>
@@ -147,6 +148,7 @@ const Filters = ({
           name="category"
           value={input.category}
           onChange={handleCategory}
+          aria-label="category filter"
         >
           <option value="">Category</option>
           {allCategories.map((category) => (
@@ -163,6 +165,7 @@ const Filters = ({
             name="publisher"
             value={input.publisher}
             onChange={handlePublisher}
+            aria-label="publisher filter"
           >
             <option value="">Publisher</option>
             {filterOptions.map((publisher) => (
@@ -182,8 +185,8 @@ const Filters = ({
               <ShoppingCartIcon fontSize="large" className={styles.cartIcon} />
             </Badge>
           </button>
-          <button>
-            <Link to="/favorites">
+          <button aria-label="go to favorites">
+            <Link to="/favorites" aria-label="go to favorites">
               <GradeIcon fontSize="large" className={styles.starIcon}/>
             </Link>
           </button>
@@ -212,7 +215,7 @@ const Filters = ({
 
 
 Filters.propTypes = {
-  filterOptions: PropTypes.object.isRequired,
+  filterOptions: PropTypes.array,
   onFilterChange: PropTypes.func.isRequired,
   hidePublisherFilter: PropTypes.bool,
 };

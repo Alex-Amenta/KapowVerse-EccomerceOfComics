@@ -13,7 +13,10 @@ function SignUp() {
   const logState = useSelector((state) => state.user.logState);
   const navigate = useNavigate();
 
-  // if (logState) window.location.href = "/home";
+  if (logState) { setTimeout(() => {
+	navigate('/home');
+  }, 500);
+}
   if (reduxError.includes("llave duplicada viola restricción de unicidad «users_email_key»"))
   toast.error("Email already in use!", {
     position: "top-center",
@@ -120,7 +123,7 @@ function SignUp() {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
-	  }, [darkMode]);
+	}, [darkMode]);
 
 	return (
 		<>
@@ -142,13 +145,14 @@ function SignUp() {
 					<label
 						htmlFor="name"
 						className={styles.label}>
-						Name <label style={{ color: "red" }}>*</label>
+						Name <span style={{ color: "red" }}>*</span>
 					</label>
 					<input
 						type="text"
 						id="name"
 						value={data.name}
 						onChange={handleChange}
+						autoComplete="name"
 						className={`${styles.input} ${
 							error.name ? styles["input-error"] : ""
 						}`}
@@ -166,12 +170,13 @@ function SignUp() {
 					<label
 						htmlFor="email"
 						className={styles.label}>
-						Email <label style={{ color: "red" }}>*</label>
+						Email <span style={{ color: "red" }}>*</span>
 					</label>
 					<input
 						type="email"
 						id="email"
 						value={data.email}
+						autoComplete="email"
 						onChange={handleChange}
 						className={`${styles.input} ${
 							error.email ? styles["input-error"] : ""
@@ -190,11 +195,12 @@ function SignUp() {
 					<label
 						htmlFor="password"
 						className={styles.label}>
-						Password <label style={{ color: "red" }}>*</label>
+						Password <span style={{ color: "red" }}>*</span>
 					</label>
 					<input
 						type="password"
 						id="password"
+						autoComplete="new-password"
 						value={data.password}
 						onChange={handleChange}
 						className={`${styles.input} ${
@@ -221,6 +227,7 @@ function SignUp() {
 					<input
 						type="text"
 						id="image"
+						autoComplete="photo"
 						onChange={handleChange}
 						className={`${styles.input} ${
 							error.image ? styles["input-error"] : ""
@@ -240,9 +247,9 @@ function SignUp() {
 					className={styles.submit}>
 					Submit
 				</button>
-				<label style={{ marginBottom: "10px" }}>
-					<label style={{ color: "red" }}>*</label> required
-				</label>
+				<span style={{ marginBottom: "10px" }}>
+					<span style={{ color: "red" }}>* </span> required
+				</span>
 				<p>Do you already have an account? <Link to='/login' className={styles.link}>Log in</Link></p>
         <hr />
           <p>
