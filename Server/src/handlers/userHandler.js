@@ -89,7 +89,7 @@ const userActivateByToken = async (req, res) => {
 		if (user) {
 			if (token == user.activationToken) {
 				await toggleActiveStatus(user.id, true);
-				res.status(200).json({ message: "User activated!", user:user});
+				res.status(200).json({ message: "User activated!", user: user });
 			} else {
 				res.status(401).json({ message: "Invalid token" });
 			}
@@ -132,18 +132,18 @@ const loginUserHandler = async (req, res) => {
 		const user = await getUserByEmail(email);
 		if (user) {
 			if (user.dataValues.password === password) {
-				res.status(200).json({
-					...user.dataValues,
-					token: await generateJwt(user.id, user.role),
-				});
-				// res.status(200).json(user);
-			} 
-			if (!user.dataValues.active){
-				sendEmailConPlantilla(email, "Baned", {
-					userName: user.name,
-				});
-			}
-			else {
+				if (!user.dataValues.active) {
+					sendEmailConPlantilla(email, "Baned", {
+						userName: user.name,
+					});
+					res.status(401).json({ message: "User is banned" });
+				} else {
+					res.status(200).json({
+						...user.dataValues,
+						token: await generateJwt(user.id, user.role),
+					});
+				}
+			} else {
 				res.status(401).json({ message: "Invalid credentials" });
 			}
 		} else {
@@ -187,46 +187,46 @@ const resender = async (req, res) => {
 }
 
 const ResetPassword = async (req, res) => {
-    const { email } = req.body;
-    try {
-        const user = await getUserByEmail(email);
-        if (user) {
-            const resetPasswordToken = await generateResetPasswordToken(email);
+	const { email } = req.body;
+	try {
+		const user = await getUserByEmail(email);
+		if (user) {
+			const resetPasswordToken = await generateResetPasswordToken(email);
 			console.log("Reset Password Token:", resetPasswordToken);
-            // sendEmailConPlantilla(email, resetPasswordToken);
+			// sendEmailConPlantilla(email, resetPasswordToken);
 			sendEmailConPlantilla(user.email, "Reset", {
 				userName: user.dataValues.name,
 				token: resetPasswordToken.dataValues.token,
 			});
 
-            res.status(200).json({ message: "Password reset email sent!" });
+			res.status(200).json({ message: "Password reset email sent!" });
 			// res.status(200).json(resetPasswordToken);
-			
-        } else {
-            res.status(401).json({ message: "User does not exist." });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+
+		} else {
+			res.status(401).json({ message: "User does not exist." });
+		}
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
 };
 
 const changePassword = async (req, res) => {
-    const { token } = req.params;
-    const newPassword = req.body.newPassword;
+	const { token } = req.params;
+	const newPassword = req.body.newPassword;
 
-    try {
-        const user = await verifyResetPasswordToken(token);
-        if (user) {
-            await updatePassword(user.email, newPassword);
+	try {
+		const user = await verifyResetPasswordToken(token);
+		if (user) {
+			await updatePassword(user.email, newPassword);
 
-            res.status(200).json({ message: 'Contraseña actualizada con éxito' });
-        } else {
-            res.status(401).json({ message: 'Token de restablecimiento de contraseña inválido' });
-        }
-    } catch (error) {
+			res.status(200).json({ message: 'Contraseña actualizada con éxito' });
+		} else {
+			res.status(401).json({ message: 'Token de restablecimiento de contraseña inválido' });
+		}
+	} catch (error) {
 		console.error('Error:', error)
-        res.status(500).json({ message: error.message });
-    }
+		res.status(500).json({ message: error.message });
+	}
 };
 
 
