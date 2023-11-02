@@ -70,6 +70,17 @@
 			"image": "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png",
 			"activationToken": null,
 			"registrationDate": "2023-08-01T05:57:03.912Z"
+		},
+		{
+			"name": "desactivado",
+			"email": "des@des.com",
+			"password": "password",
+			"role": "user",
+			"active": false,
+			"verified": false,
+			"image": "https://cdn1.iconfinder.com/data/icons/user-avatar-2/64/User-circle-check-512.png",
+			"activationToken": null,
+			"registrationDate": "2023-08-01T05:57:03.912Z"
 		}
 	],
 	"purchases": [

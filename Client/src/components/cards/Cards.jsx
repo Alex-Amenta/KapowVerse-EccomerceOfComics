@@ -3,20 +3,16 @@ import styles from "./Cards.module.css";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../redux/features/cartSlice";
-import GradeIcon from "@mui/icons-material/Grade";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Toaster, toast } from "react-hot-toast";
+import {  toast } from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
 import {
   fetchFavoritesByUser,
   deleteFavorite,
   createFavorites,
 } from "../../redux/features/favoriteSlice";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import base_url from "../../utils/development";
+import { useEffect } from "react";
 
 const Cards = ({
   id,

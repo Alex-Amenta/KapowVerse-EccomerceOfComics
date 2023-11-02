@@ -35,8 +35,8 @@ function Profile() {
             onClick={() => {
               dispatch(deleteAccount(userId));
               localStorage.removeItem("userlog");
-              window.location.href = "/home";
               toast.dismiss();
+              window.location.href = "/home";
             }}
           >
             Accept
@@ -80,7 +80,7 @@ function Profile() {
   useEffect(() => {
     document.body.style.backgroundColor = darkMode ? "#e8e8e8" : "#15172D";
   }, [darkMode]);
-
+  console.log(user.verified)
   return (
     <>
       <Navbar />
@@ -102,9 +102,9 @@ function Profile() {
               Email: <span>{user.email}</span>
             </h3>
             <h3>
-              Account State: <span>{user.active ? "Verified" : "Not Verified"}</span>
+              Account State: <span>{user.verified ? "Verified" : "Not Verified"}</span>
             </h3>
-            {!user.active ? <button className={styles.verifyButton} onClick={handleResend}>Resend verification Email</button> : null}
+            {!user.verified ? <button className={styles.verifyButton} onClick={handleResend}>Resend verification Email</button> : null}
             <div className={styles.profileButtonsContainer}>
               <Link to={`/edit/${user.id}`} className={styles.profileButton}>
                 Edit Profile

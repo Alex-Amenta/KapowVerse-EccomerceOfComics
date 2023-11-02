@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
@@ -48,13 +48,11 @@ const cartSlice = createSlice({
 		increaseItemQuantity: (state, action) => {
 			const itemId = action.payload;
 			const item = state.cart.find((item) => item.id === itemId);
-
 			if (item && item.quantity < item.stock) {
 				item.quantity += 1;
 				state.itemQuantity += 1;
 				state.totalPrice += item.price;
 			}
-
 			state.totalPrice = parseFloat(state.totalPrice.toFixed(2));
 		},
 		decreaseItemQuantity: (state, action) => {

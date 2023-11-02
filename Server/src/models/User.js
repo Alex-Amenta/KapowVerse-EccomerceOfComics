@@ -26,10 +26,10 @@ const userModel = (sequelize) => {
             role: {
                 type: DataTypes.ENUM('admin', 'user'),
                 defaultValue: 'user',
-            },
+            },  
             active: {
                 type: DataTypes.BOOLEAN,
-                defaultValue: false,
+                defaultValue: true,
             },
             verified : {
                 type: DataTypes.BOOLEAN,

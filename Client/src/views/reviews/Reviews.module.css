@@ -390,6 +390,10 @@
   .createReview button:hover::before {
     width: 100%;
   }
+
+  .starIconReview label span {
+    color: #fcff00;
+  }
 }
 
 .dark h2 {

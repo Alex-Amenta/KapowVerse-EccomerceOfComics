@@ -11,7 +11,7 @@ const initialState = {
 	comicDetails: [],
 	relatedComics: [],
 	error: "",
-
+	search: [],
 };
 
 export const fetchComics = createAsyncThunk(
@@ -24,7 +24,7 @@ export const fetchComics = createAsyncThunk(
 			return rejectWithValue(error.response.data);
 		}
 	}
-); 
+);
 
 export const searchComics = createAsyncThunk(
 	"comics/searchComics",
@@ -90,8 +90,8 @@ export const updateComic = createAsyncThunk(
 	"comics/updateComic",
 	async ({ id, data }, { rejectWithValue }) => {
 		try {
-			const  res  = await axios.put(`${URL}/${id}`, data);
-			console.log(res.data.updatedComic)
+			const res = await axios.put(`${URL}/${id}`, data);
+			console.log(res.data.updatedComic);
 			return res.data.updatedComic;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -104,33 +104,42 @@ const comicSlice = createSlice({
 	initialState,
 	reducers: {
 		resetFilters: (state) => {
-			state.allComics = state.comicsCopy;
+			if (state.search.length > 0) state.allComics = state.search;
+			else state.allComics = state.comicsCopy;
 		},
 
 		filterAndSort: (state, action) => {
-			let comics = [...state.comicsCopy];
-			if (action.payload.category !== '') {
-				comics = comics.filter(comic => 
-					comic.categories.some(category => category.name === action.payload.category)
+			let comics;
+			if (state.search.length > 0) comics = [...state.search];
+			else comics = [...state.comicsCopy];
+			
+			if (action.payload.category !== "") {
+				comics = comics.filter((comic) =>
+					comic.categories.some(
+						(category) => category.name === action.payload.category
+					)
 				);
 			}
-			if (action.payload.publisher !== '') {
-				comics = comics.filter((comic) => comic.publisher === action.payload.publisher);
+			if (action.payload.publisher !== "") {
+				comics = comics.filter(
+					(comic) => comic.publisher === action.payload.publisher
+				);
 			}
 
-			if (action.payload.sortBy === 'asc') {
+			if (action.payload.sortBy === "asc") {
 				comics.sort((a, b) => a.title.localeCompare(b.title));
-			} else if (action.payload.sortBy === 'desc') {
+			} else if (action.payload.sortBy === "desc") {
 				comics.sort((a, b) => b.title.localeCompare(a.title));
-			} else if (action.payload.sortBy === 'precioMin') {
+			} else if (action.payload.sortBy === "precioMin") {
 				comics.sort((a, b) => a.price - b.price);
-			} else if (action.payload.sortBy === 'precioMax') {
+			} else if (action.payload.sortBy === "precioMax") {
 				comics.sort((a, b) => b.price - a.price);
 			}
 			state.allComics = comics;
 		},
 		resetSearch: (state) => {
 			state.allComics = state.comicsCopy;
+			state.search = [];
 		},
 		//Resetear detalles de producto
 		resetDetails: (state) => {
@@ -146,18 +155,20 @@ const comicSlice = createSlice({
 			state.allComics = action.payload;
 			state.comicDetails = [];
 			state.comicsCopy = action.payload;
-			state.error = '';
+			state.error = "";
 		});
 		builder.addCase(fetchComics.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(createComic.fulfilled, (state, action) => {
 			state.comicsCopy = [action.payload, ...state.allComics];
 		});
 		builder.addCase(createComic.rejected, (state, action) => {
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(searchComics.pending, (state) => {
@@ -166,11 +177,15 @@ const comicSlice = createSlice({
 		builder.addCase(searchComics.fulfilled, (state, action) => {
 			state.loading = false;
 			state.allComics = action.payload;
+			state.search = action.payload;
 			state.error = "";
+			//can i execute filterAndSort here?
+
 		});
 		builder.addCase(searchComics.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(fetchComicDetail.pending, (state) => {
@@ -183,7 +198,8 @@ const comicSlice = createSlice({
 		});
 		builder.addCase(fetchComicDetail.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(fetchComicsRelated.pending, (state) => {
@@ -196,7 +212,8 @@ const comicSlice = createSlice({
 		});
 		builder.addCase(fetchComicsRelated.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(updateComic.pending, (state) => {
@@ -215,12 +232,13 @@ const comicSlice = createSlice({
 
 		builder.addCase(updateComic.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 
 		builder.addCase(toggleComicStatus.pending, (state) => {
 			state.loading = true;
-			state.error = '';
+			state.error = "";
 		});
 
 		builder.addCase(toggleComicStatus.fulfilled, (state, action) => {
@@ -235,11 +253,13 @@ const comicSlice = createSlice({
 
 		builder.addCase(toggleComicStatus.rejected, (state, action) => {
 			state.loading = false;
-			state.error = (action.payload && action.payload.error) || action.error.message;
+			state.error =
+				(action.payload && action.payload.error) || action.error.message;
 		});
 	},
 });
 
-export const { resetFilters, filterAndSort, resetSearch, resetDetails } = comicSlice.actions
+export const { resetFilters, filterAndSort, resetSearch, resetDetails } =
+	comicSlice.actions;
 
 export default comicSlice.reducer;

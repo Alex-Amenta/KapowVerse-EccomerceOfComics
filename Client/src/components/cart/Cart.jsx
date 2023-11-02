@@ -6,12 +6,11 @@ import {
   increaseItemQuantity,
   decreaseItemQuantity,
   setItemQuantity,
-  clearCart,
 } from "../../redux/features/cartSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import base_url from "../../utils/development";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
 
 const Cart = () => {
@@ -33,7 +32,7 @@ const Cart = () => {
   };
 
   const handleQty = (e, itemId) => {
-    dispatch(setItemQuantity({ itemId: itemId, quantity: e.target.value }));
+    dispatch(setItemQuantity({ itemId: itemId, quantity: Number(e.target.value) }));
   };
 
   const handlePayFromMP = () => {
