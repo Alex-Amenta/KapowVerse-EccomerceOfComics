@@ -44,7 +44,7 @@ const Filters = ({
   const [input, setInput] = useState(InitialCreate);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const allCategories = useSelector((state) => state.category.allCategory);
-
+  const isSearch = useSelector((state) => state.comic.search);
   const textFromSection =
     pathname === "/comics"
       ? "comics"
@@ -107,7 +107,7 @@ const Filters = ({
   useEffect(() => {
     setInput(InitialCreate);
     dispatch(resetFilters());
-  }, [pathname]);
+  }, [pathname, isSearch]);
 
   const darkMode = useSelector(selectDarkMode);
 
