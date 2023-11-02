@@ -42,9 +42,7 @@ export const createComic = createAsyncThunk(
 	"comics/createComic",
 	async (comicData, { rejectWithValue }) => {
 		try {
-			console.log("comicData", comicData)
 			const { data } = await axios.post(URL, comicData);
-			console.log("data create comic", data)
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);

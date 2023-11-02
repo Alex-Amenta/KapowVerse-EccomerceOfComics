@@ -44,7 +44,6 @@ function Home() {
   useEffect(() => {
     if (mounted) toast.dismiss("toastId2");
     if (status === "success" || status === "approved") {
-      console.log("Compra exitosa")
       localStorage.removeItem("cart");
       dispatch(clearCart());
       if (mounted) {

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import base_url from "../../utils/development";
 
@@ -58,7 +58,7 @@ const favoriteSlice = createSlice({
 			}
 			let favs = [...state.favorites];
 			if (action.payload.category !== '') {
-				comics = comics.filter(comic => 
+				favs = favs.filter(comic => 
 					comic.categories.some(category => category.name === action.payload.category)
 				);
 			}
