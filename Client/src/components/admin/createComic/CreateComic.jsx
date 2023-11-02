@@ -301,7 +301,7 @@ const CreateComic = () => {
 						<label
 							htmlFor="category"
 							className={styles.label}>
-							Category <b>*</b>
+							Category
 						</label>
 						<select
 							multiple

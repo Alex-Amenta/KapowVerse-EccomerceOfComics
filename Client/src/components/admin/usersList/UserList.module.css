@@ -12,6 +12,7 @@
 .content {
   grid-area: 1 / 2 / 2 / 3;
   margin-right: 2rem;
+  margin-bottom: 4rem;
 }
 
 .titleSearch {

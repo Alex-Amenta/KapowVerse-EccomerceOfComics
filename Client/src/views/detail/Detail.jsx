@@ -14,14 +14,20 @@ import { addItemToCart } from "../../redux/features/cartSlice";
 import { toast } from "react-hot-toast";
 import Navbar from "../../components/navbar/Navbar";
 import { selectDarkMode } from "../../redux/features/darkModeSlice";
+import {
+  createFavorites,
+  fetchFavoritesByUser,
+} from "../../redux/features/favoriteSlice";
 
 function Detail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const comics = useSelector((state) => state.comic.comicDetails);
+  const favorites = useSelector((state) => state.favorite.favorites);
   useSelector((state) => state.review.reviews);
   const comicsRelated = useSelector((state) => state.comic.relatedComics);
+  const user = useSelector((state) => state.user.user);
   const darkMode = useSelector(selectDarkMode);
   const [response, setResponse] = useState("pending");
 
@@ -65,6 +71,42 @@ function Detail() {
     });
   };
 
+  const handleAddFavorite = () => {
+    if (!user) {
+      toast.error("You must be logged in to add a favorite", {
+        position: "bottom-center",
+        id: "error",
+      });
+      return;
+    }
+
+    dispatch(createFavorites({ userId: user.id, comicId: id }))
+      .then((res) => {
+        if (res.error) {
+          toast.error(res.payload ? res.payload.message : res.error.message, {
+            position: "bottom-center",
+            id: "error",
+          });
+          return;
+        }
+        dispatch(fetchFavoritesByUser(user.id));
+        toast.success("Item saved in favorites!", {
+          position: "bottom-center",
+          icon: "🌟",
+        });
+      })
+      .catch((error) => {
+        toast.error(
+          error.response ? error.response.data.message : error.message,
+          {
+            duration: 4000,
+            position: "top-center",
+            id: "error",
+          }
+        );
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -92,9 +134,16 @@ function Detail() {
               <p>
                 Category:{" "}
                 <b>
-                  {comics.categories?.map((category) => (
-                    <span key={category.id}>{category.name}</span>
-                  ))}
+                  {comics.categories?.length > 0 ? (
+                    comics.categories.map((category, index) => (
+                      <span key={category.id}>
+                        {index > 0 && " | "}
+                        {category.name}
+                      </span>
+                    ))
+                  ) : (
+                    <span>Does not have categories</span>
+                  )}
                 </b>
               </p>
 
@@ -106,7 +155,12 @@ function Detail() {
               <button onClick={handleAddToCart}>
                 Add to Cart <AddShoppingCartIcon className={styles.icons} />
               </button>
-              <button>
+              <button
+                onClick={handleAddFavorite}
+                disabled={favorites.some(
+                  (favorite) => favorite.comic.id === id
+                )}
+              >
                 Add to Favorites{" "}
                 <StarIcon color="secondary" className={styles.icons} />
               </button>
