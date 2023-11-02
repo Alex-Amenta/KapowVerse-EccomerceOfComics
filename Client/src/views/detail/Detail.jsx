@@ -158,7 +158,7 @@ function Detail() {
               <button
                 onClick={handleAddFavorite}
                 disabled={favorites.some(
-                  (favorite) => favorite.comic.id === id
+                  (favorite) => favorite.id === id
                 )}
               >
                 Add to Favorites{" "}
