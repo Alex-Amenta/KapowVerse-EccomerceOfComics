@@ -235,6 +235,77 @@ const sendEmailConPlantilla = (to, template, data) => {
           `
         };
         break;
+
+        case "Baned":
+            emailOptions = {
+              from: "kapowverse@gmail.com",
+              to,
+              subject: "Ban Notification",
+              html:
+              `<!DOCTYPE html>
+              <html lang="es">
+              <head>
+                  <meta charset="UTF-8">
+                  <title>Ban Notification</title>
+                  <style>
+          
+                      body {
+                          font-family: Arial, sans-serif;
+                          background-color: #f4f4f4;
+                          margin: 0;
+                          padding: 0;
+                      }
+              
+                      .container {
+                          width: 80%;
+                          margin: 0 auto;
+                          padding: 20px;
+                          background-color: #fff;
+                          border-radius: 5px;
+                          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                      }
+              
+                      .header {
+                          background-color: #9f2d1c;
+                          color: #fff;
+                          text-align: center;
+                          padding: 10px;
+                          border-top-left-radius: 5px;
+                          border-top-right-radius: 5px;
+                      }
+              
+                      .content {
+                          padding: 20px;
+                      }
+              
+                      .footer {
+                          text-align: center;
+                          margin-top: 20px;
+                          color: #777;
+                      }
+                  </style>
+              </head>
+              <body>
+                  <div class="container">
+                      <div class="header">
+                          <h1>Your user has been baned</h1>
+                      </div>
+                      <div class="content">
+                      <h1> Hi ${data.userName}! </h1><hr/>
+                      <h1> We're sorry to inform you that your account on our site has been blocked for violating our policies. This action has been taken after a detailed review of your activity on the platform.</h1><hr/>
+                      <p>If you think it was a mistake or have any questions, please contact us through <b>kaopwverse@gmail.com</b>.</p>
+                      <p>Sincerely.</p>
+                      <p>Your KapowVerse Team<p/>
+                      </div>
+                      <div class="footer">
+                      <p> This is an automatic message, please do not reply to this email address.</p>
+                  </div>
+                  </div>
+              </body>
+              </html>
+              `
+            };
+            break;
   }
   transporter.sendMail(emailOptions, (error, info) => {
     if (error) {
