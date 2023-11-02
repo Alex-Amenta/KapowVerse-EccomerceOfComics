@@ -243,7 +243,6 @@ function SignUp() {
 				<label style={{ marginBottom: "10px" }}>
 					<label style={{ color: "red" }}>*</label> required
 				</label>
-				<p>Did you forget your password? <Link to='/reset-password' className={styles.link}>Reset password</Link></p>
 				<p>Do you already have an account? <Link to='/login' className={styles.link}>Log in</Link></p>
         <hr />
           <p>

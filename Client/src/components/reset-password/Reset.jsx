@@ -250,7 +250,7 @@ function Reset() {
     } catch (err) {
       console.log("catch", err);
       toast.error(err.response ? err.response.data.message : err.message, {
-        duration: 4000,
+        duration: 2000,
         position: "top-center",
         id: "error",
       });

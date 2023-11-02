@@ -61,7 +61,6 @@ export function PurchasesLineChart() {
         for (const item of monthlyData) {
           const purchaseDate = new Date(item.purchaseDate);
           const month = purchaseDate.getMonth(); // Obtener el número de mes (0-11)
-          console.log("mes: ", month)
           const monthName = monthNames[month];
           monthlyTotals[monthName] += item.total;
         }
