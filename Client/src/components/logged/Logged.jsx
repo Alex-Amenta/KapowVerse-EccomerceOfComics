@@ -6,6 +6,7 @@ import { Menu, MenuItem, IconButton } from "@mui/material";
 import {toast} from "react-hot-toast";
 import { logoutUser } from "../../redux/features/userSlice";
 import { Link } from "react-router-dom";
+import { clearCart } from "../../redux/features/cartSlice";
 
 const Logged = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,6 +30,7 @@ const Logged = () => {
           <button
             onClick={() => {
               localStorage.removeItem("userlog");
+              dispatch(clearCart());
               dispatch(logoutUser());
               window.location.href = "/home";
               toast.dismiss();
