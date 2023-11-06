@@ -13,6 +13,8 @@ import {
   createFavorites,
 } from "../../redux/features/favoriteSlice";
 import { useEffect } from "react";
+import ImageWithPlaceholder from "../../utils/ImageWithPlaceholder";
+
 
 const Cards = ({
   id,
@@ -130,11 +132,18 @@ const Cards = ({
     <main className={darkMode ? styles.container : styles.dark}>
       <div className={styles.cardImage}>
         <Link to={`/comic/${id}`}>
-          <img src={image} alt={`imagen de ${title}`} />
+          {/* <img src={image} alt={`imagen de ${title}`} /> */}
+          <ImageWithPlaceholder
+            className={styles.image}
+            highResImageSrc={image}
+            alt={`imagen de ${title}`}
+          />
         </Link>
       </div>
-      <h3>{title}</h3>
-      <p>{author}</p>
+      <Link style={{'all': 'unset', 'cursor':'pointer'}} to={`/comic/${id}`}>
+        <h3>{title}</h3>
+      </Link>
+      <p>By {author}</p>
       <div className={styles.iconsContainer}>
         <b>{price} $</b>
         <div className={styles.icons}>

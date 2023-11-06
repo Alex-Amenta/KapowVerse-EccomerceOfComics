@@ -1,8 +1,7 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import {lazy, Suspense} from 'react'
 import LandingPage from "./views/landing/LandingPage";
-import Home from "./views/home/Home";
 import Detail from "./views/detail/Detail";
-import Navbar from "./components/navbar/Navbar";
 import MangasSection from "./views/mangas-section/Mangas";
 import ComicsSection from "./views/comics-section/Comics";
 import CreateComic from "./components/admin/createComic/CreateComic";
@@ -27,8 +26,11 @@ import Purchases from "./components/purchases/Purchases";
 import ErrorPage from "./views/page-error/PageError";
 import Reset from "./components/reset-password/Reset";
 import Categories from "./components/admin/categories/Categories";
+import Home from "./views/home/Home";
+// const Home = lazy(() => import('./views/home/Home'));
 
 function App() {
+  lazy(() => Home);
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
   useEffect(() => {
@@ -45,10 +47,10 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home"  element={<Home />} />
         <Route path="/comic/:id" element={<Detail />} />
-        <Route path="/mangas" element={<MangasSection />} />
-        <Route path="/comics" element={<ComicsSection />} />
+        {/* <Route path="/mangas" element={<MangasSection />} /> */}
+        {/* <Route path="/comics" element={<ComicsSection />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/signup" element={<SignUp />} />

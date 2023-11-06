@@ -18,8 +18,10 @@ import {
   createFavorites,
   fetchFavoritesByUser,
 } from "../../redux/features/favoriteSlice";
+import { useSearchParams } from "react-router-dom";
 
 function Detail() {
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -34,7 +36,16 @@ function Detail() {
   const items = useSelector((state) => state.comic.allComics);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const scrollTo = searchParams.get('scrollTo');
+    if (scrollTo === 'reviews') {
+      const reviewsSection = document.getElementById('reviews');
+      if (reviewsSection) {
+        reviewsSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [searchParams]); // La dependencia asegura que el efecto se ejecute cuando cambien los searchParams
+
+  useEffect(() => {
     dispatch(fetchComicDetail(id)).then(() => {
       setResponse("fulfilled");
     });

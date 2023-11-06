@@ -21,12 +21,15 @@ const Searchbar = () => {
 
 		if (foundComic) {
 			dispatch(searchComics(title));
-		} else {
+		} else if (!foundComic && title.length > 0) {
 			toast.error(`"${title}" not found, please try again`, {
 				position: "bottom-center",
 				id: "toastId2",
 			});
+		}  else if (title.length === 0) {
+			dispatch(resetSearch());
 		}
+
 	};
 
 	const handleReset = () => {

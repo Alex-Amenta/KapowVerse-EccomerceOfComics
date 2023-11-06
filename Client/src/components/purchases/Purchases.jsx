@@ -20,6 +20,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const Purchases = () => {
 	const user = useSelector((state) => state.user.user);
 	const navigate = useNavigate();
+
 	const [purchases, setPurchases] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +39,6 @@ const Purchases = () => {
 		}
 	}, [user]);
 
-  
 
 const darkMode = useSelector(selectDarkMode);
 
@@ -109,8 +109,10 @@ return (
                   </p>
                   <p>
                   <NavLink
-										to={`/comic/${purchase.comic.id}`}
-										className={styles.link}>
+										to={`/comic/${purchase.comic.id}?scrollTo=reviews`}
+										className={styles.link}
+                    >
+
 										<ReviewsIcon /> Leave a review about the product
 									</NavLink>
                   </p>

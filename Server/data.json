@@ -109,6 +109,14 @@
 			"purchaseDate": "2023-10-01T05:57:22.316Z"
 		},
 		{
+			"mpId": "1111111111",
+			"comicId": "3f7ed6cc-d1c5-4e35-9bb6-c6da8a488618",
+			"userId": "daab7d33-f8d6-4c4a-b333-d6101f2e2e33",
+			"quantity": 2,
+			"status": "approved",
+			"purchaseDate": "2023-10-01T05:57:22.316Z"
+		},
+		{
 			"mpId": "3333333333",
 			"comicId": "f1a7d3c9-2b8e-4b6a-6c8b-1d0a0b9d2023",
 			"userId": "daab7d44-f8d6-4c4a-b515-d6101f2e2e55",
@@ -701,7 +709,7 @@
 		},
 		{
 			"id": "d2830b52-6efb-4d90-b4f4-3d6a9e12e81e",
-			"title": "Demon Slayer: Kimetsu no Yaiba",
+			"title": "Kimetsu no Yaiba (Demon Slayer)",
 			"description": "In Taisho-era Japan, kindhearted Tanjiro Kamado makes a living selling charcoal. But his peaceful life is shattered when a demon slaughters his entire family. His little sister Nezuko is the only survivor, but she has been transformed into a demon herself! Tanjiro sets out on a dangerous journey to find a way to return his sister to normal and destroy the demon who ruined his life.",
 			"price": 7.99,
 			"categories": [11],

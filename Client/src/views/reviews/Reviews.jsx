@@ -123,7 +123,7 @@ function Reviews() {
   const handleDeleteReview = (review) => {
     toast(
       <div className={styles.containerToast}>
-        <p>&#128680; You are going to delete your review, are you sure?</p>
+        <p>&#128680; Are you sure you want to delete your review?</p>
         <div className={styles.toastButtons}>
           <button
             onClick={() => {

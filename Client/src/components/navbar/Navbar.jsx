@@ -70,7 +70,7 @@ const Navbar = () => {
 					onClick={() => setMenuOpen(false)}>
 					Home
 				</NavLink>
-				<NavLink
+				{/* <NavLink
 					end
 					to="/comics"
 					className={({ isActive }) => (isActive ? styles.active : styles.link)}
@@ -83,7 +83,7 @@ const Navbar = () => {
 					className={({ isActive }) => (isActive ? styles.active : styles.link)}
 					onClick={() => setMenuOpen(false)}>
 					Mangas
-				</NavLink>
+				</NavLink> */}
 				{logState ? (
 					<>
 						<Logged onClick={() => setMenuOpen(false)} />

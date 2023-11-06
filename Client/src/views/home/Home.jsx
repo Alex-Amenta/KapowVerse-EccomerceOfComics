@@ -5,7 +5,6 @@ import {
   logUserByLocalStorage,
 } from "../../redux/features/userSlice";
 import CardsContainer from "../../components/cards-container/CardsContainer";
-import Pagination from "../../components/pagination/Pagination";
 import usePagination from "../../hooks/usePagination";
 import Filters from "../../components/filters/Filters";
 import { toast } from "react-hot-toast";
@@ -32,12 +31,9 @@ function Home() {
     }
   }, []);
 
-  const { currentPage, totalPages, currentItems, paginate } =
-    usePagination(activeComics);
 
-  const handleFilterChange = () => {
-    paginate(1);
-  };
+
+
 
   const [mounted, setMounted] = useState(false);
 
@@ -67,6 +63,8 @@ function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
+  const { currentPage, totalPages, currentItems, paginate } =
+  usePagination(activeComics);
 
   const darkMode = useSelector(selectDarkMode);
 
@@ -78,15 +76,14 @@ function Home() {
     <>
       <Navbar />
       <Filters
-        onFilterChange={handleFilterChange}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      paginate={paginate}
+        activeComics={activeComics}
         filterOptions={filterOptionsForPublisher}
       />
       <CardsContainer allComics={currentItems} />
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={paginate}
-      />
+
     </>
   );
 }
