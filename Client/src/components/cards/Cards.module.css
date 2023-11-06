@@ -1,10 +1,10 @@
 .container {
   width: 15rem;
   height: 26.5rem;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem 2rem;
   background: #f5f5f5;
   text-align: center;
-  margin: 2rem 0;
+  margin: 1rem 0 2rem 0;
   box-shadow: 0 9px 28px rgba(0, 0, 0, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
   font-family: "Rubik", sans-serif;
 }
@@ -13,18 +13,23 @@
   color: #9f2d1c;
 }
 
-.cardImage img {
+.image {
   height: 17rem;
   width: 13rem;
   cursor: pointer;
 }
 
 .cardImage {
+  margin: auto;
   transition: 0.3s ease;
+  width: 208px;
+  height: 272px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .cardImage:hover {
-  transform: translateY(-20%);
+  /* transform: translateY(-20%); */
+  transform: scale(1.1);
   box-shadow: rgba(226, 63, 63, 0.25) 0px 13px 47px -5px,
     rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
 }
@@ -81,14 +86,13 @@
 .dark {
   width: 15rem;
   height: 26.5rem;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem 2rem;
   background: #080912;
   text-align: center;
-  margin: 2rem 0;
+  margin: 1rem 0 2rem 0;
   box-shadow: 0 9px 28px rgba(75, 3, 3, 0.12), 0 6px 8px rgba(0, 0, 0, 0.24);
   font-family: "Rubik", sans-serif;
   color: #e0d7d5;
-
   .icons button,
   .starIcon {
     background: transparent;
@@ -96,7 +100,9 @@
     padding: 0;
   }
 
+
   .cardImage:hover {
+    transform: scale(1.1);
     box-shadow: rgba(226, 226, 63, 0.25) 0px 13px 47px -5px,
       rgba(180, 171, 71, 0.3) 0px 8px 16px -8px;
   }

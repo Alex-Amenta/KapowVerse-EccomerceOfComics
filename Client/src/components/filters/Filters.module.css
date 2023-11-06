@@ -16,12 +16,24 @@
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
 }
 
+.category {
+  /* height: 2.2rem; */
+  width: 14rem;
+  /* cursor: pointer;
+  border-radius: 15px;
+  padding-left: 10px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27); */
+}
+
 .filtersContainer {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  width: 100%;
   gap: 1.5rem;
+  margin: 0;
 }
 
 .noComicsMessage {
@@ -150,7 +162,8 @@
   .filtersContainer {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+    width: 100%;
     gap: 1.5rem;
     color: white;
   }

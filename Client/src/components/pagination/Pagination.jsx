@@ -22,7 +22,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         <ArrowLeftIcon className={styles.disabled} />
       )}
       <span className={styles.pageIndicator}>
-        {currentPage} of {totalPages}
+        {totalPages === 0 ? 0 : currentPage} of {totalPages}
       </span>
       {currentPage !== totalPages && totalPages > 0 ? (
         <Link

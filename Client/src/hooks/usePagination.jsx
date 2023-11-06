@@ -1,9 +1,26 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import useWindowDimensions  from "./useWindowDimensions.jsx";
+import useWindowDimensions  from "./useWindowDimensions.jsx";
 
 const usePagination = (data, itemPerPage = 5, initialPage = 1) => {
-  // const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
+  switch (true) {
+    case width < 783:
+      itemPerPage = 1;
+      break;
+    case width < 1103:
+      itemPerPage = 2;
+      break;
+    case width < 1423:
+      itemPerPage = 3;
+      break;
+    case width < 1743:
+      itemPerPage = 4;
+      break;
+    default:
+      itemPerPage = 5;
+      break;
+  }
 
   const [currentPage, setCurrentPage] = useState(initialPage);
   const allComics = useSelector((state) => state.comic.allComics);
