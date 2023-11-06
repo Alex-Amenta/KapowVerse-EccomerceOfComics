@@ -37,7 +37,7 @@ button {
     background-color: #ffffff;
   }
 }
-/* @media (max-width: 768px) {
+@media (max-width: 1371px) {
 
   #root  > nav + section   { 
     margin: 0;
@@ -51,13 +51,31 @@ button {
 
   }
 
+  #category {
+    display: none;
+  }
+  #sort {
+    display: none;
+  }
+  #publisher {
+    display: none;
+  }
+  #root > section > div > button {
+    display: none;
+  }
+
+  #root > section > div:nth-child(2) > div:nth-child(1) {
+    /* border: 3px solid red; */
+    position: absolute;
+    bottom: 20px;
+  }
 
 
   #root > section > div:first-child {  
     display: none;
     border: 3px solid red; 
   }
-} */
+}
 
 @media (max-width: 350px) {
  #root > :not(.test) {
