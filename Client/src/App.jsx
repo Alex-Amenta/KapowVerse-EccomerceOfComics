@@ -27,6 +27,7 @@ import ErrorPage from "./views/page-error/PageError";
 import Reset from "./components/reset-password/Reset";
 import Categories from "./components/admin/categories/Categories";
 import Home from "./views/home/Home";
+import AboutUs from "./views/about/AboutUs";
 // const Home = lazy(() => import('./views/home/Home'));
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home"  element={<Home />} />
+        <Route path="/about"  element={<AboutUs />} />
         <Route path="/comic/:id" element={<Detail />} />
         {/* <Route path="/mangas" element={<MangasSection />} /> */}
         {/* <Route path="/comics" element={<ComicsSection />} /> */}
