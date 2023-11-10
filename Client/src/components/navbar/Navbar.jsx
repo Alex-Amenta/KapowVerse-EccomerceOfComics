@@ -70,6 +70,13 @@ const Navbar = () => {
 					onClick={() => setMenuOpen(false)}>
 					Home
 				</NavLink>
+				<NavLink
+					end
+					to="/about"
+					className={({ isActive }) => (isActive ? styles.active : styles.link)}
+					onClick={() => setMenuOpen(false)}>
+					About Us
+				</NavLink>
 				{/* <NavLink
 					end
 					to="/comics"
