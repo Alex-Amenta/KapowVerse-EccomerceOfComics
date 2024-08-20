@@ -14,8 +14,8 @@ const initialState = {
     user: null,
     admin: false,
     pending: false,
-
 };
+
 export const googleAuth = createAsyncThunk(
     'user/googleAuth',
     async (response, { rejectWithValue }) => {

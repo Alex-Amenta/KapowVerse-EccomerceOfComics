@@ -64,11 +64,7 @@ button {
     display: none;
   }
 
-  #root > section > div:nth-child(2) > div:nth-child(1) {
-    /* border: 3px solid red; */
-    position: absolute;
-    bottom: 20px;
-  }
+
 
 
   #root > section > div:first-child {  
@@ -77,6 +73,16 @@ button {
   }
 }
 
+@media (max-width: 784px) {
+
+  #root > section > div:nth-child(2) > div:nth-child(1) {
+    /* border: 3px solid red; */
+    position: fixed;
+    height: 20px;
+    margin: 20px 0;
+    bottom: 20px;
+  }
+}
 @media (max-width: 350px) {
  #root > :not(.test) {
   display: none;

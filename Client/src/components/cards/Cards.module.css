@@ -13,7 +13,8 @@
   color: #9f2d1c;
 }
 
-.image {
+
+.cardImage  img{
   height: 17rem;
   width: 13rem;
   cursor: pointer;

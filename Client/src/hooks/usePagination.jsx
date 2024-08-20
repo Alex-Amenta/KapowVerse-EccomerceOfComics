@@ -22,6 +22,7 @@ const usePagination = (data, itemPerPage = 5, initialPage = 1) => {
       break;
   }
 
+
   const [currentPage, setCurrentPage] = useState(initialPage);
   const allComics = useSelector((state) => state.comic.allComics);
   const paginate = (pageNumber) => {
