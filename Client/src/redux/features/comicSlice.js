@@ -8,7 +8,6 @@ const initialState = {
 	loading: false,
 	allComics: [],
 	comicsCopy: [],
-	comicDetails: [],
 	relatedComics: [],
 	error: "",
 	search: [],
@@ -55,6 +54,7 @@ export const fetchComicDetail = createAsyncThunk(
 	async (comicId, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.get(`${URL}/${comicId}`);
+			console.log("fetchComicDetail", data)
 			return data;
 		} catch (error) {
 			return rejectWithValue(error.response.data);
@@ -141,10 +141,6 @@ const comicSlice = createSlice({
 			state.allComics = state.comicsCopy;
 			state.search = [];
 		},
-		//Resetear detalles de producto
-		resetDetails: (state) => {
-			state.comicDetails = [];
-		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchComics.pending, (state) => {
@@ -153,7 +149,6 @@ const comicSlice = createSlice({
 		builder.addCase(fetchComics.fulfilled, (state, action) => {
 			state.loading = false;
 			state.allComics = action.payload;
-			state.comicDetails = [];
 			state.comicsCopy = action.payload;
 			state.error = "";
 		});
@@ -193,7 +188,6 @@ const comicSlice = createSlice({
 		});
 		builder.addCase(fetchComicDetail.fulfilled, (state, action) => {
 			state.loading = false;
-			state.comicDetails = action.payload;
 			state.error = "";
 		});
 		builder.addCase(fetchComicDetail.rejected, (state, action) => {
@@ -223,7 +217,6 @@ const comicSlice = createSlice({
 		builder.addCase(updateComic.fulfilled, (state, action) => {
 			state.loading = false;
 			const updatedComic = action.payload;
-			state.comicDetails = updatedComic;
 			state.allComics = state.allComics.map((comic) =>
 				comic.id === updatedComic.id ? updatedComic : comic
 			);

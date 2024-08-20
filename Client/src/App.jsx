@@ -33,6 +33,9 @@ function App() {
   lazy(() => Home);
   const dispatch = useDispatch();
   const allComics = useSelector((state) => state.comic.allComics);
+  
+
+
   useEffect(() => {
     dispatch(fetchComics());
     dispatch(fetchCategories());

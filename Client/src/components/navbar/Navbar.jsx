@@ -76,13 +76,6 @@ const Navbar = () => {
 					className={({ isActive }) => (isActive ? styles.active : styles.link)}
 					onClick={() => setMenuOpen(false)}>
 					Comics
-				</NavLink>
-				<NavLink
-					end
-					to="/mangas"
-					className={({ isActive }) => (isActive ? styles.active : styles.link)}
-					onClick={() => setMenuOpen(false)}>
-					Mangas
 				</NavLink> */}
 				{logState ? (
 					<>

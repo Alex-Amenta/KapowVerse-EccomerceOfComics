@@ -23,7 +23,6 @@ const InitialCreate = {
 
 const customModalStyles = {
 	content: {
-		width: "35%",
 		margin: "0 auto",
 		right: "-50%",
 		height: "100%",
@@ -217,7 +216,7 @@ const Filters = ({ filterOptions, hidePublisherFilter,currentPage, totalPages, p
 				ariaHideApp={false}
 				style={customModalStyles}
 				overlayClassName={darkMode ? "" : styles.dark__cart__overlay}
-				className={darkMode ? "" : styles.dark__cart}>
+				className={darkMode ? styles.cart : styles.dark__cart}>
 				<button
 					className={styles.closeModal}
 					onClick={closeModal}>
@@ -234,7 +233,7 @@ const Filters = ({ filterOptions, hidePublisherFilter,currentPage, totalPages, p
 
 Filters.propTypes = {
 	filterOptions: PropTypes.array,
-	onFilterChange: PropTypes.func.isRequired,
+	onFilterChange: PropTypes.func,
 	hidePublisherFilter: PropTypes.bool,
 };
 
